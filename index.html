@@ -2,125 +2,362 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="base:app_id" content="69d6f153adb751d63e3ce647">
+  <meta name="theme-color" content="#0a0f1c">
   <title>BasechainSCAN • Terminal</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #0a0f1c;
-      color: #e0f7ff;
-      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      background: #080d1a;
+      color: #e2f0ff;
       min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top, 24px) 20px env(safe-area-inset-bottom, 24px);
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 210, 200, 0.08);
+      border: 1px solid rgba(0, 210, 200, 0.25);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #00d2c8;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00d2c8;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Logo */
+    .logo {
+      font-size: clamp(2.4rem, 9vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .logo span {
+      color: #00d2c8;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: rgba(226, 240, 255, 0.5);
+      text-align: center;
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+    }
+
+    /* Stats row */
+    .stats {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 36px;
+    }
+
+    .stat {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00d2c8;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: rgba(226, 240, 255, 0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Features */
+    .features {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 210, 200, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
     }
-    .container {
-      max-width: 760px;
-      padding: 40px 20px;
+
+    .feature-text {
+      flex: 1;
     }
-    .logo {
-      font-size: 4.8rem;
-      font-weight: 800;
-      letter-spacing: -3px;
-      background: linear-gradient(90deg, #00f5ff, #00d4c8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
+
+    .feature-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2f0ff;
+      margin-bottom: 2px;
     }
-    .subtitle {
-      font-size: 1.35rem;
-      opacity: 0.85;
-      margin-bottom: 60px;
+
+    .feature-desc {
+      font-size: 11px;
+      color: rgba(226, 240, 255, 0.4);
+      line-height: 1.4;
     }
-    .description {
-      font-size: 1.15rem;
-      opacity: 0.75;
-      max-width: 560px;
-      margin: 0 auto 50px;
-    }
-    .newsletter {
-      max-width: 420px;
-      margin: 0 auto 70px;
-    }
-    input {
+
+    /* Form */
+    .form-wrap {
       width: 100%;
-      padding: 18px 20px;
-      background: #111827;
-      border: 1px solid #334155;
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      color: rgba(226, 240, 255, 0.45);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="email"] {
+      flex: 1;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px;
-      color: #e0f7ff;
-      font-size: 1.1rem;
-      margin-bottom: 12px;
+      color: #e2f0ff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
     }
-    button {
-      width: 100%;
-      padding: 18px;
-      background: #00d4c8;
-      color: #0a0f1c;
+
+    input[type="email"]:focus {
+      border-color: rgba(0, 210, 200, 0.5);
+    }
+
+    input[type="email"]::placeholder {
+      color: rgba(226, 240, 255, 0.25);
+    }
+
+    .btn-primary {
+      padding: 14px 20px;
+      background: #00d2c8;
+      color: #080d1a;
       border: none;
       border-radius: 12px;
-      font-weight: 600;
-      font-size: 1.15rem;
+      font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .beta {
-      margin-top: 40px;
-      padding: 16px 40px;
-      background: transparent;
-      color: #64748b;
-      border: 1.5px solid #64748b;
+
+    .btn-primary:active {
+      opacity: 0.85;
+      transform: scale(0.97);
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 210, 200, 0.08);
+      border: 1px solid rgba(0, 210, 200, 0.2);
       border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: not-allowed;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #00d2c8;
+      width: 100%;
+      margin-top: 8px;
     }
+
+    /* Beta button */
+    .btn-beta {
+      width: 100%;
+      padding: 15px;
+      background: transparent;
+      color: rgba(226, 240, 255, 0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: not-allowed;
+      margin-bottom: 28px;
+    }
+
+    /* X link */
     .x-link {
-      color: #00f5ff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(226, 240, 255, 0.4);
       text-decoration: none;
-      margin-top: 80px;
-      display: inline-block;
+      font-size: 13px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .x-link:hover, .x-link:active {
+      color: #00d2c8;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">BasechainSCAN</div>
-    <p class="subtitle">A Telegram Terminal for Base</p>
-    <p class="description">
-      Discovery. Smart signals. Onchain intelligence.<br>
-      Built for operators who filter noise and hunt edge.
-    </p>
+  <div class="wrap">
 
-    <!-- Newsletter -->
-    <div class="newsletter">
-      <p style="margin-bottom: 16px; opacity: 0.9;">Stay updated with quiet progress and early signals</p>
-      <input type="email" placeholder="your@email.com" id="email">
-      <button onclick="subscribe()">Subscribe to Updates</button>
+    <div class="badge">
+      <div class="badge-dot"></div>
+      Base Network
     </div>
 
-    <!-- Early Beta -->
-    <button class="beta" disabled>
-      Early Beta Testing — Coming Soon
-    </button>
+    <div class="logo">Basechain<span>SCAN</span></div>
+    <p class="subtitle">Telegram Terminal for Base</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val">40+</div>
+        <div class="stat-label">Signals</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">6h</div>
+        <div class="stat-label">Digest</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">Live</div>
+        <div class="stat-label">Onchain</div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-text">
+          <div class="feature-title">Token Discovery</div>
+          <div class="feature-desc">Emerging tokens scored in real-time</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">
+          <div class="feature-title">Smart Signals</div>
+          <div class="feature-desc">High-confidence alerts, filtered noise</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-text">
+          <div class="feature-title">Onchain Intelligence</div>
+          <div class="feature-desc">Whale activity, LP moves, flow tracking</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrap">
+      <p class="form-label">Stay updated — quiet signals, early access</p>
+      <div class="input-row">
+        <input type="email" placeholder="your@email.com" id="email" autocomplete="email">
+        <button class="btn-primary" onclick="subscribe()">Notify me</button>
+      </div>
+      <div class="success-msg" id="success">
+        ✓ You're in — we'll reach out soon
+      </div>
+    </div>
+
+    <button class="btn-beta" disabled>Early Beta — Coming Soon</button>
 
     <a href="https://x.com/BASEchainSCAN" target="_blank" class="x-link">
-      Follow our radar on X →
+      Follow on X →
     </a>
+
   </div>
 
   <script>
     function subscribe() {
       const email = document.getElementById('email').value.trim();
-      if (email === '') {
-        alert("Please enter your email");
+      if (!email || !email.includes('@')) {
+        document.getElementById('email').style.borderColor = 'rgba(220,60,60,0.5)';
+        setTimeout(() => {
+          document.getElementById('email').style.borderColor = '';
+        }, 1500);
         return;
       }
-      alert("Thank you! You'll receive updates soon.\n\n(This is a demo — no emails are collected yet.)");
       document.getElementById('email').value = '';
+      const s = document.getElementById('success');
+      s.style.display = 'flex';
+      setTimeout(() => { s.style.display = 'none'; }, 4000);
     }
+
+    document.getElementById('email').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') subscribe();
+    });
   </script>
 </body>
 </html>
