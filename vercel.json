@@ -1,4 +1,5 @@
 {
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/heatmap", "destination": "/public/heatmap.html" },
     { "source": "/data/heatmap.json", "destination": "/public/data/heatmap.json" }
