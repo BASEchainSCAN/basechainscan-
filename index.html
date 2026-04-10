@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="base:app_id" content="69d6f153adb751d63e3ce647">
   <meta name="theme-color" content="#080d1a">
-  <title>BASEchainSCAN • Terminal</title>
+  <title>BasechainSCAN • Terminal</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -339,6 +339,24 @@
       text-align: center;
       padding-bottom: 8px;
     }
+    /* HEATMAP */
+    .heatmap-section { width:100%; margin-bottom:36px; }
+    .heatmap-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .heatmap-title { font-size:13px; font-weight:700; color:#e2f0ff; display:flex; align-items:center; gap:7px; }
+    .heatmap-dot { width:6px; height:6px; border-radius:50%; background:#00d2c8; animation:pulse 2s infinite; }
+    .heatmap-meta { font-size:10px; color:rgba(226,240,255,0.3); }
+    .heatmap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+    .hm-card { position:relative; border-radius:12px; padding:10px 12px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.03); overflow:hidden; }
+    .hm-card::after { content:""; position:absolute; bottom:0; left:0; height:2px; width:var(--heat-pct,0%); background:var(--heat-color,rgba(226,240,255,0.2)); }
+    .hm-sev-critical { --heat-color:#ff4444; border-color:rgba(255,68,68,0.2); background:rgba(255,68,68,0.05); }
+    .hm-sev-high { --heat-color:#ff8800; border-color:rgba(255,136,0,0.18); background:rgba(255,136,0,0.04); }
+    .hm-sev-medium { --heat-color:#00d2c8; border-color:rgba(0,210,200,0.18); background:rgba(0,210,200,0.04); }
+    .hm-rank { font-size:9px; color:rgba(226,240,255,0.25); margin-bottom:2px; }
+    .hm-symbol { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .hm-score { font-size:16px; font-weight:700; color:var(--heat-color,#e2f0ff); line-height:1; }
+    .hm-score-label { font-size:9px; color:rgba(226,240,255,0.3); }
+    .heatmap-link { display:block; text-align:center; margin-top:10px; font-size:11px; color:rgba(0,210,200,0.6); text-decoration:none; }
+    .heatmap-link:hover { color:#00d2c8; }
   </style>
 </head>
 <body>
@@ -349,8 +367,8 @@
       Base Network
     </div>
 
-    <div class="logo">BASEchain<span>SCAN</span></div>
-    <p class="subtitle">Terminal for Base</p>
+    <div class="logo">Basechain<span>SCAN</span></div>
+    <p class="subtitle">Telegram Terminal for Base</p>
 
     <div class="stats">
       <div class="stat">
@@ -389,6 +407,22 @@
           <div class="feature-desc">Whale activity, LP moves, flow tracking</div>
         </div>
       </div>
+    </div>
+
+
+    <!-- HEATMAP SECTION -->
+    <div class="heatmap-section">
+      <div class="heatmap-header">
+        <div class="heatmap-title">
+          <div class="heatmap-dot"></div>
+          Emerging Radar · 24h
+        </div>
+        <div class="heatmap-meta" id="hm-time">—</div>
+      </div>
+      <div class="heatmap-grid" id="hm-grid">
+        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">Loading...</div>
+      </div>
+      <a href="/heatmap" class="heatmap-link">View full heatmap →</a>
     </div>
 
     <div class="form-wrap">
@@ -479,6 +513,24 @@
   </div>
 
   <script>
+    async function loadHeatmap() {
+      try {
+        const res = await fetch('/data/heatmap.json?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        const d = new Date(data.generated_at);
+        document.getElementById('hm-time').textContent = d.toLocaleDateString();
+        const grid = document.getElementById('hm-grid');
+        const maxScore = Math.max(...data.tokens.map(t => t.score));
+        grid.innerHTML = data.tokens.slice(0,9).map(t => {
+          const pct = Math.round((t.score/maxScore)*100);
+          const sev = t.severity || 'none';
+          return '<div class="hm-card hm-sev-' + sev + '" style="--heat-pct:' + pct + '%"><div class="hm-rank">#' + t.rank + '</div><div class="hm-symbol">' + t.symbol + '</div><div class="hm-score">' + t.score + '</div><div class="hm-score-label">score</div></div>';
+        }).join('');
+      } catch(e) {}
+    }
+    loadHeatmap();
+
     function handleSubmit(form) {
       const email = form.email.value.trim();
       if (!email) return false;
