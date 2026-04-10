@@ -283,16 +283,16 @@
 
     <div class="stats">
       <div class="stat">
-        <div class="stat-val">40+</div>
-        <div class="stat-label">Signals</div>
+        <div class="stat-val">Filter</div>
+        <div class="stat-label">Noise out</div>
       </div>
       <div class="stat">
-        <div class="stat-val">6h</div>
-        <div class="stat-label">Digest</div>
+        <div class="stat-val">Score</div>
+        <div class="stat-label">Every token</div>
       </div>
       <div class="stat">
-        <div class="stat-val">Live</div>
-        <div class="stat-label">Onchain</div>
+        <div class="stat-val">Alert</div>
+        <div class="stat-label">When it matters</div>
       </div>
     </div>
 
@@ -322,12 +322,18 @@
 
     <div class="form-wrap">
       <p class="form-label">Stay updated — quiet signals, early access</p>
-      <div class="input-row">
-        <input type="email" placeholder="your@email.com" id="email" autocomplete="email">
-        <button class="btn-primary" onclick="subscribe()">Notify me</button>
-      </div>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
+            method="POST"
+            target="bd_popup"
+            onsubmit="handleSubmit(this)">
+        <div class="input-row">
+          <input type="email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          <button type="submit" class="btn-primary">Notify me</button>
+        </div>
+      </form>
+      <iframe name="bd_popup" style="display:none;"></iframe>
       <div class="success-msg" id="success">
-        ✓ You're in — we'll reach out soon
+        ✓ You're in — check your email to confirm
       </div>
     </div>
 
@@ -340,24 +346,17 @@
   </div>
 
   <script>
-    function subscribe() {
-      const email = document.getElementById('email').value.trim();
-      if (!email || !email.includes('@')) {
-        document.getElementById('email').style.borderColor = 'rgba(220,60,60,0.5)';
-        setTimeout(() => {
-          document.getElementById('email').style.borderColor = '';
-        }, 1500);
-        return;
-      }
-      document.getElementById('email').value = '';
-      const s = document.getElementById('success');
-      s.style.display = 'flex';
-      setTimeout(() => { s.style.display = 'none'; }, 4000);
+    function handleSubmit(form) {
+      const email = form.email.value.trim();
+      if (!email) return false;
+      setTimeout(() => {
+        form.email.value = '';
+        const s = document.getElementById('success');
+        s.style.display = 'flex';
+        setTimeout(() => { s.style.display = 'none'; }, 5000);
+      }, 500);
+      return true;
     }
-
-    document.getElementById('email').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') subscribe();
-    });
   </script>
 </body>
 </html>
