@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080d1a">
+  <title>BasechainSCAN · Emerging Heatmap</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      background: #080d1a;
+      color: #e2f0ff;
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+
+    .header-left a {
+      font-size: 13px;
+      font-weight: 700;
+      color: #00d2c8;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .header-right {
+      font-size: 11px;
+      color: rgba(226,240,255,0.3);
+    }
+
+    /* Title */
+    .title-block {
+      max-width: 640px;
+      margin: 0 auto 6px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .title span { color: #00d2c8; }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+      margin-bottom: 20px;
+    }
+
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0,210,200,0.08);
+      border: 1px solid rgba(0,210,200,0.2);
+      border-radius: 100px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #00d2c8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .meta-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #00d2c8;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .meta-time {
+      font-size: 11px;
+      color: rgba(226,240,255,0.3);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 400px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+      cursor: default;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); }
+
+    /* Heat bar background */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px;
+      width: var(--heat-pct);
+      border-radius: 0 0 0 14px;
+      background: var(--heat-color);
+      transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Severity colors */
+    .sev-critical { --heat-color: #ff4444; border-color: rgba(255,68,68,0.25); background: rgba(255,68,68,0.05); }
+    .sev-high     { --heat-color: #ff8800; border-color: rgba(255,136,0,0.2); background: rgba(255,136,0,0.04); }
+    .sev-medium   { --heat-color: #00d2c8; border-color: rgba(0,210,200,0.2); background: rgba(0,210,200,0.04); }
+    .sev-low      { --heat-color: rgba(226,240,255,0.3); }
+    .sev-none     { --heat-color: rgba(226,240,255,0.15); }
+
+    .rank {
+      font-size: 10px;
+      color: rgba(226,240,255,0.25);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .symbol {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .score-val {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--heat-color, #e2f0ff);
+    }
+
+    .score-label {
+      font-size: 9px;
+      color: rgba(226,240,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .signals-row {
+      font-size: 10px;
+      color: rgba(226,240,255,0.35);
+    }
+
+    .sev-pill {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 100px;
+      margin-bottom: 4px;
+    }
+
+    .sev-critical .sev-pill { background: rgba(255,68,68,0.15); color: #ff6666; }
+    .sev-high     .sev-pill { background: rgba(255,136,0,0.15); color: #ffaa44; }
+    .sev-medium   .sev-pill { background: rgba(0,210,200,0.12); color: #00d2c8; }
+    .sev-low      .sev-pill { background: rgba(226,240,255,0.06); color: rgba(226,240,255,0.4); }
+    .sev-none     .sev-pill { background: rgba(226,240,255,0.04); color: rgba(226,240,255,0.25); }
+
+    /* Footer */
+    .footer {
+      max-width: 640px;
+      margin: 24px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: rgba(226,240,255,0.18);
+    }
+
+    .footer-link {
+      font-size: 11px;
+      color: #00d2c8;
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    /* Loading */
+    .loading {
+      max-width: 640px;
+      margin: 60px auto;
+      text-align: center;
+      color: rgba(226,240,255,0.3);
+      font-size: 13px;
+    }
+
+    /* Error */
+    .error {
+      max-width: 640px;
+      margin: 40px auto;
+      padding: 16px;
+      background: rgba(255,68,68,0.06);
+      border: 1px solid rgba(255,68,68,0.2);
+      border-radius: 12px;
+      color: rgba(255,120,120,0.8);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Entrance animation */
+    .card {
+      opacity: 0;
+      animation: fadeUp 0.3s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-left"><a href="/">BasechainSCAN</a></div>
+    <div class="header-right" id="updated-at">—</div>
+  </div>
+
+  <div class="title-block">
+    <div class="title">Emerging <span>Heatmap</span></div>
+    <div class="meta-row">
+      <div class="meta-badge"><div class="meta-dot"></div> 24h window</div>
+      <div class="meta-time" id="token-count">loading...</div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="loading">Loading signal data...</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-note">Base · Filtered · Signal-first</div>
+    <a href="https://t.me/basechainscan" target="_blank" class="footer-link">Telegram →</a>
+  </div>
+
+  <script>
+    const SEV_ORDER = { critical: 4, high: 3, medium: 2, low: 1, none: 0 };
+
+    async function load() {
+      const container = document.getElementById('container');
+      try {
+        const res = await fetch('/data/heatmap.json?t=' + Date.now());
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+
+        // Update meta
+        const d = new Date(data.generated_at);
+        document.getElementById('updated-at').textContent =
+          'Updated ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('token-count').textContent =
+          data.token_count + ' tokens tracked';
+
+        // Max score for heat bar
+        const maxScore = Math.max(...data.tokens.map(t => t.score));
+
+        // Build grid
+        const grid = document.createElement('div');
+        grid.className = 'grid';
+
+        data.tokens.forEach((token, i) => {
+          const heatPct = Math.round((token.score / maxScore) * 100);
+          const sev = token.severity || 'none';
+
+          const card = document.createElement('div');
+          card.className = `card sev-${sev}`;
+          card.style.setProperty('--heat-pct', heatPct + '%');
+          card.style.animationDelay = (i * 0.04) + 's';
+
+          card.innerHTML = `
+            <div class="rank">#${token.rank}</div>
+            <div class="sev-pill">${sev}</div>
+            <div class="symbol">${token.symbol}</div>
+            <div class="score-row">
+              <div class="score-val">${token.score}</div>
+              <div class="score-label">score</div>
+            </div>
+            <div class="signals-row">${token.signals} signal${token.signals !== 1 ? 's' : ''}</div>
+          `;
+
+          grid.appendChild(card);
+        });
+
+        container.innerHTML = '';
+        container.appendChild(grid);
+
+      } catch (e) {
+        container.innerHTML = '<div class="error">Could not load heatmap data.<br>Run export_heatmap.py and push to GitHub.</div>';
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
