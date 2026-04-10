@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="base:app_id" content="69d6f153adb751d63e3ce647">
-  <title>BASEchainSCAN • Terminal</title>
+  <title>BasechainSCAN • Terminal</title>
   <style>
     body {
       margin: 0;
@@ -17,10 +17,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
     .container {
-      max-width: 720px;
+      max-width: 680px;
       padding: 40px 20px;
     }
     h1 {
@@ -30,67 +29,88 @@
       background: linear-gradient(90deg, #00f5ff, #00d4c8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -2px;
     }
     .tagline {
       font-size: 1.45rem;
       opacity: 0.9;
-      margin-bottom: 40px;
-      line-height: 1.4;
+      margin-bottom: 50px;
     }
-    .description {
-      font-size: 1.15rem;
-      opacity: 0.75;
-      max-width: 580px;
-      margin: 0 auto 50px;
+    .newsletter {
+      margin: 60px auto;
+      max-width: 420px;
     }
-    .x-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #00f5ff;
-      text-decoration: none;
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #e0f7ff;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+    button {
+      width: 100%;
+      padding: 16px;
+      background: #00d4c8;
+      color: #0a0f1c;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
       font-size: 1.1rem;
-      opacity: 0.85;
-      margin-top: 30px;
-      transition: opacity 0.2s;
+      cursor: pointer;
     }
-    .x-link:hover {
-      opacity: 1;
+    .beta-btn {
+      margin-top: 40px;
+      padding: 14px 32px;
+      background: transparent;
+      color: #64748b;
+      border: 1px solid #64748b;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      cursor: not-allowed;
     }
     .status {
+      margin-top: 80px;
+      opacity: 0.6;
       font-size: 1rem;
-      opacity: 0.55;
-      margin-top: 60px;
-    }
-    .glow {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 620px;
-      height: 620px;
-      background: radial-gradient(circle, rgba(0, 245, 255, 0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
   <div class="container">
-    <h1>BASE SCANNER</h1>
+    <h1>BasechainSCAN</h1>
     <p class="tagline">A Telegram Terminal for Base</p>
-    <p class="description">
+    <p style="opacity: 0.8; max-width: 520px; margin: 0 auto 60px;">
       Discovery. Smart signals. Onchain intelligence.<br>
       Built for operators who filter noise and hunt edge.
     </p>
-    
-    <a href="https://x.com/BASEchainSCAN" target="_blank" class="x-link">
-      Follow our radar on X →
-    </a>
 
-    <p class="status">Building quietly • Coming soon</p>
+    <!-- Newsletter -->
+    <div class="newsletter">
+      <p style="margin-bottom: 16px; opacity: 0.85;">Stay updated with quiet progress and early signals</p>
+      <input type="email" placeholder="your@email.com" id="email">
+      <button onclick="subscribe()">Subscribe to Updates</button>
+    </div>
+
+    <!-- Early Beta Testing -->
+    <button class="beta-btn" disabled>
+      Early Beta Testing — Coming Soon
+    </button>
+
+    <p class="status">Building quietly • Follow us on <a href="https://x.com/BASEchainSCAN" target="_blank" style="color:#00f5ff;">X</a></p>
   </div>
+
+  <script>
+    function subscribe() {
+      const email = document.getElementById('email').value.trim();
+      if (email === '') {
+        alert("Please enter your email");
+        return;
+      }
+      alert("Thank you! You'll receive updates soon.\n\n(This is a demo — no emails are actually collected yet.)");
+      document.getElementById('email').value = '';
+    }
+  </script>
 </body>
 </html>
