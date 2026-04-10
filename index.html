@@ -23,7 +23,6 @@
       --danger: #ff4444;
       --warn: #ff8800;
       --success: #00d2c8;
-      --low: rgba(226,240,255,0.35);
     }
 
     body {
@@ -227,7 +226,6 @@
       line-height: 1.4;
     }
 
-    /* HEATMAP */
     .heatmap-section {
       width: 100%;
       margin-bottom: 26px;
@@ -364,103 +362,23 @@
       color: var(--brand);
     }
 
-    .tool-btn.ghost {
-      color: rgba(226,240,255,0.72);
-    }
-
-    .sync-strip {
-      margin-top: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
-      padding: 10px 12px;
-    }
-
-    .sync-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .sync-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: rgba(226,240,255,0.88);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .sync-status {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: rgba(226,240,255,0.65);
-    }
-
-    .sync-status.fresh {
-      color: var(--success);
-      border-color: rgba(0,210,200,0.22);
-      background: rgba(0,210,200,0.08);
-    }
-
-    .sync-status.stale {
-      color: var(--warn);
-      border-color: rgba(255,136,0,0.22);
-      background: rgba(255,136,0,0.08);
-    }
-
-    .sync-status.error {
-      color: #ff8080;
-      border-color: rgba(255,68,68,0.22);
-      background: rgba(255,68,68,0.08);
-    }
-
-    .sync-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .sync-item {
-      border-radius: 12px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 9px 10px;
-    }
-
-    .sync-label {
-      font-size: 9px;
-      color: rgba(226,240,255,0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 5px;
-    }
-
-    .sync-value {
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(226,240,255,0.86);
-      line-height: 1.3;
-    }
-
-    .sync-note {
-      margin-top: 10px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.42);
-      line-height: 1.45;
-    }
-
     .share-feedback {
       margin-top: 10px;
       min-height: 16px;
       font-size: 11px;
       color: rgba(226,240,255,0.5);
     }
+
+    .heatmap-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 11px;
+      color: rgba(0,210,200,0.8);
+      text-decoration: none;
+    }
+
+    .heatmap-link:hover { color: var(--brand); }
 
     .powered-line {
       margin-top: 12px;
@@ -473,17 +391,6 @@
       color: var(--brand);
       text-decoration: none;
     }
-
-    .heatmap-link {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 11px;
-      color: rgba(0,210,200,0.8);
-      text-decoration: none;
-    }
-
-    .heatmap-link:hover { color: var(--brand); }
 
     .form-wrap {
       width: 100%;
@@ -684,7 +591,6 @@
     @media (max-width: 400px) {
       .stats { gap: 8px; }
       .heatmap-grid { gap: 5px; }
-      .sync-grid { grid-template-columns: 1fr; }
       .socials { grid-template-columns: 1fr 1fr; }
       .input-row { flex-direction: row; }
     }
@@ -699,11 +605,10 @@
     </div>
 
     <div class="hero-card">
-      <!-- Dacă path-ul diferă, schimbă doar src-ul -->
-      <img class="hero-banner" src="/public/images/branding/banner.png" alt="BASEchainSCAN banner" />
+      <img class="hero-banner" src="/public/bheader.png" alt="BASEchainSCAN banner" />
       <div class="hero-content">
         <div class="brand-row">
-          <img class="brand-logo" src="/public/images/branding/blogo.jpg" alt="BASEchainSCAN logo" />
+          <img class="brand-logo" src="/public/blogo.jpg" alt="BASEchainSCAN logo" />
           <div class="brand-copy">
             <div class="logo">BASEchain<span>SCAN</span></div>
             <p class="subtitle">Signal-first terminal for Base · filtered noise, cleaner token discovery</p>
@@ -771,36 +676,10 @@
         <button class="tool-btn primary" id="x-post-btn" type="button">Post on X</button>
         <button class="tool-btn ghost" id="copy-post-btn" type="button">Copy X Post</button>
         <button class="tool-btn ghost" id="share-link-btn" type="button">Share Link</button>
-        <button class="tool-btn ghost" id="refresh-radar-btn" type="button">Refresh Radar</button>
+        <button class="tool-btn ghost" id="copy-image-btn" type="button">Copy Image</button>
       </div>
 
       <div class="share-feedback" id="share-feedback"></div>
-
-      <div class="sync-strip">
-        <div class="sync-top">
-          <div class="sync-title">Data Sync Status</div>
-          <div class="sync-status" id="sync-status">Loading</div>
-        </div>
-
-        <div class="sync-grid">
-          <div class="sync-item">
-            <div class="sync-label">Last update</div>
-            <div class="sync-value" id="sync-last">—</div>
-          </div>
-          <div class="sync-item">
-            <div class="sync-label">Token count</div>
-            <div class="sync-value" id="sync-count">—</div>
-          </div>
-          <div class="sync-item">
-            <div class="sync-label">Visibility</div>
-            <div class="sync-value">Powered by @BASEchainSCAN</div>
-          </div>
-        </div>
-
-        <div class="sync-note" id="sync-note">
-          Public radar uses deployed heatmap data. Refresh Radar reloads the current JSON from Vercel.
-        </div>
-      </div>
 
       <a href="/heatmap" class="heatmap-link">View full heatmap →</a>
       <div class="powered-line">Share-ready radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
@@ -830,7 +709,6 @@
     <p class="socials-label">Find us on</p>
 
     <div class="socials">
-
       <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer" class="social-card sc-x">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -884,7 +762,6 @@
         </div>
         <div class="social-arrow">›</div>
       </a>
-
     </div>
 
     <p class="footer-note">Built on Base · Early stage · Signal-first</p>
@@ -899,53 +776,13 @@
       el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
     }
 
-    function formatFreshness(date) {
-      if (!date || Number.isNaN(date.getTime())) {
-        return { label: 'Error', className: 'error', note: 'Heatmap timestamp could not be read.' };
+    function formatDateShort(dateStr) {
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString([], { month: 'numeric', day: 'numeric', year: 'numeric' });
+      } catch {
+        return '—';
       }
-
-      const diffMs = Date.now() - date.getTime();
-      const diffHours = diffMs / (1000 * 60 * 60);
-
-      if (diffHours <= 4) {
-        return {
-          label: 'Fresh',
-          className: 'fresh',
-          note: 'Radar is within the expected 4h freshness window.'
-        };
-      }
-
-      return {
-        label: 'Outdated',
-        className: 'stale',
-        note: 'Radar looks older than 4h. A new export / deploy may be needed.'
-      };
-    }
-
-    function updateSyncUI(data) {
-      const generatedAt = data?.generated_at ? new Date(data.generated_at) : null;
-      const freshness = formatFreshness(generatedAt);
-
-      document.getElementById('hm-time').textContent =
-        generatedAt && !Number.isNaN(generatedAt.getTime())
-          ? generatedAt.toLocaleDateString()
-          : '—';
-
-      document.getElementById('sync-last').textContent =
-        generatedAt && !Number.isNaN(generatedAt.getTime())
-          ? generatedAt.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
-          : '—';
-
-      document.getElementById('sync-count').textContent =
-        typeof data?.token_count === 'number'
-          ? String(data.token_count)
-          : '—';
-
-      const statusEl = document.getElementById('sync-status');
-      statusEl.textContent = freshness.label;
-      statusEl.className = 'sync-status ' + freshness.className;
-
-      document.getElementById('sync-note').textContent = freshness.note;
     }
 
     function buildXPostText(data) {
@@ -987,18 +824,145 @@
           setFeedback('Share dialog opened.');
           return;
         } catch (err) {
-          // user canceled, fallback silent
         }
       }
 
       await copyText(url, 'Heatmap link copied.');
     }
 
+    function escapeXml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+    }
+
+    function colorForSeverity(sev) {
+      if (sev === 'critical') return '#ff4444';
+      if (sev === 'high') return '#ff8800';
+      if (sev === 'medium') return '#00d2c8';
+      if (sev === 'low') return '#8d98b3';
+      return '#5a647d';
+    }
+
+    function buildShareCardSvg(data) {
+      const tokens = (data?.tokens || []).slice(0, 9);
+      const generatedAt = formatDateShort(data?.generated_at || '');
+      const width = 1200;
+      const height = 780;
+
+      const positions = [
+        { x: 60, y: 150 }, { x: 400, y: 150 }, { x: 740, y: 150 },
+        { x: 60, y: 330 }, { x: 400, y: 330 }, { x: 740, y: 330 },
+        { x: 60, y: 510 }, { x: 400, y: 510 }, { x: 740, y: 510 }
+      ];
+
+      const cardW = 300;
+      const cardH = 150;
+
+      const cards = tokens.map((t, i) => {
+        const pos = positions[i];
+        const sev = t.severity || 'none';
+        const color = colorForSeverity(sev);
+        const score = escapeXml(t.score);
+        const symbol = escapeXml(t.symbol);
+
+        return `
+          <g transform="translate(${pos.x},${pos.y})">
+            <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
+            <rect x="0" y="${cardH - 6}" width="${Math.max(60, Math.min(280, Number(t.score) * 4))}" height="6" rx="3" fill="${color}" />
+            <text x="22" y="28" fill="rgba(226,240,255,0.28)" font-size="18" font-family="Arial, sans-serif">#${escapeXml(t.rank)}</text>
+            <text x="22" y="70" fill="#ffffff" font-size="40" font-weight="700" font-family="Arial, sans-serif">${symbol}</text>
+            <text x="22" y="112" fill="${color}" font-size="46" font-weight="700" font-family="Arial, sans-serif">${score}</text>
+            <text x="22" y="132" fill="rgba(226,240,255,0.32)" font-size="18" font-family="Arial, sans-serif">score</text>
+          </g>
+        `;
+      }).join('');
+
+      return `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+          <defs>
+            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a1020"/>
+              <stop offset="100%" stop-color="#070c18"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+              <stop offset="0%" stop-color="rgba(0,184,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(0,184,255,0)"/>
+            </radialGradient>
+          </defs>
+
+          <rect width="${width}" height="${height}" fill="url(#bgGrad)" />
+          <rect width="${width}" height="${height}" fill="url(#glow)" />
+
+          <circle cx="70" cy="70" r="7" fill="#00d2c8" />
+          <text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial, sans-serif">Emerging Radar · 24h</text>
+          <text x="1030" y="78" fill="rgba(226,240,255,0.34)" font-size="22" font-family="Arial, sans-serif">${generatedAt}</text>
+
+          ${cards}
+
+          <text x="60" y="725" fill="rgba(226,240,255,0.20)" font-size="20" font-family="Arial, sans-serif">Share-ready radar by</text>
+          <text x="240" y="725" fill="#00d2c8" font-size="20" font-weight="700" font-family="Arial, sans-serif">@BASEchainSCAN</text>
+        </svg>
+      `;
+    }
+
+    async function copyImageFromHeatmap(data) {
+      if (!data || !data.tokens || !data.tokens.length) {
+        setFeedback('Heatmap not loaded yet.', true);
+        return;
+      }
+
+      try {
+        const svg = buildShareCardSvg(data);
+        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+        const svgUrl = URL.createObjectURL(svgBlob);
+
+        const img = await new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = reject;
+          image.src = svgUrl;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 780;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        URL.revokeObjectURL(svgUrl);
+
+        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        if (!pngBlob) throw new Error('PNG export failed');
+
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': pngBlob })
+          ]);
+          setFeedback('Image copied to clipboard.');
+          return;
+        }
+
+        const dlUrl = URL.createObjectURL(pngBlob);
+        const a = document.createElement('a');
+        a.href = dlUrl;
+        a.download = 'basechainscan-emerging-radar.png';
+        a.click();
+        URL.revokeObjectURL(dlUrl);
+        setFeedback('Clipboard image not supported, PNG downloaded instead.');
+      } catch (err) {
+        setFeedback('Image export failed. Try again.', true);
+      }
+    }
+
     function bindShareButtons() {
       const xBtn = document.getElementById('x-post-btn');
       const copyBtn = document.getElementById('copy-post-btn');
       const shareBtn = document.getElementById('share-link-btn');
-      const refreshBtn = document.getElementById('refresh-radar-btn');
+      const copyImageBtn = document.getElementById('copy-image-btn');
 
       xBtn.addEventListener('click', () => {
         if (!latestHeatmap) {
@@ -1023,19 +987,22 @@
         await shareLink();
       });
 
-      refreshBtn.addEventListener('click', async () => {
-        setFeedback('Refreshing radar...');
-        await loadHeatmap(true);
+      copyImageBtn.addEventListener('click', async () => {
+        await copyImageFromHeatmap(latestHeatmap);
       });
     }
 
-    async function loadHeatmap(forceRefresh = false) {
+    async function loadHeatmap() {
       try {
-        const res = await fetch('/data/heatmap.json?t=' + (forceRefresh ? Date.now() : 'init'));
+        const res = await fetch('/data/heatmap.json?t=' + Date.now());
         if (!res.ok) throw new Error('fetch failed');
 
         const data = await res.json();
         latestHeatmap = data;
+
+        const generatedAt = new Date(data.generated_at);
+        document.getElementById('hm-time').textContent =
+          generatedAt.toLocaleDateString();
 
         const grid = document.getElementById('hm-grid');
         const maxScore = Math.max(...data.tokens.map(t => t.score));
@@ -1052,7 +1019,6 @@
           `;
         }).join('');
 
-        updateSyncUI(data);
         setFeedback('Radar ready.');
       } catch (e) {
         document.getElementById('hm-grid').innerHTML = `
@@ -1060,11 +1026,6 @@
             Could not load radar data.
           </div>
         `;
-        const statusEl = document.getElementById('sync-status');
-        statusEl.textContent = 'Error';
-        statusEl.className = 'sync-status error';
-        document.getElementById('sync-note').textContent =
-          'Heatmap data could not be loaded. Check deploy and /data/heatmap.json.';
         setFeedback('Radar load failed.', true);
       }
     }
