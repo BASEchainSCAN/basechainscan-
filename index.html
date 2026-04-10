@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="base:app_id" content="69d6f153adb751d63e3ce647">
-  <meta name="theme-color" content="#080d1a">
-  <title>BasechainSCAN • Terminal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="base:app_id" content="69d6f153adb751d63e3ce647" />
+  <meta name="theme-color" content="#080d1a" />
+  <title>BASEchainSCAN • Terminal</title>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg: #080d1a;
+      --panel: rgba(255,255,255,0.03);
+      --panel-2: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.07);
+      --text: #e2f0ff;
+      --muted: rgba(226,240,255,0.45);
+      --muted-2: rgba(226,240,255,0.3);
+      --brand: #00d2c8;
+      --brand-2: #00b8ff;
+      --danger: #ff4444;
+      --warn: #ff8800;
+      --success: #00d2c8;
+      --low: rgba(226,240,255,0.35);
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-      background: #080d1a;
-      color: #e2f0ff;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
@@ -28,9 +45,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 0;
     }
 
-    /* Badge */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -42,64 +59,124 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.08em;
-      color: #00d2c8;
+      color: var(--brand);
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 18px;
     }
 
     .badge-dot {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: #00d2c8;
+      background: var(--brand);
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      50% { opacity: 0.35; }
+    }
+
+    .hero-card {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at top center, rgba(0, 184, 255, 0.12), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .hero-banner {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      object-fit: cover;
+      display: block;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-content {
+      padding: 16px 16px 18px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      background: rgba(255,255,255,0.03);
+      flex-shrink: 0;
+    }
+
+    .brand-copy {
+      min-width: 0;
     }
 
     .logo {
-      font-size: clamp(2.4rem, 9vw, 3.6rem);
+      font-size: clamp(1.9rem, 7vw, 2.8rem);
       font-weight: 800;
-      letter-spacing: -2px;
+      letter-spacing: -1.6px;
       line-height: 1;
       color: #ffffff;
-      text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
-    .logo span { color: #00d2c8; }
+
+    .logo span { color: var(--brand); }
 
     .subtitle {
-      font-size: 15px;
-      color: rgba(226, 240, 255, 0.5);
-      text-align: center;
+      font-size: 13px;
+      color: rgba(226, 240, 255, 0.58);
       letter-spacing: 0.04em;
-      margin-bottom: 36px;
+      line-height: 1.4;
     }
 
-    /* Stats */
+    .brand-proof {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: rgba(226,240,255,0.4);
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+
     .stats {
       display: flex;
       gap: 10px;
       width: 100%;
-      margin-bottom: 36px;
+      margin-bottom: 22px;
     }
+
     .stat {
       flex: 1;
-      background: rgba(255,255,255,0.04);
+      background: var(--panel-2);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
       padding: 14px 10px;
       text-align: center;
     }
+
     .stat-val {
       font-size: 18px;
       font-weight: 700;
-      color: #00d2c8;
+      color: var(--brand);
       line-height: 1;
       margin-bottom: 4px;
     }
+
     .stat-label {
       font-size: 10px;
       color: rgba(226, 240, 255, 0.4);
@@ -107,25 +184,27 @@
       text-transform: uppercase;
     }
 
-    /* Features */
     .features {
       width: 100%;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 36px;
+      margin-bottom: 22px;
     }
+
     .feature {
       display: flex;
       align-items: center;
       gap: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 14px 16px;
     }
+
     .feature-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: rgba(0, 210, 200, 0.1);
       display: flex;
@@ -134,29 +213,290 @@
       flex-shrink: 0;
       font-size: 16px;
     }
+
     .feature-title {
       font-size: 13px;
       font-weight: 600;
-      color: #e2f0ff;
+      color: var(--text);
       margin-bottom: 2px;
     }
+
     .feature-desc {
       font-size: 11px;
       color: rgba(226, 240, 255, 0.4);
       line-height: 1.4;
     }
 
-    /* Form */
+    /* HEATMAP */
+    .heatmap-section {
+      width: 100%;
+      margin-bottom: 26px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
+      padding: 14px;
+    }
+
+    .heatmap-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .heatmap-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .heatmap-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      animation: pulse 2s infinite;
+    }
+
+    .heatmap-meta {
+      font-size: 10px;
+      color: rgba(226,240,255,0.3);
+      flex-shrink: 0;
+    }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .hm-card {
+      position: relative;
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+    }
+
+    .hm-card::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: var(--heat-pct, 0%);
+      background: var(--heat-color, rgba(226,240,255,0.2));
+    }
+
+    .hm-sev-critical { --heat-color: #ff4444; border-color: rgba(255,68,68,0.2); background: rgba(255,68,68,0.05); }
+    .hm-sev-high { --heat-color: #ff8800; border-color: rgba(255,136,0,0.18); background: rgba(255,136,0,0.04); }
+    .hm-sev-medium { --heat-color: #00d2c8; border-color: rgba(0,210,200,0.18); background: rgba(0,210,200,0.04); }
+    .hm-sev-low { --heat-color: rgba(226,240,255,0.35); }
+    .hm-sev-none { --heat-color: rgba(226,240,255,0.15); }
+
+    .hm-rank {
+      font-size: 9px;
+      color: rgba(226,240,255,0.25);
+      margin-bottom: 2px;
+    }
+
+    .hm-symbol {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hm-score {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--heat-color, #e2f0ff);
+      line-height: 1;
+    }
+
+    .hm-score-label {
+      font-size: 9px;
+      color: rgba(226,240,255,0.3);
+    }
+
+    .heatmap-tools {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .tool-btn.primary {
+      background: rgba(0,210,200,0.12);
+      border-color: rgba(0,210,200,0.24);
+      color: var(--brand);
+    }
+
+    .tool-btn.ghost {
+      color: rgba(226,240,255,0.72);
+    }
+
+    .sync-strip {
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      padding: 10px 12px;
+    }
+
+    .sync-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sync-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(226,240,255,0.88);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .sync-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: rgba(226,240,255,0.65);
+    }
+
+    .sync-status.fresh {
+      color: var(--success);
+      border-color: rgba(0,210,200,0.22);
+      background: rgba(0,210,200,0.08);
+    }
+
+    .sync-status.stale {
+      color: var(--warn);
+      border-color: rgba(255,136,0,0.22);
+      background: rgba(255,136,0,0.08);
+    }
+
+    .sync-status.error {
+      color: #ff8080;
+      border-color: rgba(255,68,68,0.22);
+      background: rgba(255,68,68,0.08);
+    }
+
+    .sync-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .sync-item {
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 9px 10px;
+    }
+
+    .sync-label {
+      font-size: 9px;
+      color: rgba(226,240,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 5px;
+    }
+
+    .sync-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(226,240,255,0.86);
+      line-height: 1.3;
+    }
+
+    .sync-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(226,240,255,0.42);
+      line-height: 1.45;
+    }
+
+    .share-feedback {
+      margin-top: 10px;
+      min-height: 16px;
+      font-size: 11px;
+      color: rgba(226,240,255,0.5);
+    }
+
+    .powered-line {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(226,240,255,0.34);
+    }
+
+    .powered-line a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    .heatmap-link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(0,210,200,0.8);
+      text-decoration: none;
+    }
+
+    .heatmap-link:hover { color: var(--brand); }
+
     .form-wrap {
       width: 100%;
       margin-bottom: 14px;
     }
+
     .form-label {
       font-size: 12px;
       color: rgba(226, 240, 255, 0.45);
       margin-bottom: 10px;
       text-align: center;
     }
+
     .input-row { display: flex; gap: 8px; }
 
     input[type="email"] {
@@ -165,18 +505,19 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px;
-      color: #e2f0ff;
+      color: var(--text);
       font-size: 14px;
       outline: none;
       transition: border-color 0.2s;
       -webkit-appearance: none;
     }
+
     input[type="email"]:focus { border-color: rgba(0, 210, 200, 0.5); }
     input[type="email"]::placeholder { color: rgba(226, 240, 255, 0.25); }
 
     .btn-primary {
       padding: 14px 20px;
-      background: #00d2c8;
+      background: var(--brand);
       color: #080d1a;
       border: none;
       border-radius: 12px;
@@ -187,6 +528,7 @@
       transition: opacity 0.15s, transform 0.1s;
       -webkit-tap-highlight-color: transparent;
     }
+
     .btn-primary:active { opacity: 0.85; transform: scale(0.97); }
 
     .success-msg {
@@ -198,7 +540,7 @@
       border-radius: 12px;
       padding: 12px 16px;
       font-size: 13px;
-      color: #00d2c8;
+      color: var(--brand);
       width: 100%;
       margin-top: 8px;
     }
@@ -213,10 +555,9 @@
       font-size: 13px;
       font-weight: 500;
       cursor: not-allowed;
-      margin-bottom: 32px;
+      margin-bottom: 26px;
     }
 
-    /* ── SOCIALS ── */
     .socials-label {
       font-size: 10px;
       letter-spacing: 0.12em;
@@ -230,7 +571,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       width: 100%;
-      margin-bottom: 32px;
+      margin-bottom: 26px;
     }
 
     .social-card {
@@ -246,6 +587,18 @@
       overflow: hidden;
       transition: transform 0.18s, border-color 0.18s;
       -webkit-tap-highlight-color: transparent;
+      opacity: 0;
+      animation: fadeUp 0.4s forwards;
+    }
+
+    .social-card:nth-child(1) { animation-delay: 0.05s; }
+    .social-card:nth-child(2) { animation-delay: 0.12s; }
+    .social-card:nth-child(3) { animation-delay: 0.19s; }
+    .social-card:nth-child(4) { animation-delay: 0.26s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .social-card::before {
@@ -259,20 +612,22 @@
 
     .social-card:active { transform: scale(0.96); }
 
-    /* Individual glow colors */
-    .sc-x::before       { background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.06) 0%, transparent 70%); }
-    .sc-tg::before      { background: radial-gradient(circle at 0% 50%, rgba(36,161,222,0.12) 0%, transparent 70%); }
-    .sc-base::before    { background: radial-gradient(circle at 0% 50%, rgba(0,82,255,0.12) 0%, transparent 70%); }
-    .sc-web::before     { background: radial-gradient(circle at 0% 50%, rgba(0,210,200,0.1) 0%, transparent 70%); }
+    .sc-x::before { background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.06) 0%, transparent 70%); }
+    .sc-tg::before { background: radial-gradient(circle at 0% 50%, rgba(36,161,222,0.12) 0%, transparent 70%); }
+    .sc-base::before { background: radial-gradient(circle at 0% 50%, rgba(0,82,255,0.12) 0%, transparent 70%); }
+    .sc-web::before { background: radial-gradient(circle at 0% 50%, rgba(0,210,200,0.1) 0%, transparent 70%); }
 
     .social-card:hover::before,
     .social-card:active::before { opacity: 1; }
 
-    .social-card:hover  { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
-    .social-card:active { transform: scale(0.96) translateY(0); }
+    .social-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
 
     .social-icon {
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -280,10 +635,10 @@
       flex-shrink: 0;
     }
 
-    .sc-x      .social-icon { background: rgba(255,255,255,0.07); }
-    .sc-tg     .social-icon { background: rgba(36,161,222,0.15); }
-    .sc-base   .social-icon { background: rgba(0,82,255,0.15); }
-    .sc-web    .social-icon { background: rgba(0,210,200,0.1); }
+    .sc-x .social-icon { background: rgba(255,255,255,0.07); }
+    .sc-tg .social-icon { background: rgba(36,161,222,0.15); }
+    .sc-base .social-icon { background: rgba(0,82,255,0.15); }
+    .sc-web .social-icon { background: rgba(0,210,200,0.1); }
 
     .social-icon svg { width: 16px; height: 16px; }
 
@@ -292,7 +647,7 @@
     .social-name {
       font-size: 12px;
       font-weight: 600;
-      color: #e2f0ff;
+      color: var(--text);
       margin-bottom: 2px;
       white-space: nowrap;
       overflow: hidden;
@@ -313,24 +668,10 @@
       flex-shrink: 0;
       transition: color 0.2s, transform 0.2s;
     }
+
     .social-card:hover .social-arrow {
       color: rgba(226, 240, 255, 0.6);
       transform: translateX(2px);
-    }
-
-    /* entrance animation */
-    .social-card {
-      opacity: 0;
-      animation: fadeUp 0.4s forwards;
-    }
-    .social-card:nth-child(1) { animation-delay: 0.05s; }
-    .social-card:nth-child(2) { animation-delay: 0.12s; }
-    .social-card:nth-child(3) { animation-delay: 0.19s; }
-    .social-card:nth-child(4) { animation-delay: 0.26s; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
     }
 
     .footer-note {
@@ -339,24 +680,14 @@
       text-align: center;
       padding-bottom: 8px;
     }
-    /* HEATMAP */
-    .heatmap-section { width:100%; margin-bottom:36px; }
-    .heatmap-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-    .heatmap-title { font-size:13px; font-weight:700; color:#e2f0ff; display:flex; align-items:center; gap:7px; }
-    .heatmap-dot { width:6px; height:6px; border-radius:50%; background:#00d2c8; animation:pulse 2s infinite; }
-    .heatmap-meta { font-size:10px; color:rgba(226,240,255,0.3); }
-    .heatmap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
-    .hm-card { position:relative; border-radius:12px; padding:10px 12px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.03); overflow:hidden; }
-    .hm-card::after { content:""; position:absolute; bottom:0; left:0; height:2px; width:var(--heat-pct,0%); background:var(--heat-color,rgba(226,240,255,0.2)); }
-    .hm-sev-critical { --heat-color:#ff4444; border-color:rgba(255,68,68,0.2); background:rgba(255,68,68,0.05); }
-    .hm-sev-high { --heat-color:#ff8800; border-color:rgba(255,136,0,0.18); background:rgba(255,136,0,0.04); }
-    .hm-sev-medium { --heat-color:#00d2c8; border-color:rgba(0,210,200,0.18); background:rgba(0,210,200,0.04); }
-    .hm-rank { font-size:9px; color:rgba(226,240,255,0.25); margin-bottom:2px; }
-    .hm-symbol { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .hm-score { font-size:16px; font-weight:700; color:var(--heat-color,#e2f0ff); line-height:1; }
-    .hm-score-label { font-size:9px; color:rgba(226,240,255,0.3); }
-    .heatmap-link { display:block; text-align:center; margin-top:10px; font-size:11px; color:rgba(0,210,200,0.6); text-decoration:none; }
-    .heatmap-link:hover { color:#00d2c8; }
+
+    @media (max-width: 400px) {
+      .stats { gap: 8px; }
+      .heatmap-grid { gap: 5px; }
+      .sync-grid { grid-template-columns: 1fr; }
+      .socials { grid-template-columns: 1fr 1fr; }
+      .input-row { flex-direction: row; }
+    }
   </style>
 </head>
 <body>
@@ -367,8 +698,20 @@
       Base Network
     </div>
 
-    <div class="logo">Basechain<span>SCAN</span></div>
-    <p class="subtitle">Telegram Terminal for Base</p>
+    <div class="hero-card">
+      <!-- Dacă path-ul diferă, schimbă doar src-ul -->
+      <img class="hero-banner" src="/public/images/branding/bheader.png" alt="BASEchainSCAN banner" />
+      <div class="hero-content">
+        <div class="brand-row">
+          <img class="brand-logo" src="/public/images/branding/blogo.jpg" alt="BASEchainSCAN logo" />
+          <div class="brand-copy">
+            <div class="logo">BASEchain<span>SCAN</span></div>
+            <p class="subtitle">Signal-first terminal for Base · filtered noise, cleaner token discovery</p>
+          </div>
+        </div>
+        <div class="brand-proof">Powered by <strong>@BASEchainSCAN</strong></div>
+      </div>
+    </div>
 
     <div class="stats">
       <div class="stat">
@@ -388,29 +731,27 @@
     <div class="features">
       <div class="feature">
         <div class="feature-icon">🔍</div>
-        <div class="feature-text">
+        <div>
           <div class="feature-title">Token Discovery</div>
           <div class="feature-desc">Emerging tokens scored in real-time</div>
         </div>
       </div>
       <div class="feature">
         <div class="feature-icon">⚡</div>
-        <div class="feature-text">
+        <div>
           <div class="feature-title">Smart Signals</div>
           <div class="feature-desc">High-confidence alerts, filtered noise</div>
         </div>
       </div>
       <div class="feature">
         <div class="feature-icon">🧠</div>
-        <div class="feature-text">
+        <div>
           <div class="feature-title">Onchain Intelligence</div>
           <div class="feature-desc">Whale activity, LP moves, flow tracking</div>
         </div>
       </div>
     </div>
 
-
-    <!-- HEATMAP SECTION -->
     <div class="heatmap-section">
       <div class="heatmap-header">
         <div class="heatmap-title">
@@ -419,20 +760,62 @@
         </div>
         <div class="heatmap-meta" id="hm-time">—</div>
       </div>
+
       <div class="heatmap-grid" id="hm-grid">
-        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">Loading...</div>
+        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">
+          Loading...
+        </div>
       </div>
+
+      <div class="heatmap-tools">
+        <button class="tool-btn primary" id="x-post-btn" type="button">Post on X</button>
+        <button class="tool-btn ghost" id="copy-post-btn" type="button">Copy X Post</button>
+        <button class="tool-btn ghost" id="share-link-btn" type="button">Share Link</button>
+        <button class="tool-btn ghost" id="refresh-radar-btn" type="button">Refresh Radar</button>
+      </div>
+
+      <div class="share-feedback" id="share-feedback"></div>
+
+      <div class="sync-strip">
+        <div class="sync-top">
+          <div class="sync-title">Data Sync Status</div>
+          <div class="sync-status" id="sync-status">Loading</div>
+        </div>
+
+        <div class="sync-grid">
+          <div class="sync-item">
+            <div class="sync-label">Last update</div>
+            <div class="sync-value" id="sync-last">—</div>
+          </div>
+          <div class="sync-item">
+            <div class="sync-label">Token count</div>
+            <div class="sync-value" id="sync-count">—</div>
+          </div>
+          <div class="sync-item">
+            <div class="sync-label">Visibility</div>
+            <div class="sync-value">Powered by @BASEchainSCAN</div>
+          </div>
+        </div>
+
+        <div class="sync-note" id="sync-note">
+          Public radar uses deployed heatmap data. Refresh Radar reloads the current JSON from Vercel.
+        </div>
+      </div>
+
       <a href="/heatmap" class="heatmap-link">View full heatmap →</a>
+      <div class="powered-line">Share-ready radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
     </div>
 
     <div class="form-wrap">
       <p class="form-label">Stay updated — quiet signals, early access</p>
-      <form action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
-            method="POST"
-            target="bd_popup"
-            onsubmit="handleSubmit(this)">
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
+        method="POST"
+        target="bd_popup"
+        onsubmit="handleSubmit(this)"
+      >
         <div class="input-row">
-          <input type="email" name="email" id="bd-email" placeholder="your@email.com" autocomplete="email" required>
+          <input type="email" name="email" id="bd-email" placeholder="your@email.com" autocomplete="email" required />
           <button type="submit" class="btn-primary">Notify me</button>
         </div>
       </form>
@@ -448,8 +831,7 @@
 
     <div class="socials">
 
-      <!-- X / Twitter -->
-      <a href="https://x.com/BASEchainSCAN" target="_blank" class="social-card sc-x">
+      <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer" class="social-card sc-x">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.629 5.905-5.629zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="rgba(226,240,255,0.85)"/>
@@ -462,8 +844,7 @@
         <div class="social-arrow">›</div>
       </a>
 
-      <!-- Telegram Channel -->
-      <a href="https://t.me/basechainscan" target="_blank" class="social-card sc-tg">
+      <a href="https://t.me/basechainscan" target="_blank" rel="noopener noreferrer" class="social-card sc-tg">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.69 7.97c-.12.56-.46.7-.93.43l-2.57-1.89-1.24 1.19c-.14.14-.25.25-.51.25l.18-2.6 4.74-4.28c.21-.18-.04-.28-.31-.1L8.12 14.53l-2.53-.79c-.55-.17-.56-.55.12-.81l9.9-3.82c.45-.17.85.11.63.69z" fill="rgba(36,161,222,0.9)"/>
@@ -476,8 +857,7 @@
         <div class="social-arrow">›</div>
       </a>
 
-      <!-- Base.app -->
-      <a href="https://base.app/app/project-lx0b0.vercel.app" target="_blank" class="social-card sc-base">
+      <a href="https://base.app/app/project-lx0b0.vercel.app" target="_blank" rel="noopener noreferrer" class="social-card sc-base">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" fill="rgba(0,82,255,0.2)" stroke="rgba(0,82,255,0.6)" stroke-width="1.5"/>
@@ -491,8 +871,7 @@
         <div class="social-arrow">›</div>
       </a>
 
-      <!-- Website -->
-      <a href="https://project-lx0b0.vercel.app/" target="_blank" class="social-card sc-web">
+      <a href="https://project-lx0b0.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-card sc-web">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="9.5" stroke="rgba(0,210,200,0.7)" stroke-width="1.5"/>
@@ -509,39 +888,203 @@
     </div>
 
     <p class="footer-note">Built on Base · Early stage · Signal-first</p>
-
   </div>
 
   <script>
-    async function loadHeatmap() {
+    let latestHeatmap = null;
+
+    function setFeedback(message, isError = false) {
+      const el = document.getElementById('share-feedback');
+      el.textContent = message || '';
+      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
+    }
+
+    function formatFreshness(date) {
+      if (!date || Number.isNaN(date.getTime())) {
+        return { label: 'Error', className: 'error', note: 'Heatmap timestamp could not be read.' };
+      }
+
+      const diffMs = Date.now() - date.getTime();
+      const diffHours = diffMs / (1000 * 60 * 60);
+
+      if (diffHours <= 4) {
+        return {
+          label: 'Fresh',
+          className: 'fresh',
+          note: 'Radar is within the expected 4h freshness window.'
+        };
+      }
+
+      return {
+        label: 'Outdated',
+        className: 'stale',
+        note: 'Radar looks older than 4h. A new export / deploy may be needed.'
+      };
+    }
+
+    function updateSyncUI(data) {
+      const generatedAt = data?.generated_at ? new Date(data.generated_at) : null;
+      const freshness = formatFreshness(generatedAt);
+
+      document.getElementById('hm-time').textContent =
+        generatedAt && !Number.isNaN(generatedAt.getTime())
+          ? generatedAt.toLocaleDateString()
+          : '—';
+
+      document.getElementById('sync-last').textContent =
+        generatedAt && !Number.isNaN(generatedAt.getTime())
+          ? generatedAt.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+          : '—';
+
+      document.getElementById('sync-count').textContent =
+        typeof data?.token_count === 'number'
+          ? String(data.token_count)
+          : '—';
+
+      const statusEl = document.getElementById('sync-status');
+      statusEl.textContent = freshness.label;
+      statusEl.className = 'sync-status ' + freshness.className;
+
+      document.getElementById('sync-note').textContent = freshness.note;
+    }
+
+    function buildXPostText(data) {
+      const top = (data?.tokens || []).slice(0, 5);
+      const heatmapUrl = window.location.origin + '/heatmap';
+
+      const lines = [
+        'Emerging Radar · 24h',
+        '',
+        ...top.map((t, i) => `${i + 1}. ${t.symbol} — ${t.score}`),
+        '',
+        heatmapUrl,
+        '',
+        'Powered by @BASEchainSCAN'
+      ];
+
+      return lines.join('\n');
+    }
+
+    async function copyText(text, successMessage) {
       try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now());
-        if (!res.ok) return;
+        await navigator.clipboard.writeText(text);
+        setFeedback(successMessage);
+      } catch (err) {
+        setFeedback('Copy failed. Try again.', true);
+      }
+    }
+
+    async function shareLink() {
+      const url = window.location.origin + '/heatmap';
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'BASEchainSCAN · Emerging Heatmap',
+            text: 'Emerging Radar · 24h — Powered by @BASEchainSCAN',
+            url
+          });
+          setFeedback('Share dialog opened.');
+          return;
+        } catch (err) {
+          // user canceled, fallback silent
+        }
+      }
+
+      await copyText(url, 'Heatmap link copied.');
+    }
+
+    function bindShareButtons() {
+      const xBtn = document.getElementById('x-post-btn');
+      const copyBtn = document.getElementById('copy-post-btn');
+      const shareBtn = document.getElementById('share-link-btn');
+      const refreshBtn = document.getElementById('refresh-radar-btn');
+
+      xBtn.addEventListener('click', () => {
+        if (!latestHeatmap) {
+          setFeedback('Heatmap not loaded yet.', true);
+          return;
+        }
+        const text = buildXPostText(latestHeatmap);
+        const intent = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+        window.open(intent, '_blank', 'noopener,noreferrer');
+        setFeedback('X post prepared.');
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        if (!latestHeatmap) {
+          setFeedback('Heatmap not loaded yet.', true);
+          return;
+        }
+        await copyText(buildXPostText(latestHeatmap), 'X post copied to clipboard.');
+      });
+
+      shareBtn.addEventListener('click', async () => {
+        await shareLink();
+      });
+
+      refreshBtn.addEventListener('click', async () => {
+        setFeedback('Refreshing radar...');
+        await loadHeatmap(true);
+      });
+    }
+
+    async function loadHeatmap(forceRefresh = false) {
+      try {
+        const res = await fetch('/data/heatmap.json?t=' + (forceRefresh ? Date.now() : 'init'));
+        if (!res.ok) throw new Error('fetch failed');
+
         const data = await res.json();
-        const d = new Date(data.generated_at);
-        document.getElementById('hm-time').textContent = d.toLocaleDateString();
+        latestHeatmap = data;
+
         const grid = document.getElementById('hm-grid');
         const maxScore = Math.max(...data.tokens.map(t => t.score));
-        grid.innerHTML = data.tokens.slice(0,9).map(t => {
-          const pct = Math.round((t.score/maxScore)*100);
+        grid.innerHTML = data.tokens.slice(0, 9).map(t => {
+          const pct = Math.round((t.score / maxScore) * 100);
           const sev = t.severity || 'none';
-          return '<div class="hm-card hm-sev-' + sev + '" style="--heat-pct:' + pct + '%"><div class="hm-rank">#' + t.rank + '</div><div class="hm-symbol">' + t.symbol + '</div><div class="hm-score">' + t.score + '</div><div class="hm-score-label">score</div></div>';
+          return `
+            <div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
+              <div class="hm-rank">#${t.rank}</div>
+              <div class="hm-symbol">${t.symbol}</div>
+              <div class="hm-score">${t.score}</div>
+              <div class="hm-score-label">score</div>
+            </div>
+          `;
         }).join('');
-      } catch(e) {}
+
+        updateSyncUI(data);
+        setFeedback('Radar ready.');
+      } catch (e) {
+        document.getElementById('hm-grid').innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(255,120,120,0.8);">
+            Could not load radar data.
+          </div>
+        `;
+        const statusEl = document.getElementById('sync-status');
+        statusEl.textContent = 'Error';
+        statusEl.className = 'sync-status error';
+        document.getElementById('sync-note').textContent =
+          'Heatmap data could not be loaded. Check deploy and /data/heatmap.json.';
+        setFeedback('Radar load failed.', true);
+      }
     }
-    loadHeatmap();
 
     function handleSubmit(form) {
       const email = form.email.value.trim();
       if (!email) return false;
+
       setTimeout(() => {
         form.email.value = '';
         const s = document.getElementById('success');
         s.style.display = 'flex';
         setTimeout(() => { s.style.display = 'none'; }, 5000);
       }, 500);
+
       return true;
     }
+
+    bindShareButtons();
+    loadHeatmap();
   </script>
 </body>
 </html>
