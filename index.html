@@ -1181,8 +1181,16 @@
     }
     function buildTop4XPostText(data) {
       const tokens = (data?.tokens||[]).slice(0,4);
-      return ['Low Cap Emerging Tokens','Under 1M mcap · Social verified','', ...tokens.map((t,i)=>${i+1}.  - ), '', window.location.origin, '', 'Powered by @BASEchainSCAN'].join('
-');
+      return [
+        'Low Cap Emerging Tokens',
+        'Under 1M mcap · Social verified',
+        '',
+        ...tokens.map((t,i)=>`${i+1}. ${t.symbol} - ${t.score}${t.x_username ? ' @' + t.x_username : ''}`),
+        '',
+        window.location.origin,
+        '',
+        'Powered by @BASEchainSCAN'
+      ].join('\n');
     }
     function buildTop4ShareCardSvg(data) {
       const tokens=(data?.tokens||[]).slice(0,4);
@@ -1200,9 +1208,9 @@
         const handle=t.x_username?'@'+escXml(t.x_username):'';
         const mcap=escXml(fmtU(t.mcap_usd));const lp=escXml(fmtU(t.lp_total_usd));
         const holders=escXml(fmtN(t.holder_count));const age=escXml(fmtA(t.signal_age_hours));
-        return <g transform="translate(,)"><rect x="0" y="0" width="" height="" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="" width="" height="8" rx="4" fill=""/><text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial">BASEchainSCAN</text><text x="28" y="92" fill="#fff" font-size="48" font-weight="800" font-family="Arial"></text><text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial"></text><text x="" y="92" fill="#fff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial"></text><line x1="28" y1="142" x2="" y2="142" stroke="rgba(255,255,255,0.08)"/><text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">MCAP</text><text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial"></text><text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">LIQUIDITY</text><text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial"></text><text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">HOLDERS</text><text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial"></text><text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">SIGNAL AGE</text><text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial"></text></g>;
+        return `<g transform="translate(${pos.x},${pos.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-8}" width="${Math.max(90,Math.min(500,Number(t.score||0)*5))}" height="8" rx="4" fill="${color}"/><text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial">BASEchainSCAN</text><text x="28" y="92" fill="#fff" font-size="48" font-weight="800" font-family="Arial">${symbol}</text><text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial">${handle}</text><text x="${cardW-28}" y="92" fill="#fff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial">${score}</text><line x1="28" y1="142" x2="${cardW-28}" y2="142" stroke="rgba(255,255,255,0.08)"/><text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">MCAP</text><text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${mcap}</text><text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">LIQUIDITY</text><text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${lp}</text><text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">HOLDERS</text><text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${holders}</text><text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">SIGNAL AGE</text><text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial">${age}</text></g>`;
       }).join('');
-      return <svg xmlns="http://www.w3.org/2000/svg" width="" height="" viewBox="0 0  "><defs><linearGradient id="bgT4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient></defs><rect width="" height="" fill="url(#bgT4)"/><circle cx="70" cy="78" r="8" fill="#00d2c8"/><text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial">Low Cap Emerging Tokens</text><text x="60" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>;
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bgT4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#bgT4)"/><circle cx="70" cy="78" r="8" fill="#00d2c8"/><text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial">Low Cap Emerging Tokens</text>${cards}<text x="60" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>`;
     }
     async function exportAndDownload(svg, filename, w, h, setFb) {
       try {
