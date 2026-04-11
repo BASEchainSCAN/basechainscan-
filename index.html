@@ -402,39 +402,45 @@
     .tc::before { content:''; position:absolute; top:0; right:0; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(0,210,200,0.08) 0%, transparent 70%); pointer-events:none; }
     .tc-top {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 120px;
-      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) 96px;
+      gap: 18px;
       align-items: start;
       margin-bottom: 12px;
     }
+    
     .tc-top > div:first-child {
       min-width: 0;
+      padding-right: 6px;
     }
-    .tc-brand { font-size:10px; font-weight:600; letter-spacing:0.1em; color:#00d2c8; text-transform:uppercase; margin-bottom:4px; }
+    
     .tc-symbol {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 800;
-      letter-spacing: -1px;
+      letter-spacing: -0.6px;
       color: #fff;
       line-height: 1;
       margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 100%;
     }
-    .tc-story { font-size:11px; color:rgba(226,240,255,0.5); }
-    .tc-handle { font-size:10px; color:rgba(0,210,200,0.6); margin-top:2px; }
+    
     .tc-score {
-      width: 120px;
+      width: 96px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
       text-align: right;
       flex-shrink: 0;
     }
+    
     .tc-score-val {
-      font-size: 44px;
+      font-size: 38px;
       font-weight: 800;
       color: #fff;
-      line-height: 0.95;
-      letter-spacing: -2px;
+      line-height: 0.9;
+      letter-spacing: -1.5px;
     }
     .tc-score-badge { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
     .badge-high { background:rgba(255,136,0,0.15); color:#ffaa44; }
