@@ -6,892 +6,178 @@
   <meta name="base:app_id" content="69d6f153adb751d63e3ce647" />
   <meta name="theme-color" content="#080d1a" />
   <title>BASEchainSCAN • Terminal</title>
-
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #080d1a;
-      --panel: rgba(255,255,255,0.03);
-      --panel-2: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.07);
-      --text: #e2f0ff;
-      --muted: rgba(226,240,255,0.45);
-      --muted-2: rgba(226,240,255,0.3);
-      --brand: #00d2c8;
-      --brand-2: #00b8ff;
-      --danger: #ff4444;
-      --warn: #ff8800;
-      --success: #00d2c8;
+      --bg: #080d1a; --panel: rgba(255,255,255,0.03); --panel-2: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.07); --text: #e2f0ff; --brand: #00d2c8;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: env(safe-area-inset-top, 24px) 20px env(safe-area-inset-bottom, 32px);
     }
-
-    .wrap {
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
-
+    .wrap { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 210, 200, 0.08);
-      border: 1px solid rgba(0, 210, 200, 0.25);
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--brand);
-      text-transform: uppercase;
-      margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,210,200,0.08); border: 1px solid rgba(0,210,200,0.25);
+      border-radius: 100px; padding: 5px 14px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; color: var(--brand); text-transform: uppercase; margin-bottom: 18px;
     }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--brand);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
     .hero-card {
-      width: 100%;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        radial-gradient(circle at top center, rgba(0, 184, 255, 0.12), transparent 45%),
+      width: 100%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle at top center, rgba(0,184,255,0.12), transparent 45%),
         linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      overflow: hidden;
-      margin-bottom: 22px;
+      overflow: hidden; margin-bottom: 22px;
     }
-
-    .hero-banner {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      object-fit: cover;
-      display: block;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .hero-content {
-      padding: 16px 16px 18px;
-    }
-
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      background: rgba(255,255,255,0.03);
-      flex-shrink: 0;
-    }
-
-    .brand-copy {
-      min-width: 0;
-    }
-
-    .logo {
-      font-size: clamp(1.9rem, 7vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -1.6px;
-      line-height: 1;
-      color: #ffffff;
-      margin-bottom: 5px;
-    }
-
+    .hero-banner { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; background: rgba(255,255,255,0.03); }
+    .hero-content { padding: 16px 16px 18px; }
+    .brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .brand-logo { width: 44px; height: 44px; border-radius: 14px; object-fit: cover; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); flex-shrink: 0; }
+    .brand-copy { min-width: 0; }
+    .logo { font-size: clamp(1.9rem,7vw,2.8rem); font-weight: 800; letter-spacing: -1.6px; line-height: 1; color: #fff; margin-bottom: 5px; }
     .logo span { color: var(--brand); }
+    .subtitle { font-size: 13px; color: rgba(226,240,255,0.58); letter-spacing: 0.04em; line-height: 1.4; }
+    .brand-proof { margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(226,240,255,0.4); padding: 7px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
+    .stats { display: flex; gap: 10px; width: 100%; margin-bottom: 22px; }
+    .stat { flex: 1; background: var(--panel-2); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 10px; text-align: center; }
+    .stat-val { font-size: 18px; font-weight: 700; color: var(--brand); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 10px; color: rgba(226,240,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+    .features { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+    .feature { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+    .feature-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(0,210,200,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+    .feature-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .feature-desc { font-size: 11px; color: rgba(226,240,255,0.4); line-height: 1.4; }
 
-    .subtitle {
-      font-size: 13px;
-      color: rgba(226, 240, 255, 0.58);
-      letter-spacing: 0.04em;
-      line-height: 1.4;
-    }
+    /* HEATMAP */
+    .heatmap-section { width: 100%; margin-bottom: 26px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015)); padding: 14px; }
+    .heatmap-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .heatmap-title { font-size: 13px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 7px; }
+    .heatmap-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); animation: pulse 2s infinite; }
+    .heatmap-meta { font-size: 10px; color: rgba(226,240,255,0.3); flex-shrink: 0; }
+    .heatmap-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+    .hm-card { position: relative; border-radius: 12px; padding: 10px 12px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03); overflow: hidden; }
+    .hm-card::after { content:""; position: absolute; bottom:0; left:0; height:2px; width:var(--heat-pct,0%); background:var(--heat-color,rgba(226,240,255,0.2)); }
+    .hm-sev-critical { --heat-color:#ff4444; border-color:rgba(255,68,68,0.2); background:rgba(255,68,68,0.05); }
+    .hm-sev-high { --heat-color:#ff8800; border-color:rgba(255,136,0,0.18); background:rgba(255,136,0,0.04); }
+    .hm-sev-medium { --heat-color:#00d2c8; border-color:rgba(0,210,200,0.18); background:rgba(0,210,200,0.04); }
+    .hm-sev-low { --heat-color:rgba(226,240,255,0.35); }
+    .hm-sev-none { --heat-color:rgba(226,240,255,0.15); }
+    .hm-rank { font-size:9px; color:rgba(226,240,255,0.25); margin-bottom:2px; }
+    .hm-symbol { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .hm-score { font-size:16px; font-weight:700; color:var(--heat-color,#e2f0ff); line-height:1; }
+    .hm-score-label { font-size:9px; color:rgba(226,240,255,0.3); }
+    .heatmap-tools { margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+    .tool-btn { appearance:none; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text); border-radius:12px; padding:10px 12px; font-size:11px; font-weight:600; cursor:pointer; transition:transform 0.12s ease,border-color 0.12s ease,background 0.12s ease; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+    .tool-btn:hover { transform:translateY(-1px); border-color:rgba(255,255,255,0.16); background:rgba(255,255,255,0.05); }
+    .tool-btn.primary { background:rgba(0,210,200,0.12); border-color:rgba(0,210,200,0.24); color:var(--brand); }
+    .share-feedback { margin-top:10px; min-height:16px; font-size:11px; color:rgba(226,240,255,0.5); }
+    .heatmap-link { display:block; text-align:center; margin-top:12px; font-size:11px; color:rgba(0,210,200,0.8); text-decoration:none; }
+    .heatmap-link:hover { color:var(--brand); }
+    .powered-line { margin-top:12px; text-align:center; font-size:11px; color:rgba(226,240,255,0.34); }
+    .powered-line a { color:var(--brand); text-decoration:none; }
 
-    .brand-proof {
-      margin-top: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.4);
-      padding: 7px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
-    }
+    /* TOP4 PREMIUM */
+    @property --glow-color { syntax: '<color>'; inherits: false; initial-value: rgba(0,210,200,0); }
+    .top4-section { width:100%; margin-bottom:32px; position:relative; }
+    .top4-section::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px); pointer-events:none; z-index:1; border-radius:18px; }
+    .top4-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; position:relative; z-index:2; }
+    .top4-title { font-size:13px; font-weight:700; color:#e2f0ff; display:flex; align-items:center; gap:7px; }
+    .top4-dot { width:6px; height:6px; border-radius:50%; background:#00d2c8; animation:pulse 2s infinite; }
+    .top4-sub { font-size:10px; color:rgba(226,240,255,0.3); margin-bottom:14px; position:relative; z-index:2; }
+    .top4-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; position:relative; z-index:2; }
+    .tc { position:relative; border-radius:18px; padding:16px 18px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(10,16,32,0.85); overflow:hidden; cursor:default; --glow-color:rgba(0,210,200,0); box-shadow:0 0 0 0 var(--glow-color); transition:transform 0.2s cubic-bezier(0.4,0,0.2,1),box-shadow 0.25s ease,border-color 0.25s ease; }
+    .tc.sev-critical { border-color:rgba(255,68,68,0.25); --glow-color:rgba(255,68,68,0.35); }
+    .tc.sev-high { border-color:rgba(255,136,0,0.2); --glow-color:rgba(255,136,0,0.3); }
+    .tc.sev-medium { border-color:rgba(0,210,200,0.2); --glow-color:rgba(0,210,200,0.28); }
+    .tc.sev-low, .tc.sev-none { border-color:rgba(255,255,255,0.07); --glow-color:rgba(255,255,255,0.1); }
+    .tc:hover { transform:translateY(-3px); box-shadow:0 8px 32px var(--glow-color),0 2px 8px rgba(0,0,0,0.4); border-color:rgba(255,255,255,0.16); }
+    .tc::after { content:''; position:absolute; bottom:0; left:0; width:var(--bar-pct,0%); height:2px; background:var(--bar-color,rgba(226,240,255,0.2)); border-radius:0 0 0 18px; transition:width 0.8s cubic-bezier(0.4,0,0.2,1); }
+    .tc-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+    .tc-left { min-width:0; flex:1; padding-right:8px; }
+    .tc-brand { font-size:9px; font-weight:600; letter-spacing:0.1em; color:rgba(0,210,200,0.5); text-transform:uppercase; margin-bottom:5px; }
+    .tc-symbol { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:#fff; line-height:1; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tc-handle { font-size:10px; color:rgba(0,210,200,0.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tc-right { text-align:right; flex-shrink:0; }
+    .tc-score-val { font-size:36px; font-weight:800; letter-spacing:-1.5px; color:#fff; line-height:1; font-variant-numeric:tabular-nums; }
+    .tc-badge { display:inline-block; font-size:8px; font-weight:700; padding:2px 7px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; margin-top:4px; }
+    .tc-badge.sev-none { display:none; }
+    .tc-badge.sev-critical { background:rgba(255,68,68,0.15); color:#ff6666; }
+    .tc-badge.sev-high { background:rgba(255,136,0,0.15); color:#ffaa44; }
+    .tc-badge.sev-medium { background:rgba(0,210,200,0.12); color:#00d2c8; }
+    .tc-badge.sev-low { background:rgba(226,240,255,0.06); color:rgba(226,240,255,0.4); }
+    .tc-divider { height:1px; background:rgba(255,255,255,0.05); margin-bottom:10px; }
+    .tc-metrics { display:grid; grid-template-columns:1fr 1fr; gap:8px 6px; margin-bottom:12px; }
+    .tc-metric-label { font-size:8px; color:rgba(226,240,255,0.3); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:1px; }
+    .tc-metric-val { font-size:12px; font-weight:700; color:#e2f0ff; white-space:nowrap; }
+    .tc-actions { display:flex; gap:5px; }
+    .tc-btn { flex:1; padding:8px 4px; border-radius:9px; font-size:10px; font-weight:600; text-align:center; text-decoration:none; display:block; transition:opacity 0.15s,transform 0.1s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tc-btn:active { opacity:0.8; transform:scale(0.97); }
+    .btn-okx { background:#00d2c8; color:#080d1a; }
+    .btn-x { background:rgba(255,255,255,0.07); color:rgba(226,240,255,0.8); border:1px solid rgba(255,255,255,0.1); }
+    .btn-dex { background:rgba(255,255,255,0.04); color:rgba(226,240,255,0.45); border:1px solid rgba(255,255,255,0.07); }
+    .top4-empty { grid-column:1/-1; text-align:center; padding:28px; font-size:12px; color:rgba(226,240,255,0.25); }
+    .tc:nth-child(1) { animation-delay:0.04s; }
+    .tc:nth-child(2) { animation-delay:0.08s; }
+    .tc:nth-child(3) { animation-delay:0.12s; }
+    .tc:nth-child(4) { animation-delay:0.16s; }
 
-    .stats {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 22px;
-    }
+    /* FORM */
+    .form-wrap { width:100%; margin-bottom:14px; }
+    .form-label { font-size:12px; color:rgba(226,240,255,0.45); margin-bottom:10px; text-align:center; }
+    .input-row { display:flex; gap:8px; }
+    input[type="email"] { flex:1; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:var(--text); font-size:14px; outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+    input[type="email"]:focus { border-color:rgba(0,210,200,0.5); }
+    input[type="email"]::placeholder { color:rgba(226,240,255,0.25); }
+    .btn-primary { padding:14px 20px; background:var(--brand); color:#080d1a; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; white-space:nowrap; transition:opacity 0.15s,transform 0.1s; -webkit-tap-highlight-color:transparent; }
+    .btn-primary:active { opacity:0.85; transform:scale(0.97); }
+    .success-msg { display:none; align-items:center; gap:8px; background:rgba(0,210,200,0.08); border:1px solid rgba(0,210,200,0.2); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--brand); width:100%; margin-top:8px; }
+    .btn-beta { width:100%; padding:15px; background:transparent; color:rgba(226,240,255,0.25); border:1px solid rgba(255,255,255,0.08); border-radius:12px; font-size:13px; font-weight:500; cursor:not-allowed; margin-bottom:26px; }
 
-    .stat {
-      flex: 1;
-      background: var(--panel-2);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 14px 10px;
-      text-align: center;
-    }
+    /* SOCIALS */
+    .socials-label { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(226,240,255,0.25); margin-bottom:14px; }
+    .socials { display:grid; grid-template-columns:1fr 1fr; gap:10px; width:100%; margin-bottom:26px; }
+    .social-card { position:relative; display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:16px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.03); text-decoration:none; overflow:hidden; transition:transform 0.18s,border-color 0.18s; -webkit-tap-highlight-color:transparent; opacity:0; animation:fadeUp 0.4s forwards; }
+    .social-card:nth-child(1) { animation-delay:0.05s; }
+    .social-card:nth-child(2) { animation-delay:0.12s; }
+    .social-card:nth-child(3) { animation-delay:0.19s; }
+    .social-card:nth-child(4) { animation-delay:0.26s; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .social-card::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.3s; border-radius:16px; }
+    .social-card:active { transform:scale(0.96); }
+    .sc-x::before { background:radial-gradient(circle at 0% 50%,rgba(255,255,255,0.06) 0%,transparent 70%); }
+    .sc-tg::before { background:radial-gradient(circle at 0% 50%,rgba(36,161,222,0.12) 0%,transparent 70%); }
+    .sc-base::before { background:radial-gradient(circle at 0% 50%,rgba(0,82,255,0.12) 0%,transparent 70%); }
+    .sc-web::before { background:radial-gradient(circle at 0% 50%,rgba(0,210,200,0.1) 0%,transparent 70%); }
+    .social-card:hover::before, .social-card:active::before { opacity:1; }
+    .social-card:hover { border-color:rgba(255,255,255,0.15); transform:translateY(-2px); }
+    .social-icon { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sc-x .social-icon { background:rgba(255,255,255,0.07); }
+    .sc-tg .social-icon { background:rgba(36,161,222,0.15); }
+    .sc-base .social-icon { background:rgba(0,82,255,0.15); }
+    .sc-web .social-icon { background:rgba(0,210,200,0.1); }
+    .social-icon svg { width:16px; height:16px; }
+    .social-info { flex:1; min-width:0; }
+    .social-name { font-size:12px; font-weight:600; color:var(--text); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .social-handle { font-size:10px; color:rgba(226,240,255,0.35); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .social-arrow { font-size:14px; color:rgba(226,240,255,0.2); flex-shrink:0; transition:color 0.2s,transform 0.2s; }
+    .social-card:hover .social-arrow { color:rgba(226,240,255,0.6); transform:translateX(2px); }
+    .footer-note { font-size:11px; color:rgba(226,240,255,0.18); text-align:center; padding-bottom:8px; }
 
-    .stat-val {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--brand);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 10px;
-      color: rgba(226, 240, 255, 0.4);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .features {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-    }
-
-    .feature-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(0, 210, 200, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 16px;
-    }
-
-    .feature-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .feature-desc {
-      font-size: 11px;
-      color: rgba(226, 240, 255, 0.4);
-      line-height: 1.4;
-    }
-
-    .heatmap-section {
-      width: 100%;
-      margin-bottom: 26px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
-      padding: 14px;
-    }
-
-    .heatmap-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .heatmap-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .heatmap-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--brand);
-      animation: pulse 2s infinite;
-    }
-
-    .heatmap-meta {
-      font-size: 10px;
-      color: rgba(226,240,255,0.3);
-      flex-shrink: 0;
-    }
-
-    .heatmap-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    .hm-card {
-      position: relative;
-      border-radius: 12px;
-      padding: 10px 12px;
-      border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.03);
-      overflow: hidden;
-    }
-
-    .hm-card::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 2px;
-      width: var(--heat-pct, 0%);
-      background: var(--heat-color, rgba(226,240,255,0.2));
-    }
-
-    .hm-sev-critical { --heat-color: #ff4444; border-color: rgba(255,68,68,0.2); background: rgba(255,68,68,0.05); }
-    .hm-sev-high { --heat-color: #ff8800; border-color: rgba(255,136,0,0.18); background: rgba(255,136,0,0.04); }
-    .hm-sev-medium { --heat-color: #00d2c8; border-color: rgba(0,210,200,0.18); background: rgba(0,210,200,0.04); }
-    .hm-sev-low { --heat-color: rgba(226,240,255,0.35); }
-    .hm-sev-none { --heat-color: rgba(226,240,255,0.15); }
-
-    .hm-rank {
-      font-size: 9px;
-      color: rgba(226,240,255,0.25);
-      margin-bottom: 2px;
-    }
-
-    .hm-symbol {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .hm-score {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--heat-color, #e2f0ff);
-      line-height: 1;
-    }
-
-    .hm-score-label {
-      font-size: 9px;
-      color: rgba(226,240,255,0.3);
-    }
-
-    .heatmap-tools {
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tool-btn {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .tool-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .tool-btn.primary {
-      background: rgba(0,210,200,0.12);
-      border-color: rgba(0,210,200,0.24);
-      color: var(--brand);
-    }
-
-    .share-feedback {
-      margin-top: 10px;
-      min-height: 16px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.5);
-    }
-
-    .heatmap-link {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      font-size: 11px;
-      color: rgba(0,210,200,0.8);
-      text-decoration: none;
-    }
-
-    .heatmap-link:hover { color: var(--brand); }
-
-    .powered-line {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 11px;
-      color: rgba(226,240,255,0.34);
-    }
-
-    .powered-line a {
-      color: var(--brand);
-      text-decoration: none;
-    }
-      /* ── @property for animatable border color ── */
-      @property --glow-opacity {
-        syntax: '<number>';
-        inherits: false;
-        initial-value: 0;
-      }
-     
-      @property --glow-color {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: rgba(0,210,200,0);
-      }
-     
-      /* ── Container ── */
-      .top4-section {
-        width: 100%;
-        margin-bottom: 32px;
-        position: relative;
-      }
-     
-      /* Scanline overlay — terminal feel, zero performance cost */
-      .top4-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0,0,0,0.04) 2px,
-          rgba(0,0,0,0.04) 4px
-        );
-        pointer-events: none;
-        z-index: 1;
-        border-radius: 18px;
-      }
-     
-      .top4-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 6px;
-        position: relative;
-        z-index: 2;
-      }
-     
-      .top4-title {
-        font-size: 13px;
-        font-weight: 700;
-        color: #e2f0ff;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-      }
-     
-      .top4-dot {
-        width: 6px; height: 6px;
-        border-radius: 50%;
-        background: #00d2c8;
-        animation: pulse 2s infinite;
-      }
-     
-      .top4-sub {
-        font-size: 10px;
-        color: rgba(226,240,255,0.3);
-        margin-bottom: 14px;
-        position: relative;
-        z-index: 2;
-      }
-     
-      .top4-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        position: relative;
-        z-index: 2;
-      }
-     
-      /* ── Card ── */
-      .tc {
-        position: relative;
-        border-radius: 18px;
-        padding: 16px 18px 14px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: rgba(10, 16, 32, 0.85);
-        overflow: hidden;
-        cursor: default;
-     
-        /* @property glow */
-        --glow-opacity: 0;
-        --glow-color: rgba(0,210,200,0);
-        box-shadow: 0 0 0 0 var(--glow-color);
-     
-        transition:
-          transform 0.2s cubic-bezier(0.4,0,0.2,1),
-          box-shadow 0.25s ease,
-          border-color 0.25s ease,
-          --glow-opacity 0.25s ease;
-     
-        /* @starting-style fade-up on initial load */
-        @starting-style {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        opacity: 1;
-        transform: translateY(0);
-      }
-     
-      /* Severity border colors */
-      .tc.sev-critical {
-        border-color: rgba(255,68,68,0.25);
-        --glow-color: rgba(255,68,68,0.35);
-      }
-      .tc.sev-high {
-        border-color: rgba(255,136,0,0.2);
-        --glow-color: rgba(255,136,0,0.3);
-      }
-      .tc.sev-medium {
-        border-color: rgba(0,210,200,0.2);
-        --glow-color: rgba(0,210,200,0.28);
-      }
-      .tc.sev-low,
-      .tc.sev-none {
-        border-color: rgba(255,255,255,0.07);
-        --glow-color: rgba(255,255,255,0.1);
-      }
-     
-      /* Hover — lift + glow, nothing continuous */
-      .tc:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 32px var(--glow-color), 0 2px 8px rgba(0,0,0,0.4);
-        border-color: rgba(255,255,255,0.16);
-      }
-     
-      /* Severity accent bar at bottom */
-      .tc::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0;
-        width: var(--bar-pct, 0%);
-        height: 2px;
-        background: var(--bar-color, rgba(226,240,255,0.2));
-        border-radius: 0 0 0 18px;
-        transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
-      }
-     
-      /* ── Card inner layout ── */
-      .tc-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
-     
-      .tc-left { min-width: 0; flex: 1; padding-right: 8px; }
-     
-      .tc-brand {
-        font-size: 9px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        color: rgba(0,210,200,0.5);
-        text-transform: uppercase;
-        margin-bottom: 5px;
-      }
-     
-      .tc-symbol {
-        font-size: 20px;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-        color: #fff;
-        line-height: 1;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-     
-      .tc-handle {
-        font-size: 10px;
-        color: rgba(0,210,200,0.55);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-     
-      .tc-right {
-        text-align: right;
-        flex-shrink: 0;
-      }
-     
-      .tc-score-val {
-        font-size: 36px;
-        font-weight: 800;
-        letter-spacing: -1.5px;
-        color: #fff;
-        line-height: 1;
-        font-variant-numeric: tabular-nums;
-      }
-     
-      /* Severity badge — hidden when "none" */
-      .tc-badge {
-        display: inline-block;
-        font-size: 8px;
-        font-weight: 700;
-        padding: 2px 7px;
-        border-radius: 100px;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        margin-top: 4px;
-      }
-      .tc-badge.sev-none,
-      .tc-badge.sev-hidden { display: none; }
-      .tc-badge.sev-critical { background: rgba(255,68,68,0.15); color: #ff6666; }
-      .tc-badge.sev-high     { background: rgba(255,136,0,0.15); color: #ffaa44; }
-      .tc-badge.sev-medium   { background: rgba(0,210,200,0.12); color: #00d2c8; }
-      .tc-badge.sev-low      { background: rgba(226,240,255,0.06); color: rgba(226,240,255,0.4); }
-     
-      .tc-divider {
-        height: 1px;
-        background: rgba(255,255,255,0.05);
-        margin-bottom: 10px;
-      }
-     
-      .tc-metrics {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px 6px;
-        margin-bottom: 12px;
-      }
-     
-      .tc-metric-label {
-        font-size: 8px;
-        color: rgba(226,240,255,0.3);
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        margin-bottom: 1px;
-      }
-     
-      .tc-metric-val {
-        font-size: 12px;
-        font-weight: 700;
-        color: #e2f0ff;
-        white-space: nowrap;
-      }
-     
-      /* ── Action buttons ── */
-      .tc-actions {
-        display: flex;
-        gap: 5px;
-      }
-     
-      .tc-btn {
-        flex: 1;
-        padding: 8px 4px;
-        border-radius: 9px;
-        font-size: 10px;
-        font-weight: 600;
-        text-align: center;
-        text-decoration: none;
-        display: block;
-        transition: opacity 0.15s, transform 0.1s;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .tc-btn:active { opacity: 0.8; transform: scale(0.97); }
-     
-      .btn-okx  { background: #00d2c8; color: #080d1a; }
-      .btn-x    { background: rgba(255,255,255,0.07); color: rgba(226,240,255,0.8); border: 1px solid rgba(255,255,255,0.1); }
-      .btn-dex  { background: rgba(255,255,255,0.04); color: rgba(226,240,255,0.45); border: 1px solid rgba(255,255,255,0.07); }
-     
-      .top4-empty {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 28px;
-        font-size: 12px;
-        color: rgba(226,240,255,0.25);
-      }
-     
-      /* Staggered entrance delays */
-      .tc:nth-child(1) { transition-delay: 0.04s; }
-      .tc:nth-child(2) { transition-delay: 0.08s; }
-      .tc:nth-child(3) { transition-delay: 0.12s; }
-      .tc:nth-child(4) { transition-delay: 0.16s; }
-     
-      @media (max-width: 400px) {
-        .top4-grid { grid-template-columns: 1fr; }
-        .tc-score-val { font-size: 30px; }
-      }
-
-    .form-wrap {
-      width: 100%;
-      margin-bottom: 14px;
-    }
-
-    .form-label {
-      font-size: 12px;
-      color: rgba(226, 240, 255, 0.45);
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .input-row { display: flex; gap: 8px; }
-
-    input[type="email"] {
-      flex: 1;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
-    }
-
-    input[type="email"]:focus { border-color: rgba(0, 210, 200, 0.5); }
-    input[type="email"]::placeholder { color: rgba(226, 240, 255, 0.25); }
-
-    .btn-primary {
-      padding: 14px 20px;
-      background: var(--brand);
-      color: #080d1a;
-      border: none;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.15s, transform 0.1s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .btn-primary:active { opacity: 0.85; transform: scale(0.97); }
-
-    .success-msg {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 210, 200, 0.08);
-      border: 1px solid rgba(0, 210, 200, 0.2);
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--brand);
-      width: 100%;
-      margin-top: 8px;
-    }
-
-    .btn-beta {
-      width: 100%;
-      padding: 15px;
-      background: transparent;
-      color: rgba(226, 240, 255, 0.25);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: not-allowed;
-      margin-bottom: 26px;
-    }
-
-    .socials-label {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(226, 240, 255, 0.25);
-      margin-bottom: 14px;
-    }
-
-    .socials {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 26px;
-    }
-
-    .social-card {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.03);
-      text-decoration: none;
-      overflow: hidden;
-      transition: transform 0.18s, border-color 0.18s;
-      -webkit-tap-highlight-color: transparent;
-      opacity: 0;
-      animation: fadeUp 0.4s forwards;
-    }
-
-    .social-card:nth-child(1) { animation-delay: 0.05s; }
-    .social-card:nth-child(2) { animation-delay: 0.12s; }
-    .social-card:nth-child(3) { animation-delay: 0.19s; }
-    .social-card:nth-child(4) { animation-delay: 0.26s; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .social-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.3s;
-      border-radius: 16px;
-    }
-
-    .social-card:active { transform: scale(0.96); }
-
-    .sc-x::before { background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.06) 0%, transparent 70%); }
-    .sc-tg::before { background: radial-gradient(circle at 0% 50%, rgba(36,161,222,0.12) 0%, transparent 70%); }
-    .sc-base::before { background: radial-gradient(circle at 0% 50%, rgba(0,82,255,0.12) 0%, transparent 70%); }
-    .sc-web::before { background: radial-gradient(circle at 0% 50%, rgba(0,210,200,0.1) 0%, transparent 70%); }
-
-    .social-card:hover::before,
-    .social-card:active::before { opacity: 1; }
-
-    .social-card:hover {
-      border-color: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
-    }
-
-    .social-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .sc-x .social-icon { background: rgba(255,255,255,0.07); }
-    .sc-tg .social-icon { background: rgba(36,161,222,0.15); }
-    .sc-base .social-icon { background: rgba(0,82,255,0.15); }
-    .sc-web .social-icon { background: rgba(0,210,200,0.1); }
-
-    .social-icon svg { width: 16px; height: 16px; }
-
-    .social-info { flex: 1; min-width: 0; }
-
-    .social-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .social-handle {
-      font-size: 10px;
-      color: rgba(226, 240, 255, 0.35);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .social-arrow {
-      font-size: 14px;
-      color: rgba(226, 240, 255, 0.2);
-      flex-shrink: 0;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .social-card:hover .social-arrow {
-      color: rgba(226, 240, 255, 0.6);
-      transform: translateX(2px);
-    }
-
-    .footer-note {
-      font-size: 11px;
-      color: rgba(226, 240, 255, 0.18);
-      text-align: center;
-      padding-bottom: 8px;
-    }
-
-    @media (max-width: 400px) {
-      .stats { gap: 8px; }
-      .heatmap-grid { gap: 5px; }
-      .socials { grid-template-columns: 1fr 1fr; }
-      .input-row { flex-direction: row; }
+    @media (max-width:400px) {
+      .stats { gap:8px; } .heatmap-grid { gap:5px; }
+      .top4-grid { grid-template-columns:1fr; }
+      .tc-score-val { font-size:30px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-
-    <div class="badge">
-      <div class="badge-dot"></div>
-      Base Network
-    </div>
+    <div class="badge"><div class="badge-dot"></div>Base Network</div>
 
     <div class="hero-card">
       <img class="hero-banner" src="/public/images/blogo.jpg" alt="BASEchainSCAN banner" />
@@ -908,170 +194,92 @@
     </div>
 
     <div class="stats">
-      <div class="stat">
-        <div class="stat-val">Filter</div>
-        <div class="stat-label">Noise out</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">Score</div>
-        <div class="stat-label">Every token</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">Alert</div>
-        <div class="stat-label">When it matters</div>
-      </div>
+      <div class="stat"><div class="stat-val">Filter</div><div class="stat-label">Noise out</div></div>
+      <div class="stat"><div class="stat-val">Score</div><div class="stat-label">Every token</div></div>
+      <div class="stat"><div class="stat-val">Alert</div><div class="stat-label">When it matters</div></div>
     </div>
 
     <div class="features">
-      <div class="feature">
-        <div class="feature-icon">🔍</div>
-        <div>
-          <div class="feature-title">Token Discovery</div>
-          <div class="feature-desc">Emerging tokens scored in real-time</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <div>
-          <div class="feature-title">Smart Signals</div>
-          <div class="feature-desc">High-confidence alerts, filtered noise</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🧠</div>
-        <div>
-          <div class="feature-title">Onchain Intelligence</div>
-          <div class="feature-desc">Whale activity, LP moves, flow tracking</div>
-        </div>
-      </div>
+      <div class="feature"><div class="feature-icon">🔍</div><div><div class="feature-title">Token Discovery</div><div class="feature-desc">Emerging tokens scored in real-time</div></div></div>
+      <div class="feature"><div class="feature-icon">⚡</div><div><div class="feature-title">Smart Signals</div><div class="feature-desc">High-confidence alerts, filtered noise</div></div></div>
+      <div class="feature"><div class="feature-icon">🧠</div><div><div class="feature-title">Onchain Intelligence</div><div class="feature-desc">Whale activity, LP moves, flow tracking</div></div></div>
     </div>
 
+    <!-- EMERGING RADAR -->
     <div class="heatmap-section">
       <div class="heatmap-header">
-        <div class="heatmap-title">
-          <div class="heatmap-dot"></div>
-          Emerging Radar · 24h
-        </div>
+        <div class="heatmap-title"><div class="heatmap-dot"></div>Emerging Radar · 24h</div>
         <div class="heatmap-meta" id="hm-time">—</div>
       </div>
-
       <div class="heatmap-grid" id="hm-grid">
-        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">
-          Loading...
-        </div>
+        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">Loading...</div>
       </div>
-
       <div class="heatmap-tools">
         <button class="tool-btn primary" id="x-post-btn" type="button">Post on X</button>
-        <button class="tool-btn ghost" id="copy-post-btn" type="button">Copy X Post</button>
-        <button class="tool-btn ghost" id="share-link-btn" type="button">Share Link</button>
-        <button class="tool-btn ghost" id="copy-image-btn" type="button">Copy Image</button>
+        <button class="tool-btn" id="copy-post-btn" type="button">Copy X Post</button>
+        <button class="tool-btn" id="share-link-btn" type="button">Share Link</button>
+        <button class="tool-btn" id="copy-image-btn" type="button">Copy Image</button>
       </div>
-
       <div class="share-feedback" id="share-feedback"></div>
-
       <a href="/heatmap" class="heatmap-link">View full heatmap →</a>
-      <div class="powered-line">Share-ready radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
+      <div class="powered-line">Share-ready radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener">@BASEchainSCAN</a></div>
     </div>
 
+    <!-- LOW CAP TOP4 -->
     <div class="top4-section">
       <div class="top4-header">
-        <div class="top4-title">
-          <div class="top4-dot"></div>
-          Low Cap Emerging Tokens
-        </div>
+        <div class="top4-title"><div class="top4-dot"></div>Low Cap Emerging Tokens</div>
         <div class="heatmap-meta" id="top4-time">—</div>
       </div>
       <div class="top4-sub">Under $1M mcap · Social verified · Updated daily</div>
       <div class="top4-grid" id="top4-grid">
         <div class="top4-empty">Loading...</div>
       </div>
-      <div class="heatmap-tools top4-tools">
+      <div class="heatmap-tools" style="margin-top:12px;">
         <button class="tool-btn primary" id="top4-x-post-btn" type="button">Post on X</button>
-        <button class="tool-btn ghost" id="top4-copy-post-btn" type="button">Copy X Post</button>
-        <button class="tool-btn ghost" id="top4-share-link-btn" type="button">Share Link</button>
-        <button class="tool-btn ghost" id="top4-copy-image-btn" type="button">Copy Image</button>
+        <button class="tool-btn" id="top4-copy-post-btn" type="button">Copy X Post</button>
+        <button class="tool-btn" id="top4-share-link-btn" type="button">Share Link</button>
+        <button class="tool-btn" id="top4-copy-image-btn" type="button">Copy Image</button>
       </div>
-      
       <div class="share-feedback" id="top4-share-feedback"></div>
-      <div class="powered-line">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
+      <div class="powered-line" style="margin-top:12px;">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener">@BASEchainSCAN</a></div>
     </div>
 
+    <!-- FORM -->
     <div class="form-wrap">
       <p class="form-label">Stay updated — quiet signals, early access</p>
-      <form
-        action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
-        method="POST"
-        target="bd_popup"
-        onsubmit="handleSubmit(this)"
-      >
+      <form action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner" method="POST" target="bd_popup" onsubmit="handleSubmit(this)">
         <div class="input-row">
           <input type="email" name="email" id="bd-email" placeholder="your@email.com" autocomplete="email" required />
           <button type="submit" class="btn-primary">Notify me</button>
         </div>
       </form>
       <iframe name="bd_popup" style="display:none;"></iframe>
-      <div class="success-msg" id="success">
-        ✓ You're in — check your email to confirm
-      </div>
+      <div class="success-msg" id="success">✓ You're in — check your email to confirm</div>
     </div>
 
     <button class="btn-beta" disabled>Early Beta — Coming Soon</button>
-
     <p class="socials-label">Find us on</p>
 
     <div class="socials">
-      <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer" class="social-card sc-x">
-        <div class="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.629 5.905-5.629zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="rgba(226,240,255,0.85)"/>
-          </svg>
-        </div>
-        <div class="social-info">
-          <div class="social-name">X / Twitter</div>
-          <div class="social-handle">@BASEchainSCAN</div>
-        </div>
+      <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener" class="social-card sc-x">
+        <div class="social-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.629 5.905-5.629zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="rgba(226,240,255,0.85)"/></svg></div>
+        <div class="social-info"><div class="social-name">X / Twitter</div><div class="social-handle">@BASEchainSCAN</div></div>
         <div class="social-arrow">›</div>
       </a>
-
-      <a href="https://t.me/basechainscan" target="_blank" rel="noopener noreferrer" class="social-card sc-tg">
-        <div class="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.69 7.97c-.12.56-.46.7-.93.43l-2.57-1.89-1.24 1.19c-.14.14-.25.25-.51.25l.18-2.6 4.74-4.28c.21-.18-.04-.28-.31-.1L8.12 14.53l-2.53-.79c-.55-.17-.56-.55.12-.81l9.9-3.82c.45-.17.85.11.63.69z" fill="rgba(36,161,222,0.9)"/>
-          </svg>
-        </div>
-        <div class="social-info">
-          <div class="social-name">Telegram</div>
-          <div class="social-handle">@basechainscan</div>
-        </div>
+      <a href="https://t.me/basechainscan" target="_blank" rel="noopener" class="social-card sc-tg">
+        <div class="social-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.69 7.97c-.12.56-.46.7-.93.43l-2.57-1.89-1.24 1.19c-.14.14-.25.25-.51.25l.18-2.6 4.74-4.28c.21-.18-.04-.28-.31-.1L8.12 14.53l-2.53-.79c-.55-.17-.56-.55.12-.81l9.9-3.82c.45-.17.85.11.63.69z" fill="rgba(36,161,222,0.9)"/></svg></div>
+        <div class="social-info"><div class="social-name">Telegram</div><div class="social-handle">@basechainscan</div></div>
         <div class="social-arrow">›</div>
       </a>
-
-      <a href="https://base.app/app/project-lx0b0.vercel.app" target="_blank" rel="noopener noreferrer" class="social-card sc-base">
-        <div class="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" fill="rgba(0,82,255,0.2)" stroke="rgba(0,82,255,0.6)" stroke-width="1.5"/>
-            <path d="M12 7C9.24 7 7 9.24 7 12s2.24 5 5 5c1.84 0 3.44-.99 4.32-2.47H14.5A2.99 2.99 0 0112 15c-1.66 0-3-1.34-3-3s1.34-3 3-3c.93 0 1.75.43 2.3 1.1l1.5-1.5A4.97 4.97 0 0012 7z" fill="rgba(100,160,255,0.9)"/>
-          </svg>
-        </div>
-        <div class="social-info">
-          <div class="social-name">Base.app</div>
-          <div class="social-handle">basechainscan</div>
-        </div>
+      <a href="https://base.app/app/project-lx0b0.vercel.app" target="_blank" rel="noopener" class="social-card sc-base">
+        <div class="social-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(0,82,255,0.2)" stroke="rgba(0,82,255,0.6)" stroke-width="1.5"/><path d="M12 7C9.24 7 7 9.24 7 12s2.24 5 5 5c1.84 0 3.44-.99 4.32-2.47H14.5A2.99 2.99 0 0112 15c-1.66 0-3-1.34-3-3s1.34-3 3-3c.93 0 1.75.43 2.3 1.1l1.5-1.5A4.97 4.97 0 0012 7z" fill="rgba(100,160,255,0.9)"/></svg></div>
+        <div class="social-info"><div class="social-name">Base.app</div><div class="social-handle">basechainscan</div></div>
         <div class="social-arrow">›</div>
       </a>
-
-      <a href="https://project-lx0b0.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-card sc-web">
-        <div class="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9.5" stroke="rgba(0,210,200,0.7)" stroke-width="1.5"/>
-            <path d="M12 2.5C12 2.5 9 7 9 12s3 9.5 3 9.5M12 2.5C12 2.5 15 7 15 12s-3 9.5-3 9.5M2.5 12h19" stroke="rgba(0,210,200,0.7)" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="social-info">
-          <div class="social-name">Website</div>
-          <div class="social-handle">basechainscan.app</div>
-        </div>
+      <a href="https://project-lx0b0.vercel.app/" target="_blank" rel="noopener" class="social-card sc-web">
+        <div class="social-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="rgba(0,210,200,0.7)" stroke-width="1.5"/><path d="M12 2.5C12 2.5 9 7 9 12s3 9.5 3 9.5M12 2.5C12 2.5 15 7 15 12s-3 9.5-3 9.5M2.5 12h19" stroke="rgba(0,210,200,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="social-info"><div class="social-name">Website</div><div class="social-handle">basechainscan.app</div></div>
         <div class="social-arrow">›</div>
       </a>
     </div>
@@ -1080,583 +288,216 @@
   </div>
 
   <script>
-
-    let latestTop4 = null;
-    
-    function setTop4Feedback(message, isError = false) {
-      const el = document.getElementById('top4-share-feedback');
-      if (!el) return;
-      el.textContent = message || '';
-      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
-    }
-    
     let latestHeatmap = null;
-    
-    
-    function setFeedback(message, isError = false) {
+    let latestTop4 = null;
+
+    function setFeedback(msg, err) {
       const el = document.getElementById('share-feedback');
-      el.textContent = message || '';
-      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
+      if (el) { el.textContent = msg||''; el.style.color = err ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)'; }
+    }
+    function setTop4Feedback(msg, err) {
+      const el = document.getElementById('top4-share-feedback');
+      if (el) { el.textContent = msg||''; el.style.color = err ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)'; }
+    }
+    function formatDateShort(s) {
+      try { return new Date(s).toLocaleDateString([],{month:'numeric',day:'numeric',year:'numeric'}); } catch { return '—'; }
+    }
+    function escapeXml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+    }
+    function colorForSeverity(s) {
+      return {critical:'#ff4444',high:'#ff8800',medium:'#00d2c8',low:'#8d98b3'}[s]||'#5a647d';
+    }
+    function fmtUsd(v) {
+      if (!v||v===0) return '—';
+      if (v>=1000000) return '$'+(v/1000000).toFixed(1)+'M';
+      if (v>=1000) return '$'+Math.round(v/1000)+'K';
+      return '$'+Math.round(v);
+    }
+    function fmtNum(v) { if (!v) return '—'; if (v>=1000) return (v/1000).toFixed(1)+'K'; return String(v); }
+    function fmtAge(h) { if (!h&&h!==0) return '—'; if (h<1) return Math.round(h*60)+'m'; return h.toFixed(1)+'h'; }
+    function sevColor(s) { return {critical:'#ff4444',high:'#ff8800',medium:'#00d2c8',low:'rgba(226,240,255,0.3)'}[s]||'rgba(226,240,255,0.15)'; }
+
+    async function copyText(text, msg) {
+      try { await navigator.clipboard.writeText(text); setFeedback(msg); } catch { setFeedback('Copy failed.',true); }
     }
 
-    function formatDateShort(dateStr) {
+    // HEATMAP
+    async function loadHeatmap() {
       try {
-        const d = new Date(dateStr);
-        return d.toLocaleDateString([], { month: 'numeric', day: 'numeric', year: 'numeric' });
+        const res = await fetch('/data/heatmap.json?t='+Date.now());
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        latestHeatmap = data;
+        document.getElementById('hm-time').textContent = new Date(data.generated_at).toLocaleDateString();
+        const grid = document.getElementById('hm-grid');
+        const maxScore = Math.max(...data.tokens.map(t=>t.score));
+        grid.innerHTML = data.tokens.slice(0,9).map(t => {
+          const pct = Math.round((t.score/maxScore)*100);
+          const sev = t.severity||'none';
+          return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%"><div class="hm-rank">#${t.rank}</div><div class="hm-symbol">${t.symbol}</div><div class="hm-score">${t.score}</div><div class="hm-score-label">score</div></div>`;
+        }).join('');
+        setFeedback('Radar ready.');
       } catch {
-        return '—';
+        document.getElementById('hm-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(255,120,120,0.8);">Could not load radar data.</div>';
+        setFeedback('Radar load failed.',true);
       }
     }
 
-    function buildTop4XPostText(data) {
-      const tokens = (data?.tokens || []).slice(0, 4);
-      const pageUrl = window.location.origin + '/';
-      const lines = [
-        'Low Cap Emerging Tokens',
-        'Under $1M mcap · Social verified',
-        '',
-        ...tokens.map((t, i) => {
-          const handle = t.x_username ? ` @${t.x_username}` : '';
-          return `${i + 1}. ${t.symbol} — ${t.score}${handle}`;
-        }),
-        '',
-        pageUrl,
-        '',
-        'Powered by @BASEchainSCAN'
-      ];
-      return lines.join('\n');
+    // TOP4
+    async function loadTop4() {
+      try {
+        const res = await fetch('/data/top4.json?t='+Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        latestTop4 = data;
+        const el = document.getElementById('top4-time');
+        if (el) el.textContent = new Date(data.generated_at).toLocaleDateString();
+        const grid = document.getElementById('top4-grid');
+        if (!data.tokens||!data.tokens.length) { grid.innerHTML='<div class="top4-empty">No low-cap signals right now</div>'; return; }
+        const maxScore = Math.max(...data.tokens.map(t=>t.score));
+        grid.innerHTML = data.tokens.map(t => {
+          const sev = t.severity||'none';
+          const barPct = Math.round((t.score/maxScore)*100);
+          const barColor = sevColor(sev);
+          const badgeClass = sev==='none' ? 'sev-none' : `sev-${sev}`;
+          return `<div class="tc sev-${sev}" style="--bar-pct:${barPct}%;--bar-color:${barColor};">
+            <div class="tc-header">
+              <div class="tc-left">
+                <div class="tc-brand">BasechainSCAN · Radar</div>
+                <div class="tc-symbol">${t.symbol}</div>
+                ${t.x_username?`<div class="tc-handle">@${t.x_username}</div>`:''}
+              </div>
+              <div class="tc-right">
+                <div class="tc-score-val">${t.score}</div>
+                <div class="tc-badge ${badgeClass}">${sev}</div>
+              </div>
+            </div>
+            <div class="tc-divider"></div>
+            <div class="tc-metrics">
+              <div><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div></div>
+              <div><div class="tc-metric-label">Liquidity</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
+              <div><div class="tc-metric-label">Holders</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
+              <div><div class="tc-metric-label">Signal age</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
+            </div>
+            <div class="tc-actions">
+              <a href="${t.okx_url||'#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
+              ${t.x_url?`<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">𝕏</a>`:''}
+              <a href="${t.dexscreener_url||'#'}" target="_blank" class="tc-btn btn-dex">DEX</a>
+            </div>
+          </div>`;
+        }).join('');
+      } catch(e) {}
     }
-    
+
+    // SHARE BUTTONS HEATMAP
     function buildXPostText(data) {
-      const top = (data?.tokens || []).slice(0, 5);
-      const heatmapUrl = window.location.origin + '/heatmap';
-
-      const lines = [
-        'Emerging Radar · 24h',
-        '',
-        ...top.map((t, i) => `${i + 1}. ${t.symbol} — ${t.score}`),
-        '',
-        heatmapUrl,
-        '',
-        'Powered by @BASEchainSCAN'
-      ];
-
-      return lines.join('\n');
+      const top = (data?.tokens||[]).slice(0,5);
+      return ['Emerging Radar · 24h','', ...top.map((t,i)=>`${i+1}. ${t.symbol} — ${t.score}`),'', window.location.origin+'/heatmap','','Powered by @BASEchainSCAN'].join('\n');
     }
-
-    function buildTop4ShareCardSvg(data) {
-      const tokens = (data?.tokens || []).slice(0, 4);
-      const generatedAt = formatDateShort(data?.generated_at || '');
-      const width = 1200;
-      const height = 1080;
-    
-      const positions = [
-        { x: 60, y: 180 },
-        { x: 610, y: 180 },
-        { x: 60, y: 560 },
-        { x: 610, y: 560 }
-      ];
-    
-      const cardW = 530;
-      const cardH = 300;
-    
-      const cards = tokens.map((t, i) => {
-        const pos = positions[i];
-        const color = colorForSeverity(t.severity || 'none');
-        const symbol = escapeXml(t.symbol || '—');
-        const score = escapeXml(t.score || '—');
-        const handle = t.x_username ? '@' + escapeXml(t.x_username) : 'No X handle';
-        const mcap = escapeXml(fmtUsd(t.mcap_usd));
-        const lp = escapeXml(fmtUsd(t.lp_total_usd));
-        const holders = escapeXml(fmtNum(t.holder_count));
-        const age = escapeXml(fmtAge(t.signal_age_hours));
-    
-        return `
-        <g transform="translate(${pos.x},${pos.y})">
-          <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
-          <rect x="0" y="${cardH - 8}" width="${Math.max(90, Math.min(500, Number(t.score || 0) * 5))}" height="8" rx="4" fill="${color}" />
-        
-          <text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial, sans-serif">BASEchainSCAN · Low Cap Radar</text>
-        
-          <text x="28" y="92" fill="#ffffff" font-size="48" font-weight="800" font-family="Arial, sans-serif">${symbol}</text>
-          <text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial, sans-serif">${handle}</text>
-        
-          <text x="${cardW - 28}" y="92" fill="#ffffff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial, sans-serif">${score}</text>
-          <text x="${cardW - 28}" y="118" fill="${color}" font-size="16" font-weight="700" text-anchor="end" font-family="Arial, sans-serif">${escapeXml(t.severity || 'signal')}</text>
-        
-          <line x1="28" y1="142" x2="${cardW - 28}" y2="142" stroke="rgba(255,255,255,0.08)" />
-        
-          <text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">MCAP</text>
-          <text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${mcap}</text>
-        
-          <text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">LIQUIDITY</text>
-          <text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${lp}</text>
-        
-          <text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">HOLDERS</text>
-          <text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${holders}</text>
-        
-          <text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">SIGNAL AGE</text>
-          <text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial, sans-serif">${age}</text>
-        </g>
-        `;
-      }).join('');
-    
-      return `
-        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-          <defs>
-            <linearGradient id="bgGradTop4" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0a1020"/>
-              <stop offset="100%" stop-color="#070c18"/>
-            </linearGradient>
-            <radialGradient id="glowTop4" cx="50%" cy="0%" r="70%">
-              <stop offset="0%" stop-color="rgba(0,184,255,0.18)"/>
-              <stop offset="100%" stop-color="rgba(0,184,255,0)"/>
-            </radialGradient>
-          </defs>
-    
-          <rect width="${width}" height="${height}" fill="url(#bgGradTop4)" />
-          <rect width="${width}" height="${height}" fill="url(#glowTop4)" />
-    
-          <circle cx="70" cy="78" r="8" fill="#00d2c8" />
-          <text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial, sans-serif">Low Cap Emerging Tokens</text>
-          <text x="95" y="126" fill="rgba(226,240,255,0.48)" font-size="22" font-family="Arial, sans-serif">Under $1M mcap · Social verified</text>
-          <text x="1030" y="88" fill="rgba(226,240,255,0.34)" font-size="22" text-anchor="end" font-family="Arial, sans-serif">${generatedAt}</text>
-    
-          ${cards}
-    
-          <text x="60" y="1030" fill="rgba(226,240,255,0.20)" font-size="22" font-family="Arial, sans-serif">Powered by</text>
-          <text x="182" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial, sans-serif">@BASEchainSCAN</text>
-        </svg>
-      `;
-    }
-    function bindTop4ShareButtons() {
-      const xBtn = document.getElementById('top4-x-post-btn');
-      const copyBtn = document.getElementById('top4-copy-post-btn');
-      const shareBtn = document.getElementById('top4-share-link-btn');
-      const copyImageBtn = document.getElementById('top4-copy-image-btn');
-    
-      xBtn.addEventListener('click', () => {
-        if (!latestTop4) {
-          setTop4Feedback('Top 4 not loaded yet.', true);
-          return;
-        }
-        const text = buildTop4XPostText(latestTop4);
-        const intent = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
-        window.open(intent, '_blank', 'noopener,noreferrer');
-        setTop4Feedback('X post prepared.');
-      });
-    
-      copyBtn.addEventListener('click', async () => {
-        if (!latestTop4) {
-          setTop4Feedback('Top 4 not loaded yet.', true);
-          return;
-        }
-        await copyText(buildTop4XPostText(latestTop4), 'X post copied to clipboard.');
-        setTop4Feedback('X post copied to clipboard.');
-      });
-    
-      shareBtn.addEventListener('click', async () => {
-        const url = window.location.origin + '/';
-        await copyText(url, 'Page link copied.');
-        setTop4Feedback('Page link copied.');
-      });
-    
-      copyImageBtn.addEventListener('click', async () => {
-        await copyImageFromTop4(latestTop4);
-      });
-    }
-
-    async function copyImageFromTop4(data) {
-      if (!data || !data.tokens || !data.tokens.length) {
-        setTop4Feedback('Top 4 not loaded yet.', true);
-        return;
-      }
-    
-      try {
-        const svg = buildTop4ShareCardSvg(data);
-        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-        const svgUrl = URL.createObjectURL(svgBlob);
-    
-        const img = await new Promise((resolve, reject) => {
-          const image = new Image();
-          image.onload = () => resolve(image);
-          image.onerror = reject;
-          image.src = svgUrl;
-        });
-    
-        const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 1080;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-    
-        URL.revokeObjectURL(svgUrl);
-    
-        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        if (!pngBlob) throw new Error('PNG export failed');
-    
-        if (navigator.clipboard && window.ClipboardItem) {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': pngBlob })
-          ]);
-          setTop4Feedback('Image copied to clipboard.');
-          return;
-        }
-    
-        const dlUrl = URL.createObjectURL(pngBlob);
-        const a = document.createElement('a');
-        a.href = dlUrl;
-        a.download = 'basechainscan-low-cap-top4.png';
-        a.click();
-        URL.revokeObjectURL(dlUrl);
-        setTop4Feedback('Clipboard image not supported, PNG downloaded instead.');
-      } catch (err) {
-        setTop4Feedback('Image export failed. Try again.', true);
-      }
-    }
-
-    
-    async function copyText(text, successMessage) {
-      try {
-        await navigator.clipboard.writeText(text);
-        setFeedback(successMessage);
-      } catch (err) {
-        setFeedback('Copy failed. Try again.', true);
-      }
-    }
-
-    async function shareLink() {
-      const url = window.location.origin + '/heatmap';
-
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'BASEchainSCAN · Emerging Heatmap',
-            text: 'Emerging Radar · 24h — Powered by @BASEchainSCAN',
-            url
-          });
-          setFeedback('Share dialog opened.');
-          return;
-        } catch (err) {
-        }
-      }
-
-      await copyText(url, 'Heatmap link copied.');
-    }
-
-    function escapeXml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
-    }
-
-    function colorForSeverity(sev) {
-      if (sev === 'critical') return '#ff4444';
-      if (sev === 'high') return '#ff8800';
-      if (sev === 'medium') return '#00d2c8';
-      if (sev === 'low') return '#8d98b3';
-      return '#5a647d';
+    function buildTop4XPostText(data) {
+      const tokens = (data?.tokens||[]).slice(0,4);
+      return ['Low Cap Emerging Tokens','Under $1M mcap · Social verified','', ...tokens.map((t,i)=>`${i+1}. ${t.symbol} — ${t.score}${t.x_username?' @'+t.x_username:''}`),'', window.location.origin,'','Powered by @BASEchainSCAN'].join('\n');
     }
 
     function buildShareCardSvg(data) {
-      const tokens = (data?.tokens || []).slice(0, 9);
-      const generatedAt = formatDateShort(data?.generated_at || '');
-      const width = 1200;
-      const height = 780;
-
-      const positions = [
-        { x: 60, y: 150 }, { x: 400, y: 150 }, { x: 740, y: 150 },
-        { x: 60, y: 330 }, { x: 400, y: 330 }, { x: 740, y: 330 },
-        { x: 60, y: 510 }, { x: 400, y: 510 }, { x: 740, y: 510 }
-      ];
-
-      const cardW = 300;
-      const cardH = 150;
-
-      const cards = tokens.map((t, i) => {
-        const pos = positions[i];
-        const sev = t.severity || 'none';
-        const color = colorForSeverity(sev);
-        const score = escapeXml(t.score);
-        const symbol = escapeXml(t.symbol);
-
-        return `
-          <g transform="translate(${pos.x},${pos.y})">
-            <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
-            <rect x="0" y="${cardH - 6}" width="${Math.max(60, Math.min(280, Number(t.score) * 4))}" height="6" rx="3" fill="${color}" />
-            <text x="22" y="28" fill="rgba(226,240,255,0.28)" font-size="18" font-family="Arial, sans-serif">#${escapeXml(t.rank)}</text>
-            <text x="22" y="70" fill="#ffffff" font-size="40" font-weight="700" font-family="Arial, sans-serif">${symbol}</text>
-            <text x="22" y="112" fill="${color}" font-size="46" font-weight="700" font-family="Arial, sans-serif">${score}</text>
-            <text x="22" y="132" fill="rgba(226,240,255,0.32)" font-size="18" font-family="Arial, sans-serif">score</text>
-          </g>
-        `;
+      const tokens = (data?.tokens||[]).slice(0,9);
+      const generatedAt = formatDateShort(data?.generated_at||'');
+      const w=1200,h=780;
+      const positions=[{x:60,y:150},{x:400,y:150},{x:740,y:150},{x:60,y:330},{x:400,y:330},{x:740,y:330},{x:60,y:510},{x:400,y:510},{x:740,y:510}];
+      const cardW=300,cardH=150;
+      const cards = tokens.map((t,i)=>{
+        const pos=positions[i]; const color=colorForSeverity(t.severity||'none');
+        const score=escapeXml(t.score); const symbol=escapeXml(t.symbol);
+        return `<g transform="translate(${pos.x},${pos.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-6}" width="${Math.max(60,Math.min(280,Number(t.score)*4))}" height="6" rx="3" fill="${color}"/><text x="22" y="28" fill="rgba(226,240,255,0.28)" font-size="18" font-family="Arial">#${escapeXml(t.rank)}</text><text x="22" y="70" fill="#fff" font-size="40" font-weight="700" font-family="Arial">${symbol}</text><text x="22" y="112" fill="${color}" font-size="46" font-weight="700" font-family="Arial">${score}</text><text x="22" y="132" fill="rgba(226,240,255,0.32)" font-size="18" font-family="Arial">score</text></g>`;
       }).join('');
-
-      return `
-        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-          <defs>
-            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0a1020"/>
-              <stop offset="100%" stop-color="#070c18"/>
-            </linearGradient>
-            <radialGradient id="glow" cx="50%" cy="0%" r="70%">
-              <stop offset="0%" stop-color="rgba(0,184,255,0.18)"/>
-              <stop offset="100%" stop-color="rgba(0,184,255,0)"/>
-            </radialGradient>
-          </defs>
-
-          <rect width="${width}" height="${height}" fill="url(#bgGrad)" />
-          <rect width="${width}" height="${height}" fill="url(#glow)" />
-
-          <circle cx="70" cy="70" r="7" fill="#00d2c8" />
-          <text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial, sans-serif">Emerging Radar · 24h</text>
-          <text x="1030" y="78" fill="rgba(226,240,255,0.34)" font-size="22" font-family="Arial, sans-serif">${generatedAt}</text>
-
-          ${cards}
-
-          <text x="60" y="725" fill="rgba(226,240,255,0.20)" font-size="20" font-family="Arial, sans-serif">Share-ready radar by</text>
-          <text x="240" y="725" fill="#00d2c8" font-size="20" font-weight="700" font-family="Arial, sans-serif">@BASEchainSCAN</text>
-        </svg>
-      `;
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient><radialGradient id="glow" cx="50%" cy="0%" r="70%"><stop offset="0%" stop-color="rgba(0,184,255,0.18)"/><stop offset="100%" stop-color="rgba(0,184,255,0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#bgGrad)"/><rect width="${w}" height="${h}" fill="url(#glow)"/><circle cx="70" cy="70" r="7" fill="#00d2c8"/><text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial">Emerging Radar · 24h</text><text x="1030" y="78" fill="rgba(226,240,255,0.34)" font-size="22" font-family="Arial">${generatedAt}</text>${cards}<text x="60" y="725" fill="rgba(226,240,255,0.20)" font-size="20" font-family="Arial">Share-ready radar by</text><text x="240" y="725" fill="#00d2c8" font-size="20" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>`;
     }
 
-    async function copyImageFromHeatmap(data) {
-      if (!data || !data.tokens || !data.tokens.length) {
-        setFeedback('Heatmap not loaded yet.', true);
-        return;
-      }
+    function buildTop4ShareCardSvg(data) {
+      const tokens=(data?.tokens||[]).slice(0,4);
+      const generatedAt=formatDateShort(data?.generated_at||'');
+      const w=1200,h=1080;
+      const positions=[{x:60,y:180},{x:610,y:180},{x:60,y:560},{x:610,y:560}];
+      const cardW=530,cardH=300;
+      const cards=tokens.map((t,i)=>{
+        const pos=positions[i]; const color=colorForSeverity(t.severity||'none');
+        const symbol=escapeXml(t.symbol||'—'); const score=escapeXml(t.score||'—');
+        const handle=t.x_username?'@'+escapeXml(t.x_username):'';
+        const mcap=escapeXml(fmtUsd(t.mcap_usd)); const lp=escapeXml(fmtUsd(t.lp_total_usd));
+        const holders=escapeXml(fmtNum(t.holder_count)); const age=escapeXml(fmtAge(t.signal_age_hours));
+        return `<g transform="translate(${pos.x},${pos.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-8}" width="${Math.max(90,Math.min(500,Number(t.score||0)*5))}" height="8" rx="4" fill="${color}"/><text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial">BASEchainSCAN · Low Cap Radar</text><text x="28" y="92" fill="#fff" font-size="48" font-weight="800" font-family="Arial">${symbol}</text><text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial">${handle}</text><text x="${cardW-28}" y="92" fill="#fff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial">${score}</text><text x="${cardW-28}" y="118" fill="${color}" font-size="16" font-weight="700" text-anchor="end" font-family="Arial">${escapeXml(t.severity||'signal')}</text><line x1="28" y1="142" x2="${cardW-28}" y2="142" stroke="rgba(255,255,255,0.08)"/><text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">MCAP</text><text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${mcap}</text><text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">LIQUIDITY</text><text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${lp}</text><text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">HOLDERS</text><text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${holders}</text><text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">SIGNAL AGE</text><text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial">${age}</text></g>`;
+      }).join('');
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bgGradTop4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient><radialGradient id="glowTop4" cx="50%" cy="0%" r="70%"><stop offset="0%" stop-color="rgba(0,184,255,0.18)"/><stop offset="100%" stop-color="rgba(0,184,255,0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#bgGradTop4)"/><rect width="${w}" height="${h}" fill="url(#glowTop4)"/><circle cx="70" cy="78" r="8" fill="#00d2c8"/><text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial">Low Cap Emerging Tokens</text><text x="95" y="126" fill="rgba(226,240,255,0.48)" font-size="22" font-family="Arial">Under $1M mcap · Social verified</text><text x="1030" y="88" fill="rgba(226,240,255,0.34)" font-size="22" text-anchor="end" font-family="Arial">${generatedAt}</text>${cards}<text x="60" y="1030" fill="rgba(226,240,255,0.20)" font-size="22" font-family="Arial">Powered by</text><text x="182" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>`;
+    }
 
+    async function exportAndDownload(svg, filename, w, h, setFb) {
       try {
-        const svg = buildShareCardSvg(data);
-        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-        const svgUrl = URL.createObjectURL(svgBlob);
-
-        const img = await new Promise((resolve, reject) => {
-          const image = new Image();
-          image.onload = () => resolve(image);
-          image.onerror = reject;
-          image.src = svgUrl;
-        });
-
+        const blob = new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const img = await new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=url; });
         const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 780;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-
-        URL.revokeObjectURL(svgUrl);
-
-        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        if (!pngBlob) throw new Error('PNG export failed');
-
-        if (navigator.clipboard && window.ClipboardItem) {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': pngBlob })
-          ]);
-          setFeedback('Image copied to clipboard.');
-          return;
+        canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0);
+        URL.revokeObjectURL(url);
+        const pngBlob = await new Promise(res=>canvas.toBlob(res,'image/png'));
+        if (!pngBlob) throw new Error();
+        if (navigator.clipboard&&window.ClipboardItem) {
+          await navigator.clipboard.write([new ClipboardItem({'image/png':pngBlob})]);
+          setFb('Image copied to clipboard.');
+        } else {
+          const a=document.createElement('a'); a.href=URL.createObjectURL(pngBlob); a.download=filename; a.click();
+          setFb('PNG downloaded.');
         }
-
-        const dlUrl = URL.createObjectURL(pngBlob);
-        const a = document.createElement('a');
-        a.href = dlUrl;
-        a.download = 'basechainscan-emerging-radar.png';
-        a.click();
-        URL.revokeObjectURL(dlUrl);
-        setFeedback('Clipboard image not supported, PNG downloaded instead.');
-      } catch (err) {
-        setFeedback('Image export failed. Try again.', true);
-      }
+      } catch { setFb('Image export failed.',true); }
     }
 
-    function bindShareButtons() {
-      const xBtn = document.getElementById('x-post-btn');
-      const copyBtn = document.getElementById('copy-post-btn');
-      const shareBtn = document.getElementById('share-link-btn');
-      const copyImageBtn = document.getElementById('copy-image-btn');
-
-      xBtn.addEventListener('click', () => {
-        if (!latestHeatmap) {
-          setFeedback('Heatmap not loaded yet.', true);
-          return;
-        }
-        const text = buildXPostText(latestHeatmap);
-        const intent = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
-        window.open(intent, '_blank', 'noopener,noreferrer');
-        setFeedback('X post prepared.');
-      });
-
-      copyBtn.addEventListener('click', async () => {
-        if (!latestHeatmap) {
-          setFeedback('Heatmap not loaded yet.', true);
-          return;
-        }
-        await copyText(buildXPostText(latestHeatmap), 'X post copied to clipboard.');
-      });
-
-      shareBtn.addEventListener('click', async () => {
-        await shareLink();
-      });
-
-      copyImageBtn.addEventListener('click', async () => {
-        await copyImageFromHeatmap(latestHeatmap);
-      });
-    }
-
-    async function loadHeatmap() {
-      try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now());
-        if (!res.ok) throw new Error('fetch failed');
-
-        const data = await res.json();
-        latestHeatmap = data;
-
-        const generatedAt = new Date(data.generated_at);
-        document.getElementById('hm-time').textContent =
-          generatedAt.toLocaleDateString();
-
-        const grid = document.getElementById('hm-grid');
-        const maxScore = Math.max(...data.tokens.map(t => t.score));
-        grid.innerHTML = data.tokens.slice(0, 9).map(t => {
-          const pct = Math.round((t.score / maxScore) * 100);
-          const sev = t.severity || 'none';
-          return `
-            <div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
-              <div class="hm-rank">#${t.rank}</div>
-              <div class="hm-symbol">${t.symbol}</div>
-              <div class="hm-score">${t.score}</div>
-              <div class="hm-score-label">score</div>
-            </div>
-          `;
-        }).join('');
-
-        setFeedback('Radar ready.');
-      } catch (e) {
-        document.getElementById('hm-grid').innerHTML = `
-          <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(255,120,120,0.8);">
-            Could not load radar data.
-          </div>
-        `;
-        setFeedback('Radar load failed.', true);
-      }
-    }
+    document.getElementById('x-post-btn').addEventListener('click',()=>{
+      if (!latestHeatmap) { setFeedback('Not loaded yet.',true); return; }
+      window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(buildXPostText(latestHeatmap)),'_blank','noopener');
+      setFeedback('X post prepared.');
+    });
+    document.getElementById('copy-post-btn').addEventListener('click',async()=>{
+      if (!latestHeatmap) { setFeedback('Not loaded yet.',true); return; }
+      await navigator.clipboard.writeText(buildXPostText(latestHeatmap));
+      setFeedback('Copied!');
+    });
+    document.getElementById('share-link-btn').addEventListener('click',async()=>{
+      const url=window.location.origin+'/heatmap';
+      if (navigator.share) { try { await navigator.share({title:'BASEchainSCAN · Heatmap',url}); return; } catch {} }
+      await navigator.clipboard.writeText(url); setFeedback('Link copied.');
+    });
+    document.getElementById('copy-image-btn').addEventListener('click',async()=>{
+      if (!latestHeatmap) { setFeedback('Not loaded yet.',true); return; }
+      await exportAndDownload(buildShareCardSvg(latestHeatmap),'basechainscan-radar.png',1200,780,setFeedback);
+    });
+    document.getElementById('top4-x-post-btn').addEventListener('click',()=>{
+      if (!latestTop4) { setTop4Feedback('Not loaded yet.',true); return; }
+      window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(buildTop4XPostText(latestTop4)),'_blank','noopener');
+      setTop4Feedback('X post prepared.');
+    });
+    document.getElementById('top4-copy-post-btn').addEventListener('click',async()=>{
+      if (!latestTop4) { setTop4Feedback('Not loaded yet.',true); return; }
+      await navigator.clipboard.writeText(buildTop4XPostText(latestTop4));
+      setTop4Feedback('Copied!');
+    });
+    document.getElementById('top4-share-link-btn').addEventListener('click',async()=>{
+      await navigator.clipboard.writeText(window.location.origin); setTop4Feedback('Link copied.');
+    });
+    document.getElementById('top4-copy-image-btn').addEventListener('click',async()=>{
+      if (!latestTop4) { setTop4Feedback('Not loaded yet.',true); return; }
+      await exportAndDownload(buildTop4ShareCardSvg(latestTop4),'basechainscan-lowcap.png',1200,1080,setTop4Feedback);
+    });
 
     function handleSubmit(form) {
-      const email = form.email.value.trim();
+      const email=form.email.value.trim();
       if (!email) return false;
-
-      setTimeout(() => {
-        form.email.value = '';
-        const s = document.getElementById('success');
-        s.style.display = 'flex';
-        setTimeout(() => { s.style.display = 'none'; }, 5000);
-      }, 500);
-
+      setTimeout(()=>{ form.email.value=''; const s=document.getElementById('success'); s.style.display='flex'; setTimeout(()=>{s.style.display='none';},5000); },500);
       return true;
     }
 
-    <script id="top4-premium-js">
-    function fmtUsd(v) {
-      if (!v || v === 0) return '—';
-      if (v >= 1000000) return '$' + (v/1000000).toFixed(1) + 'M';
-      if (v >= 1000) return '$' + Math.round(v/1000) + 'K';
-      return '$' + Math.round(v);
-    }
-    function fmtNum(v) {
-      if (!v) return '—';
-      if (v >= 1000) return (v/1000).toFixed(1) + 'K';
-      return String(v);
-    }
-    function fmtAge(h) {
-      if (!h && h !== 0) return '—';
-      if (h < 1) return Math.round(h * 60) + 'm';
-      return h.toFixed(1) + 'h';
-    }
-    function sevColor(s) {
-      const m = { critical:'#ff4444', high:'#ff8800', medium:'#00d2c8', low:'rgba(226,240,255,0.3)' };
-      return m[s] || 'rgba(226,240,255,0.15)';
-    }
-     
-    async function loadTop4() {
-      try {
-        const res = await fetch('/data/top4.json?t=' + Date.now());
-        if (!res.ok) return;
-        const data = await res.json();
-     
-        const el = document.getElementById('top4-time');
-        if (el) el.textContent = new Date(data.generated_at).toLocaleDateString();
-     
-        const grid = document.getElementById('top4-grid');
-        if (!data.tokens || !data.tokens.length) {
-          grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
-          return;
-        }
-     
-        const maxScore = Math.max(...data.tokens.map(t => t.score));
-     
-        grid.innerHTML = data.tokens.map(t => {
-          const sev = t.severity || 'none';
-          const barPct = Math.round((t.score / maxScore) * 100);
-          const barColor = sevColor(sev);
-          const badgeClass = sev === 'none' ? 'sev-none' : `sev-${sev}`;
-     
-          return `
-            <div class="tc sev-${sev}"
-                 style="--bar-pct:${barPct}%; --bar-color:${barColor};">
-              <div class="tc-header">
-                <div class="tc-left">
-                  <div class="tc-brand">BasechainSCAN · Radar</div>
-                  <div class="tc-symbol">${t.symbol}</div>
-                  ${t.x_username ? `<div class="tc-handle">@${t.x_username}</div>` : ''}
-                </div>
-                <div class="tc-right">
-                  <div class="tc-score-val">${t.score}</div>
-                  <div class="tc-badge ${badgeClass}">${sev}</div>
-                </div>
-              </div>
-              <div class="tc-divider"></div>
-              <div class="tc-metrics">
-                <div>
-                  <div class="tc-metric-label">MCAP</div>
-                  <div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div>
-                </div>
-                <div>
-                  <div class="tc-metric-label">Liquidity</div>
-                  <div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div>
-                </div>
-                <div>
-                  <div class="tc-metric-label">Holders</div>
-                  <div class="tc-metric-val">${fmtNum(t.holder_count)}</div>
-                </div>
-                <div>
-                  <div class="tc-metric-label">Signal age</div>
-                  <div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div>
-                </div>
-              </div>
-              <div class="tc-actions">
-                <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
-                ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">𝕏</a>` : ''}
-                <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEX</a>
-              </div>
-            </div>
-          `;
-        }).join('');
-     
-        /* Animate bar widths after DOM insert */
-        requestAnimationFrame(() => {
-          grid.querySelectorAll('.tc').forEach(card => {
-            card.style.setProperty('--bar-pct', card.style.getPropertyValue('--bar-pct'));
-          });
-        });
-     
-      } catch(e) {}
-    }
-     
+    loadHeatmap();
     loadTop4();
-    </script>    
   </script>
 </body>
 </html>
