@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-04-11T19:06:46Z",
+  "token_count": 4,
+  "tokens": [
+    {
+      "rank": 1,
+      "symbol": "MAN",
+      "token_address": "0x8278d6d8197a0911a463bfd3c03fb569173a8b07",
+      "score": 41.7,
+      "severity": "low",
+      "mcap_usd": 199549.0,
+      "lp_total_usd": 112435.02,
+      "holder_count": 216,
+      "top10_pct": 57.43,
+      "x_username": "clanker_world",
+      "x_url": "https://x.com/clanker_world",
+      "signal_age_hours": 5.5,
+      "dexscreener_url": "https://dexscreener.com/base/0x8278d6d8197a0911a463bfd3c03fb569173a8b07",
+      "okx_url": "https://web3.okx.com/token/base/0x8278d6d8197a0911a463bfd3c03fb569173a8b07?ref=OKX10c"
+    },
+    {
+      "rank": 2,
+      "symbol": "DOTA",
+      "token_address": "0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07",
+      "score": 41.0,
+      "severity": "none",
+      "mcap_usd": 293254.0,
+      "lp_total_usd": 174248.96,
+      "holder_count": 1620,
+      "top10_pct": 46.53,
+      "x_username": "DotA_Agents",
+      "x_url": "https://x.com/DotA_Agents",
+      "signal_age_hours": 0.78,
+      "dexscreener_url": "https://dexscreener.com/base/0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07",
+      "okx_url": "https://web3.okx.com/token/base/0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07?ref=OKX10c"
+    },
+    {
+      "rank": 3,
+      "symbol": "AGENTCRAFT",
+      "token_address": "0x506059317f8db90880a60a6968153ad2424ac38f",
+      "score": 40.9,
+      "severity": "low",
+      "mcap_usd": 147758.0,
+      "lp_total_usd": 74501.49,
+      "holder_count": 169,
+      "top10_pct": 55.02,
+      "x_username": "AgentCraftBase",
+      "x_url": "https://x.com/AgentCraftBase",
+      "signal_age_hours": 3.22,
+      "dexscreener_url": "https://dexscreener.com/base/0x506059317f8db90880a60a6968153ad2424ac38f",
+      "okx_url": "https://web3.okx.com/token/base/0x506059317f8db90880a60a6968153ad2424ac38f?ref=OKX10c"
+    },
+    {
+      "rank": 4,
+      "symbol": "RUSH",
+      "token_address": "0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b",
+      "score": 39.0,
+      "severity": "none",
+      "mcap_usd": 161298.0,
+      "lp_total_usd": 75421.51,
+      "holder_count": 1033,
+      "top10_pct": 39.16,
+      "x_username": "rushgamewin",
+      "x_url": "https://x.com/rushgamewin",
+      "signal_age_hours": 0.68,
+      "dexscreener_url": "https://dexscreener.com/base/0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b",
+      "okx_url": "https://web3.okx.com/token/base/0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b?ref=OKX10c"
+    }
+  ]
+}
