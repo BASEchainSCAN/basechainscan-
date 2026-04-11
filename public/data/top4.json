@@ -1,25 +1,9 @@
 {
-  "generated_at": "2026-04-11T20:47:35Z",
+  "generated_at": "2026-04-11T21:45:26Z",
   "token_count": 4,
   "tokens": [
     {
       "rank": 1,
-      "symbol": "MAN",
-      "token_address": "0x8278d6d8197a0911a463bfd3c03fb569173a8b07",
-      "score": 41.7,
-      "severity": "low",
-      "mcap_usd": 199549.0,
-      "lp_total_usd": 112435.02,
-      "holder_count": 216,
-      "top10_pct": 57.43,
-      "x_username": "clanker_world",
-      "x_url": "https://x.com/clanker_world",
-      "signal_age_hours": 7.18,
-      "dexscreener_url": "https://dexscreener.com/base/0x8278d6d8197a0911a463bfd3c03fb569173a8b07",
-      "okx_url": "https://web3.okx.com/token/base/0x8278d6d8197a0911a463bfd3c03fb569173a8b07?ref=OKX10c"
-    },
-    {
-      "rank": 2,
       "symbol": "DOTA",
       "token_address": "0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07",
       "score": 41.0,
@@ -30,12 +14,12 @@
       "top10_pct": 46.53,
       "x_username": "DotA_Agents",
       "x_url": "https://x.com/DotA_Agents",
-      "signal_age_hours": 2.46,
+      "signal_age_hours": 3.42,
       "dexscreener_url": "https://dexscreener.com/base/0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07",
       "okx_url": "https://web3.okx.com/token/base/0x5f09821cbb61e09d2a83124ae0b56aaa3ae85b07?ref=OKX10c"
     },
     {
-      "rank": 3,
+      "rank": 2,
       "symbol": "AGENTCRAFT",
       "token_address": "0x506059317f8db90880a60a6968153ad2424ac38f",
       "score": 40.9,
@@ -46,12 +30,12 @@
       "top10_pct": 55.45,
       "x_username": "AgentCraftBase",
       "x_url": "https://x.com/AgentCraftBase",
-      "signal_age_hours": 0.36,
+      "signal_age_hours": 1.33,
       "dexscreener_url": "https://dexscreener.com/base/0x506059317f8db90880a60a6968153ad2424ac38f",
       "okx_url": "https://web3.okx.com/token/base/0x506059317f8db90880a60a6968153ad2424ac38f?ref=OKX10c"
     },
     {
-      "rank": 4,
+      "rank": 3,
       "symbol": "RUSH",
       "token_address": "0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b",
       "score": 39.0,
@@ -62,9 +46,25 @@
       "top10_pct": 39.02,
       "x_username": "rushgamewin",
       "x_url": "https://x.com/rushgamewin",
-      "signal_age_hours": 2.36,
+      "signal_age_hours": 3.32,
       "dexscreener_url": "https://dexscreener.com/base/0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b",
       "okx_url": "https://web3.okx.com/token/base/0xb36a127dba73f3aa7c70b4e00b7395b86a60e73b?ref=OKX10c"
+    },
+    {
+      "rank": 4,
+      "symbol": "POLYCLAUDE",
+      "token_address": "0x8075825a3f5abe12559303909d0f3c12bb1c89ac",
+      "score": 32.0,
+      "severity": "none",
+      "mcap_usd": 27806.0,
+      "lp_total_usd": 24646.91,
+      "holder_count": 195,
+      "top10_pct": 71.44,
+      "x_username": "polyclaudeagent",
+      "x_url": "https://x.com/polyclaudeagent",
+      "signal_age_hours": 2.66,
+      "dexscreener_url": "https://dexscreener.com/base/0x8075825a3f5abe12559303909d0f3c12bb1c89ac",
+      "okx_url": "https://web3.okx.com/token/base/0x8075825a3f5abe12559303909d0f3c12bb1c89ac?ref=OKX10c"
     }
   ]
 }
