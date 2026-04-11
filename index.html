@@ -950,31 +950,32 @@
         const age = escapeXml(fmtAge(t.signal_age_hours));
     
         return `
-          <g transform="translate(${pos.x},${pos.y})">
-            <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
-            <rect x="0" y="${cardH - 8}" width="${Math.max(90, Math.min(500, Number(t.score || 0) * 5))}" height="8" rx="4" fill="${color}" />
-    
-            <text x="28" y="42" fill="#00d2c8" font-size="18" font-weight="700" font-family="Arial, sans-serif">BASEchainSCAN · Low Cap Radar</text>
-            <text x="28" y="96" fill="#ffffff" font-size="56" font-weight="800" font-family="Arial, sans-serif">${symbol}</text>
-            <text x="28" y="128" fill="rgba(226,240,255,0.52)" font-size="24" font-family="Arial, sans-serif">${handle}</text>
-    
-            <text x="410" y="100" fill="#ffffff" font-size="72" font-weight="800" text-anchor="end" font-family="Arial, sans-serif">${score}</text>
-            <text x="410" y="128" fill="${color}" font-size="18" font-weight="700" text-anchor="end" font-family="Arial, sans-serif">${escapeXml(t.severity || 'signal')}</text>
-    
-            <line x1="28" y1="155" x2="502" y2="155" stroke="rgba(255,255,255,0.08)" />
-    
-            <text x="28" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">MCAP</text>
-            <text x="28" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${mcap}</text>
-    
-            <text x="170" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">LIQUIDITY</text>
-            <text x="170" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${lp}</text>
-    
-            <text x="348" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">HOLDERS</text>
-            <text x="348" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${holders}</text>
-    
-            <text x="28" y="268" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">SIGNAL AGE</text>
-            <text x="28" y="294" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${age}</text>
-          </g>
+        <g transform="translate(${pos.x},${pos.y})">
+          <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
+          <rect x="0" y="${cardH - 8}" width="${Math.max(90, Math.min(500, Number(t.score || 0) * 5))}" height="8" rx="4" fill="${color}" />
+        
+          <text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial, sans-serif">BASEchainSCAN · Low Cap Radar</text>
+        
+          <text x="28" y="92" fill="#ffffff" font-size="48" font-weight="800" font-family="Arial, sans-serif">${symbol}</text>
+          <text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial, sans-serif">${handle}</text>
+        
+          <text x="${cardW - 28}" y="92" fill="#ffffff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial, sans-serif">${score}</text>
+          <text x="${cardW - 28}" y="118" fill="${color}" font-size="16" font-weight="700" text-anchor="end" font-family="Arial, sans-serif">${escapeXml(t.severity || 'signal')}</text>
+        
+          <line x1="28" y1="142" x2="${cardW - 28}" y2="142" stroke="rgba(255,255,255,0.08)" />
+        
+          <text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">MCAP</text>
+          <text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${mcap}</text>
+        
+          <text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">LIQUIDITY</text>
+          <text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${lp}</text>
+        
+          <text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">HOLDERS</text>
+          <text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${holders}</text>
+        
+          <text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial, sans-serif">SIGNAL AGE</text>
+          <text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial, sans-serif">${age}</text>
+        </g>
         `;
       }).join('');
     
