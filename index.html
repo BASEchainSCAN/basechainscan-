@@ -729,6 +729,15 @@
       <div class="top4-grid" id="top4-grid">
         <div class="top4-empty">Loading...</div>
       </div>
+      <div class="heatmap-tools top4-tools">
+        <button class="tool-btn primary" id="top4-x-post-btn" type="button">Post on X</button>
+        <button class="tool-btn ghost" id="top4-copy-post-btn" type="button">Copy X Post</button>
+        <button class="tool-btn ghost" id="top4-share-link-btn" type="button">Share Link</button>
+        <button class="tool-btn ghost" id="top4-copy-image-btn" type="button">Copy Image</button>
+      </div>
+      
+      <div class="share-feedback" id="top4-share-feedback"></div>
+      <div class="powered-line">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
     </div>
 
     <div class="form-wrap">
@@ -814,8 +823,19 @@
   </div>
 
   <script>
-    let latestHeatmap = null;
 
+    let latestTop4 = null;
+    
+    function setTop4Feedback(message, isError = false) {
+      const el = document.getElementById('top4-share-feedback');
+      if (!el) return;
+      el.textContent = message || '';
+      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
+    }
+    
+    let latestHeatmap = null;
+    
+    
     function setFeedback(message, isError = false) {
       const el = document.getElementById('share-feedback');
       el.textContent = message || '';
@@ -831,6 +851,25 @@
       }
     }
 
+    function buildTop4XPostText(data) {
+      const tokens = (data?.tokens || []).slice(0, 4);
+      const pageUrl = window.location.origin + '/';
+      const lines = [
+        'Low Cap Emerging Tokens',
+        'Under $1M mcap · Social verified',
+        '',
+        ...tokens.map((t, i) => {
+          const handle = t.x_username ? ` @${t.x_username}` : '';
+          return `${i + 1}. ${t.symbol} — ${t.score}${handle}`;
+        }),
+        '',
+        pageUrl,
+        '',
+        'Powered by @BASEchainSCAN'
+      ];
+      return lines.join('\n');
+    }
+    
     function buildXPostText(data) {
       const top = (data?.tokens || []).slice(0, 5);
       const heatmapUrl = window.location.origin + '/heatmap';
@@ -848,6 +887,177 @@
       return lines.join('\n');
     }
 
+    function buildTop4ShareCardSvg(data) {
+      const tokens = (data?.tokens || []).slice(0, 4);
+      const generatedAt = formatDateShort(data?.generated_at || '');
+      const width = 1200;
+      const height = 1080;
+    
+      const positions = [
+        { x: 60, y: 180 },
+        { x: 610, y: 180 },
+        { x: 60, y: 560 },
+        { x: 610, y: 560 }
+      ];
+    
+      const cardW = 530;
+      const cardH = 300;
+    
+      const cards = tokens.map((t, i) => {
+        const pos = positions[i];
+        const color = colorForSeverity(t.severity || 'none');
+        const symbol = escapeXml(t.symbol || '—');
+        const score = escapeXml(t.score || '—');
+        const handle = t.x_username ? '@' + escapeXml(t.x_username) : 'No X handle';
+        const mcap = escapeXml(fmtUsd(t.mcap_usd));
+        const lp = escapeXml(fmtUsd(t.lp_total_usd));
+        const holders = escapeXml(fmtNum(t.holder_count));
+        const age = escapeXml(fmtAge(t.signal_age_hours));
+    
+        return `
+          <g transform="translate(${pos.x},${pos.y})">
+            <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
+            <rect x="0" y="${cardH - 8}" width="${Math.max(90, Math.min(500, Number(t.score || 0) * 5))}" height="8" rx="4" fill="${color}" />
+    
+            <text x="28" y="42" fill="#00d2c8" font-size="18" font-weight="700" font-family="Arial, sans-serif">BASEchainSCAN · Low Cap Radar</text>
+            <text x="28" y="96" fill="#ffffff" font-size="56" font-weight="800" font-family="Arial, sans-serif">${symbol}</text>
+            <text x="28" y="128" fill="rgba(226,240,255,0.52)" font-size="24" font-family="Arial, sans-serif">${handle}</text>
+    
+            <text x="410" y="100" fill="#ffffff" font-size="72" font-weight="800" text-anchor="end" font-family="Arial, sans-serif">${score}</text>
+            <text x="410" y="128" fill="${color}" font-size="18" font-weight="700" text-anchor="end" font-family="Arial, sans-serif">${escapeXml(t.severity || 'signal')}</text>
+    
+            <line x1="28" y1="155" x2="502" y2="155" stroke="rgba(255,255,255,0.08)" />
+    
+            <text x="28" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">MCAP</text>
+            <text x="28" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${mcap}</text>
+    
+            <text x="170" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">LIQUIDITY</text>
+            <text x="170" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${lp}</text>
+    
+            <text x="348" y="195" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">HOLDERS</text>
+            <text x="348" y="224" fill="#e2f0ff" font-size="28" font-weight="700" font-family="Arial, sans-serif">${holders}</text>
+    
+            <text x="28" y="268" fill="rgba(226,240,255,0.35)" font-size="18" font-family="Arial, sans-serif">SIGNAL AGE</text>
+            <text x="28" y="294" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial, sans-serif">${age}</text>
+          </g>
+        `;
+      }).join('');
+    
+      return `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+          <defs>
+            <linearGradient id="bgGradTop4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a1020"/>
+              <stop offset="100%" stop-color="#070c18"/>
+            </linearGradient>
+            <radialGradient id="glowTop4" cx="50%" cy="0%" r="70%">
+              <stop offset="0%" stop-color="rgba(0,184,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(0,184,255,0)"/>
+            </radialGradient>
+          </defs>
+    
+          <rect width="${width}" height="${height}" fill="url(#bgGradTop4)" />
+          <rect width="${width}" height="${height}" fill="url(#glowTop4)" />
+    
+          <circle cx="70" cy="78" r="8" fill="#00d2c8" />
+          <text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial, sans-serif">Low Cap Emerging Tokens</text>
+          <text x="95" y="126" fill="rgba(226,240,255,0.48)" font-size="22" font-family="Arial, sans-serif">Under $1M mcap · Social verified</text>
+          <text x="1030" y="88" fill="rgba(226,240,255,0.34)" font-size="22" text-anchor="end" font-family="Arial, sans-serif">${generatedAt}</text>
+    
+          ${cards}
+    
+          <text x="60" y="1030" fill="rgba(226,240,255,0.20)" font-size="22" font-family="Arial, sans-serif">Powered by</text>
+          <text x="182" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial, sans-serif">@BASEchainSCAN</text>
+        </svg>
+      `;
+    }
+    function bindTop4ShareButtons() {
+      const xBtn = document.getElementById('top4-x-post-btn');
+      const copyBtn = document.getElementById('top4-copy-post-btn');
+      const shareBtn = document.getElementById('top4-share-link-btn');
+      const copyImageBtn = document.getElementById('top4-copy-image-btn');
+    
+      xBtn.addEventListener('click', () => {
+        if (!latestTop4) {
+          setTop4Feedback('Top 4 not loaded yet.', true);
+          return;
+        }
+        const text = buildTop4XPostText(latestTop4);
+        const intent = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+        window.open(intent, '_blank', 'noopener,noreferrer');
+        setTop4Feedback('X post prepared.');
+      });
+    
+      copyBtn.addEventListener('click', async () => {
+        if (!latestTop4) {
+          setTop4Feedback('Top 4 not loaded yet.', true);
+          return;
+        }
+        await copyText(buildTop4XPostText(latestTop4), 'X post copied to clipboard.');
+        setTop4Feedback('X post copied to clipboard.');
+      });
+    
+      shareBtn.addEventListener('click', async () => {
+        const url = window.location.origin + '/';
+        await copyText(url, 'Page link copied.');
+        setTop4Feedback('Page link copied.');
+      });
+    
+      copyImageBtn.addEventListener('click', async () => {
+        await copyImageFromTop4(latestTop4);
+      });
+    }
+
+    async function copyImageFromTop4(data) {
+      if (!data || !data.tokens || !data.tokens.length) {
+        setTop4Feedback('Top 4 not loaded yet.', true);
+        return;
+      }
+    
+      try {
+        const svg = buildTop4ShareCardSvg(data);
+        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+        const svgUrl = URL.createObjectURL(svgBlob);
+    
+        const img = await new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = reject;
+          image.src = svgUrl;
+        });
+    
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 1080;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+    
+        URL.revokeObjectURL(svgUrl);
+    
+        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        if (!pngBlob) throw new Error('PNG export failed');
+    
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': pngBlob })
+          ]);
+          setTop4Feedback('Image copied to clipboard.');
+          return;
+        }
+    
+        const dlUrl = URL.createObjectURL(pngBlob);
+        const a = document.createElement('a');
+        a.href = dlUrl;
+        a.download = 'basechainscan-low-cap-top4.png';
+        a.click();
+        URL.revokeObjectURL(dlUrl);
+        setTop4Feedback('Clipboard image not supported, PNG downloaded instead.');
+      } catch (err) {
+        setTop4Feedback('Image export failed. Try again.', true);
+      }
+    }
+
+    
     async function copyText(text, successMessage) {
       try {
         await navigator.clipboard.writeText(text);
@@ -1124,6 +1334,7 @@
           return;
         }
         const data = await res.json();
+        latestTop4 = data;
         document.getElementById('top4-time').textContent = new Date(data.generated_at).toLocaleDateString();
         if (!data.tokens || !data.tokens.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
@@ -1164,7 +1375,10 @@
         }
       }
     }
-
+    bindShareButtons();
+    bindTop4ShareButtons();
+    loadHeatmap();
+    loadTop4();
     bindShareButtons();
     loadHeatmap();
     loadTop4();
