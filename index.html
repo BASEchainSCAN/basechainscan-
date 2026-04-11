@@ -400,13 +400,42 @@
     .top4-grid { display:flex; flex-direction:column; gap:10px; }
     .tc { position:relative; border-radius:18px; padding:18px 20px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); overflow:hidden; }
     .tc::before { content:''; position:absolute; top:0; right:0; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(0,210,200,0.08) 0%, transparent 70%); pointer-events:none; }
-    .tc-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+    .tc-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 120px;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .tc-top > div:first-child {
+      min-width: 0;
+    }
     .tc-brand { font-size:10px; font-weight:600; letter-spacing:0.1em; color:#00d2c8; text-transform:uppercase; margin-bottom:4px; }
-    .tc-symbol { font-size:28px; font-weight:800; letter-spacing:-1px; color:#fff; line-height:1; margin-bottom:4px; }
+    .tc-symbol {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .tc-story { font-size:11px; color:rgba(226,240,255,0.5); }
     .tc-handle { font-size:10px; color:rgba(0,210,200,0.6); margin-top:2px; }
-    .tc-score { text-align:right; flex-shrink:0; }
-    .tc-score-val { font-size:48px; font-weight:800; color:#fff; line-height:1; letter-spacing:-2px; }
+    .tc-score {
+      width: 120px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .tc-score-val {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 0.95;
+      letter-spacing: -2px;
+    }
     .tc-score-badge { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
     .badge-high { background:rgba(255,136,0,0.15); color:#ffaa44; }
     .badge-medium { background:rgba(0,210,200,0.12); color:#00d2c8; }
@@ -1351,7 +1380,9 @@
               </div>
               <div class="tc-score">
                 <div class="tc-score-val">${t.score}</div>
-                <div class="tc-score-badge ${sevBadge(t.severity)}">${t.severity || 'signal'}</div>
+                ${t.severity && t.severity !== 'none'
+                  ? `<div class="tc-score-badge ${sevBadge(t.severity)}">${t.severity}</div>`
+                    : ''}
               </div>
             </div>
             <div class="tc-divider"></div>
