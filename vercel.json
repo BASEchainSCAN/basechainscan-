@@ -2,6 +2,7 @@
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/heatmap", "destination": "/public/heatmap.html" },
-    { "source": "/data/heatmap.json", "destination": "/public/data/heatmap.json" }
+    { "source": "/data/heatmap.json", "destination": "/public/data/heatmap.json" },
+    { "source": "/data/top4.json", "destination": "/public/data/top4.json" }
   ]
 }
