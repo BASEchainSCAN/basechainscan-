@@ -285,13 +285,15 @@
       try {
         const d = new Date(dateStr);
         if (Number.isNaN(d.getTime())) return 'Updated —';
-        return 'Updated ' + d.toLocaleString([], {
-          month: 'numeric',
-          day: 'numeric',
+        return 'Updated ' + d.toLocaleString('en-GB', {
+          timeZone: 'UTC',
+          day: '2-digit',
+          month: '2-digit',
           year: 'numeric',
           hour: '2-digit',
-          minute: '2-digit'
-        });
+          minute: '2-digit',
+          hour12: false
+        }) + ' UTC';
       } catch {
         return 'Updated —';
       }
