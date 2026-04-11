@@ -721,7 +721,7 @@
       <div class="top4-header">
         <div class="top4-title">
           <div class="top4-dot"></div>
-          Low Cap Radar
+          Low Cap Emerging Tokens
         </div>
         <div class="heatmap-meta" id="top4-time">—</div>
       </div>
@@ -1117,11 +1117,14 @@
     }
     async function loadTop4() {
       try {
+        const grid = document.getElementById('top4-grid');
         const res = await fetch('/data/top4.json?t=' + Date.now());
-        if (!res.ok) return;
+        if (!res.ok) {
+          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
+          return;
+        }
         const data = await res.json();
         document.getElementById('top4-time').textContent = new Date(data.generated_at).toLocaleDateString();
-        const grid = document.getElementById('top4-grid');
         if (!data.tokens || !data.tokens.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
           return;
@@ -1154,7 +1157,12 @@
             </div>
           </div>
         `).join('');
-      } catch(e) {}
+      } catch(e) {
+        const grid = document.getElementById('top4-grid');
+        if (grid) {
+          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
+        }
+      }
     }
 
     bindShareButtons();
