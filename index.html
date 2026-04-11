@@ -393,70 +393,297 @@
     }
 
     .top4-section { width:100%; margin-bottom:26px; }
-    .top4-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
-    .top4-title { font-size:13px; font-weight:700; color:#e2f0ff; display:flex; align-items:center; gap:7px; }
-    .top4-dot { width:6px; height:6px; border-radius:50%; background:#00d2c8; animation:pulse 2s infinite; }
-    .top4-sub { font-size:10px; color:rgba(226,240,255,0.3); margin-bottom:14px; }
-    .top4-grid { display:flex; flex-direction:column; gap:10px; }
-    .tc { position:relative; border-radius:18px; padding:18px 20px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); overflow:hidden; }
-    .tc::before { content:''; position:absolute; top:0; right:0; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(0,210,200,0.08) 0%, transparent 70%); pointer-events:none; }
-    .tc-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 96px;
-      gap: 18px;
-      align-items: start;
-      margin-bottom: 12px;
-    }
-    
-    .tc-top > div:first-child {
-      min-width: 0;
-      padding-right: 6px;
-    }
-    
-    .tc-symbol {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-    
-    .tc-score {
-      width: 96px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
-      flex-shrink: 0;
-    }
-    
-    .tc-score-val {
-      font-size: 38px;
-      font-weight: 800;
-      color: #fff;
-      line-height: 0.9;
-      letter-spacing: -1.5px;
-    }
-    .tc-score-badge { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
-    .badge-high { background:rgba(255,136,0,0.15); color:#ffaa44; }
-    .badge-medium { background:rgba(0,210,200,0.12); color:#00d2c8; }
-    .badge-critical { background:rgba(255,68,68,0.15); color:#ff6666; }
-    .badge-low { background:rgba(226,240,255,0.06); color:rgba(226,240,255,0.4); }
-    .tc-divider { height:1px; background:rgba(255,255,255,0.06); margin-bottom:12px; }
-    .tc-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
-    .tc-metric-label { font-size:9px; color:rgba(226,240,255,0.35); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px; }
-    .tc-metric-val { font-size:13px; font-weight:700; color:#e2f0ff; }
-    .tc-actions { display:flex; gap:6px; }
-    .tc-btn { flex:1; padding:9px 6px; border-radius:10px; font-size:11px; font-weight:600; text-align:center; text-decoration:none; transition:opacity 0.15s, transform 0.1s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .tc-btn:active { opacity:0.8; transform:scale(0.97); }
-    .btn-okx { background:#00d2c8; color:#080d1a; }
-    .btn-x { background:rgba(255,255,255,0.07); color:rgba(226,240,255,0.8); border:1px solid rgba(255,255,255,0.1); }
-    .btn-dex { background:rgba(255,255,255,0.04); color:rgba(226,240,255,0.5); border:1px solid rgba(255,255,255,0.07); }
+    <style id="top4-premium-styles">
+      /* ── @property for animatable border color ── */
+      @property --glow-opacity {
+        syntax: '<number>';
+        inherits: false;
+        initial-value: 0;
+      }
+     
+      @property --glow-color {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: rgba(0,210,200,0);
+      }
+     
+      /* ── Container ── */
+      .top4-section {
+        width: 100%;
+        margin-bottom: 32px;
+        position: relative;
+      }
+     
+      /* Scanline overlay — terminal feel, zero performance cost */
+      .top4-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0,0,0,0.04) 2px,
+          rgba(0,0,0,0.04) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+        border-radius: 18px;
+      }
+     
+      .top4-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 2;
+      }
+     
+      .top4-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #e2f0ff;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+     
+      .top4-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #00d2c8;
+        animation: pulse 2s infinite;
+      }
+     
+      .top4-sub {
+        font-size: 10px;
+        color: rgba(226,240,255,0.3);
+        margin-bottom: 14px;
+        position: relative;
+        z-index: 2;
+      }
+     
+      .top4-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        position: relative;
+        z-index: 2;
+      }
+     
+      /* ── Card ── */
+      .tc {
+        position: relative;
+        border-radius: 18px;
+        padding: 16px 18px 14px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(10, 16, 32, 0.85);
+        overflow: hidden;
+        cursor: default;
+     
+        /* @property glow */
+        --glow-opacity: 0;
+        --glow-color: rgba(0,210,200,0);
+        box-shadow: 0 0 0 0 var(--glow-color);
+     
+        transition:
+          transform 0.2s cubic-bezier(0.4,0,0.2,1),
+          box-shadow 0.25s ease,
+          border-color 0.25s ease,
+          --glow-opacity 0.25s ease;
+     
+        /* @starting-style fade-up on initial load */
+        @starting-style {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        opacity: 1;
+        transform: translateY(0);
+      }
+     
+      /* Severity border colors */
+      .tc.sev-critical {
+        border-color: rgba(255,68,68,0.25);
+        --glow-color: rgba(255,68,68,0.35);
+      }
+      .tc.sev-high {
+        border-color: rgba(255,136,0,0.2);
+        --glow-color: rgba(255,136,0,0.3);
+      }
+      .tc.sev-medium {
+        border-color: rgba(0,210,200,0.2);
+        --glow-color: rgba(0,210,200,0.28);
+      }
+      .tc.sev-low,
+      .tc.sev-none {
+        border-color: rgba(255,255,255,0.07);
+        --glow-color: rgba(255,255,255,0.1);
+      }
+     
+      /* Hover — lift + glow, nothing continuous */
+      .tc:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px var(--glow-color), 0 2px 8px rgba(0,0,0,0.4);
+        border-color: rgba(255,255,255,0.16);
+      }
+     
+      /* Severity accent bar at bottom */
+      .tc::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: var(--bar-pct, 0%);
+        height: 2px;
+        background: var(--bar-color, rgba(226,240,255,0.2));
+        border-radius: 0 0 0 18px;
+        transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+      }
+     
+      /* ── Card inner layout ── */
+      .tc-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+     
+      .tc-left { min-width: 0; flex: 1; padding-right: 8px; }
+     
+      .tc-brand {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: rgba(0,210,200,0.5);
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+     
+      .tc-symbol {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+     
+      .tc-handle {
+        font-size: 10px;
+        color: rgba(0,210,200,0.55);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+     
+      .tc-right {
+        text-align: right;
+        flex-shrink: 0;
+      }
+     
+      .tc-score-val {
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        color: #fff;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+     
+      /* Severity badge — hidden when "none" */
+      .tc-badge {
+        display: inline-block;
+        font-size: 8px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 100px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-top: 4px;
+      }
+      .tc-badge.sev-none,
+      .tc-badge.sev-hidden { display: none; }
+      .tc-badge.sev-critical { background: rgba(255,68,68,0.15); color: #ff6666; }
+      .tc-badge.sev-high     { background: rgba(255,136,0,0.15); color: #ffaa44; }
+      .tc-badge.sev-medium   { background: rgba(0,210,200,0.12); color: #00d2c8; }
+      .tc-badge.sev-low      { background: rgba(226,240,255,0.06); color: rgba(226,240,255,0.4); }
+     
+      .tc-divider {
+        height: 1px;
+        background: rgba(255,255,255,0.05);
+        margin-bottom: 10px;
+      }
+     
+      .tc-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 6px;
+        margin-bottom: 12px;
+      }
+     
+      .tc-metric-label {
+        font-size: 8px;
+        color: rgba(226,240,255,0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 1px;
+      }
+     
+      .tc-metric-val {
+        font-size: 12px;
+        font-weight: 700;
+        color: #e2f0ff;
+        white-space: nowrap;
+      }
+     
+      /* ── Action buttons ── */
+      .tc-actions {
+        display: flex;
+        gap: 5px;
+      }
+     
+      .tc-btn {
+        flex: 1;
+        padding: 8px 4px;
+        border-radius: 9px;
+        font-size: 10px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        transition: opacity 0.15s, transform 0.1s;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tc-btn:active { opacity: 0.8; transform: scale(0.97); }
+     
+      .btn-okx  { background: #00d2c8; color: #080d1a; }
+      .btn-x    { background: rgba(255,255,255,0.07); color: rgba(226,240,255,0.8); border: 1px solid rgba(255,255,255,0.1); }
+      .btn-dex  { background: rgba(255,255,255,0.04); color: rgba(226,240,255,0.45); border: 1px solid rgba(255,255,255,0.07); }
+     
+      .top4-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 28px;
+        font-size: 12px;
+        color: rgba(226,240,255,0.25);
+      }
+     
+      /* Staggered entrance delays */
+      .tc:nth-child(1) { transition-delay: 0.04s; }
+      .tc:nth-child(2) { transition-delay: 0.08s; }
+      .tc:nth-child(3) { transition-delay: 0.12s; }
+      .tc:nth-child(4) { transition-delay: 0.16s; }
+     
+      @media (max-width: 400px) {
+        .top4-grid { grid-template-columns: 1fr; }
+        .tc-score-val { font-size: 30px; }
+      }
+    </style>
     .top4-empty { text-align:center; padding:24px; font-size:12px; color:rgba(226,240,255,0.25); }
 
     .form-wrap {
@@ -1336,6 +1563,7 @@
       return true;
     }
 
+    <script id="top4-premium-js">
     function fmtUsd(v) {
       if (!v || v === 0) return '—';
       if (v >= 1000000) return '$' + (v/1000000).toFixed(1) + 'M';
@@ -1348,77 +1576,92 @@
       return String(v);
     }
     function fmtAge(h) {
-      if (!h) return '—';
-      if (h < 1) return Math.round(h*60) + 'm';
+      if (!h && h !== 0) return '—';
+      if (h < 1) return Math.round(h * 60) + 'm';
       return h.toFixed(1) + 'h';
     }
-    function sevBadge(s) {
-      const map = { critical:'badge-critical', high:'badge-high', medium:'badge-medium', low:'badge-low' };
-      return map[s] || 'badge-low';
+    function sevColor(s) {
+      const m = { critical:'#ff4444', high:'#ff8800', medium:'#00d2c8', low:'rgba(226,240,255,0.3)' };
+      return m[s] || 'rgba(226,240,255,0.15)';
     }
-    function storyLine(t) {
-      if (t.severity === 'critical' || t.severity === 'high') return 'Strong accumulation signal';
-      if (t.severity === 'medium') return 'Flow building up';
-      return 'Early watch setup';
-    }
+     
     async function loadTop4() {
       try {
-        const grid = document.getElementById('top4-grid');
         const res = await fetch('/data/top4.json?t=' + Date.now());
-        if (!res.ok) {
-          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
-          return;
-        }
+        if (!res.ok) return;
         const data = await res.json();
-        latestTop4 = data;
-        document.getElementById('top4-time').textContent = new Date(data.generated_at).toLocaleDateString();
+     
+        const el = document.getElementById('top4-time');
+        if (el) el.textContent = new Date(data.generated_at).toLocaleDateString();
+     
+        const grid = document.getElementById('top4-grid');
         if (!data.tokens || !data.tokens.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
           return;
         }
-        grid.innerHTML = data.tokens.map(t => `
-          <div class="tc">
-            <div class="tc-top">
-              <div>
-                <div class="tc-brand">BasechainSCAN · Radar</div>
-                <div class="tc-symbol">${t.symbol}</div>
-                <div class="tc-story">${storyLine(t)}</div>
-                ${t.x_username ? `<div class="tc-handle">@${t.x_username}</div>` : ''}
+     
+        const maxScore = Math.max(...data.tokens.map(t => t.score));
+     
+        grid.innerHTML = data.tokens.map(t => {
+          const sev = t.severity || 'none';
+          const barPct = Math.round((t.score / maxScore) * 100);
+          const barColor = sevColor(sev);
+          const badgeClass = sev === 'none' ? 'sev-none' : `sev-${sev}`;
+     
+          return `
+            <div class="tc sev-${sev}"
+                 style="--bar-pct:${barPct}%; --bar-color:${barColor};">
+              <div class="tc-header">
+                <div class="tc-left">
+                  <div class="tc-brand">BasechainSCAN · Radar</div>
+                  <div class="tc-symbol">${t.symbol}</div>
+                  ${t.x_username ? `<div class="tc-handle">@${t.x_username}</div>` : ''}
+                </div>
+                <div class="tc-right">
+                  <div class="tc-score-val">${t.score}</div>
+                  <div class="tc-badge ${badgeClass}">${sev}</div>
+                </div>
               </div>
-              <div class="tc-score">
-                <div class="tc-score-val">${t.score}</div>
-                ${t.severity && t.severity !== 'none'
-                  ? `<div class="tc-score-badge ${sevBadge(t.severity)}">${t.severity}</div>`
-                  : ''}
+              <div class="tc-divider"></div>
+              <div class="tc-metrics">
+                <div>
+                  <div class="tc-metric-label">MCAP</div>
+                  <div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div>
+                </div>
+                <div>
+                  <div class="tc-metric-label">Liquidity</div>
+                  <div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div>
+                </div>
+                <div>
+                  <div class="tc-metric-label">Holders</div>
+                  <div class="tc-metric-val">${fmtNum(t.holder_count)}</div>
+                </div>
+                <div>
+                  <div class="tc-metric-label">Signal age</div>
+                  <div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div>
+                </div>
+              </div>
+              <div class="tc-actions">
+                <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
+                ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">𝕏</a>` : ''}
+                <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEX</a>
               </div>
             </div>
-            <div class="tc-divider"></div>
-            <div class="tc-metrics">
-              <div><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div></div>
-              <div><div class="tc-metric-label">Liquidity</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
-              <div><div class="tc-metric-label">Holders</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
-              <div><div class="tc-metric-label">Signal age</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
-            </div>
-            <div class="tc-actions">
-              <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
-              ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">X: @${t.x_username}</a>` : ''}
-              <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEXScreener</a>
-            </div>
-          </div>
-        `).join('');
-      } catch(e) {
-        const grid = document.getElementById('top4-grid');
-        if (grid) {
-          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
-        }
-      }
+          `;
+        }).join('');
+     
+        /* Animate bar widths after DOM insert */
+        requestAnimationFrame(() => {
+          grid.querySelectorAll('.tc').forEach(card => {
+            card.style.setProperty('--bar-pct', card.style.getPropertyValue('--bar-pct'));
+          });
+        });
+     
+      } catch(e) {}
     }
-    bindShareButtons();
-    bindTop4ShareButtons();
-    loadHeatmap();
-    bindShareButtons();
-    loadHeatmap();
+     
     loadTop4();
+    </script>    
   </script>
 </body>
 </html>
