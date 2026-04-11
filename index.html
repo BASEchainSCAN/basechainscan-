@@ -1173,7 +1173,31 @@
       }
     }
 
+
+    function bindTop4ShareButtons() {
+      document.getElementById('top4-x-post-btn').addEventListener('click', () => {
+        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
+        const text = buildTop4XPostText(latestTop4);
+        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener');
+        setTop4Feedback('X post prepared.');
+      });
+      document.getElementById('top4-copy-post-btn').addEventListener('click', async () => {
+        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
+        await navigator.clipboard.writeText(buildTop4XPostText(latestTop4));
+        setTop4Feedback('Copied!');
+      });
+      document.getElementById('top4-share-link-btn').addEventListener('click', async () => {
+        await navigator.clipboard.writeText(window.location.origin);
+        setTop4Feedback('Link copied.');
+      });
+      document.getElementById('top4-copy-image-btn').addEventListener('click', async () => {
+        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
+        await exportAndDownload(buildTop4ShareCardSvg(latestTop4), 'basechainscan-lowcap.png', 1200, 1080, setTop4Feedback);
+      });
+    }
+
     bindShareButtons();
+    bindTop4ShareButtons();
     loadHeatmap();
     loadTop4();
   </script>
