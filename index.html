@@ -830,12 +830,19 @@
       el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
     }
 
-    function formatDateShort(dateStr) {
+    function formatUpdateTimestamp(dateStr) {
       try {
         const d = new Date(dateStr);
-        return d.toLocaleDateString([], { month: 'numeric', day: 'numeric', year: 'numeric' });
+        if (Number.isNaN(d.getTime())) return 'Updated —';
+        return 'Updated ' + d.toLocaleString([], {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
       } catch {
-        return '—';
+        return 'Updated —';
       }
     }
 
@@ -903,7 +910,7 @@
 
     function buildShareCardSvg(data) {
       const tokens = (data?.tokens || []).slice(0, 9);
-      const generatedAt = formatDateShort(data?.generated_at || '');
+      const generatedAt = formatUpdateTimestamp(data?.generated_at || '');
       const width = 1200;
       const height = 780;
 
@@ -953,7 +960,7 @@
 
           <circle cx="70" cy="70" r="7" fill="#00d2c8" />
           <text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial, sans-serif">Emerging Radar · 24h</text>
-          <text x="1030" y="78" fill="rgba(226,240,255,0.34)" font-size="22" font-family="Arial, sans-serif">${generatedAt}</text>
+          <text x="${width - 60}" y="78" fill="rgba(226,240,255,0.34)" font-size="22" text-anchor="end" font-family="Arial, sans-serif">${generatedAt}</text>
 
           ${cards}
 
@@ -1054,9 +1061,7 @@
         const data = await res.json();
         latestHeatmap = data;
 
-        const generatedAt = new Date(data.generated_at);
-        document.getElementById('hm-time').textContent =
-          generatedAt.toLocaleDateString();
+        document.getElementById('hm-time').textContent = formatUpdateTimestamp(data.generated_at);
 
         const grid = document.getElementById('hm-grid');
         const maxScore = Math.max(...data.tokens.map(t => t.score));
@@ -1132,7 +1137,7 @@
           return;
         }
         const data = await res.json();
-        document.getElementById('top4-time').textContent = new Date(data.generated_at).toLocaleDateString();
+        document.getElementById('top4-time').textContent = formatUpdateTimestamp(data.generated_at);
         if (!data.tokens || !data.tokens.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
           return;

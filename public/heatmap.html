@@ -281,6 +281,22 @@
   <script>
     const SEV_ORDER = { critical: 4, high: 3, medium: 2, low: 1, none: 0 };
 
+    function formatUpdateTimestamp(dateStr) {
+      try {
+        const d = new Date(dateStr);
+        if (Number.isNaN(d.getTime())) return 'Updated —';
+        return 'Updated ' + d.toLocaleString([], {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch {
+        return 'Updated —';
+      }
+    }
+
     async function load() {
       const container = document.getElementById('container');
       try {
@@ -289,9 +305,7 @@
         const data = await res.json();
 
         // Update meta
-        const d = new Date(data.generated_at);
-        document.getElementById('updated-at').textContent =
-          'Updated ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('updated-at').textContent = formatUpdateTimestamp(data.generated_at);
         document.getElementById('token-count').textContent =
           data.token_count + ' tokens tracked';
 
