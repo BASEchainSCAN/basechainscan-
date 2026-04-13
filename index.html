@@ -1132,6 +1132,7 @@
 
   <script>
     let latestHeatmap = null;
+    let latestTop4 = null;
 
     function setFeedback(message, isError = false) {
       const el = document.getElementById('share-feedback');
@@ -1448,6 +1449,7 @@
           return;
         }
         const data = await res.json();
+        latestTop4 = data;
         document.getElementById('top4-time').textContent = formatUpdateTimestamp(data.generated_at);
         if (!data.tokens || !data.tokens.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
