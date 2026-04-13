@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T20:45:36Z",
+  "generated_at": "2026-04-13T20:55:40Z",
   "token_count": 4,
   "tokens": [
     {
@@ -14,7 +14,7 @@
       "top10_pct": 67.62,
       "x_username": "Viraz04",
       "x_url": "https://x.com/Viraz04",
-      "signal_age_hours": 3.38,
+      "signal_age_hours": 3.55,
       "dexscreener_url": "https://dexscreener.com/base/0x37d183fcf1da460a64d21e754b3e6144c4e11ba3",
       "okx_url": "https://web3.okx.com/token/base/0x37d183fcf1da460a64d21e754b3e6144c4e11ba3?ref=OKX10c"
     },
@@ -30,7 +30,7 @@
       "top10_pct": 92.63,
       "x_username": "EliosBase",
       "x_url": "https://x.com/EliosBase",
-      "signal_age_hours": 0.3,
+      "signal_age_hours": 0.46,
       "dexscreener_url": "https://dexscreener.com/base/0x002b28fa26982da609f069383ee424b4d36f1b07",
       "okx_url": "https://web3.okx.com/token/base/0x002b28fa26982da609f069383ee424b4d36f1b07?ref=OKX10c"
     },
@@ -46,7 +46,7 @@
       "top10_pct": 100.0,
       "x_username": "RicardianBase",
       "x_url": "https://x.com/RicardianBase",
-      "signal_age_hours": 20.37,
+      "signal_age_hours": 20.54,
       "dexscreener_url": "https://dexscreener.com/base/0x4b2f4cdf9aa1432b915d3979cd60c54d11bd9b07",
       "okx_url": "https://web3.okx.com/token/base/0x4b2f4cdf9aa1432b915d3979cd60c54d11bd9b07?ref=OKX10c"
     },
@@ -62,7 +62,7 @@
       "top10_pct": 52.37,
       "x_username": "JunoCash_on_X",
       "x_url": "https://x.com/JunoCash_on_X",
-      "signal_age_hours": 5.48,
+      "signal_age_hours": 5.65,
       "dexscreener_url": "https://dexscreener.com/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc",
       "okx_url": "https://web3.okx.com/token/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc?ref=OKX10c"
     }

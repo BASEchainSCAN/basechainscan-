@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T20:45:35Z",
+  "generated_at": "2026-04-13T20:55:39Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -13,30 +13,38 @@
     },
     {
       "rank": 2,
-      "symbol": "RAVE",
-      "score": 59.2,
-      "severity": "medium",
-      "signals": 15,
-      "last_seen": "2026-04-13 20:23:10"
+      "symbol": "REI",
+      "score": 60.6,
+      "severity": "critical",
+      "signals": 13,
+      "last_seen": "2026-04-13 20:52:01"
     },
     {
       "rank": 3,
-      "symbol": "REI",
-      "score": 53.4,
+      "symbol": "RAVE",
+      "score": 59.2,
       "severity": "critical",
-      "signals": 11,
-      "last_seen": "2026-04-13 20:23:52"
+      "signals": 17,
+      "last_seen": "2026-04-13 20:54:55"
     },
     {
       "rank": 4,
-      "symbol": "SMCF",
-      "score": 52.3,
-      "severity": "low",
-      "signals": 14,
-      "last_seen": "2026-04-13 20:18:25"
+      "symbol": "CHECK",
+      "score": 57.6,
+      "severity": "critical",
+      "signals": 15,
+      "last_seen": "2026-04-13 20:53:22"
     },
     {
       "rank": 5,
+      "symbol": "SMCF",
+      "score": 52.3,
+      "severity": "low",
+      "signals": 15,
+      "last_seen": "2026-04-13 20:50:18"
+    },
+    {
+      "rank": 6,
       "symbol": "WETH",
       "score": 52.1,
       "severity": "low",
@@ -44,7 +52,7 @@
       "last_seen": "2026-04-13 20:25:45"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "symbol": "NIVO",
       "score": 48.1,
       "severity": "low",
@@ -52,7 +60,7 @@
       "last_seen": "2026-04-13 15:10:14"
     },
     {
-      "rank": 7,
+      "rank": 8,
       "symbol": "LIQ",
       "score": 47.3,
       "severity": "low",
@@ -60,20 +68,12 @@
       "last_seen": "2026-04-13 04:53:49"
     },
     {
-      "rank": 8,
+      "rank": 9,
       "symbol": "VAR",
       "score": 44.8,
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-13 09:18:47"
-    },
-    {
-      "rank": 9,
-      "symbol": "CHECK",
-      "score": 44.5,
-      "severity": "critical",
-      "signals": 13,
-      "last_seen": "2026-04-13 20:18:15"
     },
     {
       "rank": 10,
@@ -104,16 +104,16 @@
       "symbol": "OWB",
       "score": 42.2,
       "severity": "medium",
-      "signals": 15,
-      "last_seen": "2026-04-13 20:22:36"
+      "signals": 17,
+      "last_seen": "2026-04-13 20:54:41"
     },
     {
       "rank": 14,
       "symbol": "TIBBIR",
       "score": 42.2,
       "severity": "critical",
-      "signals": 17,
-      "last_seen": "2026-04-13 20:23:31"
+      "signals": 18,
+      "last_seen": "2026-04-13 20:49:07"
     },
     {
       "rank": 15,
@@ -136,8 +136,8 @@
       "symbol": "HYDX",
       "score": 40.9,
       "severity": "medium",
-      "signals": 11,
-      "last_seen": "2026-04-13 20:26:33"
+      "signals": 13,
+      "last_seen": "2026-04-13 20:55:08"
     },
     {
       "rank": 18,
