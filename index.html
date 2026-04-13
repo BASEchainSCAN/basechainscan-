@@ -619,7 +619,124 @@
       text-align: center;
       padding-bottom: 8px;
     }
-
+    /* ─── GM Button ─────────────────────────────────────── */
+    .gm-section {
+      width: 100%;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(0,210,200,0.04), rgba(0,184,255,0.02));
+      padding: 18px 16px;
+    }
+    
+    .gm-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    
+    .gm-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      animation: pulse 2s infinite;
+    }
+    
+    .gm-desc {
+      font-size: 11px;
+      color: rgba(226,240,255,0.4);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    
+    .btn-gm {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, rgba(0,210,200,0.15), rgba(0,184,255,0.1));
+      border: 1px solid rgba(0,210,200,0.3);
+      border-radius: 14px;
+      color: var(--brand);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease, border-color 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .btn-gm:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: rgba(0,210,200,0.5);
+    }
+    
+    .btn-gm:active:not(:disabled) {
+      transform: scale(0.97);
+      opacity: 0.85;
+    }
+    
+    .btn-gm:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    
+    .gm-status {
+      margin-top: 10px;
+      min-height: 18px;
+      font-size: 11px;
+      color: rgba(226,240,255,0.5);
+      text-align: center;
+      line-height: 1.5;
+    }
+    
+    .gm-status.success {
+      color: var(--success);
+    }
+    
+    .gm-status.error {
+      color: var(--danger);
+    }
+    
+    .gm-wallet-info {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+    }
+    
+    .gm-wallet-addr {
+      font-size: 11px;
+      color: rgba(226,240,255,0.5);
+      font-family: monospace;
+    }
+    
+    .btn-gm-disconnect {
+      font-size: 10px;
+      color: rgba(226,240,255,0.3);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: color 0.15s;
+    }
+    
+    .btn-gm-disconnect:hover {
+      color: var(--danger);
+    }
+    /* ─────────────────────────────────────────────────────── */
     @media (max-width: 400px) {
       .stats { gap: 8px; }
       .heatmap-grid { gap: 5px; }
@@ -739,6 +856,28 @@
       <div class="share-feedback" id="top4-share-feedback"></div>
       <div class="powered-line" style="margin-top:12px;">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank">@BASEchainSCAN</a></div>
     </div>
+      <!-- ─── GM Button Section ────────────────────────────── -->
+      <div class="gm-section">
+        <div class="gm-title">
+          <div class="gm-dot"></div>
+          GM on Base
+        </div>
+        <p class="gm-desc">Connect your wallet and sign a GM message on Base network. Off-chain · No gas · No transaction.</p>
+      
+        <button class="btn-gm" id="gm-btn" type="button">
+          <span id="gm-btn-icon">☀️</span>
+          <span id="gm-btn-text">GM Base</span>
+        </button>
+      
+        <div class="gm-wallet-info" id="gm-wallet-info">
+          <span class="gm-wallet-addr" id="gm-wallet-addr">—</span>
+          <button class="btn-gm-disconnect" id="gm-disconnect-btn" type="button">Disconnect</button>
+        </div>
+      
+        <div class="gm-status" id="gm-status"></div>
+      </div>
+      <!-- ───────────────────────────────────────────────────── -->
+
         <div class="form-wrap">
       <p class="form-label">Stay updated — quiet signals, early access</p>
       <form
@@ -1260,7 +1399,224 @@
         await exportAndDownload(buildTop4ShareCardSvg(latestTop4), 'basechainscan-lowcap.png', 1200, 1080, setTop4Feedback);
       });
     }
+    // ─── GM Button Logic ──────────────────────────────────
+    
+    const BASE_CHAIN_ID = 8453;
+    const BASE_CHAIN_HEX = '0x2105';
+    
+    const BASE_CHAIN_PARAMS = {
+      chainId: BASE_CHAIN_HEX,
+      chainName: 'Base',
+      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+      rpcUrls: ['https://mainnet.base.org'],
+      blockExplorerUrls: ['https://basescan.org']
+    };
+    
+    let gmConnectedAddress = null;
+    
+    function gmSetStatus(msg, type) {
+      const el = document.getElementById('gm-status');
+      el.textContent = msg || '';
+      el.className = 'gm-status' + (type ? ' ' + type : '');
+    }
+    
+    function gmSetLoading(loading) {
+      const btn = document.getElementById('gm-btn');
+      const btnText = document.getElementById('gm-btn-text');
+      const btnIcon = document.getElementById('gm-btn-icon');
+      btn.disabled = loading;
+      if (loading) {
+        btnIcon.textContent = '⏳';
+        btnText.textContent = 'Connecting...';
+      }
+    }
+    
+    function gmShowWallet(address) {
+      const info = document.getElementById('gm-wallet-info');
+      const addrEl = document.getElementById('gm-wallet-addr');
+      addrEl.textContent = address.slice(0, 6) + '...' + address.slice(-4);
+      info.style.display = 'flex';
+    }
+    
+    function gmHideWallet() {
+      document.getElementById('gm-wallet-info').style.display = 'none';
+      document.getElementById('gm-wallet-addr').textContent = '—';
+    }
+    
+    function gmResetBtn() {
+      const btn = document.getElementById('gm-btn');
+      const btnText = document.getElementById('gm-btn-text');
+      const btnIcon = document.getElementById('gm-btn-icon');
+      btn.disabled = false;
+      btnIcon.textContent = '☀️';
+      btnText.textContent = 'GM Base';
+    }
+    
+    async function gmSwitchToBase() {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: BASE_CHAIN_HEX }]
+        });
+        return true;
+      } catch (switchErr) {
+        if (switchErr.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [BASE_CHAIN_PARAMS]
+            });
+            return true;
+          } catch (addErr) {
+            return false;
+          }
+        }
+        return false;
+      }
+    }
+    
+    async function handleGM() {
+      const btn = document.getElementById('gm-btn');
+      const btnText = document.getElementById('gm-btn-text');
+      const btnIcon = document.getElementById('gm-btn-icon');
+    
+      // No wallet detected
+      if (!window.ethereum) {
+        gmSetStatus('⚠️ No wallet detected. Please install MetaMask or a compatible wallet.', 'error');
+        return;
+      }
+    
+      gmSetLoading(true);
+      gmSetStatus('Connecting wallet...', '');
+    
+      try {
+        // 1. Request account access
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        if (!accounts || !accounts.length) {
+          gmSetStatus('No accounts found. Please unlock your wallet.', 'error');
+          gmResetBtn();
+          return;
+        }
+    
+        const address = accounts[0];
+        gmConnectedAddress = address;
+        gmShowWallet(address);
+    
+        gmSetStatus('Checking network...', '');
+        btnText.textContent = 'Switching to Base...';
+    
+        // 2. Get current chain
+        const chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
+        const chainId = parseInt(chainIdHex, 16);
+    
+        if (chainId !== BASE_CHAIN_ID) {
+          const switched = await gmSwitchToBase();
+          if (!switched) {
+            gmSetStatus('Could not switch to Base network. Please switch manually.', 'error');
+            gmResetBtn();
+            return;
+          }
+        }
+    
+        gmSetStatus('Waiting for signature...', '');
+        btnText.textContent = 'Sign in wallet...';
+    
+        // 3. Build message
+        const timestamp = new Date().toISOString();
+        const message = [
+          'GM from BASEchainSCAN',
+          '',
+          'Address: ' + address,
+          'Network: Base (Chain ID 8453)',
+          'Time: ' + timestamp,
+          '',
+          'This is a free off-chain signature.',
+          'No transaction. No gas. No funds moved.'
+        ].join('\n');
+    
+        // 4. Sign message
+        const signature = await window.ethereum.request({
+          method: 'personal_sign',
+          params: [message, address]
+        });
+    
+        // 5. Success
+        btn.disabled = false;
+        btnIcon.textContent = '✅';
+        btnText.textContent = 'GM signed!';
+        btn.style.borderColor = 'rgba(0,210,200,0.5)';
+    
+        gmSetStatus('✅ GM signed successfully! ' + address.slice(0,6) + '...' + address.slice(-4) + ' on Base', 'success');
+    
+        console.log('[BASEchainSCAN] GM Signature:', {
+          address: address,
+          signature: signature,
+          timestamp: timestamp,
+          network: 'Base (8453)'
+        });
+    
+        // Reset button after 5s
+        setTimeout(() => {
+          btnIcon.textContent = '☀️';
+          btnText.textContent = 'GM again';
+          btn.style.borderColor = '';
+        }, 5000);
+    
+      } catch (err) {
+        gmResetBtn();
+    
+        if (err.code === 4001) {
+          gmSetStatus('Signature cancelled.', '');
+        } else if (err.code === -32002) {
+          gmSetStatus('Wallet request already pending. Check your wallet.', 'error');
+        } else if (err.code === -32603) {
+          gmSetStatus('Wallet internal error. Please try again.', 'error');
+        } else {
+          gmSetStatus('Something went wrong. Please try again.', 'error');
+          console.error('[BASEchainSCAN] GM error:', err);
+        }
+      }
+    }
+    
+    function bindGMButton() {
+      const btn = document.getElementById('gm-btn');
+      const disconnectBtn = document.getElementById('gm-disconnect-btn');
+    
+      btn.addEventListener('click', handleGM);
+    
+      disconnectBtn.addEventListener('click', () => {
+        gmConnectedAddress = null;
+        gmHideWallet();
+        gmResetBtn();
+        gmSetStatus('Wallet disconnected.', '');
+      });
+    
+      // Listen for account/chain changes
+      if (window.ethereum) {
+        window.ethereum.on('accountsChanged', (accounts) => {
+          if (!accounts.length) {
+            gmConnectedAddress = null;
+            gmHideWallet();
+            gmResetBtn();
+            gmSetStatus('Wallet disconnected.', '');
+          } else {
+            gmConnectedAddress = accounts[0];
+            gmShowWallet(accounts[0]);
+            gmSetStatus('Account changed. Click GM to sign again.', '');
+            gmResetBtn();
+          }
+        });
+    
+        window.ethereum.on('chainChanged', () => {
+          gmSetStatus('Network changed. Click GM to sign again.', '');
+          gmResetBtn();
+        });
+      }
+    }
+    
+    // ─── End GM Button Logic ──────────────────────────────
 
+    
     bindShareButtons();
     bindTop4ShareButtons();
     loadHeatmap();
