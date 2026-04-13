@@ -737,6 +737,154 @@
       color: var(--danger);
     }
     /* ─────────────────────────────────────────────────────── */
+    /* ─── GM Streak Display ──────────────────────────── */
+    .gm-streak-card {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: rgba(0,210,200,0.06);
+      border: 1px solid rgba(0,210,200,0.15);
+      border-radius: 12px;
+      gap: 0;
+    }
+    
+    .gm-streak-card.visible { display: flex; align-items: center; gap: 12px; }
+    
+    .gm-streak-badge {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    
+    .gm-streak-info { flex: 1; min-width: 0; }
+    
+    .gm-streak-main {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 2px;
+    }
+    
+    .gm-streak-sub {
+      font-size: 10px;
+      color: rgba(226,240,255,0.4);
+      letter-spacing: 0.04em;
+    }
+    
+    .gm-points-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(0,210,200,0.1);
+      border: 1px solid rgba(0,210,200,0.2);
+      color: var(--brand);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    /* ─── Leaderboard ────────────────────────────────── */
+    .lb-section {
+      width: 100%;
+      margin-bottom: 26px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
+      padding: 14px;
+    }
+    
+    .lb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .lb-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    
+    .lb-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      animation: pulse 2s infinite;
+    }
+    
+    .lb-sub {
+      font-size: 10px;
+      color: rgba(226,240,255,0.3);
+      margin-bottom: 10px;
+    }
+    
+    .lb-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 6px;
+      transition: background 0.15s;
+    }
+    
+    .lb-row:hover { background: rgba(255,255,255,0.04); }
+    
+    .lb-rank {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(226,240,255,0.3);
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    
+    .lb-rank.gold   { color: #FFD700; }
+    .lb-rank.silver { color: #C0C0C0; }
+    .lb-rank.bronze { color: #CD7F32; }
+    
+    .lb-addr {
+      flex: 1;
+      font-size: 12px;
+      font-family: monospace;
+      color: rgba(226,240,255,0.7);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .lb-streak {
+      font-size: 10px;
+      color: var(--brand);
+      flex-shrink: 0;
+    }
+    
+    .lb-pts {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      flex-shrink: 0;
+      min-width: 44px;
+      text-align: right;
+    }
+    
+    .lb-empty {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: rgba(226,240,255,0.25);
+    }
+    /* ──────────────────────────────────────────────── */
+    
+    
+
+
+    
     @media (max-width: 400px) {
       .stats { gap: 8px; }
       .heatmap-grid { gap: 5px; }
@@ -875,9 +1023,31 @@
         </div>
       
         <div class="gm-status" id="gm-status"></div>
+        <!-- Streak display (apare după GM semnat) -->
+        <div class="gm-streak-card" id="gm-streak-card">
+          <div class="gm-streak-badge" id="gm-streak-badge">☀️</div>
+          <div class="gm-streak-info">
+            <div class="gm-streak-main" id="gm-streak-main">—</div>
+            <div class="gm-streak-sub" id="gm-streak-sub">—</div>
+          </div>
+          <div class="gm-points-pill" id="gm-points-pill">0 pts</div>
+        </div>
       </div>
       <!-- ───────────────────────────────────────────────────── -->
-
+      <!-- ─── GM Leaderboard ──────────────────────────── -->
+      <div class="lb-section">
+        <div class="lb-header">
+          <div class="lb-title">
+            <div class="lb-dot"></div>
+            GM Leaderboard
+          </div>
+        </div>
+        <div class="lb-sub">Top wallets by streak points · Updates live</div>
+        <div id="lb-list">
+          <div class="lb-empty">Loading...</div>
+        </div>
+      </div>
+      <!-- ─────────────────────────────────────────────── -->
         <div class="form-wrap">
       <p class="form-label">Stay updated — quiet signals, early access</p>
       <form
@@ -1540,11 +1710,14 @@
           params: [message, address]
         });
     
-        // 5. Success
+        // 5. Trimite la API și afișează streak
+        const apiData = await sendGMToAPI(address, signature, message);
+        showStreakCard(apiData);
+        loadLeaderboard();
+    
         btn.disabled = false;
         btnIcon.textContent = '✅';
-        btnText.textContent = 'GM signed!';
-        btn.style.borderColor = 'rgba(0,210,200,0.5)';
+        btnText.textContent = apiData?.alreadySigned ? 'Already GM today' : 'GM signed!';
     
         gmSetStatus('✅ GM signed successfully! ' + address.slice(0,6) + '...' + address.slice(-4) + ' on Base', 'success');
     
@@ -1615,7 +1788,67 @@
     }
     
     // ─── End GM Button Logic ──────────────────────────────
+    // ─── GM API call (după semnare) ───────────────────
+    async function sendGMToAPI(address, signature, message) {
+      try {
+        const res = await fetch('/api/gm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ address, signature, message })
+        });
+        return await res.json();
+      } catch (err) {
+        console.error('[GM API]', err);
+        return null;
+      }
+    }
+    
+    function showStreakCard(data) {
+      if (!data) return;
+      const card  = document.getElementById('gm-streak-card');
+      const badge = document.getElementById('gm-streak-badge');
+      const main  = document.getElementById('gm-streak-main');
+      const sub   = document.getElementById('gm-streak-sub');
+      const pts   = document.getElementById('gm-points-pill');
+    
+      badge.textContent = data.badge?.emoji || '☀️';
+      main.textContent  = data.message || 'GM signed!';
+      sub.textContent   = data.badge?.label + ' · ' + data.streak + ' day streak · ' + data.totalGMs + ' total GMs';
+      pts.textContent   = data.points + ' pts';
+    
+      card.classList.add('visible');
+    }
+    
+    // ─── Leaderboard ──────────────────────────────────
+    async function loadLeaderboard() {
+      const list = document.getElementById('lb-list');
+      try {
+        const res  = await fetch('/api/leaderboard');
+        const data = await res.json();
+    
+        if (!data.leaderboard || !data.leaderboard.length) {
+          list.innerHTML = '<div class="lb-empty">No GMs yet. Be the first!</div>';
+          return;
+        }
+    
+        const rankClass = (i) => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+    
+        list.innerHTML = data.leaderboard.map((row, i) => `
+          <div class="lb-row">
+            <div class="lb-rank ${rankClass(i)}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</div>
+            <div class="lb-addr">${row.address.slice(0,6)}...${row.address.slice(-4)}</div>
+            <div class="lb-streak">🔥 ${row.best_streak}d</div>
+            <div class="lb-pts">${row.total_points} pts</div>
+          </div>
+        `).join('');
+      } catch (err) {
+        list.innerHTML = '<div class="lb-empty">Could not load leaderboard.</div>';
+      }
+    }
+    // ──────────────────────────────────────────────────
 
+
+    loadLeaderboard();
     bindGMButton();
     bindShareButtons();
     bindTop4ShareButtons();
