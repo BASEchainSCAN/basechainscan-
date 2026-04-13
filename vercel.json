@@ -4,5 +4,17 @@
     { "source": "/heatmap", "destination": "/public/heatmap.html" },
     { "source": "/data/heatmap.json", "destination": "/public/data/heatmap.json" },
     { "source": "/data/top4.json", "destination": "/public/data/top4.json" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "X-Frame-Options",          "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",         "value": "1; mode=block" },
+        { "key": "Referrer-Policy",          "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",       "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
   ]
 }
