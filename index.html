@@ -1,271 +1,384 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="base:app_id" content="69d6f153adb751d63e3ce647" />
-  <meta name="theme-color" content="#080d1a" />
+  <meta name="theme-color" content="#050816" />
   <title>BASEchainSCAN • Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #080d1a;
-      --panel: rgba(255,255,255,0.03);
-      --panel-2: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.07);
-      --text: #e2f0ff;
-      --muted: rgba(226,240,255,0.45);
-      --muted-2: rgba(226,240,255,0.3);
-      --brand: #00d2c8;
-      --brand-2: #00b8ff;
-      --danger: #ff4444;
-      --warn: #ff8800;
-      --success: #00d2c8;
+      --bg:        #050816;
+      --bg2:       #070d1e;
+      --panel:     rgba(255,255,255,0.035);
+      --panel-2:   rgba(255,255,255,0.055);
+      --panel-3:   rgba(255,255,255,0.07);
+      --border:    rgba(255,255,255,0.07);
+      --border-2:  rgba(255,255,255,0.12);
+      --text:      #EAF4FF;
+      --muted:     rgba(234,244,255,0.50);
+      --muted-2:   rgba(234,244,255,0.28);
+      --brand:     #14E6D4;
+      --brand-2:   #39A8FF;
+      --brand-dim: rgba(20,230,212,0.12);
+      --danger:    #FF4757;
+      --warn:      #FF8C42;
+      --success:   #14E6D4;
+      --r-hero:    28px;
+      --r-module:  22px;
+      --r-card:    18px;
+      --r-pill:    100px;
+      --r-btn:     12px;
+      --font-main: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'Space Mono', monospace;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      font-family: var(--font-main);
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: env(safe-area-inset-top, 24px) 20px env(safe-area-inset-bottom, 32px);
+      overflow-x: hidden;
+      padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
     }
 
+    /* ── LAYERED BACKGROUND ─────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 15% 0%, rgba(20,230,212,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 100%, rgba(57,168,255,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(124,107,255,0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ── AMBIENT DRIFT ──────────────────────────────── */
+    @keyframes ambientDrift {
+      0%, 100% { transform: translate(0,0) scale(1); opacity: 0.07; }
+      33%       { transform: translate(20px,-15px) scale(1.05); opacity: 0.09; }
+      66%       { transform: translate(-10px,20px) scale(0.97); opacity: 0.06; }
+    }
+
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+    }
+    .ambient-glow-1 {
+      width: 400px; height: 400px;
+      top: -100px; left: -80px;
+      background: radial-gradient(circle, rgba(20,230,212,0.25) 0%, transparent 70%);
+      animation: ambientDrift 22s ease-in-out infinite;
+    }
+    .ambient-glow-2 {
+      width: 360px; height: 360px;
+      bottom: 10%; right: -80px;
+      background: radial-gradient(circle, rgba(57,168,255,0.2) 0%, transparent 70%);
+      animation: ambientDrift 28s ease-in-out infinite reverse;
+    }
+
+    /* ── WRAP ─────────────────────────────────────────── */
     .wrap {
+      position: relative;
+      z-index: 1;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 0;
     }
 
-    .badge {
+    /* ── LIVE BADGE ───────────────────────────────────── */
+    .live-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(0, 210, 200, 0.08);
-      border: 1px solid rgba(0, 210, 200, 0.25);
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      gap: 7px;
+      background: rgba(20,230,212,0.08);
+      border: 1px solid rgba(20,230,212,0.22);
+      border-radius: var(--r-pill);
+      padding: 5px 14px 5px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       color: var(--brand);
       text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--brand);
-      animation: pulse 2s infinite;
+      margin: 0 auto 20px;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(20,230,212,0.4); }
+      50% { opacity: 0.5; box-shadow: 0 0 0 4px rgba(20,230,212,0); }
     }
 
-    .hero-card {
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO SHELL ───────────────────────────────────── */
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-shell {
       width: 100%;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-hero);
+      border: 1px solid rgba(255,255,255,0.09);
       background:
-        radial-gradient(circle at top center, rgba(0, 184, 255, 0.12), transparent 45%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+        linear-gradient(160deg, rgba(20,230,212,0.06) 0%, transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+      box-shadow:
+        0 0 0 1px rgba(20,230,212,0.06) inset,
+        0 1px 0 rgba(255,255,255,0.06) inset,
+        0 32px 64px rgba(0,0,0,0.4),
+        0 0 80px rgba(20,230,212,0.04);
       overflow: hidden;
-      margin-bottom: 22px;
+      margin-bottom: 14px;
+      animation: heroIn 0.6s ease both;
     }
 
     .hero-banner {
       width: 100%;
-      aspect-ratio: 16 / 7;
+      aspect-ratio: 16 / 6;
       object-fit: cover;
       display: block;
       background: rgba(255,255,255,0.03);
     }
 
     .hero-content {
-      padding: 16px 16px 18px;
+      padding: 18px 18px 20px;
     }
 
     .brand-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
+      gap: 13px;
+      margin-bottom: 14px;
     }
 
     .brand-logo {
-      width: 44px;
-      height: 44px;
+      width: 46px; height: 46px;
       border-radius: 14px;
       object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 12px rgba(20,230,212,0.1);
+      background: rgba(255,255,255,0.04);
       flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .brand-copy {
-      min-width: 0;
+    .brand-logo:hover {
+      transform: scale(1.04) rotate(-1deg);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.4), 0 0 20px rgba(20,230,212,0.18);
     }
 
     .logo {
-      font-size: clamp(1.9rem, 7vw, 2.8rem);
+      font-size: clamp(1.7rem, 6.5vw, 2.4rem);
       font-weight: 800;
-      letter-spacing: -1.6px;
+      letter-spacing: -1.5px;
       line-height: 1;
       color: #ffffff;
       margin-bottom: 5px;
     }
-
     .logo span { color: var(--brand); }
 
     .subtitle {
-      font-size: 13px;
-      color: rgba(226, 240, 255, 0.58);
-      letter-spacing: 0.04em;
-      line-height: 1.4;
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      line-height: 1.45;
     }
 
-    .brand-proof {
-      margin-top: 12px;
-      display: inline-flex;
-      align-items: center;
+    /* ── PROOF STRIP ──────────────────────────────────── */
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.4);
-      padding: 7px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
+      padding: 14px 0 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 14px;
     }
 
-    .stats {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 22px;
-    }
-
-    .stat {
-      flex: 1;
-      background: var(--panel-2);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 14px 10px;
+    .proof-item {
       text-align: center;
     }
 
-    .stat-val {
-      font-size: 18px;
-      font-weight: 700;
+    .proof-val {
+      font-size: 15px;
+      font-weight: 800;
       color: var(--brand);
       line-height: 1;
+      letter-spacing: -0.03em;
       margin-bottom: 4px;
     }
 
-    .stat-label {
-      font-size: 10px;
-      color: rgba(226, 240, 255, 0.4);
-      letter-spacing: 0.06em;
+    .proof-label {
+      font-size: 9px;
+      color: var(--muted-2);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .features {
-      width: 100%;
+    /* ── CAPABILITY CHIPS ─────────────────────────────── */
+    .caps {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
-    .feature {
-      display: flex;
+    .cap-chip {
+      display: inline-flex;
       align-items: center;
-      gap: 14px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-    }
-
-    .feature-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(0, 210, 200, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 16px;
-    }
-
-    .feature-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .feature-desc {
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: var(--r-pill);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
       font-size: 11px;
-      color: rgba(226, 240, 255, 0.4);
-      line-height: 1.4;
+      font-weight: 600;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      animation: heroIn 0.5s ease both;
+    }
+    .cap-chip:nth-child(1) { animation-delay: 0.15s; }
+    .cap-chip:nth-child(2) { animation-delay: 0.22s; }
+    .cap-chip:nth-child(3) { animation-delay: 0.29s; }
+
+    .cap-chip:hover {
+      border-color: rgba(20,230,212,0.25);
+      color: var(--brand);
+      background: rgba(20,230,212,0.06);
     }
 
-    .heatmap-section {
+    .cap-chip-icon { font-size: 13px; }
+
+    /* ── MODULE SHELL (shared surface) ────────────────── */
+    .module {
       width: 100%;
-      margin-bottom: 26px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
-      padding: 14px;
+      border-radius: var(--r-module);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 24px 48px rgba(0,0,0,0.25);
+      padding: 16px;
+      margin-bottom: 14px;
+      overflow: hidden;
     }
 
-    .heatmap-header {
+    .module-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .heatmap-title {
+    .module-title {
       font-size: 13px;
       font-weight: 700;
       color: var(--text);
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
     }
 
-    .heatmap-dot {
-      width: 6px;
-      height: 6px;
+    .module-dot {
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--brand);
-      animation: pulse 2s infinite;
-    }
-
-    .heatmap-meta {
-      font-size: 10px;
-      color: rgba(226,240,255,0.3);
+      animation: pulse 2s ease-in-out infinite;
       flex-shrink: 0;
     }
 
+    .module-meta {
+      font-size: 10px;
+      color: var(--muted-2);
+      font-family: var(--font-mono);
+    }
+
+    .module-sub {
+      font-size: 10px;
+      color: var(--muted-2);
+      margin: -8px 0 12px;
+    }
+
+    /* ── TABS ────────────────────────────────────────── */
+    .tab-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .tab-btn.active {
+      background: rgba(20,230,212,0.12);
+      color: var(--brand);
+      border: 1px solid rgba(20,230,212,0.2);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── HEATMAP GRID ────────────────────────────────── */
     .heatmap-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -274,361 +387,270 @@
 
     .hm-card {
       position: relative;
-      border-radius: 12px;
-      padding: 10px 12px;
+      border-radius: 13px;
+      padding: 10px 11px 12px;
       border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.025);
       overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .hm-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.14);
     }
 
     .hm-card::after {
-      content: "";
+      content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 2px;
+      bottom: 0; left: 0;
+      height: 3px;
       width: var(--heat-pct, 0%);
-      background: var(--heat-color, rgba(226,240,255,0.2));
+      background: var(--heat-color, rgba(234,244,255,0.2));
+      border-radius: 0 0 0 13px;
+      transition: width 0.6s ease;
     }
 
-    .hm-sev-critical { --heat-color: #ff4444; border-color: rgba(255,68,68,0.2); background: rgba(255,68,68,0.05); }
-    .hm-sev-high { --heat-color: #ff8800; border-color: rgba(255,136,0,0.18); background: rgba(255,136,0,0.04); }
-    .hm-sev-medium { --heat-color: #00d2c8; border-color: rgba(0,210,200,0.18); background: rgba(0,210,200,0.04); }
-    .hm-sev-low { --heat-color: rgba(226,240,255,0.35); }
-    .hm-sev-none { --heat-color: rgba(226,240,255,0.15); }
+    .hm-sev-critical { --heat-color: #FF4757; border-color: rgba(255,71,87,0.2) !important; background: rgba(255,71,87,0.05) !important; }
+    .hm-sev-high     { --heat-color: #FF8C42; border-color: rgba(255,140,66,0.18) !important; background: rgba(255,140,66,0.04) !important; }
+    .hm-sev-medium   { --heat-color: #14E6D4; border-color: rgba(20,230,212,0.18) !important; background: rgba(20,230,212,0.04) !important; }
+    .hm-sev-low      { --heat-color: rgba(234,244,255,0.3); }
+    .hm-sev-none     { --heat-color: rgba(234,244,255,0.15); }
 
-    .hm-rank {
-      font-size: 9px;
-      color: rgba(226,240,255,0.25);
-      margin-bottom: 2px;
-    }
+    .hm-rank   { font-size: 9px; color: var(--muted-2); margin-bottom: 2px; }
+    .hm-symbol { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hm-score  { font-size: 18px; font-weight: 800; color: var(--heat-color, #EAF4FF); line-height: 1; font-family: var(--font-mono); letter-spacing: -0.04em; }
+    .hm-score-label { font-size: 8px; color: var(--muted-2); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    .hm-symbol {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .hm-score {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--heat-color, #e2f0ff);
-      line-height: 1;
-    }
-
-    .hm-score-label {
-      font-size: 9px;
-      color: rgba(226,240,255,0.3);
-    }
-
-    .heatmap-tools {
-      margin-top: 12px;
+    /* ── ACTION TOOLBAR (unified) ─────────────────────── */
+    .action-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    .tool-btn {
+    .action-btn {
       appearance: none;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 9px 13px;
       font-size: 11px;
       font-weight: 600;
+      font-family: var(--font-main);
       cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .tool-btn:hover {
+    .action-btn:hover {
       transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
     }
 
-    .tool-btn.primary {
-      background: rgba(0,210,200,0.12);
-      border-color: rgba(0,210,200,0.24);
+    .action-btn.primary {
+      background: rgba(20,230,212,0.1);
+      border-color: rgba(20,230,212,0.25);
+      color: var(--brand);
+    }
+    .action-btn.primary:hover {
+      background: rgba(20,230,212,0.16);
+      border-color: rgba(20,230,212,0.4);
       color: var(--brand);
     }
 
     .share-feedback {
-      margin-top: 10px;
-      min-height: 16px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.5);
-    }
-
-    .heatmap-link {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      font-size: 11px;
-      color: rgba(0,210,200,0.8);
-      text-decoration: none;
-    }
-
-    .heatmap-link:hover { color: var(--brand); }
-
-    .powered-line {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 11px;
-      color: rgba(226,240,255,0.34);
-    }
-
-    .powered-line a {
-      color: var(--brand);
-      text-decoration: none;
-    }
-
-    .top4-section { width:100%; margin-bottom:26px; }
-    .top4-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
-    .top4-title { font-size:13px; font-weight:700; color:#e2f0ff; display:flex; align-items:center; gap:7px; }
-    .top4-dot { width:6px; height:6px; border-radius:50%; background:#00d2c8; animation:pulse 2s infinite; }
-    .top4-sub { font-size:10px; color:rgba(226,240,255,0.3); margin-bottom:14px; }
-    .top4-grid { display:flex; flex-direction:column; gap:10px; }
-    .tc { position:relative; border-radius:18px; padding:18px 20px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); overflow:hidden; }
-    .tc::before { content:''; position:absolute; top:0; right:0; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(0,210,200,0.08) 0%, transparent 70%); pointer-events:none; }
-    .tc-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
-    .tc-brand { font-size:10px; font-weight:600; letter-spacing:0.1em; color:#00d2c8; text-transform:uppercase; margin-bottom:4px; }
-    .tc-symbol { font-size:28px; font-weight:800; letter-spacing:-1px; color:#fff; line-height:1; margin-bottom:4px; }
-    .tc-story { font-size:11px; color:rgba(226,240,255,0.5); }
-    .tc-handle { font-size:10px; color:rgba(0,210,200,0.6); margin-top:2px; }
-    .tc-score { text-align:right; flex-shrink:0; }
-    .tc-score-val { font-size:48px; font-weight:800; color:#fff; line-height:1; letter-spacing:-2px; }
-    .tc-score-badge { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
-    .badge-high { background:rgba(255,136,0,0.15); color:#ffaa44; }
-    .badge-medium { background:rgba(0,210,200,0.12); color:#00d2c8; }
-    .badge-critical { background:rgba(255,68,68,0.15); color:#ff6666; }
-    .badge-low { background:rgba(226,240,255,0.06); color:rgba(226,240,255,0.4); }
-    .tc-divider { height:1px; background:rgba(255,255,255,0.06); margin-bottom:12px; }
-    .tc-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
-    .tc-metric-label { font-size:9px; color:rgba(226,240,255,0.35); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px; }
-    .tc-metric-val { font-size:13px; font-weight:700; color:#e2f0ff; }
-    .tc-actions { display:flex; gap:6px; }
-    .tc-btn { flex:1; padding:9px 6px; border-radius:10px; font-size:11px; font-weight:600; text-align:center; text-decoration:none; transition:opacity 0.15s, transform 0.1s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .tc-btn:active { opacity:0.8; transform:scale(0.97); }
-    .btn-okx { background:#00d2c8; color:#080d1a; }
-    .btn-x { background:rgba(255,255,255,0.07); color:rgba(226,240,255,0.8); border:1px solid rgba(255,255,255,0.1); }
-    .btn-dex { background:rgba(255,255,255,0.04); color:rgba(226,240,255,0.5); border:1px solid rgba(255,255,255,0.07); }
-    .top4-empty { text-align:center; padding:24px; font-size:12px; color:rgba(226,240,255,0.25); }
-
-    .form-wrap {
-      width: 100%;
-      margin-bottom: 14px;
-    }
-
-    .form-label {
-      font-size: 12px;
-      color: rgba(226, 240, 255, 0.45);
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .input-row { display: flex; gap: 8px; }
-
-    input[type="email"] {
-      flex: 1;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
-    }
-
-    input[type="email"]:focus { border-color: rgba(0, 210, 200, 0.5); }
-    input[type="email"]::placeholder { color: rgba(226, 240, 255, 0.25); }
-
-    .btn-primary {
-      padding: 14px 20px;
-      background: var(--brand);
-      color: #080d1a;
-      border: none;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.15s, transform 0.1s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .btn-primary:active { opacity: 0.85; transform: scale(0.97); }
-
-    .success-msg {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 210, 200, 0.08);
-      border: 1px solid rgba(0, 210, 200, 0.2);
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--brand);
-      width: 100%;
+      min-height: 14px;
+      font-size: 10.5px;
+      color: var(--muted);
       margin-top: 8px;
+      padding-left: 2px;
     }
 
-    .btn-beta {
-      width: 100%;
-      padding: 15px;
-      background: transparent;
-      color: rgba(226, 240, 255, 0.25);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: not-allowed;
-      margin-bottom: 26px;
-    }
-
-    .socials-label {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(226, 240, 255, 0.25);
-      margin-bottom: 14px;
-    }
-
-    .socials {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 26px;
-    }
-
-    .social-card {
-      position: relative;
+    /* ── TOP CARDS ───────────────────────────────────── */
+    .top4-grid {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.03);
-      text-decoration: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tc {
+      position: relative;
+      border-radius: var(--r-card);
+      padding: 16px 18px 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.015) 100%);
       overflow: hidden;
-      transition: transform 0.18s, border-color 0.18s;
-      -webkit-tap-highlight-color: transparent;
-      opacity: 0;
-      animation: fadeUp 0.4s forwards;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .social-card:nth-child(1) { animation-delay: 0.05s; }
-    .social-card:nth-child(2) { animation-delay: 0.12s; }
-    .social-card:nth-child(3) { animation-delay: 0.19s; }
-    .social-card:nth-child(4) { animation-delay: 0.26s; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .tc:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
     }
 
-    .social-card::before {
+    .tc::before {
       content: '';
       position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.3s;
-      border-radius: 16px;
+      top: -30px; right: -30px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,230,212,0.07) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .social-card:active { transform: scale(0.96); }
-
-    .sc-x::before { background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.06) 0%, transparent 70%); }
-    .sc-tg::before { background: radial-gradient(circle at 0% 50%, rgba(36,161,222,0.12) 0%, transparent 70%); }
-    .sc-base::before { background: radial-gradient(circle at 0% 50%, rgba(0,82,255,0.12) 0%, transparent 70%); }
-    .sc-web::before { background: radial-gradient(circle at 0% 50%, rgba(0,210,200,0.1) 0%, transparent 70%); }
-
-    .social-card:hover::before,
-    .social-card:active::before { opacity: 1; }
-
-    .social-card:hover {
-      border-color: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
+    /* light streak */
+    .tc::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      animation: shimmerLine 6s ease-in-out infinite;
     }
 
-    .social-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+    @keyframes shimmerLine {
+      0% { left: -100%; opacity: 0; }
+      30% { opacity: 1; }
+      60% { left: 160%; opacity: 0; }
+      100% { left: 160%; opacity: 0; }
+    }
+
+    .tc-top {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .sc-x .social-icon { background: rgba(255,255,255,0.07); }
-    .sc-tg .social-icon { background: rgba(36,161,222,0.15); }
-    .sc-base .social-icon { background: rgba(0,82,255,0.15); }
-    .sc-web .social-icon { background: rgba(0,210,200,0.1); }
+    .tc-brand {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: rgba(20,230,212,0.6);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
 
-    .social-icon svg { width: 16px; height: 16px; }
+    .tc-symbol {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
 
-    .social-info { flex: 1; min-width: 0; }
+    .tc-story { font-size: 11px; color: var(--muted); }
+    .tc-handle { font-size: 10px; color: rgba(20,230,212,0.55); margin-top: 2px; }
 
-    .social-name {
+    .tc-score { text-align: right; flex-shrink: 0; }
+    .tc-score-val {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -2px;
+      font-family: var(--font-mono);
+    }
+
+    .tc-score-badge {
+      display: inline-block;
+      font-size: 8.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--r-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 5px;
+    }
+    .badge-high     { background: rgba(255,140,66,0.12);  color: #FFAA55; border: 1px solid rgba(255,140,66,0.2); }
+    .badge-medium   { background: rgba(20,230,212,0.1);   color: #14E6D4; border: 1px solid rgba(20,230,212,0.2); }
+    .badge-critical { background: rgba(255,71,87,0.12);   color: #FF7080; border: 1px solid rgba(255,71,87,0.2); }
+    .badge-low      { background: rgba(234,244,255,0.05); color: var(--muted-2); border: 1px solid rgba(255,255,255,0.07); }
+
+    .tc-divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 11px; }
+
+    .tc-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+
+    .tc-metric-label {
+      font-size: 8.5px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 3px;
+    }
+
+    .tc-metric-val {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text);
-      margin-bottom: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-family: var(--font-mono);
     }
 
-    .social-handle {
-      font-size: 10px;
-      color: rgba(226, 240, 255, 0.35);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .tc-metric-capsule {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 7px 8px;
     }
 
-    .social-arrow {
-      font-size: 14px;
-      color: rgba(226, 240, 255, 0.2);
-      flex-shrink: 0;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .social-card:hover .social-arrow {
-      color: rgba(226, 240, 255, 0.6);
-      transform: translateX(2px);
-    }
-
-    .footer-note {
-      font-size: 11px;
-      color: rgba(226, 240, 255, 0.18);
+    .tc-actions { display: flex; gap: 6px; }
+    .tc-btn {
+      flex: 1;
+      padding: 9px 6px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      font-family: var(--font-main);
       text-align: center;
-      padding-bottom: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid transparent;
     }
-    /* ─── GM Button ─────────────────────────────────────── */
-    .gm-section {
-      width: 100%;
-      margin-bottom: 22px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(0,210,200,0.04), rgba(0,184,255,0.02));
-      padding: 18px 16px;
+    .tc-btn:active { opacity: 0.8; transform: scale(0.97); }
+    .btn-okx  { background: var(--brand); color: #050816; border-color: transparent; font-weight: 700; }
+    .btn-x    { background: rgba(255,255,255,0.06); color: rgba(234,244,255,0.8); border-color: rgba(255,255,255,0.1); }
+    .btn-dex  { background: rgba(255,255,255,0.03); color: var(--muted-2); border-color: rgba(255,255,255,0.07); }
+
+    .top4-empty { text-align: center; padding: 24px; font-size: 12px; color: var(--muted-2); }
+
+    /* ── COMMUNITY LAYER (GM + Leaderboard) ───────────── */
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
     }
-    
+
+    /* GM */
+    .gm-card {
+      border-radius: var(--r-module);
+      border: 1px solid rgba(20,230,212,0.1);
+      background: linear-gradient(160deg, rgba(20,230,212,0.05) 0%, rgba(57,168,255,0.03) 100%);
+      box-shadow: 0 1px 0 rgba(20,230,212,0.06) inset;
+      padding: 18px;
+    }
+
     .gm-title {
       font-size: 13px;
       font-weight: 700;
@@ -636,191 +658,141 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    
+
     .gm-dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--brand);
-      animation: pulse 2s infinite;
+      animation: pulse 2s ease-in-out infinite;
     }
-    
+
     .gm-desc {
       font-size: 11px;
-      color: rgba(226,240,255,0.4);
-      margin-bottom: 14px;
-      line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.55;
     }
-    
+
     .btn-gm {
       width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, rgba(0,210,200,0.15), rgba(0,184,255,0.1));
-      border: 1px solid rgba(0,210,200,0.3);
+      padding: 14px;
+      background: linear-gradient(135deg, rgba(20,230,212,0.14), rgba(57,168,255,0.09));
+      border: 1px solid rgba(20,230,212,0.28);
       border-radius: 14px;
       color: var(--brand);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      font-family: var(--font-main);
+      letter-spacing: 0.03em;
       cursor: pointer;
-      transition: transform 0.12s ease, opacity 0.12s ease, border-color 0.12s ease;
+      transition: transform 0.12s ease, opacity 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
       -webkit-tap-highlight-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 9px;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .btn-gm:hover:not(:disabled) {
-      transform: translateY(-1px);
-      border-color: rgba(0,210,200,0.5);
+
+    .btn-gm::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(20,230,212,0.06) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
     }
-    
-    .btn-gm:active:not(:disabled) {
-      transform: scale(0.97);
-      opacity: 0.85;
-    }
-    
-    .btn-gm:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-    
-    .gm-status {
-      margin-top: 10px;
-      min-height: 18px;
-      font-size: 11px;
-      color: rgba(226,240,255,0.5);
-      text-align: center;
-      line-height: 1.5;
-    }
-    
-    .gm-status.success {
-      color: var(--success);
-    }
-    
-    .gm-status.error {
-      color: var(--danger);
-    }
-    
+
+    .btn-gm:hover:not(:disabled)::before { transform: translateX(100%); }
+    .btn-gm:hover:not(:disabled)   { transform: translateY(-1px); border-color: rgba(20,230,212,0.45); box-shadow: 0 8px 24px rgba(20,230,212,0.1); }
+    .btn-gm:active:not(:disabled)  { transform: scale(0.97); opacity: 0.88; }
+    .btn-gm:disabled { cursor: not-allowed; opacity: 0.45; }
+
     .gm-wallet-info {
       display: none;
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 10px;
     }
-    
+
     .gm-wallet-addr {
       font-size: 11px;
-      color: rgba(226,240,255,0.5);
-      font-family: monospace;
+      color: var(--muted);
+      font-family: var(--font-mono);
     }
-    
+
     .btn-gm-disconnect {
       font-size: 10px;
-      color: rgba(226,240,255,0.3);
+      color: var(--muted-2);
       background: none;
       border: none;
       cursor: pointer;
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 6px;
+      font-family: var(--font-main);
       transition: color 0.15s;
     }
-    
-    .btn-gm-disconnect:hover {
-      color: var(--danger);
+    .btn-gm-disconnect:hover { color: var(--danger); }
+
+    .gm-status {
+      margin-top: 10px;
+      min-height: 16px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
     }
-    /* ─────────────────────────────────────────────────────── */
-    /* ─── GM Streak Display ──────────────────────────── */
+    .gm-status.success { color: var(--success); }
+    .gm-status.error   { color: var(--danger); }
+
     .gm-streak-card {
       display: none;
       margin-top: 12px;
-      padding: 12px 16px;
-      background: rgba(0,210,200,0.06);
-      border: 1px solid rgba(0,210,200,0.15);
+      padding: 12px 14px;
+      background: rgba(20,230,212,0.06);
+      border: 1px solid rgba(20,230,212,0.15);
       border-radius: 12px;
-      gap: 0;
     }
-    
     .gm-streak-card.visible { display: flex; align-items: center; gap: 12px; }
-    
-    .gm-streak-badge {
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-    
-    .gm-streak-info { flex: 1; min-width: 0; }
-    
-    .gm-streak-main {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--brand);
-      margin-bottom: 2px;
-    }
-    
-    .gm-streak-sub {
-      font-size: 10px;
-      color: rgba(226,240,255,0.4);
-      letter-spacing: 0.04em;
-    }
-    
+
+    .gm-streak-badge { font-size: 22px; flex-shrink: 0; }
+    .gm-streak-info  { flex: 1; min-width: 0; }
+    .gm-streak-main  { font-size: 12.5px; font-weight: 700; color: var(--brand); margin-bottom: 2px; }
+    .gm-streak-sub   { font-size: 9.5px; color: var(--muted-2); letter-spacing: 0.04em; }
+
     .gm-points-pill {
       font-size: 10px;
       font-weight: 700;
       padding: 4px 10px;
-      border-radius: 100px;
-      background: rgba(0,210,200,0.1);
-      border: 1px solid rgba(0,210,200,0.2);
+      border-radius: var(--r-pill);
+      background: rgba(20,230,212,0.1);
+      border: 1px solid rgba(20,230,212,0.2);
       color: var(--brand);
       white-space: nowrap;
       flex-shrink: 0;
     }
-    
-    /* ─── Leaderboard ────────────────────────────────── */
-    .lb-section {
-      width: 100%;
-      margin-bottom: 26px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
-      padding: 14px;
+
+    /* LEADERBOARD */
+    .lb-card {
+      border-radius: var(--r-module);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset;
+      padding: 16px;
     }
-    
-    .lb-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    
-    .lb-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    
-    .lb-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--brand);
-      animation: pulse 2s infinite;
-    }
-    
+
     .lb-sub {
       font-size: 10px;
-      color: rgba(226,240,255,0.3);
-      margin-bottom: 10px;
+      color: var(--muted-2);
+      margin-bottom: 12px;
     }
-    
+
     .lb-row {
       display: flex;
       align-items: center;
@@ -832,198 +804,420 @@
       margin-bottom: 6px;
       transition: background 0.15s;
     }
-    
+    .lb-row:last-child { margin-bottom: 0; }
     .lb-row:hover { background: rgba(255,255,255,0.04); }
-    
+
     .lb-rank {
       font-size: 11px;
       font-weight: 700;
-      color: rgba(226,240,255,0.3);
-      width: 18px;
+      color: var(--muted-2);
+      width: 20px;
       text-align: center;
       flex-shrink: 0;
     }
-    
     .lb-rank.gold   { color: #FFD700; }
     .lb-rank.silver { color: #C0C0C0; }
     .lb-rank.bronze { color: #CD7F32; }
-    
+
     .lb-addr {
       flex: 1;
-      font-size: 12px;
-      font-family: monospace;
-      color: rgba(226,240,255,0.7);
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      color: rgba(234,244,255,0.65);
       min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
-    .lb-streak {
-      font-size: 10px;
-      color: var(--brand);
-      flex-shrink: 0;
-    }
-    
-    .lb-pts {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      flex-shrink: 0;
-      min-width: 44px;
-      text-align: right;
-    }
-    
-    .lb-empty {
-      text-align: center;
+
+    .lb-streak { font-size: 10px; color: var(--brand); flex-shrink: 0; }
+    .lb-pts    { font-size: 12px; font-weight: 700; color: var(--text); flex-shrink: 0; min-width: 48px; text-align: right; font-family: var(--font-mono); }
+    .lb-empty  { text-align: center; padding: 18px; font-size: 12px; color: var(--muted-2); }
+
+    /* ── FOOTER SHELL ────────────────────────────────── */
+    .footer-shell {
+      width: 100%;
+      border-radius: var(--r-module);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel) 0%, rgba(255,255,255,0.02) 100%);
       padding: 20px;
-      font-size: 12px;
-      color: rgba(226,240,255,0.25);
+      margin-bottom: 14px;
     }
-    /* ──────────────────────────────────────────────── */
-    
-    
 
+    .form-label {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
 
-    
+    .input-row { display: flex; gap: 8px; }
+
+    input[type="email"] {
+      flex: 1;
+      padding: 13px 15px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: var(--r-btn);
+      color: var(--text);
+      font-size: 14px;
+      font-family: var(--font-main);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    input[type="email"]:focus {
+      border-color: rgba(20,230,212,0.45);
+      box-shadow: 0 0 0 3px rgba(20,230,212,0.06);
+    }
+    input[type="email"]::placeholder { color: rgba(234,244,255,0.2); }
+
+    .btn-primary {
+      padding: 13px 18px;
+      background: var(--brand);
+      color: #050816;
+      border: none;
+      border-radius: var(--r-btn);
+      font-weight: 700;
+      font-size: 13.5px;
+      font-family: var(--font-main);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .btn-primary:hover { box-shadow: 0 6px 20px rgba(20,230,212,0.25); }
+    .btn-primary:active { opacity: 0.88; transform: scale(0.97); }
+
+    .success-msg {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20,230,212,0.07);
+      border: 1px solid rgba(20,230,212,0.18);
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 12.5px;
+      color: var(--brand);
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .divider-or {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .divider-or::before, .divider-or::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .divider-or span { font-size: 10px; color: var(--muted-2); letter-spacing: 0.08em; white-space: nowrap; }
+
+    .btn-beta {
+      width: 100%;
+      padding: 13px;
+      background: transparent;
+      color: var(--muted-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--r-btn);
+      font-size: 12.5px;
+      font-weight: 500;
+      font-family: var(--font-main);
+      cursor: not-allowed;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── SOCIALS (compact row) ───────────────────────── */
+    .socials-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .social-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 14px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+      opacity: 0;
+      animation: fadeUp 0.4s forwards;
+    }
+
+    .social-card:nth-child(1) { animation-delay: 0.1s; }
+    .social-card:nth-child(2) { animation-delay: 0.17s; }
+    .social-card:nth-child(3) { animation-delay: 0.24s; }
+    .social-card:nth-child(4) { animation-delay: 0.31s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .social-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 15px;
+    }
+
+    .sc-x::before    { background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.05) 0%, transparent 60%); }
+    .sc-tg::before   { background: radial-gradient(circle at 0% 50%, rgba(36,161,222,0.1) 0%, transparent 60%); }
+    .sc-base::before { background: radial-gradient(circle at 0% 50%, rgba(0,82,255,0.1) 0%, transparent 60%); }
+    .sc-web::before  { background: radial-gradient(circle at 0% 50%, rgba(20,230,212,0.08) 0%, transparent 60%); }
+
+    .social-card:hover::before { opacity: 1; }
+    .social-card:hover {
+      border-color: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .social-card:active { transform: scale(0.96); }
+
+    .social-icon {
+      width: 32px; height: 32px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sc-x .social-icon    { background: rgba(255,255,255,0.07); }
+    .sc-tg .social-icon   { background: rgba(36,161,222,0.14); }
+    .sc-base .social-icon { background: rgba(0,82,255,0.14); }
+    .sc-web .social-icon  { background: rgba(20,230,212,0.1); }
+    .social-icon svg { width: 15px; height: 15px; }
+
+    .social-info { flex: 1; min-width: 0; }
+    .social-name {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .social-handle {
+      font-size: 9.5px;
+      color: var(--muted-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .social-arrow {
+      font-size: 13px;
+      color: var(--muted-2);
+      flex-shrink: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .social-card:hover .social-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ── FOOTER NOTE ─────────────────────────────────── */
+    .footer-note {
+      font-size: 10.5px;
+      color: rgba(234,244,255,0.16);
+      text-align: center;
+      padding-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── POWERED LINE ─────────────────────────────────── */
+    .powered-line {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--muted-2);
+    }
+    .powered-line a { color: var(--brand); text-decoration: none; }
+    .powered-line a:hover { text-decoration: underline; }
+
+    .view-link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(20,230,212,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .view-link:hover { color: var(--brand); }
+
+    /* section animation */
+    .section-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: heroIn 0.5s ease forwards;
+    }
+    .section-reveal:nth-child(2) { animation-delay: 0.1s; }
+    .section-reveal:nth-child(3) { animation-delay: 0.18s; }
+    .section-reveal:nth-child(4) { animation-delay: 0.26s; }
+    .section-reveal:nth-child(5) { animation-delay: 0.34s; }
+    .section-reveal:nth-child(6) { animation-delay: 0.42s; }
+    .section-reveal:nth-child(7) { animation-delay: 0.50s; }
+
     @media (max-width: 400px) {
-      .stats { gap: 8px; }
+      .wrap { padding: 20px 12px 36px; }
       .heatmap-grid { gap: 5px; }
+      .tc-metrics { grid-template-columns: repeat(2, 1fr); }
       .socials { grid-template-columns: 1fr 1fr; }
-      .input-row { flex-direction: row; }
     }
   </style>
 </head>
 <body>
+  <!-- ambient glows -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
   <div class="wrap">
 
-    <div class="badge">
-      <div class="badge-dot"></div>
-      Base Network
+    <!-- LIVE BADGE -->
+    <div class="live-badge section-reveal">
+      <div class="live-dot"></div>
+      Base Network · Live
     </div>
 
-    <div class="hero-card">
+    <!-- ── HERO SHELL ────────────────────────── -->
+    <div class="hero-shell section-reveal">
       <img class="hero-banner" src="/public/images/blogo.jpg" alt="BASEchainSCAN banner" />
       <div class="hero-content">
         <div class="brand-row">
           <img class="brand-logo" src="/public/images/blogo1.jpg" alt="BASEchainSCAN logo" />
-          <div class="brand-copy">
+          <div>
             <div class="logo">BASEchain<span>SCAN</span></div>
             <p class="subtitle">Signal-first terminal for Base · filtered noise, cleaner token discovery</p>
           </div>
         </div>
-        <div class="brand-proof">Powered by <strong>@BASEchainSCAN</strong></div>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-val">Filter</div>
-        <div class="stat-label">Noise out</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">Score</div>
-        <div class="stat-label">Every token</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">Alert</div>
-        <div class="stat-label">When it matters</div>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">🔍</div>
-        <div>
-          <div class="feature-title">Token Discovery</div>
-          <div class="feature-desc">Emerging tokens scored in real-time</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <div>
-          <div class="feature-title">Smart Signals</div>
-          <div class="feature-desc">High-confidence alerts, filtered noise</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🧠</div>
-        <div>
-          <div class="feature-title">Onchain Intelligence</div>
-          <div class="feature-desc">Whale activity, LP moves, flow tracking</div>
+        <!-- proof strip replaces 3 separate stat cards -->
+        <div class="proof-strip">
+          <div class="proof-item">
+            <div class="proof-val">Filter</div>
+            <div class="proof-label">Noise out</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-val">Score</div>
+            <div class="proof-label">Every token</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-val">Alert</div>
+            <div class="proof-label">When it matters</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="heatmap-section">
-      <div class="heatmap-header">
-        <div class="heatmap-title">
-          <div class="heatmap-dot"></div>
-          Emerging Radar · 24h
-        </div>
-        <div class="heatmap-meta" id="hm-time">—</div>
-      </div>
-
-      <div class="heatmap-grid" id="hm-grid">
-        <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(226,240,255,0.3);">
-          Loading...
-        </div>
-      </div>
-
-      <div class="heatmap-tools">
-        <button class="tool-btn primary" id="x-post-btn" type="button">Post on X</button>
-        <button class="tool-btn ghost" id="copy-post-btn" type="button">Copy X Post</button>
-        <button class="tool-btn ghost" id="share-link-btn" type="button">Share Link</button>
-        <button class="tool-btn ghost" id="copy-image-btn" type="button">Copy Image</button>
-      </div>
-
-      <div class="share-feedback" id="share-feedback"></div>
-
-      <a href="/heatmap" class="heatmap-link">View full heatmap →</a>
-      <div class="powered-line">Share-ready radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer">@BASEchainSCAN</a></div>
+    <!-- ── CAPABILITY CHIPS ───────────────────── -->
+    <div class="caps section-reveal">
+      <div class="cap-chip"><span class="cap-chip-icon">🔍</span> Token Discovery</div>
+      <div class="cap-chip"><span class="cap-chip-icon">⚡</span> Smart Signals</div>
+      <div class="cap-chip"><span class="cap-chip-icon">🧠</span> Onchain Intel</div>
     </div>
 
-    <div class="top4-section">
-      <div class="top4-header">
-        <div class="top4-title">
-          <div class="top4-dot"></div>
-          Low Cap Emerging Tokens
+    <!-- ── LIVE SIGNAL SURFACES (tabbed) ─────── -->
+    <div class="module section-reveal">
+      <div class="module-header">
+        <div class="module-title">
+          <div class="module-dot"></div>
+          Live Signal Surfaces
         </div>
-        <div class="heatmap-meta" id="top4-time">—</div>
+        <div class="module-meta" id="signal-time">—</div>
       </div>
-      <div class="top4-sub">Under $1M mcap · Social verified · Updated daily</div>
-      <div class="top4-grid" id="top4-grid">
-        <div class="top4-empty">Loading...</div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="radar" type="button">Emerging Radar</button>
+        <button class="tab-btn" data-tab="lowcap" type="button">Low Cap</button>
+      </div>
+
+      <!-- RADAR TAB -->
+      <div class="tab-content active" id="tab-radar">
+        <div class="heatmap-grid" id="hm-grid">
+          <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(234,244,255,0.3)">Loading…</div>
+        </div>
+        <div class="action-bar">
+          <button class="action-btn primary" id="x-post-btn" type="button">✦ Post on X</button>
+          <button class="action-btn" id="copy-post-btn" type="button">Copy Post</button>
+          <button class="action-btn" id="share-link-btn" type="button">Share Link</button>
+          <button class="action-btn" id="copy-image-btn" type="button">Copy Image</button>
+        </div>
+        <div class="share-feedback" id="share-feedback"></div>
+        <a href="/heatmap" class="view-link">View full heatmap →</a>
+        <div class="powered-line">Radar by <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener">@BASEchainSCAN</a></div>
+      </div>
+
+      <!-- LOW CAP TAB -->
+      <div class="tab-content" id="tab-lowcap">
+        <div class="module-sub">Under $1M mcap · Social verified · Updated daily</div>
+        <div class="top4-grid" id="top4-grid">
+          <div class="top4-empty">Loading…</div>
+        </div>
+        <div class="action-bar">
+          <button class="action-btn primary" id="top4-x-post-btn" type="button">✦ Post on X</button>
+          <button class="action-btn" id="top4-copy-post-btn" type="button">Copy Post</button>
+          <button class="action-btn" id="top4-share-link-btn" type="button">Share Link</button>
+          <button class="action-btn" id="top4-copy-image-btn" type="button">Copy Image</button>
+        </div>
+        <div class="share-feedback" id="top4-share-feedback"></div>
+        <div class="powered-line" style="margin-top:10px;">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank">@BASEchainSCAN</a></div>
       </div>
     </div>
-      <div class="heatmap-tools" style="margin-top:12px;">
-        <button class="tool-btn primary" id="top4-x-post-btn" type="button">Post on X</button>
-        <button class="tool-btn" id="top4-copy-post-btn" type="button">Copy X Post</button>
-        <button class="tool-btn" id="top4-share-link-btn" type="button">Share Link</button>
-        <button class="tool-btn" id="top4-copy-image-btn" type="button">Copy Image</button>
-      </div>
-      <div class="share-feedback" id="top4-share-feedback"></div>
-      <div class="powered-line" style="margin-top:12px;">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank">@BASEchainSCAN</a></div>
-    </div>
-      <!-- ─── GM Button Section ────────────────────────────── -->
-      <div class="gm-section">
+
+    <!-- ── COMMUNITY LAYER ────────────────────── -->
+    <div class="community-grid section-reveal">
+
+      <!-- GM Card -->
+      <div class="gm-card">
         <div class="gm-title">
           <div class="gm-dot"></div>
           GM on Base
         </div>
-        <p class="gm-desc">Connect your wallet and sign a GM message on Base network. Off-chain · No gas · No transaction.</p>
-      
+        <p class="gm-desc">Connect your wallet and sign a GM message on Base. Off-chain · No gas · No transaction.</p>
+
         <button class="btn-gm" id="gm-btn" type="button">
           <span id="gm-btn-icon">☀️</span>
           <span id="gm-btn-text">GM Base</span>
         </button>
-      
+
         <div class="gm-wallet-info" id="gm-wallet-info">
           <span class="gm-wallet-addr" id="gm-wallet-addr">—</span>
           <button class="btn-gm-disconnect" id="gm-disconnect-btn" type="button">Disconnect</button>
         </div>
-      
+
         <div class="gm-status" id="gm-status"></div>
-        <!-- Streak display (apare după GM semnat) -->
+
         <div class="gm-streak-card" id="gm-streak-card">
           <div class="gm-streak-badge" id="gm-streak-badge">☀️</div>
           <div class="gm-streak-info">
@@ -1033,22 +1227,25 @@
           <div class="gm-points-pill" id="gm-points-pill">0 pts</div>
         </div>
       </div>
-      <!-- ───────────────────────────────────────────────────── -->
-      <!-- ─── GM Leaderboard ──────────────────────────── -->
-      <div class="lb-section">
-        <div class="lb-header">
-          <div class="lb-title">
-            <div class="lb-dot"></div>
+
+      <!-- Leaderboard Card -->
+      <div class="lb-card">
+        <div class="module-header" style="margin-bottom:8px;">
+          <div class="module-title">
+            <div class="module-dot"></div>
             GM Leaderboard
           </div>
         </div>
         <div class="lb-sub">Top wallets by streak points · Updates live</div>
         <div id="lb-list">
-          <div class="lb-empty">Loading...</div>
+          <div class="lb-empty">Loading…</div>
         </div>
       </div>
-      <!-- ─────────────────────────────────────────────── -->
-        <div class="form-wrap">
+
+    </div>
+
+    <!-- ── FOOTER SHELL ───────────────────────── -->
+    <div class="footer-shell section-reveal">
       <p class="form-label">Stay updated — quiet signals, early access</p>
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
@@ -1062,20 +1259,20 @@
         </div>
       </form>
       <iframe name="bd_popup" style="display:none;"></iframe>
-      <div class="success-msg" id="success">
-        ✓ You're in — check your email to confirm
-      </div>
+      <div class="success-msg" id="success">✓ You're in — check your email to confirm</div>
+
+      <div class="divider-or"><span>Early Beta</span></div>
+      <button class="btn-beta" disabled>Coming Soon — Early Beta</button>
     </div>
 
-    <button class="btn-beta" disabled>Early Beta — Coming Soon</button>
+    <!-- SOCIALS -->
+    <p class="socials-label section-reveal">Find us on</p>
 
-    <p class="socials-label">Find us on</p>
-
-    <div class="socials">
+    <div class="socials section-reveal">
       <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer" class="social-card sc-x">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.629 5.905-5.629zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="rgba(226,240,255,0.85)"/>
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.629 5.905-5.629zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="rgba(234,244,255,0.85)"/>
           </svg>
         </div>
         <div class="social-info">
@@ -1115,8 +1312,8 @@
       <a href="https://project-lx0b0.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-card sc-web">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9.5" stroke="rgba(0,210,200,0.7)" stroke-width="1.5"/>
-            <path d="M12 2.5C12 2.5 9 7 9 12s3 9.5 3 9.5M12 2.5C12 2.5 15 7 15 12s-3 9.5-3 9.5M2.5 12h19" stroke="rgba(0,210,200,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="9.5" stroke="rgba(20,230,212,0.7)" stroke-width="1.5"/>
+            <path d="M12 2.5C12 2.5 9 7 9 12s3 9.5 3 9.5M12 2.5C12 2.5 15 7 15 12s-3 9.5-3 9.5M2.5 12h19" stroke="rgba(20,230,212,0.7)" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="social-info">
@@ -1131,330 +1328,101 @@
   </div>
 
   <script>
+    /* ── STATE ─────────────────────────────────────────── */
     let latestHeatmap = null;
-    let latestTop4 = null;
+    let latestTop4    = null;
 
-    function setFeedback(message, isError = false) {
-      const el = document.getElementById('share-feedback');
+    /* ── TABS ──────────────────────────────────────────── */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    /* ── HELPERS ───────────────────────────────────────── */
+    function setFeedback(id, message, isError = false) {
+      const el = document.getElementById(id);
+      if (!el) return;
       el.textContent = message || '';
-      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)';
+      el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(234,244,255,0.5)';
     }
 
     function formatUpdateTimestamp(dateStr) {
       try {
         const d = new Date(dateStr);
-        if (Number.isNaN(d.getTime())) return 'Updated —';
-        return 'Updated ' + d.toLocaleString('en-GB', {
-          timeZone: 'UTC',
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false
-        }) + ' UTC';
-      } catch {
-        return 'Updated —';
-      }
-    }
-
-    function buildXPostText(data) {
-      const top = (data?.tokens || []).slice(0, 5);
-      const heatmapUrl = window.location.origin + '/heatmap';
-
-      const lines = [
-        'Emerging Radar · 24h',
-        '',
-        ...top.map((t, i) => `${i + 1}. ${t.symbol} — ${t.score}`),
-        '',
-        heatmapUrl,
-        '',
-        'Powered by @BASEchainSCAN'
-      ];
-
-      return lines.join('\n');
-    }
-
-    async function copyText(text, successMessage) {
-      try {
-        await navigator.clipboard.writeText(text);
-        setFeedback(successMessage);
-      } catch (err) {
-        setFeedback('Copy failed. Try again.', true);
-      }
-    }
-
-    async function shareLink() {
-      const url = window.location.origin + '/heatmap';
-
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'BASEchainSCAN · Emerging Heatmap',
-            text: 'Emerging Radar · 24h — Powered by @BASEchainSCAN',
-            url
-          });
-          setFeedback('Share dialog opened.');
-          return;
-        } catch (err) {
-        }
-      }
-
-      await copyText(url, 'Heatmap link copied.');
+        if (Number.isNaN(d.getTime())) return '—';
+        return d.toLocaleString('en-GB', { timeZone:'UTC', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:false }) + ' UTC';
+      } catch { return '—'; }
     }
 
     function escapeXml(str) {
       return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&apos;');
     }
 
     function colorForSeverity(sev) {
-      if (sev === 'critical') return '#ff4444';
-      if (sev === 'high') return '#ff8800';
-      if (sev === 'medium') return '#00d2c8';
-      if (sev === 'low') return '#8d98b3';
-      return '#5a647d';
-    }
-
-    function buildShareCardSvg(data) {
-      const tokens = (data?.tokens || []).slice(0, 9);
-      const generatedAt = formatUpdateTimestamp(data?.generated_at || '');
-      const width = 1200;
-      const height = 780;
-
-      const positions = [
-        { x: 60, y: 150 }, { x: 400, y: 150 }, { x: 740, y: 150 },
-        { x: 60, y: 330 }, { x: 400, y: 330 }, { x: 740, y: 330 },
-        { x: 60, y: 510 }, { x: 400, y: 510 }, { x: 740, y: 510 }
-      ];
-
-      const cardW = 300;
-      const cardH = 150;
-
-      const cards = tokens.map((t, i) => {
-        const pos = positions[i];
-        const sev = t.severity || 'none';
-        const color = colorForSeverity(sev);
-        const score = escapeXml(t.score);
-        const symbol = escapeXml(t.symbol);
-
-        return `
-          <g transform="translate(${pos.x},${pos.y})">
-            <rect x="0" y="0" width="${cardW}" height="${cardH}" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" />
-            <rect x="0" y="${cardH - 6}" width="${Math.max(60, Math.min(280, Number(t.score) * 4))}" height="6" rx="3" fill="${color}" />
-            <text x="22" y="28" fill="rgba(226,240,255,0.28)" font-size="18" font-family="Arial, sans-serif">#${escapeXml(t.rank)}</text>
-            <text x="22" y="70" fill="#ffffff" font-size="40" font-weight="700" font-family="Arial, sans-serif">${symbol}</text>
-            <text x="22" y="112" fill="${color}" font-size="46" font-weight="700" font-family="Arial, sans-serif">${score}</text>
-            <text x="22" y="132" fill="rgba(226,240,255,0.32)" font-size="18" font-family="Arial, sans-serif">score</text>
-          </g>
-        `;
-      }).join('');
-
-      return `
-        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-          <defs>
-            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0a1020"/>
-              <stop offset="100%" stop-color="#070c18"/>
-            </linearGradient>
-            <radialGradient id="glow" cx="50%" cy="0%" r="70%">
-              <stop offset="0%" stop-color="rgba(0,184,255,0.18)"/>
-              <stop offset="100%" stop-color="rgba(0,184,255,0)"/>
-            </radialGradient>
-          </defs>
-
-          <rect width="${width}" height="${height}" fill="url(#bgGrad)" />
-          <rect width="${width}" height="${height}" fill="url(#glow)" />
-
-          <circle cx="70" cy="70" r="7" fill="#00d2c8" />
-          <text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial, sans-serif">Emerging Radar · 24h</text>
-          <text x="${width - 60}" y="78" fill="rgba(226,240,255,0.34)" font-size="22" text-anchor="end" font-family="Arial, sans-serif">${generatedAt}</text>
-
-          ${cards}
-
-          <text x="60" y="725" fill="rgba(226,240,255,0.20)" font-size="20" font-family="Arial, sans-serif">Share-ready radar by</text>
-          <text x="240" y="725" fill="#00d2c8" font-size="20" font-weight="700" font-family="Arial, sans-serif">@BASEchainSCAN</text>
-        </svg>
-      `;
-    }
-
-    async function copyImageFromHeatmap(data) {
-      if (!data || !data.tokens || !data.tokens.length) {
-        setFeedback('Heatmap not loaded yet.', true);
-        return;
-      }
-
-      try {
-        const svg = buildShareCardSvg(data);
-        const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-        const svgUrl = URL.createObjectURL(svgBlob);
-
-        const img = await new Promise((resolve, reject) => {
-          const image = new Image();
-          image.onload = () => resolve(image);
-          image.onerror = reject;
-          image.src = svgUrl;
-        });
-
-        const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 780;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-
-        URL.revokeObjectURL(svgUrl);
-
-        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        if (!pngBlob) throw new Error('PNG export failed');
-
-        if (navigator.clipboard && window.ClipboardItem) {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': pngBlob })
-          ]);
-          setFeedback('Image copied to clipboard.');
-          return;
-        }
-
-        const dlUrl = URL.createObjectURL(pngBlob);
-        const a = document.createElement('a');
-        a.href = dlUrl;
-        a.download = 'basechainscan-emerging-radar.png';
-        a.click();
-        URL.revokeObjectURL(dlUrl);
-        setFeedback('Clipboard image not supported, PNG downloaded instead.');
-      } catch (err) {
-        setFeedback('Image export failed. Try again.', true);
-      }
-    }
-
-    function bindShareButtons() {
-      const xBtn = document.getElementById('x-post-btn');
-      const copyBtn = document.getElementById('copy-post-btn');
-      const shareBtn = document.getElementById('share-link-btn');
-      const copyImageBtn = document.getElementById('copy-image-btn');
-
-      xBtn.addEventListener('click', () => {
-        if (!latestHeatmap) {
-          setFeedback('Heatmap not loaded yet.', true);
-          return;
-        }
-        const text = buildXPostText(latestHeatmap);
-        const intent = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
-        window.open(intent, '_blank', 'noopener,noreferrer');
-        setFeedback('X post prepared.');
-      });
-
-      copyBtn.addEventListener('click', async () => {
-        if (!latestHeatmap) {
-          setFeedback('Heatmap not loaded yet.', true);
-          return;
-        }
-        await copyText(buildXPostText(latestHeatmap), 'X post copied to clipboard.');
-      });
-
-      shareBtn.addEventListener('click', async () => {
-        await shareLink();
-      });
-
-      copyImageBtn.addEventListener('click', async () => {
-        await copyImageFromHeatmap(latestHeatmap);
-      });
-    }
-
-    async function loadHeatmap() {
-      try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now());
-        if (!res.ok) throw new Error('fetch failed');
-
-        const data = await res.json();
-        latestHeatmap = data;
-
-        document.getElementById('hm-time').textContent = formatUpdateTimestamp(data.generated_at);
-
-        const grid = document.getElementById('hm-grid');
-        const maxScore = Math.max(...data.tokens.map(t => t.score));
-        grid.innerHTML = data.tokens.slice(0, 9).map(t => {
-          const pct = Math.round((t.score / maxScore) * 100);
-          const sev = t.severity || 'none';
-          return `
-            <div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
-              <div class="hm-rank">#${t.rank}</div>
-              <div class="hm-symbol">${t.symbol}</div>
-              <div class="hm-score">${t.score}</div>
-              <div class="hm-score-label">score</div>
-            </div>
-          `;
-        }).join('');
-
-        setFeedback('Radar ready.');
-      } catch (e) {
-        document.getElementById('hm-grid').innerHTML = `
-          <div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(255,120,120,0.8);">
-            Could not load radar data.
-          </div>
-        `;
-        setFeedback('Radar load failed.', true);
-      }
-    }
-
-    function handleSubmit(form) {
-      const email = form.email.value.trim();
-      if (!email) return false;
-
-      setTimeout(() => {
-        form.email.value = '';
-        const s = document.getElementById('success');
-        s.style.display = 'flex';
-        setTimeout(() => { s.style.display = 'none'; }, 5000);
-      }, 500);
-
-      return true;
+      return { critical:'#FF4757', high:'#FF8C42', medium:'#14E6D4', low:'#8d98b3' }[sev] || '#5a647d';
     }
 
     function fmtUsd(v) {
       if (!v || v === 0) return '—';
-      if (v >= 1000000) return '$' + (v/1000000).toFixed(1) + 'M';
-      if (v >= 1000) return '$' + Math.round(v/1000) + 'K';
+      if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
+      if (v >= 1e3) return '$' + Math.round(v/1e3) + 'K';
       return '$' + Math.round(v);
     }
-    function fmtNum(v) {
-      if (!v) return '—';
-      if (v >= 1000) return (v/1000).toFixed(1) + 'K';
-      return String(v);
-    }
-    function fmtAge(h) {
-      if (!h) return '—';
-      if (h < 1) return Math.round(h*60) + 'm';
-      return h.toFixed(1) + 'h';
-    }
-    function sevBadge(s) {
-      const map = { critical:'badge-critical', high:'badge-high', medium:'badge-medium', low:'badge-low' };
-      return map[s] || 'badge-low';
-    }
+    function fmtNum(v) { if (!v) return '—'; return v >= 1e3 ? (v/1e3).toFixed(1)+'K' : String(v); }
+    function fmtAge(h) { if (!h) return '—'; return h < 1 ? Math.round(h*60)+'m' : h.toFixed(1)+'h'; }
+    function sevBadge(s) { return { critical:'badge-critical', high:'badge-high', medium:'badge-medium', low:'badge-low' }[s] || 'badge-low'; }
     function storyLine(t) {
       if (t.severity === 'critical' || t.severity === 'high') return 'Strong accumulation signal';
       if (t.severity === 'medium') return 'Flow building up';
       return 'Early watch setup';
     }
-    async function loadTop4() {
+
+    async function copyText(text) {
+      try { await navigator.clipboard.writeText(text); return true; }
+      catch { return false; }
+    }
+
+    /* ── HEATMAP ───────────────────────────────────────── */
+    async function loadHeatmap() {
       try {
-        const grid = document.getElementById('top4-grid');
+        const res = await fetch('/data/heatmap.json?t=' + Date.now());
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        latestHeatmap = data;
+        document.getElementById('signal-time').textContent = formatUpdateTimestamp(data.generated_at);
+        const maxScore = Math.max(...data.tokens.map(t => t.score));
+        document.getElementById('hm-grid').innerHTML = data.tokens.slice(0,9).map(t => {
+          const pct = Math.round((t.score / maxScore) * 100);
+          const sev = t.severity || 'none';
+          return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
+            <div class="hm-rank">#${t.rank}</div>
+            <div class="hm-symbol">${t.symbol}</div>
+            <div class="hm-score">${t.score}</div>
+            <div class="hm-score-label">score</div>
+          </div>`;
+        }).join('');
+        setFeedback('share-feedback', 'Radar ready.');
+      } catch {
+        document.getElementById('hm-grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:rgba(255,120,120,0.7)">Could not load radar data.</div>`;
+        setFeedback('share-feedback', 'Radar load failed.', true);
+      }
+    }
+
+    /* ── TOP4 ──────────────────────────────────────────── */
+    async function loadTop4() {
+      const grid = document.getElementById('top4-grid');
+      try {
         const res = await fetch('/data/top4.json?t=' + Date.now());
-        if (!res.ok) {
-          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
-          return;
-        }
+        if (!res.ok) { grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>'; return; }
         const data = await res.json();
         latestTop4 = data;
-        document.getElementById('top4-time').textContent = formatUpdateTimestamp(data.generated_at);
-        if (!data.tokens || !data.tokens.length) {
-          grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
-          return;
-        }
+        if (!data.tokens?.length) { grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>'; return; }
         grid.innerHTML = data.tokens.map(t => `
           <div class="tc">
             <div class="tc-top">
@@ -1471,385 +1439,263 @@
             </div>
             <div class="tc-divider"></div>
             <div class="tc-metrics">
-              <div><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div></div>
-              <div><div class="tc-metric-label">Liquidity</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
-              <div><div class="tc-metric-label">Holders</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
-              <div><div class="tc-metric-label">Signal age</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">LIQ</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">HOLD</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">AGE</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
             </div>
             <div class="tc-actions">
               <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
-              ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">X: @${t.x_username}</a>` : ''}
-              <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEXScreener</a>
+              ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">@${t.x_username}</a>` : ''}
+              <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEX</a>
             </div>
-          </div>
-        `).join('');
-      } catch(e) {
-        const grid = document.getElementById('top4-grid');
-        if (grid) {
-          grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
+          </div>`).join('');
+      } catch { grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>'; }
+    }
+
+    /* ── SHARE: RADAR ──────────────────────────────────── */
+    function buildXPostText(data) {
+      const top = (data?.tokens || []).slice(0,5);
+      return ['Emerging Radar · 24h','', ...top.map((t,i) => `${i+1}. ${t.symbol} — ${t.score}`),'', window.location.origin+'/heatmap','', 'Powered by @BASEchainSCAN'].join('\n');
+    }
+
+    function buildShareCardSvg(data) {
+      const tokens = (data?.tokens || []).slice(0,9);
+      const generatedAt = formatUpdateTimestamp(data?.generated_at || '');
+      const w=1200, h=780;
+      const positions = [{x:60,y:150},{x:400,y:150},{x:740,y:150},{x:60,y:330},{x:400,y:330},{x:740,y:330},{x:60,y:510},{x:400,y:510},{x:740,y:510}];
+      const cardW=300, cardH=150;
+      const cards = tokens.map((t,i) => {
+        const pos=positions[i]; const color=colorForSeverity(t.severity||'none');
+        const score=escapeXml(t.score); const symbol=escapeXml(t.symbol);
+        return `<g transform="translate(${pos.x},${pos.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-6}" width="${Math.max(60,Math.min(280,Number(t.score)*4))}" height="6" rx="3" fill="${color}"/><text x="22" y="28" fill="rgba(234,244,255,0.28)" font-size="18" font-family="Arial,sans-serif">#${escapeXml(t.rank)}</text><text x="22" y="70" fill="#ffffff" font-size="40" font-weight="700" font-family="Arial,sans-serif">${symbol}</text><text x="22" y="112" fill="${color}" font-size="46" font-weight="700" font-family="Arial,sans-serif">${score}</text><text x="22" y="132" fill="rgba(234,244,255,0.32)" font-size="18" font-family="Arial,sans-serif">score</text></g>`;
+      }).join('');
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient><radialGradient id="glow" cx="50%" cy="0%" r="70%"><stop offset="0%" stop-color="rgba(20,230,212,0.12)"/><stop offset="100%" stop-color="rgba(20,230,212,0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#bg)"/><rect width="${w}" height="${h}" fill="url(#glow)"/><circle cx="70" cy="70" r="7" fill="#14E6D4"/><text x="90" y="78" fill="#e2f0ff" font-size="34" font-weight="700" font-family="Arial,sans-serif">Emerging Radar · 24h</text><text x="${w-60}" y="78" fill="rgba(234,244,255,0.34)" font-size="22" text-anchor="end" font-family="Arial,sans-serif">${generatedAt}</text>${cards}<text x="60" y="725" fill="rgba(234,244,255,0.20)" font-size="20" font-family="Arial,sans-serif">Share-ready radar by</text><text x="240" y="725" fill="#14E6D4" font-size="20" font-weight="700" font-family="Arial,sans-serif">@BASEchainSCAN</text></svg>`;
+    }
+
+    async function exportAndDownload(svg, filename, w, h, feedbackId) {
+      try {
+        const blob = new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+        const url  = URL.createObjectURL(blob);
+        const img  = await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=url;});
+        const canvas=document.createElement('canvas'); canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0);
+        URL.revokeObjectURL(url);
+        const pngBlob=await new Promise(res=>canvas.toBlob(res,'image/png'));
+        if(!pngBlob) throw new Error();
+        if(navigator.clipboard&&window.ClipboardItem){
+          await navigator.clipboard.write([new ClipboardItem({'image/png':pngBlob})]);
+          setFeedback(feedbackId,'Image copied to clipboard.');
+        } else {
+          const a=document.createElement('a');a.href=URL.createObjectURL(pngBlob);a.download=filename;a.click();
+          setFeedback(feedbackId,'PNG downloaded.');
         }
-      }
+      } catch { setFeedback(feedbackId,'Image export failed.',true); }
     }
 
-
-
-    function setTop4Feedback(msg, err) {
-      const el = document.getElementById('top4-share-feedback');
-      if (el) { el.textContent = msg||''; el.style.color = err ? 'rgba(255,120,120,0.85)' : 'rgba(226,240,255,0.55)'; }
+    function bindShareButtons() {
+      document.getElementById('x-post-btn').addEventListener('click', () => {
+        if (!latestHeatmap) { setFeedback('share-feedback','Not loaded yet.',true); return; }
+        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(buildXPostText(latestHeatmap)), '_blank','noopener');
+        setFeedback('share-feedback','X post prepared.');
+      });
+      document.getElementById('copy-post-btn').addEventListener('click', async () => {
+        if (!latestHeatmap) { setFeedback('share-feedback','Not loaded yet.',true); return; }
+        const ok = await copyText(buildXPostText(latestHeatmap));
+        setFeedback('share-feedback', ok ? 'X post copied.' : 'Copy failed.', !ok);
+      });
+      document.getElementById('share-link-btn').addEventListener('click', async () => {
+        const url = window.location.origin + '/heatmap';
+        if (navigator.share) { try { await navigator.share({title:'BASEchainSCAN',url}); setFeedback('share-feedback','Shared.'); return; } catch {} }
+        const ok = await copyText(url);
+        setFeedback('share-feedback', ok ? 'Link copied.' : 'Copy failed.', !ok);
+      });
+      document.getElementById('copy-image-btn').addEventListener('click', async () => {
+        if (!latestHeatmap) { setFeedback('share-feedback','Not loaded.',true); return; }
+        await exportAndDownload(buildShareCardSvg(latestHeatmap),'basechainscan-radar.png',1200,780,'share-feedback');
+      });
     }
-    function buildTop4XPostText(data) {
-      const tokens = (data?.tokens||[]).slice(0,4);
-      return [
-        'Low Cap Emerging Tokens',
-        'Under 1M mcap · Social verified',
-        '',
-        ...tokens.map((t,i)=>`${i+1}. ${t.symbol} - ${t.score}${t.x_username ? ' @' + t.x_username : ''}`),
-        '',
-        window.location.origin,
-        '',
-        'Powered by @BASEchainSCAN'
-      ].join('\n');
+
+    /* ── SHARE: TOP4 ────────────────────────────────────── */
+    function buildTop4XPost(data) {
+      const t = (data?.tokens||[]).slice(0,4);
+      return ['Low Cap Emerging Tokens','Under 1M mcap · Social verified','',...t.map((x,i)=>`${i+1}. ${x.symbol} - ${x.score}${x.x_username?' @'+x.x_username:''}`),'',window.location.origin,'','Powered by @BASEchainSCAN'].join('\n');
     }
-    function buildTop4ShareCardSvg(data) {
+
+    function buildTop4Svg(data) {
       const tokens=(data?.tokens||[]).slice(0,4);
       const w=1200,h=1080;
       const positions=[{x:60,y:180},{x:610,y:180},{x:60,y:560},{x:610,y:560}];
       const cardW=530,cardH=300;
-      function escXml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-      function fmtU(v){if(!v||v===0)return '-';if(v>=1000000)return '$'+(v/1000000).toFixed(1)+'M';if(v>=1000)return '$'+Math.round(v/1000)+'K';return '$'+Math.round(v);}
-      function fmtN(v){if(!v)return '-';if(v>=1000)return (v/1000).toFixed(1)+'K';return String(v);}
-      function fmtA(h){if(!h&&h!==0)return '-';if(h<1)return Math.round(h*60)+'m';return h.toFixed(1)+'h';}
-      function sevCol(s){return {critical:'#ff4444',high:'#ff8800',medium:'#00d2c8',low:'#8d98b3'}[s]||'#5a647d';}
+      function e(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
       const cards=tokens.map((t,i)=>{
-        const pos=positions[i];const color=sevCol(t.severity||'none');
-        const symbol=escXml(t.symbol||'-');const score=escXml(t.score||'-');
-        const handle=t.x_username?'@'+escXml(t.x_username):'';
-        const mcap=escXml(fmtU(t.mcap_usd));const lp=escXml(fmtU(t.lp_total_usd));
-        const holders=escXml(fmtN(t.holder_count));const age=escXml(fmtA(t.signal_age_hours));
-        return `<g transform="translate(${pos.x},${pos.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-8}" width="${Math.max(90,Math.min(500,Number(t.score||0)*5))}" height="8" rx="4" fill="${color}"/><text x="28" y="38" fill="#00d2c8" font-size="16" font-weight="700" font-family="Arial">BASEchainSCAN</text><text x="28" y="92" fill="#fff" font-size="48" font-weight="800" font-family="Arial">${symbol}</text><text x="28" y="120" fill="rgba(226,240,255,0.45)" font-size="20" font-family="Arial">${handle}</text><text x="${cardW-28}" y="92" fill="#fff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial">${score}</text><line x1="28" y1="142" x2="${cardW-28}" y2="142" stroke="rgba(255,255,255,0.08)"/><text x="28" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">MCAP</text><text x="28" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${mcap}</text><text x="175" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">LIQUIDITY</text><text x="175" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${lp}</text><text x="350" y="180" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">HOLDERS</text><text x="350" y="210" fill="#e2f0ff" font-size="26" font-weight="700" font-family="Arial">${holders}</text><text x="28" y="252" fill="rgba(226,240,255,0.35)" font-size="16" font-family="Arial">SIGNAL AGE</text><text x="28" y="280" fill="#e2f0ff" font-size="24" font-weight="700" font-family="Arial">${age}</text></g>`;
+        const p=positions[i];const c=colorForSeverity(t.severity||'none');
+        const sym=e(t.symbol||'-');const sc=e(t.score||'-');const hand=t.x_username?'@'+e(t.x_username):'';
+        const mc=e(fmtUsd(t.mcap_usd));const lp=e(fmtUsd(t.lp_total_usd));const h=e(fmtNum(t.holder_count));const ag=e(fmtAge(t.signal_age_hours));
+        return `<g transform="translate(${p.x},${p.y})"><rect x="0" y="0" width="${cardW}" height="${cardH}" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/><rect x="0" y="${cardH-8}" width="${Math.max(90,Math.min(500,Number(t.score||0)*5))}" height="8" rx="4" fill="${c}"/><text x="28" y="38" fill="#14E6D4" font-size="16" font-weight="700" font-family="Arial">BASEchainSCAN</text><text x="28" y="92" fill="#fff" font-size="48" font-weight="800" font-family="Arial">${sym}</text><text x="28" y="120" fill="rgba(234,244,255,0.45)" font-size="20" font-family="Arial">${hand}</text><text x="${cardW-28}" y="92" fill="#fff" font-size="64" font-weight="800" text-anchor="end" font-family="Arial">${sc}</text><line x1="28" y1="142" x2="${cardW-28}" y2="142" stroke="rgba(255,255,255,0.08)"/><text x="28" y="180" fill="rgba(234,244,255,0.35)" font-size="16" font-family="Arial">MCAP</text><text x="28" y="210" fill="#EAF4FF" font-size="26" font-weight="700" font-family="Arial">${mc}</text><text x="175" y="180" fill="rgba(234,244,255,0.35)" font-size="16" font-family="Arial">LIQ</text><text x="175" y="210" fill="#EAF4FF" font-size="26" font-weight="700" font-family="Arial">${lp}</text><text x="320" y="180" fill="rgba(234,244,255,0.35)" font-size="16" font-family="Arial">HOLDERS</text><text x="320" y="210" fill="#EAF4FF" font-size="26" font-weight="700" font-family="Arial">${h}</text><text x="28" y="252" fill="rgba(234,244,255,0.35)" font-size="16" font-family="Arial">SIGNAL AGE</text><text x="28" y="280" fill="#EAF4FF" font-size="24" font-weight="700" font-family="Arial">${ag}</text></g>`;
       }).join('');
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bgT4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#bgT4)"/><circle cx="70" cy="78" r="8" fill="#00d2c8"/><text x="95" y="88" fill="#e2f0ff" font-size="40" font-weight="800" font-family="Arial">Low Cap Emerging Tokens</text>${cards}<text x="60" y="1030" fill="#00d2c8" font-size="22" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>`;
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="bgT4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#070c18"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#bgT4)"/><circle cx="70" cy="78" r="8" fill="#14E6D4"/><text x="95" y="88" fill="#EAF4FF" font-size="40" font-weight="800" font-family="Arial">Low Cap Emerging Tokens</text>${cards}<text x="60" y="1030" fill="#14E6D4" font-size="22" font-weight="700" font-family="Arial">@BASEchainSCAN</text></svg>`;
     }
-    async function exportAndDownload(svg, filename, w, h, setFb) {
-      try {
-        const blob = new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
-        const url = URL.createObjectURL(blob);
-        const img = await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=url;});
-        const canvas = document.createElement('canvas');
-        canvas.width=w;canvas.height=h;
-        canvas.getContext('2d').drawImage(img,0,0);
-        URL.revokeObjectURL(url);
-        const pngBlob = await new Promise(res=>canvas.toBlob(res,'image/png'));
-        if(!pngBlob) throw new Error();
-        if(navigator.clipboard&&window.ClipboardItem){
-          await navigator.clipboard.write([new ClipboardItem({'image/png':pngBlob})]);
-          setFb('Image copied to clipboard.');
-        } else {
-          const a=document.createElement('a');a.href=URL.createObjectURL(pngBlob);a.download=filename;a.click();
-          setFb('PNG downloaded.');
-        }
-      } catch { setFb('Image export failed.',true); }
-    }
+
     function bindTop4ShareButtons() {
       document.getElementById('top4-x-post-btn').addEventListener('click', () => {
-        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
-        const text = buildTop4XPostText(latestTop4);
-        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener');
-        setTop4Feedback('X post prepared.');
+        if (!latestTop4) { setFeedback('top4-share-feedback','Not loaded.',true); return; }
+        window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(buildTop4XPost(latestTop4)),'_blank','noopener');
+        setFeedback('top4-share-feedback','X post prepared.');
       });
       document.getElementById('top4-copy-post-btn').addEventListener('click', async () => {
-        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
-        await navigator.clipboard.writeText(buildTop4XPostText(latestTop4));
-        setTop4Feedback('Copied!');
+        if (!latestTop4) { setFeedback('top4-share-feedback','Not loaded.',true); return; }
+        const ok = await copyText(buildTop4XPost(latestTop4));
+        setFeedback('top4-share-feedback', ok ? 'Copied!' : 'Copy failed.', !ok);
       });
       document.getElementById('top4-share-link-btn').addEventListener('click', async () => {
-        await navigator.clipboard.writeText(window.location.origin);
-        setTop4Feedback('Link copied.');
+        const ok = await copyText(window.location.origin);
+        setFeedback('top4-share-feedback', ok ? 'Link copied.' : 'Copy failed.', !ok);
       });
       document.getElementById('top4-copy-image-btn').addEventListener('click', async () => {
-        if (!latestTop4) { setTop4Feedback('Not loaded yet.', true); return; }
-        await exportAndDownload(buildTop4ShareCardSvg(latestTop4), 'basechainscan-lowcap.png', 1200, 1080, setTop4Feedback);
+        if (!latestTop4) { setFeedback('top4-share-feedback','Not loaded.',true); return; }
+        await exportAndDownload(buildTop4Svg(latestTop4),'basechainscan-lowcap.png',1200,1080,'top4-share-feedback');
       });
     }
-    // ─── GM Button Logic ──────────────────────────────────
-    
-    const BASE_CHAIN_ID = 8453;
+
+    /* ── GM LOGIC ──────────────────────────────────────── */
+    const BASE_CHAIN_ID  = 8453;
     const BASE_CHAIN_HEX = '0x2105';
-    
     const BASE_CHAIN_PARAMS = {
-      chainId: BASE_CHAIN_HEX,
-      chainName: 'Base',
-      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-      rpcUrls: ['https://mainnet.base.org'],
-      blockExplorerUrls: ['https://basescan.org']
+      chainId: BASE_CHAIN_HEX, chainName:'Base',
+      nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},
+      rpcUrls:['https://mainnet.base.org'],
+      blockExplorerUrls:['https://basescan.org']
     };
-    
     let gmConnectedAddress = null;
-    
+
     function gmSetStatus(msg, type) {
       const el = document.getElementById('gm-status');
       el.textContent = msg || '';
-      el.className = 'gm-status' + (type ? ' ' + type : '');
+      el.className = 'gm-status' + (type ? ' '+type : '');
     }
-    
     function gmSetLoading(loading) {
-      const btn = document.getElementById('gm-btn');
-      const btnText = document.getElementById('gm-btn-text');
-      const btnIcon = document.getElementById('gm-btn-icon');
+      const btn=document.getElementById('gm-btn'), btnText=document.getElementById('gm-btn-text'), btnIcon=document.getElementById('gm-btn-icon');
       btn.disabled = loading;
-      if (loading) {
-        btnIcon.textContent = '⏳';
-        btnText.textContent = 'Connecting...';
-      }
+      if (loading) { btnIcon.textContent='⏳'; btnText.textContent='Connecting…'; }
     }
-    
     function gmShowWallet(address) {
-      const info = document.getElementById('gm-wallet-info');
-      const addrEl = document.getElementById('gm-wallet-addr');
-      addrEl.textContent = address.slice(0, 6) + '...' + address.slice(-4);
-      info.style.display = 'flex';
+      document.getElementById('gm-wallet-addr').textContent = address.slice(0,6)+'…'+address.slice(-4);
+      document.getElementById('gm-wallet-info').style.display = 'flex';
     }
-    
     function gmHideWallet() {
       document.getElementById('gm-wallet-info').style.display = 'none';
       document.getElementById('gm-wallet-addr').textContent = '—';
     }
-    
     function gmResetBtn() {
-      const btn = document.getElementById('gm-btn');
-      const btnText = document.getElementById('gm-btn-text');
-      const btnIcon = document.getElementById('gm-btn-icon');
-      btn.disabled = false;
-      btnIcon.textContent = '☀️';
-      btnText.textContent = 'GM Base';
+      document.getElementById('gm-btn').disabled = false;
+      document.getElementById('gm-btn-icon').textContent = '☀️';
+      document.getElementById('gm-btn-text').textContent = 'GM Base';
     }
-    
     async function gmSwitchToBase() {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: BASE_CHAIN_HEX }]
-        });
-        return true;
-      } catch (switchErr) {
-        if (switchErr.code === 4902) {
-          try {
-            await window.ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [BASE_CHAIN_PARAMS]
-            });
-            return true;
-          } catch (addErr) {
-            return false;
-          }
-        }
+      try { await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:BASE_CHAIN_HEX}]}); return true; }
+      catch (e) {
+        if (e.code===4902) { try { await window.ethereum.request({method:'wallet_addEthereumChain',params:[BASE_CHAIN_PARAMS]}); return true; } catch { return false; } }
         return false;
       }
     }
-    
     async function handleGM() {
-      const btn = document.getElementById('gm-btn');
-      const btnText = document.getElementById('gm-btn-text');
-      const btnIcon = document.getElementById('gm-btn-icon');
-    
-      // No wallet detected
-      if (!window.ethereum) {
-        gmSetStatus('⚠️ No wallet detected. Please install MetaMask or a compatible wallet.', 'error');
-        return;
-      }
-    
-      gmSetLoading(true);
-      gmSetStatus('Connecting wallet...', '');
-    
+      if (!window.ethereum) { gmSetStatus('⚠️ No wallet detected. Install MetaMask or a compatible wallet.','error'); return; }
+      gmSetLoading(true); gmSetStatus('Connecting wallet…');
       try {
-        // 1. Request account access
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if (!accounts || !accounts.length) {
-          gmSetStatus('No accounts found. Please unlock your wallet.', 'error');
-          gmResetBtn();
-          return;
-        }
-    
-        const address = accounts[0];
-        gmConnectedAddress = address;
-        gmShowWallet(address);
-    
-        gmSetStatus('Checking network...', '');
-        btnText.textContent = 'Switching to Base...';
-    
-        // 2. Get current chain
-        const chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
-        const chainId = parseInt(chainIdHex, 16);
-    
-        if (chainId !== BASE_CHAIN_ID) {
+        const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+        if (!accounts?.length) { gmSetStatus('No accounts found. Please unlock your wallet.','error'); gmResetBtn(); return; }
+        const address = accounts[0]; gmConnectedAddress = address; gmShowWallet(address);
+        gmSetStatus('Checking network…');
+        document.getElementById('gm-btn-text').textContent = 'Switching to Base…';
+        const chainIdHex = await window.ethereum.request({method:'eth_chainId'});
+        if (parseInt(chainIdHex,16) !== BASE_CHAIN_ID) {
           const switched = await gmSwitchToBase();
-          if (!switched) {
-            gmSetStatus('Could not switch to Base network. Please switch manually.', 'error');
-            gmResetBtn();
-            return;
-          }
+          if (!switched) { gmSetStatus('Could not switch to Base. Please switch manually.','error'); gmResetBtn(); return; }
         }
-    
-        gmSetStatus('Waiting for signature...', '');
-        btnText.textContent = 'Sign in wallet...';
-    
-        // 3. Build message
+        gmSetStatus('Waiting for signature…');
+        document.getElementById('gm-btn-text').textContent = 'Sign in wallet…';
         const timestamp = new Date().toISOString();
-        const message = [
-          'GM from https://x.com/BASEchainSCAN',
-          '',
-          'Address: ' + address,
-          'Network: Base (Chain ID 8453)',
-          'Time: ' + timestamp,
-          '',
-          'This is a free off-chain signature.',
-          'No transaction. No gas. No funds moved.'
-        ].join('\n');
-    
-        // 4. Sign message
-        const signature = await window.ethereum.request({
-          method: 'personal_sign',
-          params: [message, address]
-        });
-    
-        // 5. Trimite la API și afișează streak
+        const message = ['GM from https://x.com/BASEchainSCAN','','Address: '+address,'Network: Base (Chain ID 8453)','Time: '+timestamp,'','This is a free off-chain signature.','No transaction. No gas. No funds moved.'].join('\n');
+        const signature = await window.ethereum.request({method:'personal_sign',params:[message,address]});
         const apiData = await sendGMToAPI(address, signature, message);
         showStreakCard(apiData);
         loadLeaderboard();
-    
-        btn.disabled = false;
-        btnIcon.textContent = '✅';
-        btnText.textContent = apiData?.alreadySigned ? 'Already GM today' : 'GM signed!';
-    
-        gmSetStatus('✅ GM signed successfully! ' + address.slice(0,6) + '...' + address.slice(-4) + ' on Base', 'success');
-    
-        console.log('[BASEchainSCAN] GM Signature:', {
-          address: address,
-          signature: signature,
-          timestamp: timestamp,
-          network: 'Base (8453)'
-        });
-    
-        // Reset button after 5s
-        setTimeout(() => {
-          btnIcon.textContent = '☀️';
-          btnText.textContent = 'GM again';
-          btn.style.borderColor = '';
-        }, 5000);
-    
+        document.getElementById('gm-btn').disabled = false;
+        document.getElementById('gm-btn-icon').textContent = '✅';
+        document.getElementById('gm-btn-text').textContent = apiData?.alreadySigned ? 'Already GM today' : 'GM signed!';
+        gmSetStatus('✅ GM signed! '+address.slice(0,6)+'…'+address.slice(-4)+' on Base','success');
+        setTimeout(() => { document.getElementById('gm-btn-icon').textContent='☀️'; document.getElementById('gm-btn-text').textContent='GM again'; }, 5000);
       } catch (err) {
         gmResetBtn();
-    
-        if (err.code === 4001) {
-          gmSetStatus('Signature cancelled.', '');
-        } else if (err.code === -32002) {
-          gmSetStatus('Wallet request already pending. Check your wallet.', 'error');
-        } else if (err.code === -32603) {
-          gmSetStatus('Wallet internal error. Please try again.', 'error');
-        } else {
-          gmSetStatus('Something went wrong. Please try again.', 'error');
-          console.error('[BASEchainSCAN] GM error:', err);
-        }
+        if (err.code===4001) gmSetStatus('Signature cancelled.');
+        else if (err.code===-32002) gmSetStatus('Wallet request pending. Check your wallet.','error');
+        else if (err.code===-32603) gmSetStatus('Wallet internal error. Try again.','error');
+        else { gmSetStatus('Something went wrong. Please try again.','error'); console.error(err); }
       }
     }
-    
     function bindGMButton() {
-      const btn = document.getElementById('gm-btn');
-      const disconnectBtn = document.getElementById('gm-disconnect-btn');
-    
-      btn.addEventListener('click', handleGM);
-    
-      disconnectBtn.addEventListener('click', () => {
-        gmConnectedAddress = null;
-        gmHideWallet();
-        gmResetBtn();
-        gmSetStatus('Wallet disconnected.', '');
+      document.getElementById('gm-btn').addEventListener('click', handleGM);
+      document.getElementById('gm-disconnect-btn').addEventListener('click', () => {
+        gmConnectedAddress = null; gmHideWallet(); gmResetBtn(); gmSetStatus('Wallet disconnected.');
       });
-    
-      // Listen for account/chain changes
       if (window.ethereum) {
-        window.ethereum.on('accountsChanged', (accounts) => {
-          if (!accounts.length) {
-            gmConnectedAddress = null;
-            gmHideWallet();
-            gmResetBtn();
-            gmSetStatus('Wallet disconnected.', '');
-          } else {
-            gmConnectedAddress = accounts[0];
-            gmShowWallet(accounts[0]);
-            gmSetStatus('Account changed. Click GM to sign again.', '');
-            gmResetBtn();
-          }
+        window.ethereum.on('accountsChanged', accounts => {
+          if (!accounts.length) { gmConnectedAddress=null; gmHideWallet(); gmResetBtn(); gmSetStatus('Wallet disconnected.'); }
+          else { gmConnectedAddress=accounts[0]; gmShowWallet(accounts[0]); gmSetStatus('Account changed. Click GM to sign again.'); gmResetBtn(); }
         });
-    
-        window.ethereum.on('chainChanged', () => {
-          gmSetStatus('Network changed. Click GM to sign again.', '');
-          gmResetBtn();
-        });
+        window.ethereum.on('chainChanged', () => { gmSetStatus('Network changed. Click GM to sign again.'); gmResetBtn(); });
       }
     }
-    
-    // ─── End GM Button Logic ──────────────────────────────
-    // ─── GM API call (după semnare) ───────────────────
+
     async function sendGMToAPI(address, signature, message) {
       try {
-        const res = await fetch('/api/gm', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ address, signature, message })
-        });
+        const res = await fetch('/api/gm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address,signature,message})});
         return await res.json();
-      } catch (err) {
-        console.error('[GM API]', err);
-        return null;
-      }
+      } catch (e) { console.error('[GM API]',e); return null; }
     }
-    
+
     function showStreakCard(data) {
       if (!data) return;
-      const card  = document.getElementById('gm-streak-card');
-      const badge = document.getElementById('gm-streak-badge');
-      const main  = document.getElementById('gm-streak-main');
-      const sub   = document.getElementById('gm-streak-sub');
-      const pts   = document.getElementById('gm-points-pill');
-    
-      badge.textContent = data.badge?.emoji || '☀️';
-      main.textContent  = data.message || 'GM signed!';
-      sub.textContent   = data.badge?.label + ' · ' + data.streak + ' day streak · ' + data.totalGMs + ' total GMs';
-      pts.textContent   = data.points + ' pts';
-    
+      const card=document.getElementById('gm-streak-card');
+      document.getElementById('gm-streak-badge').textContent = data.badge?.emoji||'☀️';
+      document.getElementById('gm-streak-main').textContent  = data.message||'GM signed!';
+      document.getElementById('gm-streak-sub').textContent   = (data.badge?.label||'')+' · '+data.streak+' day streak · '+data.totalGMs+' total GMs';
+      document.getElementById('gm-points-pill').textContent  = data.points+' pts';
       card.classList.add('visible');
     }
-    
-    // ─── Leaderboard ──────────────────────────────────
+
+    /* ── LEADERBOARD ───────────────────────────────────── */
     async function loadLeaderboard() {
       const list = document.getElementById('lb-list');
       try {
         const res  = await fetch('/api/leaderboard');
         const data = await res.json();
-    
-        if (!data.leaderboard || !data.leaderboard.length) {
-          list.innerHTML = '<div class="lb-empty">No GMs yet. Be the first!</div>';
-          return;
-        }
-    
-        const rankClass = (i) => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-    
-        list.innerHTML = data.leaderboard.map((row, i) => `
+        if (!data.leaderboard?.length) { list.innerHTML='<div class="lb-empty">No GMs yet. Be the first!</div>'; return; }
+        const rankClass = i => i===0?'gold':i===1?'silver':i===2?'bronze':'';
+        list.innerHTML = data.leaderboard.map((row,i) => `
           <div class="lb-row">
-            <div class="lb-rank ${rankClass(i)}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</div>
-            <div class="lb-addr">${row.address.slice(0,6)}...${row.address.slice(-4)}</div>
+            <div class="lb-rank ${rankClass(i)}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
+            <div class="lb-addr">${row.address.slice(0,6)}…${row.address.slice(-4)}</div>
             <div class="lb-streak">🔥 ${row.best_streak}d</div>
             <div class="lb-pts">${row.total_points} pts</div>
-          </div>
-        `).join('');
-      } catch (err) {
-        list.innerHTML = '<div class="lb-empty">Could not load leaderboard.</div>';
-      }
+          </div>`).join('');
+      } catch { list.innerHTML='<div class="lb-empty">Could not load leaderboard.</div>'; }
     }
-    // ──────────────────────────────────────────────────
 
+    /* ── FORM ──────────────────────────────────────────── */
+    function handleSubmit(form) {
+      const email = form.email.value.trim();
+      if (!email) return false;
+      setTimeout(() => {
+        form.email.value = '';
+        const s=document.getElementById('success'); s.style.display='flex';
+        setTimeout(()=>{s.style.display='none';}, 5000);
+      }, 500);
+      return true;
+    }
 
+    /* ── INIT ──────────────────────────────────────────── */
     loadLeaderboard();
     bindGMButton();
     bindShareButtons();
