@@ -25,6 +25,13 @@
       margin: 0 auto 20px;
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .header-left a {
       font-size: 13px;
       font-weight: 700;
@@ -33,9 +40,33 @@
       letter-spacing: 0.04em;
     }
 
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,210,200,0.22);
+      background: rgba(0,210,200,0.08);
+      color: #e2f0ff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0,210,200,0.4);
+      background: rgba(0,210,200,0.14);
+    }
+
     .header-right {
       font-size: 11px;
       color: rgba(226,240,255,0.3);
+      text-align: right;
     }
 
     /* Title */
@@ -257,7 +288,7 @@
 <body>
 
   <div class="header">
-    <div class="header-left"><a href="/">BasechainSCAN</a></div>
+    <div class="header-left"><a class="back-link" href="/">&larr; Back to Radar</a><a href="/">BasechainSCAN</a></div>
     <div class="header-right" id="updated-at">—</div>
   </div>
 
