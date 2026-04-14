@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T20:39:33Z",
+  "generated_at": "2026-04-14T21:34:48Z",
   "token_count": 4,
   "tokens": [
     {
@@ -14,7 +14,7 @@
       "top10_pct": 74.33,
       "x_username": "VolmLabs",
       "x_url": "https://x.com/VolmLabs",
-      "signal_age_hours": 1.95,
+      "signal_age_hours": 2.87,
       "dexscreener_url": "https://dexscreener.com/base/0xa7d812832091e06144abeaf0a8540e25d1b36b07",
       "okx_url": "https://web3.okx.com/token/base/0xa7d812832091e06144abeaf0a8540e25d1b36b07?ref=OKX10c"
     },
@@ -30,7 +30,7 @@
       "top10_pct": 100.0,
       "x_username": "AgentConductor",
       "x_url": "https://x.com/AgentConductor",
-      "signal_age_hours": 3.56,
+      "signal_age_hours": 4.48,
       "dexscreener_url": "https://dexscreener.com/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07",
       "okx_url": "https://web3.okx.com/token/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07?ref=OKX10c"
     },
@@ -46,25 +46,25 @@
       "top10_pct": 44.43,
       "x_username": "zannydxxm",
       "x_url": "https://x.com/zannydxxm",
-      "signal_age_hours": 6.44,
+      "signal_age_hours": 7.37,
       "dexscreener_url": "https://dexscreener.com/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8",
       "okx_url": "https://web3.okx.com/token/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8?ref=OKX10c"
     },
     {
       "rank": 4,
-      "symbol": "RICA",
-      "token_address": "0x4b2f4cdf9aa1432b915d3979cd60c54d11bd9b07",
-      "score": 22.8,
+      "symbol": "AGBETS",
+      "token_address": "0x37d183fcf1da460a64d21e754b3e6144c4e11ba3",
+      "score": 25.7,
       "severity": "none",
-      "mcap_usd": 47421.0,
-      "lp_total_usd": 47671.81,
-      "holder_count": 65,
-      "top10_pct": 100.0,
-      "x_username": "RicardianBase",
-      "x_url": "https://x.com/RicardianBase",
-      "signal_age_hours": 2.83,
-      "dexscreener_url": "https://dexscreener.com/base/0x4b2f4cdf9aa1432b915d3979cd60c54d11bd9b07",
-      "okx_url": "https://web3.okx.com/token/base/0x4b2f4cdf9aa1432b915d3979cd60c54d11bd9b07?ref=OKX10c"
+      "mcap_usd": 108234.0,
+      "lp_total_usd": 86895.38,
+      "holder_count": 331,
+      "top10_pct": 72.3,
+      "x_username": "Viraz04",
+      "x_url": "https://x.com/Viraz04",
+      "signal_age_hours": 0.32,
+      "dexscreener_url": "https://dexscreener.com/base/0x37d183fcf1da460a64d21e754b3e6144c4e11ba3",
+      "okx_url": "https://web3.okx.com/token/base/0x37d183fcf1da460a64d21e754b3e6144c4e11ba3?ref=OKX10c"
     }
   ]
 }

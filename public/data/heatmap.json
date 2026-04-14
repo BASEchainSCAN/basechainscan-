@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T20:39:32Z",
+  "generated_at": "2026-04-14T21:34:48Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -15,44 +15,12 @@
       "rank": 2,
       "symbol": "SMCF",
       "score": 66.5,
-      "severity": "critical",
-      "signals": 10,
-      "last_seen": "2026-04-14 19:14:41"
+      "severity": "medium",
+      "signals": 9,
+      "last_seen": "2026-04-14 20:52:08"
     },
     {
       "rank": 3,
-      "symbol": "MEZO",
-      "score": 60.9,
-      "severity": "medium",
-      "signals": 11,
-      "last_seen": "2026-04-14 19:44:30"
-    },
-    {
-      "rank": 4,
-      "symbol": "REI",
-      "score": 60.6,
-      "severity": "critical",
-      "signals": 12,
-      "last_seen": "2026-04-14 19:38:48"
-    },
-    {
-      "rank": 5,
-      "symbol": "CHECK",
-      "score": 57.6,
-      "severity": "medium",
-      "signals": 13,
-      "last_seen": "2026-04-14 19:15:37"
-    },
-    {
-      "rank": 6,
-      "symbol": "RAVE",
-      "score": 55.1,
-      "severity": "critical",
-      "signals": 11,
-      "last_seen": "2026-04-14 16:37:56"
-    },
-    {
-      "rank": 7,
       "symbol": "WOON",
       "score": 54.0,
       "severity": "low",
@@ -60,7 +28,15 @@
       "last_seen": "2026-04-14 20:20:41"
     },
     {
-      "rank": 8,
+      "rank": 4,
+      "symbol": "SOL",
+      "score": 53.0,
+      "severity": "low",
+      "signals": 2,
+      "last_seen": "2026-04-14 20:51:29"
+    },
+    {
+      "rank": 5,
       "symbol": "HERMESOS",
       "score": 52.5,
       "severity": "low",
@@ -68,7 +44,15 @@
       "last_seen": "2026-04-14 05:13:19"
     },
     {
-      "rank": 9,
+      "rank": 6,
+      "symbol": "REI",
+      "score": 52.2,
+      "severity": "critical",
+      "signals": 10,
+      "last_seen": "2026-04-14 20:53:34"
+    },
+    {
+      "rank": 7,
       "symbol": "WAGENT",
       "score": 51.7,
       "severity": "low",
@@ -76,23 +60,23 @@
       "last_seen": "2026-04-14 14:09:16"
     },
     {
-      "rank": 10,
+      "rank": 8,
       "symbol": "CBBTC",
       "score": 51.4,
       "severity": "none",
       "signals": 9,
-      "last_seen": "2026-04-14 19:13:41"
+      "last_seen": "2026-04-14 20:50:43"
     },
     {
-      "rank": 11,
+      "rank": 9,
       "symbol": "GITLAWB",
       "score": 49.9,
       "severity": "low",
       "signals": 11,
-      "last_seen": "2026-04-14 20:33:04"
+      "last_seen": "2026-04-14 21:26:53"
     },
     {
-      "rank": 12,
+      "rank": 10,
       "symbol": "ROBOTMONEY",
       "score": 49.6,
       "severity": "low",
@@ -100,7 +84,7 @@
       "last_seen": "2026-04-14 17:47:07"
     },
     {
-      "rank": 13,
+      "rank": 11,
       "symbol": "MEZO",
       "score": 48.6,
       "severity": "low",
@@ -108,7 +92,7 @@
       "last_seen": "2026-04-14 20:00:45"
     },
     {
-      "rank": 14,
+      "rank": 12,
       "symbol": "ETHX",
       "score": 48.5,
       "severity": "low",
@@ -116,7 +100,7 @@
       "last_seen": "2026-04-14 19:15:13"
     },
     {
-      "rank": 15,
+      "rank": 13,
       "symbol": "AGENTCRAFT",
       "score": 47.6,
       "severity": "low",
@@ -124,12 +108,28 @@
       "last_seen": "2026-04-14 16:34:21"
     },
     {
+      "rank": 14,
+      "symbol": "CHECK",
+      "score": 45.8,
+      "severity": "low",
+      "signals": 11,
+      "last_seen": "2026-04-14 20:53:21"
+    },
+    {
+      "rank": 15,
+      "symbol": "MEZO",
+      "score": 45.2,
+      "severity": "low",
+      "signals": 10,
+      "last_seen": "2026-04-14 19:44:30"
+    },
+    {
       "rank": 16,
       "symbol": "SERV",
       "score": 44.2,
       "severity": "none",
-      "signals": 8,
-      "last_seen": "2026-04-14 19:58:23"
+      "signals": 9,
+      "last_seen": "2026-04-14 21:25:00"
     },
     {
       "rank": 17,
@@ -141,11 +141,11 @@
     },
     {
       "rank": 18,
-      "symbol": "SR",
-      "score": 42.5,
+      "symbol": "WETH",
+      "score": 42.9,
       "severity": "low",
-      "signals": 3,
-      "last_seen": "2026-04-14 16:09:07"
+      "signals": 11,
+      "last_seen": "2026-04-14 21:17:19"
     }
   ]
 }
