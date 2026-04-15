@@ -1,26 +1,18 @@
 {
-  "generated_at": "2026-04-15T04:43:36Z",
+  "generated_at": "2026-04-15T05:49:22Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
     {
       "rank": 1,
-      "symbol": "WOON",
-      "score": 78.5,
-      "severity": "medium",
-      "signals": 2,
-      "last_seen": "2026-04-14 05:14:06"
-    },
-    {
-      "rank": 2,
       "symbol": "DRB",
       "score": 59.1,
       "severity": "critical",
       "signals": 8,
-      "last_seen": "2026-04-15 04:36:10"
+      "last_seen": "2026-04-15 05:32:59"
     },
     {
-      "rank": 3,
+      "rank": 2,
       "symbol": "CHECK",
       "score": 55.8,
       "severity": "medium",
@@ -28,7 +20,7 @@
       "last_seen": "2026-04-15 02:55:56"
     },
     {
-      "rank": 4,
+      "rank": 3,
       "symbol": "UNCNI",
       "score": 55.5,
       "severity": "low",
@@ -36,15 +28,15 @@
       "last_seen": "2026-04-15 00:48:30"
     },
     {
-      "rank": 5,
+      "rank": 4,
       "symbol": "WETH",
       "score": 54.5,
       "severity": "low",
-      "signals": 11,
+      "signals": 10,
       "last_seen": "2026-04-15 03:25:00"
     },
     {
-      "rank": 6,
+      "rank": 5,
       "symbol": "SOL",
       "score": 53.0,
       "severity": "low",
@@ -52,7 +44,7 @@
       "last_seen": "2026-04-14 20:51:29"
     },
     {
-      "rank": 7,
+      "rank": 6,
       "symbol": "SMCF",
       "score": 52.6,
       "severity": "medium",
@@ -60,15 +52,15 @@
       "last_seen": "2026-04-15 02:58:13"
     },
     {
-      "rank": 8,
+      "rank": 7,
       "symbol": "REI",
       "score": 52.2,
       "severity": "critical",
-      "signals": 10,
+      "signals": 9,
       "last_seen": "2026-04-15 02:58:47"
     },
     {
-      "rank": 9,
+      "rank": 8,
       "symbol": "WAGENT",
       "score": 51.7,
       "severity": "low",
@@ -76,7 +68,7 @@
       "last_seen": "2026-04-14 14:09:16"
     },
     {
-      "rank": 10,
+      "rank": 9,
       "symbol": "CBBTC",
       "score": 51.0,
       "severity": "none",
@@ -84,7 +76,7 @@
       "last_seen": "2026-04-14 20:50:43"
     },
     {
-      "rank": 11,
+      "rank": 10,
       "symbol": "ETHX",
       "score": 49.7,
       "severity": "low",
@@ -92,7 +84,7 @@
       "last_seen": "2026-04-15 02:55:26"
     },
     {
-      "rank": 12,
+      "rank": 11,
       "symbol": "ROBOTMONEY",
       "score": 49.6,
       "severity": "low",
@@ -100,23 +92,23 @@
       "last_seen": "2026-04-15 04:10:51"
     },
     {
-      "rank": 13,
+      "rank": 12,
       "symbol": "BNKR",
       "score": 49.6,
       "severity": "low",
-      "signals": 10,
+      "signals": 9,
       "last_seen": "2026-04-15 02:59:39"
     },
     {
-      "rank": 14,
+      "rank": 13,
       "symbol": "MEZO",
       "score": 48.6,
       "severity": "low",
       "signals": 10,
-      "last_seen": "2026-04-15 03:58:28"
+      "last_seen": "2026-04-15 05:44:47"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "symbol": "GITLAWB",
       "score": 47.1,
       "severity": "low",
@@ -124,28 +116,36 @@
       "last_seen": "2026-04-15 04:23:32"
     },
     {
-      "rank": 16,
+      "rank": 15,
       "symbol": "MEZO",
       "score": 45.2,
       "severity": "low",
-      "signals": 10,
-      "last_seen": "2026-04-15 03:53:27"
+      "signals": 11,
+      "last_seen": "2026-04-15 05:34:53"
     },
     {
-      "rank": 17,
-      "symbol": "SERV",
-      "score": 44.2,
-      "severity": "low",
-      "signals": 8,
-      "last_seen": "2026-04-15 04:13:42"
-    },
-    {
-      "rank": 18,
+      "rank": 16,
       "symbol": "WOON",
       "score": 43.8,
       "severity": "low",
-      "signals": 9,
-      "last_seen": "2026-04-14 23:46:40"
+      "signals": 10,
+      "last_seen": "2026-04-15 05:38:11"
+    },
+    {
+      "rank": 17,
+      "symbol": "NIV",
+      "score": 43.4,
+      "severity": "critical",
+      "signals": 10,
+      "last_seen": "2026-04-15 02:57:58"
+    },
+    {
+      "rank": 18,
+      "symbol": "SR",
+      "score": 42.5,
+      "severity": "low",
+      "signals": 4,
+      "last_seen": "2026-04-15 03:08:02"
     }
   ]
 }
