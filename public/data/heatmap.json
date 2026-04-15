@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-04-15T07:36:32Z",
+  "generated_at": "2026-04-15T17:41:25Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
     {
       "rank": 1,
-      "symbol": "DRB",
-      "score": 59.1,
-      "severity": "critical",
+      "symbol": "WETH",
+      "score": 67.1,
+      "severity": "medium",
       "signals": 8,
-      "last_seen": "2026-04-15 05:32:59"
+      "last_seen": "2026-04-15 08:15:04"
     },
     {
       "rank": 2,
-      "symbol": "CHECK",
-      "score": 55.8,
-      "severity": "medium",
-      "signals": 11,
-      "last_seen": "2026-04-15 02:55:56"
+      "symbol": "DRB",
+      "score": 59.1,
+      "severity": "critical",
+      "signals": 5,
+      "last_seen": "2026-04-15 05:32:59"
     },
     {
       "rank": 3,
+      "symbol": "CHECK",
+      "score": 55.8,
+      "severity": "medium",
+      "signals": 7,
+      "last_seen": "2026-04-15 02:55:56"
+    },
+    {
+      "rank": 4,
       "symbol": "UNCNI",
       "score": 55.5,
       "severity": "low",
       "signals": 1,
       "last_seen": "2026-04-15 00:48:30"
-    },
-    {
-      "rank": 4,
-      "symbol": "WETH",
-      "score": 54.5,
-      "severity": "low",
-      "signals": 10,
-      "last_seen": "2026-04-15 03:25:00"
     },
     {
       "rank": 5,
@@ -45,107 +45,107 @@
     },
     {
       "rank": 6,
-      "symbol": "SMCF",
-      "score": 52.6,
-      "severity": "medium",
-      "signals": 11,
-      "last_seen": "2026-04-15 07:22:20"
-    },
-    {
-      "rank": 7,
       "symbol": "REI",
       "score": 52.2,
       "severity": "critical",
-      "signals": 10,
-      "last_seen": "2026-04-15 07:13:42"
+      "signals": 8,
+      "last_seen": "2026-04-15 08:18:02"
     },
     {
-      "rank": 8,
-      "symbol": "WAGENT",
-      "score": 51.7,
-      "severity": "low",
-      "signals": 2,
-      "last_seen": "2026-04-14 14:09:16"
-    },
-    {
-      "rank": 9,
+      "rank": 7,
       "symbol": "CBBTC",
       "score": 51.0,
       "severity": "none",
       "signals": 5,
-      "last_seen": "2026-04-15 06:28:21"
+      "last_seen": "2026-04-15 08:56:04"
     },
     {
-      "rank": 10,
+      "rank": 8,
       "symbol": "ETHX",
       "score": 49.7,
       "severity": "low",
-      "signals": 9,
+      "signals": 7,
       "last_seen": "2026-04-15 06:51:48"
     },
     {
-      "rank": 11,
-      "symbol": "ROBOTMONEY",
-      "score": 49.6,
-      "severity": "low",
-      "signals": 7,
-      "last_seen": "2026-04-15 06:02:49"
-    },
-    {
-      "rank": 12,
+      "rank": 9,
       "symbol": "BNKR",
       "score": 49.6,
       "severity": "low",
-      "signals": 10,
-      "last_seen": "2026-04-15 06:45:58"
+      "signals": 7,
+      "last_seen": "2026-04-15 08:25:28"
     },
     {
-      "rank": 13,
-      "symbol": "MEZO",
-      "score": 48.6,
-      "severity": "low",
-      "signals": 10,
-      "last_seen": "2026-04-15 05:44:47"
+      "rank": 10,
+      "symbol": "NIV",
+      "score": 48.7,
+      "severity": "critical",
+      "signals": 12,
+      "last_seen": "2026-04-15 17:39:54"
     },
     {
-      "rank": 14,
+      "rank": 11,
+      "symbol": "SMCF",
+      "score": 48.4,
+      "severity": "medium",
+      "signals": 6,
+      "last_seen": "2026-04-15 07:22:20"
+    },
+    {
+      "rank": 12,
       "symbol": "GITLAWB",
-      "score": 47.1,
+      "score": 44.3,
       "severity": "low",
-      "signals": 9,
+      "signals": 4,
       "last_seen": "2026-04-15 04:23:32"
     },
     {
+      "rank": 13,
+      "symbol": "LIQ",
+      "score": 44.0,
+      "severity": "low",
+      "signals": 3,
+      "last_seen": "2026-04-15 17:40:14"
+    },
+    {
+      "rank": 14,
+      "symbol": "ROBOTMONEY",
+      "score": 43.6,
+      "severity": "low",
+      "signals": 4,
+      "last_seen": "2026-04-15 06:02:49"
+    },
+    {
       "rank": 15,
-      "symbol": "NIV",
-      "score": 43.4,
-      "severity": "critical",
-      "signals": 11,
-      "last_seen": "2026-04-15 06:30:38"
-    },
-    {
-      "rank": 16,
-      "symbol": "SR",
-      "score": 42.5,
-      "severity": "low",
-      "signals": 5,
-      "last_seen": "2026-04-15 06:24:37"
-    },
-    {
-      "rank": 17,
-      "symbol": "MEZO",
-      "score": 42.2,
-      "severity": "low",
-      "signals": 9,
-      "last_seen": "2026-04-15 05:34:53"
-    },
-    {
-      "rank": 18,
       "symbol": "SERV",
       "score": 42.1,
       "severity": "low",
-      "signals": 6,
+      "signals": 4,
       "last_seen": "2026-04-15 04:13:42"
+    },
+    {
+      "rank": 16,
+      "symbol": "ZRO",
+      "score": 40.8,
+      "severity": "low",
+      "signals": 7,
+      "last_seen": "2026-04-15 08:38:36"
+    },
+    {
+      "rank": 17,
+      "symbol": "VOLM",
+      "score": 40.7,
+      "severity": "none",
+      "signals": 3,
+      "last_seen": "2026-04-15 05:42:04"
+    },
+    {
+      "rank": 18,
+      "symbol": "ZORA",
+      "score": 40.5,
+      "severity": "critical",
+      "signals": 9,
+      "last_seen": "2026-04-15 08:18:17"
     }
   ]
 }
