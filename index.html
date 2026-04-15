@@ -521,6 +521,12 @@
     .hm-symbol { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .hm-score { font-size: 18px; font-weight: 800; color: var(--heat-color, #EAF4FF); line-height: 1; font-family: var(--font-mono); letter-spacing: -0.04em; }
     .hm-score-label { font-size: 8px; color: var(--muted-2); letter-spacing: 0.06em; text-transform: uppercase; }
+    .hm-change { font-size: 10px; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }
+    .hm-change.pos { color: #14E6D4; }
+    .hm-change.neg { color: #FF4757; }
+    .tc-metric-change { font-size: 10px; font-weight: 600; font-family: var(--font-mono); margin-top: 1px; }
+    .tc-metric-change.pos { color: #14E6D4; }
+    .tc-metric-change.neg { color: #FF4757; }
 
     .action-bar {
       display: flex;
@@ -1627,11 +1633,15 @@
         grid.innerHTML = data.tokens.slice(0, 9).map(t => {
           const pct = Math.round((t.score / maxScore) * 100);
           const sev = t.severity || 'none';
+          const ch = t.price_change_24h || 0;
+          const chCls = ch > 0 ? 'pos' : ch < 0 ? 'neg' : '';
+          const chTxt = ch !== 0 ? (ch > 0 ? '+' : '') + ch.toFixed(1) + '%' : '';
           return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
             <div class="hm-rank">#${t.rank}</div>
             <div class="hm-symbol">${t.symbol}</div>
             <div class="hm-score" data-score="${t.score}">${t.score}</div>
             <div class="hm-score-label">score</div>
+            ${chTxt ? `<div class="hm-change ${chCls}">${chTxt}</div>` : ''}
           </div>`;
         }).join('');
 
@@ -1686,7 +1696,7 @@
             </div>
             <div class="tc-divider"></div>
             <div class="tc-metrics">
-              <div class="tc-metric-capsule"><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div>${(t.price_change_24h && t.price_change_24h !== 0) ? `<div class="tc-metric-change ${t.price_change_24h > 0 ? 'pos' : 'neg'}">${t.price_change_24h > 0 ? '+' : ''}${t.price_change_24h.toFixed(1)}%</div>` : ''}</div>
               <div class="tc-metric-capsule"><div class="tc-metric-label">LIQ</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
               <div class="tc-metric-capsule"><div class="tc-metric-label">HOLD</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
               <div class="tc-metric-capsule"><div class="tc-metric-label">AGE</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>

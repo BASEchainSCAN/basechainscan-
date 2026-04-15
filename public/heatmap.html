@@ -214,6 +214,14 @@
       color: rgba(226,240,255,0.35);
     }
 
+    .change-row {
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .change-row.pos { color: #00d2c8; }
+    .change-row.neg { color: #ff4444; }
+
     .sev-pill {
       display: inline-block;
       font-size: 9px;
@@ -358,6 +366,10 @@
           card.style.setProperty('--heat-pct', heatPct + '%');
           card.style.animationDelay = (i * 0.04) + 's';
 
+          const ch = token.price_change_24h || 0;
+          const chCls = ch > 0 ? 'pos' : ch < 0 ? 'neg' : '';
+          const chTxt = ch !== 0 ? (ch > 0 ? '+' : '') + ch.toFixed(1) + '%' : '';
+
           card.innerHTML = `
             <div class="rank">#${token.rank}</div>
             <div class="sev-pill">${sev}</div>
@@ -367,6 +379,7 @@
               <div class="score-label">score</div>
             </div>
             <div class="signals-row">${token.signals} signal${token.signals !== 1 ? 's' : ''}</div>
+            ${chTxt ? `<div class="change-row ${chCls}">${chTxt}</div>` : ''}
           `;
 
           grid.appendChild(card);
