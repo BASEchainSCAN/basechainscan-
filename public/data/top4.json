@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T18:30:07Z",
+  "generated_at": "2026-04-15T18:50:21Z",
   "token_count": 4,
   "tokens": [
     {
@@ -8,15 +8,16 @@
       "token_address": "0xa7d812832091e06144abeaf0a8540e25d1b36b07",
       "score": 40.7,
       "severity": "none",
-      "mcap_usd": 692484.0,
-      "lp_total_usd": 451478.41,
+      "mcap_usd": 649703.0,
+      "lp_total_usd": 430453.79,
       "holder_count": 927,
       "top10_pct": 74.33,
       "x_username": "VolmLabs",
       "x_url": "https://x.com/VolmLabs",
-      "signal_age_hours": 12.8,
+      "signal_age_hours": 13.14,
       "dexscreener_url": "https://dexscreener.com/base/0xa7d812832091e06144abeaf0a8540e25d1b36b07",
       "okx_url": "https://web3.okx.com/token/base/0xa7d812832091e06144abeaf0a8540e25d1b36b07?ref=OKX10c",
+      "price_change_24h": 71.68,
       "mcap_source": "dexscreener"
     },
     {
@@ -25,15 +26,16 @@
       "token_address": "0x76d1d20ad655323a26908388b24d69f42c4d3b07",
       "score": 25.8,
       "severity": "none",
-      "mcap_usd": 73157.0,
-      "lp_total_usd": 54963.83,
+      "mcap_usd": 67166.0,
+      "lp_total_usd": 51982.04,
       "holder_count": 495,
       "top10_pct": 100.0,
       "x_username": "AgentConductor",
       "x_url": "https://x.com/AgentConductor",
-      "signal_age_hours": 13.57,
+      "signal_age_hours": 13.91,
       "dexscreener_url": "https://dexscreener.com/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07",
       "okx_url": "https://web3.okx.com/token/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07?ref=OKX10c",
+      "price_change_24h": -28.58,
       "mcap_source": "dexscreener"
     },
     {
@@ -48,9 +50,10 @@
       "top10_pct": 31.15,
       "x_username": "JunoCash_on_X",
       "x_url": "https://x.com/JunoCash_on_X",
-      "signal_age_hours": 15.21,
+      "signal_age_hours": 15.55,
       "dexscreener_url": "https://dexscreener.com/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc",
       "okx_url": "https://web3.okx.com/token/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc?ref=OKX10c",
+      "price_change_24h": -5.19,
       "mcap_source": "dexscreener"
     },
     {
@@ -65,9 +68,10 @@
       "top10_pct": 92.63,
       "x_username": "EliosBase",
       "x_url": "https://x.com/EliosBase",
-      "signal_age_hours": 23.18,
+      "signal_age_hours": 23.52,
       "dexscreener_url": "https://dexscreener.com/base/0x002b28fa26982da609f069383ee424b4d36f1b07",
       "okx_url": "https://web3.okx.com/token/base/0x002b28fa26982da609f069383ee424b4d36f1b07?ref=OKX10c",
+      "price_change_24h": -4.85,
       "mcap_source": "dexscreener"
     }
   ]
