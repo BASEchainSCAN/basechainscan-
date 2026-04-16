@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-16T19:37:27Z",
+  "generated_at": "2026-04-16T21:05:13Z",
   "token_count": 3,
   "tokens": [
     {
@@ -8,16 +8,16 @@
       "token_address": "0xa140438827e1ab9ee27018eedcc7aad9136033d8",
       "score": 32.1,
       "severity": "none",
-      "mcap_usd": 92122.0,
-      "lp_total_usd": 52433.67,
+      "mcap_usd": 97527.0,
+      "lp_total_usd": 54299.59,
       "holder_count": 692,
       "top10_pct": 43.87,
       "x_username": "zannydxxm",
       "x_url": "https://x.com/zannydxxm",
-      "signal_age_hours": 19.71,
+      "signal_age_hours": 21.17,
       "dexscreener_url": "https://dexscreener.com/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8",
       "okx_url": "https://web3.okx.com/token/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8?ref=OKX10c",
-      "price_change_24h": -27.32,
+      "price_change_24h": -25.24,
       "mcap_source": "dexscreener"
     },
     {
@@ -26,16 +26,16 @@
       "token_address": "0x76d1d20ad655323a26908388b24d69f42c4d3b07",
       "score": 30.5,
       "severity": "none",
-      "mcap_usd": 239319.0,
-      "lp_total_usd": 119822.57,
+      "mcap_usd": 235539.0,
+      "lp_total_usd": 119332.67,
       "holder_count": 498,
       "top10_pct": 100.0,
       "x_username": "AgentConductor",
       "x_url": "https://x.com/AgentConductor",
-      "signal_age_hours": 12.54,
+      "signal_age_hours": 14.01,
       "dexscreener_url": "https://dexscreener.com/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07",
       "okx_url": "https://web3.okx.com/token/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07?ref=OKX10c",
-      "price_change_24h": 197.0,
+      "price_change_24h": 205.0,
       "mcap_source": "dexscreener"
     },
     {
@@ -44,16 +44,16 @@
       "token_address": "0x2e8f83541ab39c8451b3e557a19be531a59ddecc",
       "score": 19.3,
       "severity": "none",
-      "mcap_usd": 572170.0,
-      "lp_total_usd": 66300.79,
-      "holder_count": 251,
+      "mcap_usd": 553239.0,
+      "lp_total_usd": 65356.29,
+      "holder_count": 252,
       "top10_pct": 30.67,
       "x_username": "JunoCash_on_X",
       "x_url": "https://x.com/JunoCash_on_X",
-      "signal_age_hours": 13.86,
+      "signal_age_hours": 15.32,
       "dexscreener_url": "https://dexscreener.com/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc",
       "okx_url": "https://web3.okx.com/token/base/0x2e8f83541ab39c8451b3e557a19be531a59ddecc?ref=OKX10c",
-      "price_change_24h": -11.34,
+      "price_change_24h": -14.27,
       "mcap_source": "dexscreener"
     }
   ]
