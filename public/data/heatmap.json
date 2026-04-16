@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-16T04:15:40Z",
+  "generated_at": "2026-04-16T05:53:12Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,110 +11,100 @@
       "severity": "critical",
       "signals": 8,
       "last_seen": "2026-04-16 03:01:05",
-      "price_change_24h": 1.16
+      "price_change_24h": 1.7
     },
     {
       "rank": 2,
-      "symbol": "DRB",
-      "token_address": "0x3ec2156d4c0a9cbdab4a016633b7bcf6a8d68ea2",
-      "score": 59.1,
-      "severity": "critical",
-      "signals": 4,
-      "last_seen": "2026-04-16 03:05:23",
-      "price_change_24h": -5.76
-    },
-    {
-      "rank": 3,
       "symbol": "LIQ",
       "token_address": "0x09b8903abf2ea0721e34427353988c2f43c6d64f",
       "score": 52.5,
       "severity": "low",
-      "signals": 5,
-      "last_seen": "2026-04-16 00:42:34",
-      "price_change_24h": 0.74
+      "signals": 6,
+      "last_seen": "2026-04-16 04:27:56",
+      "price_change_24h": -0.02
     },
     {
-      "rank": 4,
+      "rank": 3,
       "symbol": "SMCF",
       "token_address": "0x9326314259102cfb0448e3a5022188d56e61cba3",
       "score": 50.4,
       "severity": "low",
       "signals": 8,
       "last_seen": "2026-04-16 03:54:19",
-      "price_change_24h": -6.12
+      "price_change_24h": -5.21
     },
     {
-      "rank": 5,
+      "rank": 4,
       "symbol": "VOLM",
       "token_address": "0xa7d812832091e06144abeaf0a8540e25d1b36b07",
       "score": 50.3,
       "severity": "low",
       "signals": 4,
-      "last_seen": "2026-04-16 01:46:33",
-      "price_change_24h": 81.37
+      "last_seen": "2026-04-16 04:30:45",
+      "price_change_24h": 131.0
     },
     {
-      "rank": 6,
+      "rank": 5,
       "symbol": "BNKR",
       "token_address": "0x22af33fe49fd1fa80c7149773dde5890d3c76f3b",
       "score": 49.6,
       "severity": "low",
-      "signals": 9,
-      "last_seen": "2026-04-16 03:47:47",
-      "price_change_24h": -1.41
+      "signals": 10,
+      "last_seen": "2026-04-16 05:43:10",
+      "price_change_24h": 1.29
     },
     {
-      "rank": 7,
+      "rank": 6,
       "symbol": "REI",
       "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
       "score": 49.6,
       "severity": "critical",
       "signals": 7,
       "last_seen": "2026-04-16 00:41:09",
-      "price_change_24h": 11.36
+      "price_change_24h": 12.96
     },
     {
-      "rank": 8,
+      "rank": 7,
       "symbol": "NIV",
       "token_address": "0x0c7dc36a520f73bf302b69981da4278fd8cc72cd",
       "score": 48.7,
       "severity": "low",
       "signals": 10,
       "last_seen": "2026-04-16 00:49:48",
-      "price_change_24h": -37.0
+      "price_change_24h": -52.63
     },
     {
-      "rank": 9,
+      "rank": 8,
       "symbol": "WOON",
       "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
       "score": 48.5,
       "severity": "low",
-      "signals": 6,
+      "signals": 5,
       "last_seen": "2026-04-16 03:19:00",
-      "price_change_24h": 78.61
+      "price_change_24h": 78.9
     },
     {
-      "rank": 10,
+      "rank": 9,
       "symbol": "CBBTC",
       "token_address": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
       "score": 48.0,
       "severity": "none",
-      "signals": 7,
-      "last_seen": "2026-04-16 01:01:05",
-      "price_change_24h": 0.74
+      "signals": 8,
+      "last_seen": "2026-04-16 04:17:12",
+      "price_change_24h": 1.44
     },
     {
-      "rank": 11,
+      "rank": 10,
       "symbol": "SHIB",
       "token_address": "0xfca95aeb5bf44ae355806a5ad14659c940dc6bf7",
       "score": 47.0,
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-16 03:01:42",
-      "price_change_24h": 5.53
+      "price_change_24h": 3.97
     },
     {
-      "rank": 12,
+      "rank": 11,
       "symbol": "AI",
       "token_address": "0x99f88e77ce2f8efa0413cf8de1d5064a3e5d1164",
       "score": 46.5,
@@ -124,64 +114,74 @@
       "price_change_24h": 403.0
     },
     {
-      "rank": 13,
+      "rank": 12,
       "symbol": "OVPP",
       "token_address": "0x8c0d3adcf8ce094e1ae437557ec90a6374dc9bdd",
       "score": 45.9,
       "severity": "low",
       "signals": 7,
-      "last_seen": "2026-04-16 04:07:30",
-      "price_change_24h": 18.62
+      "last_seen": "2026-04-16 05:33:10",
+      "price_change_24h": 25.47
     },
     {
-      "rank": 14,
+      "rank": 13,
       "symbol": "GITLAWB",
       "token_address": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
       "score": 45.3,
       "severity": "low",
-      "signals": 5,
+      "signals": 4,
       "last_seen": "2026-04-16 03:05:05",
-      "price_change_24h": -0.28
+      "price_change_24h": 14.12
     },
     {
-      "rank": 15,
+      "rank": 14,
       "symbol": "ROBOTMONEY",
       "token_address": "0x65021a79aeef22b17cdc1b768f5e79a8618beba3",
       "score": 43.6,
       "severity": "low",
-      "signals": 1,
-      "last_seen": "2026-04-15 06:02:49",
-      "price_change_24h": 6.25
+      "signals": 2,
+      "last_seen": "2026-04-16 04:45:09",
+      "price_change_24h": 2.94
     },
     {
-      "rank": 16,
+      "rank": 15,
       "symbol": "VEIL",
       "token_address": "0x767a739d1a152639e9ea1d8c1bd55fdc5b217d7f",
       "score": 43.3,
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-16 04:05:40",
-      "price_change_24h": 11.31
+      "price_change_24h": 10.27
     },
     {
-      "rank": 17,
+      "rank": 16,
       "symbol": "ZORA",
       "token_address": "0x1111111111166b7fe7bd91427724b487980afc69",
       "score": 43.2,
       "severity": "critical",
-      "signals": 9,
-      "last_seen": "2026-04-16 04:10:57",
-      "price_change_24h": 4.55
+      "signals": 10,
+      "last_seen": "2026-04-16 05:41:21",
+      "price_change_24h": 4.41
     },
     {
-      "rank": 18,
+      "rank": 17,
       "symbol": "HYDX",
       "token_address": "0x00000e7efa313f4e11bfff432471ed9423ac6b30",
       "score": 41.9,
       "severity": "none",
       "signals": 3,
       "last_seen": "2026-04-16 04:00:31",
-      "price_change_24h": 5.54
+      "price_change_24h": 3.49
+    },
+    {
+      "rank": 18,
+      "symbol": "ETHX",
+      "token_address": "0xa69f80524381275a7ffdb3ae01c54150644c8792",
+      "score": 41.7,
+      "severity": "low",
+      "signals": 5,
+      "last_seen": "2026-04-16 04:08:09",
+      "price_change_24h": -16.48
     }
   ]
 }
