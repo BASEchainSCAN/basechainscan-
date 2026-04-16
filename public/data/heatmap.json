@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T23:41:55Z",
+  "generated_at": "2026-04-16T04:15:40Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -7,11 +7,11 @@
       "rank": 1,
       "symbol": "WETH",
       "token_address": "0x4200000000000000000000000000000000000006",
-      "score": 67.1,
+      "score": 69.1,
       "severity": "critical",
-      "signals": 9,
-      "last_seen": "2026-04-15 22:02:23",
-      "price_change_24h": 1.09
+      "signals": 8,
+      "last_seen": "2026-04-16 03:01:05",
+      "price_change_24h": 1.16
     },
     {
       "rank": 2,
@@ -19,112 +19,102 @@
       "token_address": "0x3ec2156d4c0a9cbdab4a016633b7bcf6a8d68ea2",
       "score": 59.1,
       "severity": "critical",
-      "signals": 2,
-      "last_seen": "2026-04-15 05:32:59",
-      "price_change_24h": -6.14
+      "signals": 4,
+      "last_seen": "2026-04-16 03:05:23",
+      "price_change_24h": -5.76
     },
     {
       "rank": 3,
-      "symbol": "CHECK",
-      "token_address": "0x9126236476efba9ad8ab77855c60eb5bf37586eb",
-      "score": 55.8,
-      "severity": "medium",
-      "signals": 4,
-      "last_seen": "2026-04-15 02:55:56",
-      "price_change_24h": -22.13
+      "symbol": "LIQ",
+      "token_address": "0x09b8903abf2ea0721e34427353988c2f43c6d64f",
+      "score": 52.5,
+      "severity": "low",
+      "signals": 5,
+      "last_seen": "2026-04-16 00:42:34",
+      "price_change_24h": 0.74
     },
     {
       "rank": 4,
-      "symbol": "UNCNI",
-      "token_address": "0x0e2d90d4effcff4228b7a848fe781332241968cb",
-      "score": 55.5,
-      "severity": "low",
-      "signals": 1,
-      "last_seen": "2026-04-15 00:48:30",
-      "price_change_24h": -80.74
-    },
-    {
-      "rank": 5,
-      "symbol": "REI",
-      "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
-      "score": 52.2,
-      "severity": "critical",
-      "signals": 7,
-      "last_seen": "2026-04-15 20:19:11",
-      "price_change_24h": 5.2
-    },
-    {
-      "rank": 6,
       "symbol": "SMCF",
       "token_address": "0x9326314259102cfb0448e3a5022188d56e61cba3",
       "score": 50.4,
-      "severity": "medium",
+      "severity": "low",
       "signals": 8,
-      "last_seen": "2026-04-15 23:35:17",
-      "price_change_24h": 9.4
+      "last_seen": "2026-04-16 03:54:19",
+      "price_change_24h": -6.12
     },
     {
-      "rank": 7,
+      "rank": 5,
       "symbol": "VOLM",
       "token_address": "0xa7d812832091e06144abeaf0a8540e25d1b36b07",
       "score": 50.3,
       "severity": "low",
       "signals": 4,
-      "last_seen": "2026-04-15 21:18:25",
-      "price_change_24h": 128.0
+      "last_seen": "2026-04-16 01:46:33",
+      "price_change_24h": 81.37
     },
     {
-      "rank": 8,
-      "symbol": "ETHX",
-      "token_address": "0xa69f80524381275a7ffdb3ae01c54150644c8792",
-      "score": 49.7,
-      "severity": "low",
-      "signals": 6,
-      "last_seen": "2026-04-15 21:18:53",
-      "price_change_24h": -15.04
-    },
-    {
-      "rank": 9,
+      "rank": 6,
       "symbol": "BNKR",
       "token_address": "0x22af33fe49fd1fa80c7149773dde5890d3c76f3b",
       "score": 49.6,
       "severity": "low",
       "signals": 9,
-      "last_seen": "2026-04-15 23:34:50",
-      "price_change_24h": -3.93
+      "last_seen": "2026-04-16 03:47:47",
+      "price_change_24h": -1.41
     },
     {
-      "rank": 10,
+      "rank": 7,
+      "symbol": "REI",
+      "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
+      "score": 49.6,
+      "severity": "critical",
+      "signals": 7,
+      "last_seen": "2026-04-16 00:41:09",
+      "price_change_24h": 11.36
+    },
+    {
+      "rank": 8,
       "symbol": "NIV",
       "token_address": "0x0c7dc36a520f73bf302b69981da4278fd8cc72cd",
       "score": 48.7,
-      "severity": "critical",
-      "signals": 12,
-      "last_seen": "2026-04-15 23:34:07",
-      "price_change_24h": -38.24
+      "severity": "low",
+      "signals": 10,
+      "last_seen": "2026-04-16 00:49:48",
+      "price_change_24h": -37.0
     },
     {
-      "rank": 11,
+      "rank": 9,
       "symbol": "WOON",
       "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
       "score": 48.5,
       "severity": "low",
-      "signals": 5,
-      "last_seen": "2026-04-15 21:22:17",
-      "price_change_24h": 60.18
+      "signals": 6,
+      "last_seen": "2026-04-16 03:19:00",
+      "price_change_24h": 78.61
     },
     {
-      "rank": 12,
+      "rank": 10,
       "symbol": "CBBTC",
       "token_address": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
       "score": 48.0,
       "severity": "none",
-      "signals": 5,
-      "last_seen": "2026-04-15 22:30:15",
-      "price_change_24h": 0.63
+      "signals": 7,
+      "last_seen": "2026-04-16 01:01:05",
+      "price_change_24h": 0.74
     },
     {
-      "rank": 13,
+      "rank": 11,
+      "symbol": "SHIB",
+      "token_address": "0xfca95aeb5bf44ae355806a5ad14659c940dc6bf7",
+      "score": 47.0,
+      "severity": "low",
+      "signals": 3,
+      "last_seen": "2026-04-16 03:01:42",
+      "price_change_24h": 5.53
+    },
+    {
+      "rank": 12,
       "symbol": "AI",
       "token_address": "0x99f88e77ce2f8efa0413cf8de1d5064a3e5d1164",
       "score": 46.5,
@@ -134,54 +124,64 @@
       "price_change_24h": 403.0
     },
     {
+      "rank": 13,
+      "symbol": "OVPP",
+      "token_address": "0x8c0d3adcf8ce094e1ae437557ec90a6374dc9bdd",
+      "score": 45.9,
+      "severity": "low",
+      "signals": 7,
+      "last_seen": "2026-04-16 04:07:30",
+      "price_change_24h": 18.62
+    },
+    {
       "rank": 14,
       "symbol": "GITLAWB",
       "token_address": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
       "score": 45.3,
-      "severity": "none",
-      "signals": 3,
-      "last_seen": "2026-04-15 21:34:18",
-      "price_change_24h": -18.08
+      "severity": "low",
+      "signals": 5,
+      "last_seen": "2026-04-16 03:05:05",
+      "price_change_24h": -0.28
     },
     {
       "rank": 15,
-      "symbol": "LIQ",
-      "token_address": "0x09b8903abf2ea0721e34427353988c2f43c6d64f",
-      "score": 44.0,
-      "severity": "low",
-      "signals": 3,
-      "last_seen": "2026-04-15 17:40:14",
-      "price_change_24h": -1.59
-    },
-    {
-      "rank": 16,
       "symbol": "ROBOTMONEY",
       "token_address": "0x65021a79aeef22b17cdc1b768f5e79a8618beba3",
       "score": 43.6,
       "severity": "low",
-      "signals": 2,
+      "signals": 1,
       "last_seen": "2026-04-15 06:02:49",
-      "price_change_24h": -0.93
+      "price_change_24h": 6.25
+    },
+    {
+      "rank": 16,
+      "symbol": "VEIL",
+      "token_address": "0x767a739d1a152639e9ea1d8c1bd55fdc5b217d7f",
+      "score": 43.3,
+      "severity": "low",
+      "signals": 3,
+      "last_seen": "2026-04-16 04:05:40",
+      "price_change_24h": 11.31
     },
     {
       "rank": 17,
+      "symbol": "ZORA",
+      "token_address": "0x1111111111166b7fe7bd91427724b487980afc69",
+      "score": 43.2,
+      "severity": "critical",
+      "signals": 9,
+      "last_seen": "2026-04-16 04:10:57",
+      "price_change_24h": 4.55
+    },
+    {
+      "rank": 18,
       "symbol": "HYDX",
       "token_address": "0x00000e7efa313f4e11bfff432471ed9423ac6b30",
       "score": 41.9,
       "severity": "none",
-      "signals": 4,
-      "last_seen": "2026-04-15 23:35:43",
-      "price_change_24h": 1.43
-    },
-    {
-      "rank": 18,
-      "symbol": "ZRO",
-      "token_address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
-      "score": 40.8,
-      "severity": "low",
-      "signals": 8,
-      "last_seen": "2026-04-15 21:19:32",
-      "price_change_24h": 1.58
+      "signals": 3,
+      "last_seen": "2026-04-16 04:00:31",
+      "price_change_24h": 5.54
     }
   ]
 }
