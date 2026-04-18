@@ -1,23 +1,25 @@
 {
-  "generated_at": "2026-04-18T14:45:59Z",
+  "generated_at": "2026-04-18T17:57:43Z",
   "token_count": 2,
   "tokens": [
     {
       "rank": 1,
       "symbol": "PIXEL",
       "token_address": "0xa140438827e1ab9ee27018eedcc7aad9136033d8",
-      "score": 27.6,
+      "score": 27.4,
       "severity": "none",
-      "mcap_usd": 85850.0,
-      "lp_total_usd": 50425.17,
+      "mcap_usd": 84758.0,
+      "lp_total_usd": 50039.28,
       "holder_count": 734,
       "top10_pct": 43.87,
       "x_username": "zannydxxm",
       "x_url": "https://x.com/zannydxxm",
-      "signal_age_hours": 22.59,
-      "dexscreener_url": "https://dexscreener.com/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8",
+      "signal_age_hours": 0.6,
+      "pair_address": "0x5270d7936e0e38cf02370a60c20fc183f8a5ce8f6452cdf1d93186b0ffbcce50",
+      "dexscreener_url": "https://dexscreener.com/base/0x5270d7936e0e38cf02370a60c20fc183f8a5ce8f6452cdf1d93186b0ffbcce50",
       "okx_url": "https://web3.okx.com/token/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8?ref=OKX10c",
-      "price_change_24h": -20.61,
+      "o1_url": "https://o1.exchange/base/detail/0x5270d7936e0e38cf02370a60c20fc183f8a5ce8f6452cdf1d93186b0ffbcce50?ca=0xa140438827e1ab9ee27018eedcc7aad9136033d8",
+      "price_change_24h": -21.98,
       "mcap_source": "dexscreener"
     },
     {
@@ -32,10 +34,12 @@
       "top10_pct": 90.67,
       "x_username": "EliosBase",
       "x_url": "https://x.com/EliosBase",
-      "signal_age_hours": 15.95,
-      "dexscreener_url": "https://dexscreener.com/base/0x002b28fa26982da609f069383ee424b4d36f1b07",
+      "signal_age_hours": 19.14,
+      "pair_address": "0x83542654ffe8f3957e32e855c2220b4b0305be6a5f39f15d62a495d5d2bb1306",
+      "dexscreener_url": "https://dexscreener.com/base/0x83542654ffe8f3957e32e855c2220b4b0305be6a5f39f15d62a495d5d2bb1306",
       "okx_url": "https://web3.okx.com/token/base/0x002b28fa26982da609f069383ee424b4d36f1b07?ref=OKX10c",
-      "price_change_24h": -5.04,
+      "o1_url": "https://o1.exchange/base/detail/0x83542654ffe8f3957e32e855c2220b4b0305be6a5f39f15d62a495d5d2bb1306?ca=0x002b28fa26982da609f069383ee424b4d36f1b07",
+      "price_change_24h": -4.81,
       "mcap_source": "dexscreener"
     }
   ]
