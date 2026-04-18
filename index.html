@@ -771,36 +771,74 @@
 
     .top4-empty { text-align: center; padding: 24px; font-size: 12px; color: var(--muted-2); }
 
-    .community-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .gm-card {
+    .gm-quick-shell {
+      width: 100%;
       border-radius: var(--r-module);
       border: 1px solid rgba(20,230,212,0.1);
       background: linear-gradient(160deg, rgba(20,230,212,0.05) 0%, rgba(57,168,255,0.03) 100%);
-      box-shadow: 0 1px 0 rgba(20,230,212,0.06) inset;
-      padding: 18px;
+      box-shadow:
+        0 1px 0 rgba(20,230,212,0.06) inset,
+        0 20px 40px rgba(0,0,0,0.22);
+      padding: 16px;
+      margin-bottom: 14px;
     }
 
-    .gm-title {
-      font-size: 13px;
-      font-weight: 700;
+    .gm-quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .gm-quick-btn {
+      width: 100%;
+      min-height: 58px;
+    }
+
+    .leaderboard-launch {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       color: var(--text);
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
+      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .gm-desc {
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 16px;
-      line-height: 1.55;
+    .leaderboard-launch:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.2);
+      background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    }
+
+    .leaderboard-launch:active {
+      transform: scale(0.98);
+    }
+
+    .leaderboard-launch-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .leaderboard-launch-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .btn-gm {
@@ -919,6 +957,14 @@
       flex-shrink: 0;
     }
 
+    .gm-quick-note {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--muted-2);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
     .lb-sub {
       font-size: 10px;
       color: var(--muted-2);
@@ -966,6 +1012,72 @@
     .lb-streak { font-size: 10px; color: var(--brand); flex-shrink: 0; }
     .lb-pts { font-size: 12px; font-weight: 700; color: var(--text); flex-shrink: 0; min-width: 48px; text-align: right; font-family: var(--font-mono); }
     .lb-empty { text-align: center; padding: 18px; font-size: 12px; color: var(--muted-2); }
+
+    .lb-modal[hidden] { display: none; }
+
+    .lb-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(4,8,18,0.76);
+      backdrop-filter: blur(10px);
+    }
+
+    .lb-modal-dialog {
+      width: min(100%, 460px);
+      max-height: min(82vh, 700px);
+      overflow: auto;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(15,20,38,0.96) 0%, rgba(9,13,27,0.98) 100%);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.45);
+      padding: 18px;
+    }
+
+    .lb-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .lb-modal-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .lb-modal-close {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .lb-modal-close:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+
+    .lb-modal-copy {
+      font-size: 10px;
+      color: var(--muted-2);
+      margin-bottom: 14px;
+    }
 
     .form-label {
       font-size: 11.5px;
@@ -1196,12 +1308,11 @@
 
     .view-link {
       position: relative;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      align-self: center;
       gap: 8px;
-      width: auto;
+      width: fit-content;
       max-width: 100%;
       min-height: 44px;
       margin: 10px auto 0;
@@ -1267,6 +1378,8 @@
     .action-btn:focus-visible,
     .tc-btn:focus-visible,
     .btn-gm:focus-visible,
+    .leaderboard-launch:focus-visible,
+    .lb-modal-close:focus-visible,
     .btn-primary:focus-visible,
     .social-card:focus-visible {
       outline: none;
@@ -1279,6 +1392,7 @@
       .heatmap-grid { gap: 5px; }
       .tc-metrics { grid-template-columns: repeat(2, 1fr); }
       .socials { grid-template-columns: 1fr 1fr; }
+      .gm-quick-actions { grid-template-columns: 1fr; }
     }
 
     /* ── Referral Join Module ── */
@@ -1496,6 +1610,41 @@
       </div>
     </div>
 
+    <div class="gm-quick-shell reveal" style="--i:2">
+      <div class="gm-quick-actions">
+        <button class="btn-gm gm-quick-btn" id="gm-btn" type="button">
+          <span id="gm-btn-icon">☀️</span>
+          <span id="gm-btn-text">GM on Base</span>
+        </button>
+        <button class="leaderboard-launch" id="leaderboard-open-btn" type="button">
+          <span class="leaderboard-launch-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 19H17" stroke="rgba(234,244,255,0.7)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M8 5H16V8C16 10.7614 13.7614 13 11 13H13C10.2386 13 8 10.7614 8 8V5Z" fill="rgba(20,230,212,0.18)" stroke="rgba(20,230,212,0.9)" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M10 13H14V16H10V13Z" fill="rgba(20,230,212,0.28)"/>
+              <path d="M6 6H8V8C8 9.10457 7.10457 10 6 10V6Z" stroke="rgba(234,244,255,0.6)" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M18 6H16V8C16 9.10457 16.8954 10 18 10V6Z" stroke="rgba(234,244,255,0.6)" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Leaderboard</span>
+        </button>
+      </div>
+      <div class="gm-wallet-info" id="gm-wallet-info">
+        <span class="gm-wallet-addr" id="gm-wallet-addr">—</span>
+        <button class="btn-gm-disconnect" id="gm-disconnect-btn" type="button">Disconnect</button>
+      </div>
+      <div class="gm-status" id="gm-status"></div>
+      <div class="gm-streak-card" id="gm-streak-card">
+        <div class="gm-streak-badge" id="gm-streak-badge">☀️</div>
+        <div class="gm-streak-info">
+          <div class="gm-streak-main" id="gm-streak-main">—</div>
+          <div class="gm-streak-sub" id="gm-streak-sub">—</div>
+        </div>
+        <div class="gm-points-pill" id="gm-points-pill">0 pts</div>
+      </div>
+      <div class="gm-quick-note">Free off-chain signature on Base. No gas. No transaction.</div>
+    </div>
+
     <div class="module reveal" style="--i:3">
       <div class="module-header">
         <div class="module-title">
@@ -1558,50 +1707,6 @@
         </div>
         <div class="share-feedback" id="top4-share-feedback"></div>
         <div class="powered-line" style="margin-top:10px;">Low-cap picks by <a href="https://x.com/BASEchainSCAN" target="_blank">@BASEchainSCAN</a></div>
-      </div>
-    </div>
-
-    <div class="community-grid reveal" style="--i:5">
-      <div class="gm-card">
-        <div class="gm-title">
-          <div class="gm-dot"></div>
-          GM on Base
-        </div>
-        <p class="gm-desc">Connect your wallet and sign a GM message on Base. Off-chain · No gas · No transaction.</p>
-
-        <button class="btn-gm" id="gm-btn" type="button">
-          <span id="gm-btn-icon">☀️</span>
-          <span id="gm-btn-text">GM Base</span>
-        </button>
-
-        <div class="gm-wallet-info" id="gm-wallet-info">
-          <span class="gm-wallet-addr" id="gm-wallet-addr">—</span>
-          <button class="btn-gm-disconnect" id="gm-disconnect-btn" type="button">Disconnect</button>
-        </div>
-
-        <div class="gm-status" id="gm-status"></div>
-
-        <div class="gm-streak-card" id="gm-streak-card">
-          <div class="gm-streak-badge" id="gm-streak-badge">☀️</div>
-          <div class="gm-streak-info">
-            <div class="gm-streak-main" id="gm-streak-main">—</div>
-            <div class="gm-streak-sub" id="gm-streak-sub">—</div>
-          </div>
-          <div class="gm-points-pill" id="gm-points-pill">0 pts</div>
-        </div>
-      </div>
-
-      <div class="lb-card">
-        <div class="module-header" style="margin-bottom:8px;">
-          <div class="module-title">
-            <div class="module-dot"></div>
-            GM Leaderboard
-          </div>
-        </div>
-        <div class="lb-sub">Top wallets by streak points · Updates live</div>
-        <div id="lb-list">
-          <div class="lb-empty">Loading…</div>
-        </div>
       </div>
     </div>
 
@@ -1744,6 +1849,19 @@
           </div>
           <div class="ref-arrow">&darr;</div>
         </a>
+      </div>
+    </div>
+
+    <div class="lb-modal" id="lb-modal" hidden>
+      <div class="lb-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="lb-modal-title">
+        <div class="lb-modal-head">
+          <div class="lb-modal-title" id="lb-modal-title">GM Leaderboard</div>
+          <button class="lb-modal-close" id="lb-modal-close-btn" type="button" aria-label="Close leaderboard">✕</button>
+        </div>
+        <div class="lb-modal-copy">Top wallets by streak points. Updates live from the GM feed.</div>
+        <div id="lb-list">
+          <div class="lb-empty">Loading…</div>
+        </div>
       </div>
     </div>
 
@@ -2138,6 +2256,39 @@
       });
     }
 
+    function setLeaderboardModalOpen(open) {
+      const modal = document.getElementById('lb-modal');
+      if (!modal) return;
+      modal.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        loadLeaderboard();
+        setTimeout(() => {
+          document.getElementById('lb-modal-close-btn')?.focus();
+        }, 0);
+      }
+    }
+
+    function bindLeaderboardModal() {
+      const openBtn = document.getElementById('leaderboard-open-btn');
+      const closeBtn = document.getElementById('lb-modal-close-btn');
+      const modal = document.getElementById('lb-modal');
+      if (!openBtn || !closeBtn || !modal) return;
+
+      openBtn.addEventListener('click', () => setLeaderboardModalOpen(true));
+      closeBtn.addEventListener('click', () => setLeaderboardModalOpen(false));
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          setLeaderboardModalOpen(false);
+        }
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hidden) {
+          setLeaderboardModalOpen(false);
+        }
+      });
+    }
+
     const BASE_CHAIN_ID = 8453;
     const BASE_CHAIN_HEX = '0x2105';
     const BASE_CHAIN_PARAMS = {
@@ -2180,7 +2331,7 @@
     function gmResetBtn() {
       document.getElementById('gm-btn').disabled = false;
       document.getElementById('gm-btn-icon').textContent = '☀️';
-      document.getElementById('gm-btn-text').textContent = 'GM Base';
+      document.getElementById('gm-btn-text').textContent = 'GM on Base';
     }
 
     async function gmSwitchToBase() {
@@ -2392,6 +2543,7 @@
     bindTopCardSpotlight();
     loadLeaderboard();
     bindGMButton();
+    bindLeaderboardModal();
     bindShareButtons();
     bindTop4ShareButtons();
     loadHeatmap();
