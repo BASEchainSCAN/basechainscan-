@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T13:56:06Z",
+  "generated_at": "2026-04-18T14:45:59Z",
   "token_count": 2,
   "tokens": [
     {
@@ -8,16 +8,16 @@
       "token_address": "0xa140438827e1ab9ee27018eedcc7aad9136033d8",
       "score": 27.6,
       "severity": "none",
-      "mcap_usd": 92442.0,
-      "lp_total_usd": 52700.23,
+      "mcap_usd": 85850.0,
+      "lp_total_usd": 50425.17,
       "holder_count": 734,
       "top10_pct": 43.87,
       "x_username": "zannydxxm",
       "x_url": "https://x.com/zannydxxm",
-      "signal_age_hours": 21.76,
+      "signal_age_hours": 22.59,
       "dexscreener_url": "https://dexscreener.com/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8",
       "okx_url": "https://web3.okx.com/token/base/0xa140438827e1ab9ee27018eedcc7aad9136033d8?ref=OKX10c",
-      "price_change_24h": -10.89,
+      "price_change_24h": -20.61,
       "mcap_source": "dexscreener"
     },
     {
@@ -32,7 +32,7 @@
       "top10_pct": 90.67,
       "x_username": "EliosBase",
       "x_url": "https://x.com/EliosBase",
-      "signal_age_hours": 15.11,
+      "signal_age_hours": 15.95,
       "dexscreener_url": "https://dexscreener.com/base/0x002b28fa26982da609f069383ee424b4d36f1b07",
       "okx_url": "https://web3.okx.com/token/base/0x002b28fa26982da609f069383ee424b4d36f1b07?ref=OKX10c",
       "price_change_24h": -5.04,
