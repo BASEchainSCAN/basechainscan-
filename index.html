@@ -1578,16 +1578,10 @@
     .o1-logo-icon {
       width: 18px;
       height: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .o1-logo-icon svg {
-      width: 100%;
-      height: 100%;
       display: block;
+      flex-shrink: 0;
+      border-radius: 5px;
+      object-fit: contain;
     }
 
     .o1-logo-icon.lg {
@@ -1701,23 +1695,7 @@
             <span>Trade on OKX</span>
           </a>
           <a class="action-btn exchange-o1" href="https://o1.exchange/@clearn" target="_blank" rel="noopener noreferrer">
-            <span class="action-btn-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="o1ActionBg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#1B1B1D"/>
-                    <stop offset="1" stop-color="#060607"/>
-                  </linearGradient>
-                  <linearGradient id="o1ActionFill" x1="8" y1="8" x2="25" y2="24" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#FFFFFF"/>
-                    <stop offset="1" stop-color="#78C5FF"/>
-                  </linearGradient>
-                </defs>
-                <rect width="32" height="32" rx="8" fill="url(#o1ActionBg)"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M7 10.25C7 8.45507 8.45507 7 10.25 7H17C18.7949 7 20.25 8.45507 20.25 10.25V12.75C20.25 13.1642 20.5858 13.5 21 13.5H23.5C25.2949 13.5 26.75 14.9551 26.75 16.75V23.5C26.75 25.2949 25.2949 26.75 23.5 26.75H16.75C14.9551 26.75 13.5 25.2949 13.5 23.5V21C13.5 20.5858 13.1642 20.25 12.75 20.25H10.25C8.45507 20.25 7 18.7949 7 17V10.25ZM11.25 12.25C11.25 11.6977 11.6977 11.25 12.25 11.25H14.75C15.3023 11.25 15.75 11.6977 15.75 12.25V14.75C15.75 15.3023 15.3023 15.75 14.75 15.75H12.25C11.6977 15.75 11.25 15.3023 11.25 14.75V12.25Z" fill="url(#o1ActionFill)"/>
-                <path d="M21.75 6.75C20.2312 6.75 19 7.98122 19 9.5V10.75C19 11.1642 18.6642 11.5 18.25 11.5H17C15.4812 11.5 14.25 12.7312 14.25 14.25V15.5C14.25 17.0188 15.4812 18.25 17 18.25H19.75C20.1642 18.25 20.5 17.9142 20.5 17.5V10.25C20.5 9.69772 20.9477 9.25 21.5 9.25H21.75C22.3023 9.25 22.75 9.69772 22.75 10.25V24.5C22.75 26.0188 23.9812 27.25 25.5 27.25H26.75C28.2688 27.25 29.5 26.0188 29.5 24.5V9.5C29.5 7.98122 28.2688 6.75 26.75 6.75H21.75Z" fill="url(#o1ActionFill)"/>
-              </svg>
-            </span>
+            <img class="action-btn-icon o1-logo-icon" src="/public/images/o1-logo.svg" alt="" aria-hidden="true" />
             <span>Trade on O1</span>
           </a>
         </div>
@@ -1868,21 +1846,7 @@
 
         <a class="referral-btn ref-o1" href="https://o1.exchange/@clearn" target="_blank" rel="noopener noreferrer">
           <div class="ref-logo-wrap">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="o1ReferralBg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#1B1B1D"/>
-                  <stop offset="1" stop-color="#060607"/>
-                </linearGradient>
-                <linearGradient id="o1ReferralFill" x1="8" y1="8" x2="25" y2="24" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFFFFF"/>
-                  <stop offset="1" stop-color="#78C5FF"/>
-                </linearGradient>
-              </defs>
-              <rect width="32" height="32" rx="8" fill="url(#o1ReferralBg)"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M7 10.25C7 8.45507 8.45507 7 10.25 7H17C18.7949 7 20.25 8.45507 20.25 10.25V12.75C20.25 13.1642 20.5858 13.5 21 13.5H23.5C25.2949 13.5 26.75 14.9551 26.75 16.75V23.5C26.75 25.2949 25.2949 26.75 23.5 26.75H16.75C14.9551 26.75 13.5 25.2949 13.5 23.5V21C13.5 20.5858 13.1642 20.25 12.75 20.25H10.25C8.45507 20.25 7 18.7949 7 17V10.25ZM11.25 12.25C11.25 11.6977 11.6977 11.25 12.25 11.25H14.75C15.3023 11.25 15.75 11.6977 15.75 12.25V14.75C15.75 15.3023 15.3023 15.75 14.75 15.75H12.25C11.6977 15.75 11.25 15.3023 11.25 14.75V12.25Z" fill="url(#o1ReferralFill)"/>
-              <path d="M21.75 6.75C20.2312 6.75 19 7.98122 19 9.5V10.75C19 11.1642 18.6642 11.5 18.25 11.5H17C15.4812 11.5 14.25 12.7312 14.25 14.25V15.5C14.25 17.0188 15.4812 18.25 17 18.25H19.75C20.1642 18.25 20.5 17.9142 20.5 17.5V10.25C20.5 9.69772 20.9477 9.25 21.5 9.25H21.75C22.3023 9.25 22.75 9.69772 22.75 10.25V24.5C22.75 26.0188 23.9812 27.25 25.5 27.25H26.75C28.2688 27.25 29.5 26.0188 29.5 24.5V9.5C29.5 7.98122 28.2688 6.75 26.75 6.75H21.75Z" fill="url(#o1ReferralFill)"/>
-            </svg>
+            <img class="o1-logo-icon lg" src="/public/images/o1-logo.svg" alt="" aria-hidden="true" />
           </div>
           <div class="ref-text">
             <div class="ref-cta">Trade on O1</div>
@@ -2139,7 +2103,7 @@
             </div>
             <div class="tc-actions">
               <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
-              <a href="${t.o1_url || '#'}" target="_blank" class="tc-btn btn-o1"><span class="o1-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="o1Top4Bg${t.rank}" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse"><stop stop-color="#1B1B1D"/><stop offset="1" stop-color="#060607"/></linearGradient><linearGradient id="o1Top4Fill${t.rank}" x1="8" y1="8" x2="25" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#78C5FF"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#o1Top4Bg${t.rank})"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7 10.25C7 8.45507 8.45507 7 10.25 7H17C18.7949 7 20.25 8.45507 20.25 10.25V12.75C20.25 13.1642 20.5858 13.5 21 13.5H23.5C25.2949 13.5 26.75 14.9551 26.75 16.75V23.5C26.75 25.2949 25.2949 26.75 23.5 26.75H16.75C14.9551 26.75 13.5 25.2949 13.5 23.5V21C13.5 20.5858 13.1642 20.25 12.75 20.25H10.25C8.45507 20.25 7 18.7949 7 17V10.25ZM11.25 12.25C11.25 11.6977 11.6977 11.25 12.25 11.25H14.75C15.3023 11.25 15.75 11.6977 15.75 12.25V14.75C15.75 15.3023 15.3023 15.75 14.75 15.75H12.25C11.6977 15.75 11.25 15.3023 11.25 14.75V12.25Z" fill="url(#o1Top4Fill${t.rank})"/><path d="M21.75 6.75C20.2312 6.75 19 7.98122 19 9.5V10.75C19 11.1642 18.6642 11.5 18.25 11.5H17C15.4812 11.5 14.25 12.7312 14.25 14.25V15.5C14.25 17.0188 15.4812 18.25 17 18.25H19.75C20.1642 18.25 20.5 17.9142 20.5 17.5V10.25C20.5 9.69772 20.9477 9.25 21.5 9.25H21.75C22.3023 9.25 22.75 9.69772 22.75 10.25V24.5C22.75 26.0188 23.9812 27.25 25.5 27.25H26.75C28.2688 27.25 29.5 26.0188 29.5 24.5V9.5C29.5 7.98122 28.2688 6.75 26.75 6.75H21.75Z" fill="url(#o1Top4Fill${t.rank})"/></svg></span><span>Trade O1</span></a>
+              <a href="${t.o1_url || '#'}" target="_blank" class="tc-btn btn-o1"><img class="o1-logo-icon" src="/public/images/o1-logo.svg" alt="" aria-hidden="true" /><span>Trade O1</span></a>
               ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">@${t.x_username}</a>` : ''}
               <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEXScreener</a>
             </div>
