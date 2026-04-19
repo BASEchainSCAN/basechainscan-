@@ -385,6 +385,62 @@
       margin: -8px 0 12px;
     }
 
+    .update-rail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -2px 0 14px;
+    }
+
+    .update-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 10px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      color: rgba(234,244,255,0.78);
+      font-size: 10px;
+      line-height: 1.1;
+    }
+
+    .update-chip-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .update-chip strong {
+      font-size: 11px;
+      color: #f7fbff;
+      font-weight: 700;
+    }
+
+    .update-chip-static {
+      border-color: rgba(20,230,212,0.18);
+      background: rgba(20,230,212,0.08);
+      color: var(--brand);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .update-chip-status {
+      border-color: rgba(20,230,212,0.18);
+      background: rgba(20,230,212,0.07);
+    }
+
+    .update-chip-status.is-overdue {
+      border-color: rgba(255,140,66,0.28);
+      background: rgba(255,140,66,0.10);
+    }
+
+    .update-chip-status.is-overdue strong {
+      color: #ffd2b5;
+    }
+
     .tab-bar {
       display: flex;
       gap: 6px;
@@ -1670,6 +1726,17 @@
         </div>
         <div class="module-meta" id="signal-time">—</div>
       </div>
+      <div class="update-rail" aria-label="Public data refresh timing">
+        <div class="update-chip update-chip-static">Local publish every 15m</div>
+        <div class="update-chip">
+          <span class="update-chip-label">Next expected</span>
+          <strong id="next-update-time">—</strong>
+        </div>
+        <div class="update-chip update-chip-status" id="next-update-chip">
+          <span class="update-chip-label">Countdown</span>
+          <strong id="next-update-countdown">—</strong>
+        </div>
+      </div>
 
       <div class="tab-bar" role="tablist" aria-label="Live signal surfaces">
         <button class="tab-btn active" id="tab-btn-radar" data-tab="radar" type="button" role="tab" aria-selected="true" aria-controls="tab-radar">Emerging Radar</button>
@@ -1705,7 +1772,7 @@
       </div>
 
       <div class="tab-content" id="tab-lowcap" role="tabpanel" aria-labelledby="tab-btn-lowcap">
-        <div class="module-sub">Under $1M mcap · Social verified · Updated daily</div>
+        <div class="module-sub">Under $1M mcap · Social verified · Local sync every 15m</div>
         <div class="top4-grid" id="top4-grid">
           <div class="top4-empty">Loading…</div>
         </div>
@@ -1876,6 +1943,10 @@
   <script>
     let latestHeatmap = null;
     let latestTop4 = null;
+    let latestPublicGeneratedAtMs = 0;
+    let updateCountdownTimer = null;
+    let publicDataPollTimer = null;
+    const PUBLIC_SYNC_INTERVAL_MS = 15 * 60 * 1000;
 
     (function () {
       const io = new IntersectionObserver(entries => {
@@ -1981,6 +2052,70 @@
       }
     }
 
+    function formatClockTimestamp(dateMs) {
+      try {
+        const d = new Date(dateMs);
+        if (Number.isNaN(d.getTime())) return '—';
+        return d.toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit', hour12: false }) + ' UTC';
+      } catch {
+        return '—';
+      }
+    }
+
+    function formatCountdown(ms) {
+      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function syncPublicUpdateState() {
+      const timestamps = [latestHeatmap?.generated_at, latestTop4?.generated_at]
+        .map(value => {
+          const ms = value ? new Date(value).getTime() : 0;
+          return Number.isFinite(ms) ? ms : 0;
+        })
+        .filter(ms => ms > 0);
+      latestPublicGeneratedAtMs = timestamps.length ? Math.max(...timestamps) : 0;
+      renderPublicUpdateCountdown();
+    }
+
+    function renderPublicUpdateCountdown() {
+      const nextTimeEl = document.getElementById('next-update-time');
+      const countdownEl = document.getElementById('next-update-countdown');
+      const chipEl = document.getElementById('next-update-chip');
+      if (!nextTimeEl || !countdownEl || !chipEl) return;
+
+      if (!latestPublicGeneratedAtMs) {
+        nextTimeEl.textContent = '—';
+        countdownEl.textContent = 'Waiting';
+        chipEl.classList.remove('is-overdue');
+        return;
+      }
+
+      const nextExpectedMs = latestPublicGeneratedAtMs + PUBLIC_SYNC_INTERVAL_MS;
+      const deltaMs = nextExpectedMs - Date.now();
+      nextTimeEl.textContent = formatClockTimestamp(nextExpectedMs);
+      if (deltaMs >= 0) {
+        countdownEl.textContent = formatCountdown(deltaMs);
+        chipEl.classList.remove('is-overdue');
+      } else {
+        countdownEl.textContent = `Overdue ${formatCountdown(Math.abs(deltaMs))}`;
+        chipEl.classList.add('is-overdue');
+      }
+    }
+
+    function startPublicTimers() {
+      renderPublicUpdateCountdown();
+      if (updateCountdownTimer) clearInterval(updateCountdownTimer);
+      updateCountdownTimer = setInterval(renderPublicUpdateCountdown, 1000);
+      if (publicDataPollTimer) clearInterval(publicDataPollTimer);
+      publicDataPollTimer = setInterval(() => {
+        loadHeatmap();
+        loadTop4();
+      }, 60 * 1000);
+    }
+
     function escapeXml(str) {
       return String(str)
         .replace(/&/g, '&amp;')
@@ -2027,6 +2162,7 @@
         const data = await res.json();
         latestHeatmap = data;
         document.getElementById('signal-time').textContent = formatUpdateTimestamp(data.generated_at);
+        syncPublicUpdateState();
         const maxScore = Math.max(...data.tokens.map(t => t.score));
         const grid = document.getElementById('hm-grid');
 
@@ -2075,6 +2211,7 @@
         }
         const data = await res.json();
         latestTop4 = data;
+        syncPublicUpdateState();
         if (!data.tokens?.length) {
           grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
           return;
@@ -2551,6 +2688,7 @@
     bindLeaderboardModal();
     bindShareButtons();
     bindTop4ShareButtons();
+    startPublicTimers();
     loadHeatmap();
     loadTop4();
   </script>
