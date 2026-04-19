@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-19T00:27:46Z",
+  "generated_at": "2026-04-19T02:10:12Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,7 +11,7 @@
       "severity": "critical",
       "signals": 15,
       "last_seen": "2026-04-18 21:23:31",
-      "price_change_24h": -3.02
+      "price_change_24h": -3.04
     },
     {
       "rank": 2,
@@ -19,9 +19,9 @@
       "token_address": "0x9326314259102cfb0448e3a5022188d56e61cba3",
       "score": 67.0,
       "severity": "medium",
-      "signals": 13,
+      "signals": 12,
       "last_seen": "2026-04-18 21:20:53",
-      "price_change_24h": -38.12
+      "price_change_24h": -39.56
     },
     {
       "rank": 3,
@@ -31,7 +31,7 @@
       "severity": "medium",
       "signals": 11,
       "last_seen": "2026-04-18 22:28:48",
-      "price_change_24h": -88.28
+      "price_change_24h": -91.04
     },
     {
       "rank": 4,
@@ -41,7 +41,7 @@
       "severity": "medium",
       "signals": 12,
       "last_seen": "2026-04-18 23:15:21",
-      "price_change_24h": 20.34
+      "price_change_24h": 22.38
     },
     {
       "rank": 5,
@@ -51,7 +51,7 @@
       "severity": "medium",
       "signals": 3,
       "last_seen": "2026-04-18 15:06:12",
-      "price_change_24h": -7.46
+      "price_change_24h": -7.48
     },
     {
       "rank": 6,
@@ -59,9 +59,9 @@
       "token_address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
       "score": 53.4,
       "severity": "medium",
-      "signals": 8,
+      "signals": 7,
       "last_seen": "2026-04-18 23:13:27",
-      "price_change_24h": -10.29
+      "price_change_24h": -11.88
     },
     {
       "rank": 7,
@@ -69,19 +69,19 @@
       "token_address": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
       "score": 53.4,
       "severity": "critical",
-      "signals": 10,
+      "signals": 9,
       "last_seen": "2026-04-18 22:03:05",
-      "price_change_24h": -8.06
+      "price_change_24h": -9.05
     },
     {
       "rank": 8,
-      "symbol": "MEZO",
+      "symbol": "MUSD",
       "token_address": "0xdd468a1ddc392dcdbef6db6e34e89aa338f9f186",
       "score": 53.1,
       "severity": "medium",
-      "signals": 5,
-      "last_seen": "2026-04-18 15:05:56",
-      "price_change_24h": -1.91
+      "signals": 7,
+      "last_seen": "2026-04-19 01:25:00",
+      "price_change_24h": -1.45
     },
     {
       "rank": 9,
@@ -91,7 +91,7 @@
       "severity": "low",
       "signals": 6,
       "last_seen": "2026-04-18 23:34:40",
-      "price_change_24h": -20.68
+      "price_change_24h": -22.01
     },
     {
       "rank": 10,
@@ -101,7 +101,7 @@
       "severity": "low",
       "signals": 8,
       "last_seen": "2026-04-18 19:55:42",
-      "price_change_24h": -10.14
+      "price_change_24h": -10.84
     },
     {
       "rank": 11,
@@ -109,9 +109,9 @@
       "token_address": "0xa4a2e2ca3fbfe21aed83471d28b6f65a233c6e00",
       "score": 49.1,
       "severity": "low",
-      "signals": 8,
-      "last_seen": "2026-04-19 00:11:00",
-      "price_change_24h": -8.46
+      "signals": 9,
+      "last_seen": "2026-04-19 01:22:11",
+      "price_change_24h": -8.03
     },
     {
       "rank": 12,
@@ -119,9 +119,9 @@
       "token_address": "0x8c0d3adcf8ce094e1ae437557ec90a6374dc9bdd",
       "score": 48.4,
       "severity": "critical",
-      "signals": 13,
+      "signals": 12,
       "last_seen": "2026-04-18 23:56:46",
-      "price_change_24h": -8.13
+      "price_change_24h": -9.4
     },
     {
       "rank": 13,
@@ -131,7 +131,7 @@
       "severity": "low",
       "signals": 7,
       "last_seen": "2026-04-18 21:56:09",
-      "price_change_24h": -12.34
+      "price_change_24h": -5.69
     },
     {
       "rank": 14,
@@ -141,7 +141,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-18 21:55:00",
-      "price_change_24h": -22.12
+      "price_change_24h": -26.23
     },
     {
       "rank": 15,
@@ -151,7 +151,7 @@
       "severity": "low",
       "signals": 1,
       "last_seen": "2026-04-18 13:40:30",
-      "price_change_24h": -7.12
+      "price_change_24h": -7.6
     },
     {
       "rank": 16,
@@ -159,9 +159,9 @@
       "token_address": "0x3ec2156d4c0a9cbdab4a016633b7bcf6a8d68ea2",
       "score": 46.0,
       "severity": "low",
-      "signals": 4,
-      "last_seen": "2026-04-18 23:28:24",
-      "price_change_24h": -15.6
+      "signals": 5,
+      "last_seen": "2026-04-19 02:03:16",
+      "price_change_24h": -12.7
     },
     {
       "rank": 17,
@@ -171,7 +171,7 @@
       "severity": "low",
       "signals": 1,
       "last_seen": "2026-04-18 15:29:08",
-      "price_change_24h": -13.67
+      "price_change_24h": -12.75
     },
     {
       "rank": 18,
@@ -181,7 +181,7 @@
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-18 19:22:54",
-      "price_change_24h": -11.96
+      "price_change_24h": -14.44
     }
   ]
 }
