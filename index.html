@@ -1024,6 +1024,195 @@
       letter-spacing: 0.04em;
     }
 
+    .spotlight-shell {
+      width: 100%;
+      border-radius: var(--r-module);
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(160deg, rgba(20,230,212,0.06) 0%, rgba(0,82,255,0.05) 100%),
+        linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 24px 48px rgba(0,0,0,0.22);
+      padding: 16px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .spotlight-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(20,230,212,0.12), transparent 35%);
+      pointer-events: none;
+    }
+
+    .spotlight-head,
+    .spotlight-row,
+    .spotlight-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spotlight-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .spotlight-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .spotlight-kicker::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 10px var(--brand);
+    }
+
+    .spotlight-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted-2);
+      text-align: right;
+    }
+
+    .spotlight-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      padding: 14px;
+    }
+
+    .spotlight-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .spotlight-logo,
+    .spotlight-logo-fallback {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+
+    .spotlight-logo {
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    }
+
+    .spotlight-logo-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20,230,212,0.08);
+      border: 1px solid rgba(20,230,212,0.18);
+      color: var(--brand);
+      font-size: 24px;
+    }
+
+    .spotlight-name {
+      font-size: 18px;
+      line-height: 1.05;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .spotlight-desc {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: rgba(234,244,255,0.64);
+    }
+
+    .spotlight-status {
+      margin-top: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted-2);
+    }
+
+    .spotlight-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .spotlight-btn {
+      min-height: 42px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s ease, opacity 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .spotlight-btn:active { transform: scale(0.98); }
+
+    .spotlight-btn.primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #050816;
+    }
+
+    .spotlight-btn.secondary {
+      background: rgba(255,255,255,0.05);
+      color: rgba(234,244,255,0.84);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .spotlight-empty {
+      text-align: center;
+      padding: 22px 16px;
+      border-radius: 18px;
+      border: 1px dashed rgba(20,230,212,0.22);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .spotlight-empty strong {
+      display: block;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .spotlight-note {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--muted-2);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
     .lb-sub {
       font-size: 10px;
       color: var(--muted-2);
@@ -1718,7 +1907,21 @@
       <div class="gm-quick-note">Free off-chain signature on Base. No gas. No transaction.</div>
     </div>
 
-    <div class="module reveal" style="--i:3">
+    <div class="spotlight-shell reveal" style="--i:3">
+      <div class="spotlight-head">
+        <div class="spotlight-kicker">Spotlight</div>
+        <div class="spotlight-meta" id="spotlight-meta">Feature your project</div>
+      </div>
+      <div id="spotlight-public-card" class="spotlight-card">
+        <div class="spotlight-empty">
+          <strong>Loading Spotlight…</strong>
+          Pulling the current featured project.
+        </div>
+      </div>
+      <div class="spotlight-note">Public feature slot · opens the Farcaster-style Spotlight route</div>
+    </div>
+
+    <div class="module reveal" style="--i:4">
       <div class="module-header">
         <div class="module-title">
           <div class="module-dot"></div>
@@ -1786,7 +1989,7 @@
       </div>
     </div>
 
-    <div class="footer-shell reveal" style="--i:6">
+    <div class="footer-shell reveal" style="--i:7">
       <p class="form-label">Stay updated — quiet signals, early access</p>
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/baseterminalscanner"
@@ -1808,7 +2011,7 @@
 
     <p class="socials-label reveal" style="--i:6">Find us on</p>
 
-    <div class="socials reveal" style="--i:6">
+    <div class="socials reveal" style="--i:8">
       <a href="https://x.com/BASEchainSCAN" target="_blank" rel="noopener noreferrer" class="social-card sc-x">
         <div class="social-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1864,7 +2067,7 @@
       </a>
     </div>
 
-    <div class="referral-module reveal" style="--i:7">
+    <div class="referral-module reveal" style="--i:9">
       <div class="referral-label">Join us on</div>
       <div class="referral-grid">
         <a class="referral-btn ref-base" href="https://base.app/invite/0xclaudiu/XQSYFGHY" target="_blank" rel="noopener noreferrer">
@@ -1942,6 +2145,7 @@
   <script>
     let latestHeatmap = null;
     let latestTop4 = null;
+    let latestSpotlight = null;
     let latestPublicGeneratedAtMs = 0;
     let updateCountdownTimer = null;
     let publicDataPollTimer = null;
@@ -2041,6 +2245,15 @@
       el.style.color = isError ? 'rgba(255,120,120,0.85)' : 'rgba(234,244,255,0.5)';
     }
 
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function formatUpdateTimestamp(dateStr) {
       try {
         const d = new Date(dateStr);
@@ -2066,6 +2279,17 @@
       const mins = Math.floor(totalSeconds / 60);
       const secs = totalSeconds % 60;
       return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function formatShortDate(slotDay) {
+      try {
+        return new Date(Number(slotDay) * 86400000).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric'
+        });
+      } catch {
+        return 'Today';
+      }
     }
 
     function syncPublicUpdateState() {
@@ -2112,6 +2336,7 @@
       publicDataPollTimer = setInterval(() => {
         loadHeatmap();
         loadTop4();
+        loadSpotlightTeaser();
       }, 60 * 1000);
     }
 
@@ -2143,6 +2368,64 @@
       if (t.severity === 'critical' || t.severity === 'high') return 'Strong accumulation signal';
       if (t.severity === 'medium') return 'Flow building up';
       return 'Early watch setup';
+    }
+
+    function renderSpotlightTeaser() {
+      const shell = document.getElementById('spotlight-public-card');
+      const meta = document.getElementById('spotlight-meta');
+      if (!shell || !meta) return;
+
+      if (!latestSpotlight) {
+        meta.textContent = 'Feature your project';
+        shell.innerHTML = `
+          <div class="spotlight-empty">
+            <strong>No Spotlight Live</strong>
+            This feature slot is open right now. Use the public Spotlight route to reserve a day.
+          </div>
+          <div class="spotlight-actions">
+            <a class="spotlight-btn primary" href="/spotlight">Open Spotlight →</a>
+          </div>
+        `;
+        return;
+      }
+
+      meta.textContent = formatShortDate(latestSpotlight.slot_day);
+      const logo = latestSpotlight.project_logo_url
+        ? `<img class="spotlight-logo" src="${escapeHtml(latestSpotlight.project_logo_url)}" alt="${escapeHtml(latestSpotlight.project_name)} logo" />`
+        : `<div class="spotlight-logo-fallback">📡</div>`;
+      const xButton = latestSpotlight.x_url
+        ? `<a class="spotlight-btn secondary" href="${escapeHtml(latestSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
+        : '';
+
+      shell.innerHTML = `
+        <div class="spotlight-row">
+          ${logo}
+          <div>
+            <div class="spotlight-name">${escapeHtml(latestSpotlight.project_name)}</div>
+            <div class="spotlight-desc">${escapeHtml(latestSpotlight.project_description)}</div>
+            <div class="spotlight-status">Today’s public feature slot</div>
+          </div>
+        </div>
+        <div class="spotlight-actions">
+          <a class="spotlight-btn primary" href="${escapeHtml(latestSpotlight.project_url)}" target="_blank" rel="noopener noreferrer">Visit Project →</a>
+          <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+          ${xButton}
+        </div>
+      `;
+    }
+
+    async function loadSpotlightTeaser() {
+      try {
+        const now = Math.floor(Date.now() / 86400000);
+        const res = await fetch(`/api/spotlight?fromDay=${now}&toDay=${now + 30}&t=` + Date.now());
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        latestSpotlight = data?.today || null;
+        renderSpotlightTeaser();
+      } catch {
+        latestSpotlight = null;
+        renderSpotlightTeaser();
+      }
     }
 
     async function copyText(text) {
@@ -2688,6 +2971,7 @@
     bindShareButtons();
     bindTop4ShareButtons();
     startPublicTimers();
+    loadSpotlightTeaser();
     loadHeatmap();
     loadTop4();
   </script>

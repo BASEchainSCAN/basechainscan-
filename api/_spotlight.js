@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import { createClient } from '@supabase/supabase-js';
 
 export const SPOTLIGHT_RECEIVER_ADDRESS = (
@@ -9,6 +10,7 @@ export const SPOTLIGHT_PRICE_ETH = process.env.SPOTLIGHT_PRICE_ETH || '0.01';
 export const BASE_RPC_URL = process.env.BASE_RPC_URL || 'https://mainnet.base.org';
 export const OWNER_FID = Number.parseInt(process.env.NEXT_PUBLIC_USER_FID || '0', 10) || 0;
 export const ALLOW_FID_ADMIN_FALLBACK = process.env.SPOTLIGHT_ALLOW_FID_FALLBACK === 'true';
+const SPOTLIGHT_SEED_PATH = new URL('../public/data/spotlight-seed.json', import.meta.url);
 
 function parseEthToWei(value) {
   const raw = String(value || '').trim();
@@ -99,6 +101,22 @@ export function mapSpotlightRow(row) {
     approved_at: row.approved_at || undefined,
     created_at: row.created_at,
   };
+}
+
+export function loadSpotlightSeedData() {
+  try {
+    const raw = fs.readFileSync(SPOTLIGHT_SEED_PATH, 'utf-8');
+    const payload = JSON.parse(raw);
+    if (!payload || typeof payload !== 'object') return null;
+    const today = payload.today ? mapSpotlightRow(payload.today) : null;
+    const upcoming = Array.isArray(payload.upcoming) ? payload.upcoming.map(mapSpotlightRow).filter(Boolean) : [];
+    const takenDays = Array.isArray(payload.takenDays)
+      ? payload.takenDays.map((value) => Number.parseInt(String(value || '0'), 10)).filter((value) => value > 0)
+      : [];
+    return { today, upcoming, takenDays };
+  } catch {
+    return null;
+  }
 }
 
 export async function jsonRpc(method, params = []) {

@@ -1,6 +1,7 @@
 import {
   currentSlotDay,
   getSupabaseClient,
+  loadSpotlightSeedData,
   mapSpotlightRow,
   normalizeAddress,
   normalizeTxHash,
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'GET') {
+    const seedData = loadSpotlightSeedData();
     try {
       const fromDay = Number.parseInt(String(req.query.fromDay || '0'), 10) || 0;
       const toDay = Number.parseInt(String(req.query.toDay || '0'), 10) || 0;
@@ -61,14 +63,25 @@ export default async function handler(req, res) {
       if (upcomingError) throw upcomingError;
       if (takenError) throw takenError;
 
+      const mappedToday = mapSpotlightRow(today) || seedData?.today || null;
+      const mappedUpcoming = (upcoming || []).length
+        ? (upcoming || []).map(mapSpotlightRow)
+        : (seedData?.upcoming || []);
+      const mappedTakenDays = (taken || []).length
+        ? (taken || []).map((row) => row.slot_day)
+        : (seedData?.takenDays || []);
+
       res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
       return res.status(200).json({
-        today: mapSpotlightRow(today),
-        upcoming: (upcoming || []).map(mapSpotlightRow),
-        takenDays: (taken || []).map((row) => row.slot_day),
+        today: mappedToday,
+        upcoming: mappedUpcoming,
+        takenDays: mappedTakenDays,
       });
     } catch (error) {
       console.error('[spotlight GET]', error);
+      if (seedData) {
+        return res.status(200).json(seedData);
+      }
       return res.status(500).json({ error: 'Failed to fetch spotlight data' });
     }
   }

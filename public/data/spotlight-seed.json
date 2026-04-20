@@ -1,0 +1,43 @@
+{
+  "today": {
+    "id": "3c75de94-e195-45f3-8094-b96127a4cc43",
+    "slot_day": 20563,
+    "slot_date": "2026-04-20",
+    "project_name": "O1 Exchange",
+    "project_description": "The fastest DEX on Base. Trade any token with deep liquidity, zero slippage and real-time charts. Built for serious traders.",
+    "project_logo_url": "https://o1.exchange/apple-touch-icon.png",
+    "project_url": "https://o1.exchange/@clearn",
+    "x_url": "https://x.com/o1_exchange",
+    "video_url": null,
+    "token_address": null,
+    "submitter_address": "0x2c1c5875a5fa892251f6c7d567535107960a8c34",
+    "submitter_fid": null,
+    "status": "approved",
+    "nft_token_id": null,
+    "tx_hash": null,
+    "approved_at": "2026-04-18T21:16:02.436Z",
+    "created_at": "2026-04-18T21:10:57.914Z"
+  },
+  "upcoming": [
+    {
+      "id": "3c75de94-e195-45f3-8094-b96127a4cc43",
+      "slot_day": 20563,
+      "slot_date": "2026-04-20",
+      "project_name": "O1 Exchange",
+      "project_description": "The fastest DEX on Base. Trade any token with deep liquidity, zero slippage and real-time charts. Built for serious traders.",
+      "project_logo_url": "https://o1.exchange/apple-touch-icon.png",
+      "project_url": "https://o1.exchange/@clearn",
+      "x_url": "https://x.com/o1_exchange",
+      "video_url": null,
+      "token_address": null,
+      "submitter_address": "0x2c1c5875a5fa892251f6c7d567535107960a8c34",
+      "submitter_fid": null,
+      "status": "approved",
+      "nft_token_id": null,
+      "tx_hash": null,
+      "approved_at": "2026-04-18T21:16:02.436Z",
+      "created_at": "2026-04-18T21:10:57.914Z"
+    }
+  ],
+  "takenDays": [20563]
+}
