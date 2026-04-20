@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050816" />
+  <title>BASEchainSCAN • Spotlight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-2: #091022;
+      --panel: rgba(255,255,255,0.04);
+      --panel-2: rgba(255,255,255,0.06);
+      --panel-3: rgba(20,230,212,0.08);
+      --border: rgba(255,255,255,0.08);
+      --border-2: rgba(20,230,212,0.24);
+      --text: #EAF4FF;
+      --muted: rgba(234,244,255,0.52);
+      --muted-2: rgba(234,244,255,0.34);
+      --brand: #14E6D4;
+      --brand-2: #0052FF;
+      --danger: #FF4757;
+      --warn: #FF9F43;
+      --success: #14E6D4;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 12px;
+      --font-main: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(20,230,212,0.10), transparent 32%),
+        radial-gradient(circle at 100% 90%, rgba(0,82,255,0.11), transparent 28%),
+        linear-gradient(180deg, #050816 0%, #070c19 100%);
+      color: var(--text);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea {
+      font: inherit;
+    }
+    button {
+      border: none;
+      cursor: pointer;
+      background: none;
+      color: inherit;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 468px);
+      margin: 0 auto;
+      padding: 26px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .page-header {
+      border-radius: 28px;
+      border: 1px solid rgba(0,82,255,0.18);
+      background:
+        linear-gradient(180deg, rgba(0,82,255,0.10) 0%, rgba(5,8,22,0.98) 100%);
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.28);
+    }
+
+    .page-header-accent {
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--brand-2) 28%, var(--brand) 62%, transparent 100%);
+    }
+
+    .page-header-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-kicker {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(179,205,255,0.52);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-title span:first-child {
+      background: linear-gradient(90deg, #EAF4FF 0%, #B3CDFF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-title span:last-child {
+      background: linear-gradient(90deg, var(--brand) 0%, #00C2B0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 240px;
+    }
+
+    .status-badge {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,230,212,0.24);
+      background: rgba(20,230,212,0.08);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 10px var(--brand);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      flex: 1 1 0;
+      min-width: 120px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: rgba(234,244,255,0.82);
+      font-weight: 700;
+      text-align: center;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .nav-btn.primary {
+      border-color: rgba(20,230,212,0.24);
+      background: linear-gradient(135deg, rgba(20,230,212,0.12), rgba(0,82,255,0.10));
+      color: var(--brand);
+    }
+
+    .nav-btn:hover,
+    .pill-btn:hover,
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .icon-btn:hover,
+    .ghost-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .page-card {
+      border-radius: 26px;
+      border: 1px solid rgba(20,230,212,0.18);
+      background: linear-gradient(180deg, rgba(12,18,34,0.92), rgba(7,11,24,0.95));
+      box-shadow: 0 18px 36px rgba(0,0,0,0.26);
+      overflow: hidden;
+    }
+
+    .page-card-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(20,230,212,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .eyebrow .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 8px var(--brand);
+    }
+
+    .price-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(20,230,212,0.10);
+      border: 1px solid rgba(20,230,212,0.18);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+      white-space: nowrap;
+    }
+
+    .page-card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-card,
+    .surface-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+    }
+
+    .hero-card.featured {
+      border-color: rgba(20,230,212,0.26);
+      background: linear-gradient(135deg, rgba(20,230,212,0.09), rgba(0,82,255,0.09));
+    }
+
+    .hero-accent {
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    .hero-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .hero-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .hero-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #000;
+      position: relative;
+    }
+
+    .hero-media img,
+    .hero-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gif-badge,
+    .play-badge {
+      position: absolute;
+      z-index: 2;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .gif-badge {
+      top: 10px;
+      left: 10px;
+      padding: 4px 8px;
+      background: rgba(0,0,0,0.62);
+      color: var(--brand);
+      border: 1px solid rgba(20,230,212,0.20);
+    }
+
+    .play-badge {
+      right: 10px;
+      bottom: 10px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.62);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .hero-copy {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .hero-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.10);
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: white;
+    }
+
+    .hero-description {
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.65;
+      color: rgba(234,244,255,0.56);
+    }
+
+    .hero-actions,
+    .row-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .pill-btn,
+    .icon-btn,
+    .ghost-btn {
+      transition: transform 160ms ease, border-color 160ms ease, opacity 160ms ease, background 160ms ease;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #050816;
+      flex: 1 1 0;
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(234,244,255,0.78);
+      flex: 1 1 0;
+    }
+
+    .secondary-btn.green {
+      background: rgba(34,197,94,0.09);
+      border-color: rgba(34,197,94,0.18);
+      color: #68E39A;
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(234,244,255,0.78);
+      flex-shrink: 0;
+    }
+
+    .empty-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+      text-align: center;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(20,230,212,0.22);
+    }
+
+    .empty-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20,230,212,0.08);
+      font-size: 28px;
+    }
+
+    .empty-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .empty-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.6;
+      color: rgba(234,244,255,0.48);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.35);
+      margin-bottom: 10px;
+    }
+
+    .day-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .day-pill {
+      width: 48px;
+      flex-shrink: 0;
+      padding: 10px 0 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2px;
+      text-align: center;
+    }
+
+    .day-pill.active {
+      background: rgba(20,230,212,0.12);
+      border-color: rgba(20,230,212,0.34);
+    }
+
+    .day-pill.taken {
+      background: rgba(255,71,87,0.08);
+      border-color: rgba(255,71,87,0.20);
+      opacity: 0.56;
+      cursor: not-allowed;
+    }
+
+    .day-pill .mon {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .day-pill .num {
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .day-pill .state {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.32);
+    }
+
+    .day-pill.active .mon,
+    .day-pill.active .num { color: var(--brand); }
+    .day-pill.taken .mon,
+    .day-pill.taken .num,
+    .day-pill.taken .state { color: #FF7080; }
+
+    .how-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .how-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .how-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .how-step-emoji {
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .how-step-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .how-step-copy {
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.5;
+      color: rgba(234,244,255,0.44);
+    }
+
+    .skeleton {
+      border-radius: 20px;
+      min-height: 148px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      background-size: 200% 100%;
+      animation: shimmer 1.6s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .notice {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.6;
+      color: rgba(234,244,255,0.48);
+    }
+
+    .notice.warn {
+      border-color: rgba(255,159,67,0.18);
+      background: rgba(255,159,67,0.08);
+      color: #FFC17D;
+    }
+
+    .notice.error {
+      border-color: rgba(255,71,87,0.18);
+      background: rgba(255,71,87,0.08);
+      color: #FF9BA5;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgba(5,8,22,0.92);
+      backdrop-filter: blur(10px);
+      display: none;
+      flex-direction: column;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-head {
+      padding: 16px;
+      border-bottom: 1px solid rgba(20,230,212,0.16);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .modal-subtitle {
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(234,244,255,0.66);
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .field-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.44);
+    }
+
+    .field-label .required {
+      color: var(--danger);
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      padding: 13px 14px;
+      outline: none;
+      transition: border-color 160ms ease, background 160ms ease;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus {
+      border-color: rgba(20,230,212,0.42);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .field-textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .field-hint {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.5;
+      color: rgba(234,244,255,0.30);
+    }
+
+    .summary-card {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(20,230,212,0.22);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .summary-accent {
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    .summary-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .summary-copy {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .summary-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.10);
+      flex-shrink: 0;
+    }
+
+    .summary-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .summary-desc {
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(234,244,255,0.46);
+    }
+
+    .summary-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .summary-key {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.28);
+      flex-shrink: 0;
+    }
+
+    .summary-value {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.45;
+      text-align: right;
+      color: rgba(234,244,255,0.72);
+      word-break: break-word;
+    }
+
+    .wallet-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(20,230,212,0.16);
+      background: rgba(20,230,212,0.06);
+    }
+
+    .wallet-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wallet-meta .key {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(234,244,255,0.38);
+    }
+
+    .wallet-meta .value {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-actions > * {
+      flex: 1 1 0;
+    }
+
+    .ghost-btn,
+    .pill-btn {
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ghost-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(234,244,255,0.70);
+    }
+
+    .pill-btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #050816;
+    }
+
+    .pill-btn[disabled],
+    .ghost-btn[disabled],
+    .primary-btn[disabled],
+    .secondary-btn[disabled],
+    .icon-btn[disabled] {
+      opacity: 0.52;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .state-card {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .state-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20,230,212,0.08);
+      border: 1px solid rgba(20,230,212,0.22);
+      font-size: 28px;
+    }
+
+    .state-card.error .state-icon {
+      background: rgba(255,71,87,0.08);
+      border-color: rgba(255,71,87,0.22);
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 2px solid rgba(20,230,212,0.18);
+      border-top-color: var(--brand);
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .footer-note {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(234,244,255,0.32);
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding-inline: 14px; }
+      .brand-title { font-size: 22px; }
+      .nav-btn { min-width: 0; }
+      .header-top { align-items: flex-start; }
+      .status-badge { margin-top: 2px; }
+      .hero-actions,
+      .modal-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="page-header">
+      <div class="page-header-accent"></div>
+      <div class="page-header-body">
+        <div class="header-top">
+          <div class="brand">
+            <img class="brand-logo" src="/public/images/blogo1.jpg" alt="BASEchainSCAN logo" />
+            <div>
+              <div class="brand-kicker">Parallel Public Route</div>
+              <div class="brand-title"><span>BASEchain</span><span>SCAN</span></div>
+              <div class="brand-subtitle">Spotlight slots, daily feature booking and review flow from the Farcaster app.</div>
+            </div>
+          </div>
+          <div class="status-badge"><span class="status-dot"></span>Spotlight</div>
+        </div>
+        <div class="header-nav">
+          <a class="nav-btn" href="/">Back To Terminal</a>
+          <a class="nav-btn primary" href="/spotlight/admin">Admin Panel</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-card">
+      <div class="page-card-head">
+        <div class="eyebrow"><span class="dot"></span>Feature Your Project</div>
+        <div class="price-pill">0.01 ETH / day</div>
+      </div>
+      <div class="page-card-body">
+        <div id="spotlight-hero" class="skeleton" aria-live="polite"></div>
+        <div class="surface-card">
+          <div class="hero-body">
+            <div class="section-label">Available Days · 0.01 ETH / day</div>
+            <div id="calendar-strip" class="day-strip"></div>
+          </div>
+        </div>
+        <div class="how-card">
+          <div class="section-label">How Spotlight Works</div>
+          <div class="how-grid">
+            <div class="how-step">
+              <div class="how-step-emoji">📅</div>
+              <div>
+                <div class="how-step-title">Pick a day</div>
+                <div class="how-step-copy">Choose any available day in the calendar above.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-emoji">📝</div>
+              <div>
+                <div class="how-step-title">Submit details</div>
+                <div class="how-step-copy">Project name, logo, description, project URL, socials and optional demo video.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-emoji">💎</div>
+              <div>
+                <div class="how-step-title">Pay and reserve</div>
+                <div class="how-step-copy">Send 0.01 ETH on Base. We register the slot and keep it pending moderation.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-emoji">✅</div>
+              <div>
+                <div class="how-step-title">Owner approves</div>
+                <div class="how-step-copy">Approved projects go live in Spotlight. Rejected slots stay visible in admin review history.</div>
+              </div>
+            </div>
+          </div>
+          <button class="primary-btn" type="button" data-action="apply-today">Apply For A Spotlight Slot →</button>
+        </div>
+        <div class="notice warn">
+          This route mirrors the Farcaster Spotlight flow in a safer public-web shape. The homepage terminal stays untouched while this migrates in parallel.
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Payment collection wallet and transaction checks run server-side through the Spotlight API before a submission is accepted.
+    </p>
+  </main>
+
+  <div id="apply-modal" class="modal" aria-hidden="true">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Apply For Spotlight</div>
+        <div id="modal-subtitle" class="modal-subtitle">Choose a day and submit your project details.</div>
+      </div>
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close modal">✕</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+  </div>
+
+  <script>
+    const SPOTLIGHT_RECEIVER = '0xaf0a6355d2698976d31d9fbdba53124746af6e9e';
+    const SPOTLIGHT_PRICE_ETH = '0.01';
+    const SPOTLIGHT_PRICE_HEX = '0x2386f26fc10000';
+    const BASE_CHAIN_ID = 8453;
+    const BASE_CHAIN_HEX = '0x2105';
+    const BASE_CHAIN_PARAMS = {
+      chainId: BASE_CHAIN_HEX,
+      chainName: 'Base',
+      nativeCurrency: { name: 'Ethereum', symbol: 'ETH', decimals: 18 },
+      rpcUrls: ['https://mainnet.base.org'],
+      blockExplorerUrls: ['https://basescan.org']
+    };
+
+    const state = {
+      loading: true,
+      todaySlot: null,
+      takenDays: new Set(),
+      modalOpen: false,
+      step: 'form',
+      selectedDay: null,
+      errorMsg: '',
+      txHash: '',
+      verification: null,
+      walletAddress: null,
+      form: {
+        projectName: '',
+        projectDescription: '',
+        projectLogoUrl: '',
+        projectUrl: '',
+        xUrl: '',
+        videoUrl: '',
+        tokenAddress: ''
+      }
+    };
+
+    function currentSlotDay() {
+      return Math.floor(Date.now() / 86400000);
+    }
+
+    function slotDayToDate(day) {
+      return new Date(day * 86400000);
+    }
+
+    function formatDate(day) {
+      return slotDayToDate(day).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function shortHash(value, left = 8, right = 6) {
+      if (!value || value.length <= left + right) return value || '';
+      return value.slice(0, left) + '...' + value.slice(-right);
+    }
+
+    function openExternal(url) {
+      if (!url) return;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function setBodyLock(locked) {
+      document.body.style.overflow = locked ? 'hidden' : '';
+    }
+
+    function renderHero() {
+      const shell = document.getElementById('spotlight-hero');
+      if (state.loading) {
+        shell.className = 'skeleton';
+        shell.innerHTML = '';
+        return;
+      }
+
+      if (!state.todaySlot) {
+        shell.className = 'empty-card';
+        shell.innerHTML = `
+          <div class="empty-icon">📡</div>
+          <div>
+            <div class="empty-title">No Spotlight Today</div>
+            <div class="empty-copy">This slot is open right now. Be the first to reserve it and feature your project.</div>
+          </div>
+          <button class="primary-btn" type="button" data-action="apply-today">Claim Today →</button>
+        `;
+        return;
+      }
+
+      const slot = state.todaySlot;
+      const media = slot.video_url
+        ? (() => {
+            const isGif = slot.video_url.toLowerCase().endsWith('.gif');
+            if (isGif) {
+              return `
+                <div class="hero-media">
+                  <div class="gif-badge">GIF</div>
+                  <img src="${escapeHtml(slot.video_url)}" alt="${escapeHtml(slot.project_name)} demo" />
+                </div>
+              `;
+            }
+            return `
+              <div class="hero-media">
+                <video src="${escapeHtml(slot.video_url)}" controls playsinline muted preload="metadata"></video>
+                <div class="play-badge">▶</div>
+              </div>
+            `;
+          })()
+        : '';
+
+      const logo = slot.project_logo_url
+        ? `<img class="hero-logo" src="${escapeHtml(slot.project_logo_url)}" alt="${escapeHtml(slot.project_name)} logo" onerror="this.style.display='none'" />`
+        : '';
+
+      const dexAction = slot.token_address
+        ? `<button class="secondary-btn green" type="button" data-open-url="${escapeHtml(`https://dexscreener.com/base/${slot.token_address}`)}">Open On Dex →</button>`
+        : '';
+
+      const xAction = slot.x_url
+        ? `<button class="icon-btn" type="button" data-open-url="${escapeHtml(slot.x_url)}" aria-label="Open X">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.766l7.74-8.833L2.25 2.25h6.865l4.261 5.636 5.868-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"></path>
+            </svg>
+          </button>`
+        : '';
+
+      shell.className = 'hero-card featured';
+      shell.innerHTML = `
+        <div class="hero-accent"></div>
+        <div class="hero-body">
+          <div class="hero-meta">
+            <div class="hero-label">Today’s Spotlight</div>
+            <div class="hero-date">${escapeHtml(formatDate(slot.slot_day))}</div>
+          </div>
+          ${media}
+          <div class="hero-copy">
+            ${logo}
+            <div>
+              <div class="hero-title">${escapeHtml(slot.project_name)}</div>
+              <div class="hero-description">${escapeHtml(slot.project_description)}</div>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="primary-btn" type="button" data-open-url="${escapeHtml(slot.project_url)}">Visit Project →</button>
+            ${dexAction}
+            ${xAction}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCalendar() {
+      const shell = document.getElementById('calendar-strip');
+      const today = currentSlotDay();
+      const days = Array.from({ length: 30 }, (_, i) => today + i);
+
+      shell.innerHTML = days.map((day) => {
+        const date = slotDayToDate(day);
+        const taken = state.takenDays.has(day);
+        const active = day === today;
+        const classes = ['day-pill'];
+        if (taken) classes.push('taken');
+        else if (active) classes.push('active');
+        return `
+          <button
+            type="button"
+            class="${classes.join(' ')}"
+            data-action="pick-day"
+            data-day="${day}"
+            ${taken ? 'disabled' : ''}
+          >
+            <span class="mon">${date.toLocaleDateString('en-US', { month: 'short' })}</span>
+            <span class="num">${date.getDate()}</span>
+            <span class="state">${taken ? 'Taken' : 'Free'}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function openModal(day) {
+      state.modalOpen = true;
+      state.selectedDay = day || currentSlotDay();
+      state.step = 'form';
+      state.errorMsg = '';
+      state.txHash = '';
+      state.verification = null;
+      document.getElementById('apply-modal').classList.add('open');
+      document.getElementById('apply-modal').setAttribute('aria-hidden', 'false');
+      setBodyLock(true);
+      renderModal();
+    }
+
+    function closeModal() {
+      state.modalOpen = false;
+      document.getElementById('apply-modal').classList.remove('open');
+      document.getElementById('apply-modal').setAttribute('aria-hidden', 'true');
+      setBodyLock(false);
+    }
+
+    function validateForm() {
+      if (!state.form.projectName.trim()) return 'Project name is required.';
+      if (!state.form.projectDescription.trim()) return 'Project description is required.';
+      if (!state.form.projectUrl.trim()) return 'Project URL is required.';
+      if (!state.form.projectUrl.startsWith('http')) return 'Project URL must start with http.';
+      if (state.form.projectLogoUrl && !state.form.projectLogoUrl.startsWith('http')) return 'Logo URL must start with http.';
+      if (state.form.xUrl && !state.form.xUrl.startsWith('http')) return 'X URL must start with http.';
+      if (state.form.videoUrl && !state.form.videoUrl.startsWith('http')) return 'Video URL must start with http.';
+      if (state.form.tokenAddress && !/^0x[a-fA-F0-9]{40}$/.test(state.form.tokenAddress.trim())) return 'Token address must be a valid 0x address.';
+      return '';
+    }
+
+    function renderFormStep() {
+      const today = currentSlotDay();
+      const calDays = Array.from({ length: 30 }, (_, i) => today + i);
+      const dayButtons = calDays.map((day) => {
+        const date = slotDayToDate(day);
+        const taken = state.takenDays.has(day);
+        const selected = day === state.selectedDay;
+        const classes = ['day-pill'];
+        if (taken) classes.push('taken');
+        else if (selected) classes.push('active');
+        return `
+          <button
+            type="button"
+            class="${classes.join(' ')}"
+            data-action="modal-pick-day"
+            data-day="${day}"
+            ${taken ? 'disabled' : ''}
+          >
+            <span class="mon">${date.toLocaleDateString('en-US', { month: 'short' })}</span>
+            <span class="num">${date.getDate()}</span>
+            <span class="state">${taken ? 'Taken' : 'Free'}</span>
+          </button>
+        `;
+      }).join('');
+
+      const errorBlock = state.errorMsg ? `<div class="notice error">${escapeHtml(state.errorMsg)}</div>` : '';
+
+      return `
+        <div class="field-list">
+          <div class="field">
+            <label class="field-label">Select Day</label>
+            <div class="day-strip">${dayButtons}</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Project Name <span class="required">*</span></label>
+            <input class="field-input" data-field="projectName" type="text" placeholder="e.g. O1 Exchange" value="${escapeHtml(state.form.projectName)}" />
+          </div>
+
+          <div class="field">
+            <label class="field-label">Description <span class="required">*</span></label>
+            <textarea class="field-textarea" data-field="projectDescription" placeholder="What does your project do?">${escapeHtml(state.form.projectDescription)}</textarea>
+            <div class="field-hint">Short, clean copy works best. This text becomes the Spotlight description.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Logo URL</label>
+            <input class="field-input" data-field="projectLogoUrl" type="text" placeholder="https://..." value="${escapeHtml(state.form.projectLogoUrl)}" />
+            <div class="field-hint">Square image recommended. At least 128x128px.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Project URL <span class="required">*</span></label>
+            <input class="field-input" data-field="projectUrl" type="text" placeholder="https://..." value="${escapeHtml(state.form.projectUrl)}" />
+          </div>
+
+          <div class="field">
+            <label class="field-label">X / Twitter URL</label>
+            <input class="field-input" data-field="xUrl" type="text" placeholder="https://x.com/..." value="${escapeHtml(state.form.xUrl)}" />
+          </div>
+
+          <div class="field">
+            <label class="field-label">Demo Video / GIF</label>
+            <input class="field-input" data-field="videoUrl" type="text" placeholder="https://...mp4 or ...gif" value="${escapeHtml(state.form.videoUrl)}" />
+            <div class="field-hint">Optional. If provided, it becomes the hero media on the Spotlight card.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Token Address</label>
+            <input class="field-input" data-field="tokenAddress" type="text" placeholder="0x..." value="${escapeHtml(state.form.tokenAddress)}" />
+          </div>
+
+          ${errorBlock}
+
+          <div class="wallet-card">
+            <div class="wallet-meta">
+              <div class="key">Spotlight slot price</div>
+              <div class="value">${SPOTLIGHT_PRICE_ETH} ETH on Base</div>
+            </div>
+            <div class="wallet-meta" style="text-align:right;">
+              <div class="key">Receiver</div>
+              <div class="value">${shortHash(SPOTLIGHT_RECEIVER, 8, 6)}</div>
+            </div>
+          </div>
+
+          <button class="pill-btn" type="button" data-action="modal-continue">Continue →</button>
+        </div>
+      `;
+    }
+
+    function renderConfirmStep() {
+      const logo = state.form.projectLogoUrl
+        ? `<img class="summary-logo" src="${escapeHtml(state.form.projectLogoUrl)}" alt="" onerror="this.style.display='none'" />`
+        : '';
+      const walletNote = state.walletAddress
+        ? `<div class="wallet-card">
+            <div class="wallet-meta">
+              <div class="key">Connected wallet</div>
+              <div class="value">${escapeHtml(shortHash(state.walletAddress, 8, 6))}</div>
+            </div>
+            <div class="wallet-meta" style="text-align:right;">
+              <div class="key">Network</div>
+              <div class="value">Base</div>
+            </div>
+          </div>`
+        : `<div class="notice warn">A wallet will be requested when you pay and submit.</div>`;
+
+      return `
+        <div class="summary-card">
+          <div class="summary-accent"></div>
+          <div class="summary-body">
+            <div class="section-label" style="margin-bottom:0;">Review Your Submission</div>
+            <div class="summary-copy">
+              ${logo}
+              <div>
+                <div class="summary-title">${escapeHtml(state.form.projectName || 'Untitled Project')}</div>
+                <div class="summary-desc">${escapeHtml(state.form.projectDescription || 'No description provided')}</div>
+              </div>
+            </div>
+            <div class="summary-rows">
+              <div class="summary-row"><div class="summary-key">Day</div><div class="summary-value">${escapeHtml(formatDate(state.selectedDay))}</div></div>
+              <div class="summary-row"><div class="summary-key">Project URL</div><div class="summary-value">${escapeHtml(state.form.projectUrl)}</div></div>
+              ${state.form.xUrl ? `<div class="summary-row"><div class="summary-key">X</div><div class="summary-value">${escapeHtml(state.form.xUrl)}</div></div>` : ''}
+              ${state.form.tokenAddress ? `<div class="summary-row"><div class="summary-key">Token</div><div class="summary-value">${escapeHtml(shortHash(state.form.tokenAddress, 8, 6))}</div></div>` : ''}
+            </div>
+          </div>
+        </div>
+
+        ${walletNote}
+
+        <div class="wallet-card">
+          <div class="wallet-meta">
+            <div class="key">Total to pay</div>
+            <div class="value">${SPOTLIGHT_PRICE_ETH} ETH</div>
+          </div>
+          <div class="wallet-meta" style="text-align:right;">
+            <div class="key">Flow</div>
+            <div class="value">Pay → Submit</div>
+          </div>
+        </div>
+
+        ${state.errorMsg ? `<div class="notice error">${escapeHtml(state.errorMsg)}</div>` : ''}
+
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" data-action="modal-back">← Edit</button>
+          <button class="pill-btn" type="button" data-action="modal-pay">Pay & Submit →</button>
+        </div>
+      `;
+    }
+
+    function renderStateStep(kind, title, copy, actionLabel, actionName) {
+      const errorClass = kind === 'error' ? ' error' : '';
+      const icon = kind === 'error'
+        ? '⚠'
+        : kind === 'done'
+          ? '✓'
+          : '<div class="spinner" aria-hidden="true"></div>';
+
+      const verificationNotice = state.verification
+        ? `<div class="notice ${state.verification.ok ? '' : 'error'}">${escapeHtml(state.verification.reason || '')}</div>`
+        : '';
+
+      const txButton = state.txHash
+        ? `<button class="secondary-btn" type="button" data-open-url="https://basescan.org/tx/${escapeHtml(state.txHash)}">View tx on Basescan →</button>`
+        : '';
+
+      const actionButton = actionLabel
+        ? `<button class="pill-btn" type="button" data-action="${actionName}">${escapeHtml(actionLabel)}</button>`
+        : '';
+
+      return `
+        <div class="state-card${errorClass}">
+          <div class="state-icon">${icon}</div>
+          <div>
+            <div class="summary-title" style="font-size:18px;">${escapeHtml(title)}</div>
+            <div class="summary-desc" style="margin-top:8px;">${escapeHtml(copy)}</div>
+          </div>
+          ${verificationNotice}
+          ${txButton}
+          ${actionButton}
+        </div>
+      `;
+    }
+
+    function renderModal() {
+      if (!state.modalOpen) return;
+
+      document.getElementById('modal-subtitle').textContent = formatDate(state.selectedDay || currentSlotDay());
+      const body = document.getElementById('modal-body');
+
+      if (state.step === 'form') {
+        body.innerHTML = renderFormStep();
+        return;
+      }
+
+      if (state.step === 'confirm') {
+        body.innerHTML = renderConfirmStep();
+        return;
+      }
+
+      if (state.step === 'paying') {
+        body.innerHTML = renderStateStep(
+          'paying',
+          'Confirm In Wallet',
+          'Your wallet should now ask you to approve the Base payment.',
+          '',
+          ''
+        );
+        return;
+      }
+
+      if (state.step === 'submitting') {
+        body.innerHTML = renderStateStep(
+          'submitting',
+          'Registering Spotlight Slot',
+          'Payment was sent. We are now registering your project details with the Spotlight API.',
+          '',
+          ''
+        );
+        return;
+      }
+
+      if (state.step === 'done') {
+        body.innerHTML = renderStateStep(
+          'done',
+          'Slot Submitted',
+          'Your project is now pending review. Once approved, it will appear as the daily Spotlight.',
+          'Done',
+          'modal-done'
+        );
+        return;
+      }
+
+      body.innerHTML = renderStateStep(
+        'error',
+        'Something Went Wrong',
+        state.errorMsg || 'The transaction or submission could not be completed. Please try again.',
+        'Back To Form',
+        'modal-retry'
+      );
+    }
+
+    async function loadSpotlight() {
+      state.loading = true;
+      renderHero();
+      try {
+        const today = currentSlotDay();
+        const res = await fetch(`/api/spotlight?fromDay=${today}&toDay=${today + 30}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        state.todaySlot = data.today || null;
+        state.takenDays = new Set(data.takenDays || []);
+      } catch (error) {
+        state.todaySlot = null;
+        state.takenDays = new Set();
+        const shell = document.getElementById('spotlight-hero');
+        shell.className = 'notice error';
+        shell.innerHTML = escapeHtml(error instanceof Error ? error.message : 'Could not load Spotlight data.');
+      } finally {
+        state.loading = false;
+        renderHero();
+        renderCalendar();
+      }
+    }
+
+    async function ensureWalletAndBase() {
+      if (!window.ethereum) {
+        throw new Error('No wallet detected. Install MetaMask or another compatible wallet.');
+      }
+
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (!accounts || !accounts.length) {
+        throw new Error('No wallet account available.');
+      }
+
+      state.walletAddress = accounts[0];
+
+      const chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
+      if (parseInt(chainIdHex, 16) !== BASE_CHAIN_ID) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: BASE_CHAIN_HEX }]
+          });
+        } catch (switchError) {
+          if (switchError && switchError.code === 4902) {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [BASE_CHAIN_PARAMS]
+            });
+          } else {
+            throw new Error('Could not switch to Base. Please switch networks manually.');
+          }
+        }
+      }
+    }
+
+    async function payAndSubmit() {
+      state.errorMsg = '';
+      state.verification = null;
+      renderModal();
+
+      try {
+        await ensureWalletAndBase();
+        state.step = 'paying';
+        renderModal();
+
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [{
+            from: state.walletAddress,
+            to: SPOTLIGHT_RECEIVER,
+            value: SPOTLIGHT_PRICE_HEX
+          }]
+        });
+
+        state.txHash = txHash;
+        state.step = 'submitting';
+        renderModal();
+
+        const res = await fetch('/api/spotlight', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            slot_day: state.selectedDay,
+            slot_date: slotDayToDate(state.selectedDay).toISOString().slice(0, 10),
+            project_name: state.form.projectName.trim(),
+            project_description: state.form.projectDescription.trim(),
+            project_logo_url: state.form.projectLogoUrl.trim() || null,
+            project_url: state.form.projectUrl.trim(),
+            x_url: state.form.xUrl.trim() || null,
+            video_url: state.form.videoUrl.trim() || null,
+            token_address: state.form.tokenAddress.trim() || null,
+            submitter_address: state.walletAddress,
+            tx_hash: txHash
+          })
+        });
+
+        const data = await res.json();
+        state.verification = data.verification || null;
+        if (!res.ok) {
+          throw new Error(data.error || `HTTP ${res.status}`);
+        }
+
+        state.step = 'done';
+        renderModal();
+        await loadSpotlight();
+      } catch (error) {
+        const rawMessage = error instanceof Error ? error.message : 'Submission failed.';
+        state.errorMsg = rawMessage.includes('rejected')
+          ? 'Transaction was cancelled in the wallet.'
+          : rawMessage;
+        state.step = 'error';
+        renderModal();
+      }
+    }
+
+    document.addEventListener('click', async (event) => {
+      const target = event.target.closest('[data-action], [data-open-url]');
+      if (!target) return;
+
+      if (target.dataset.openUrl) {
+        openExternal(target.dataset.openUrl);
+        return;
+      }
+
+      const action = target.dataset.action;
+      if (action === 'apply-today') {
+        openModal(currentSlotDay());
+        return;
+      }
+      if (action === 'pick-day') {
+        const day = Number.parseInt(target.dataset.day || '0', 10);
+        if (day) openModal(day);
+        return;
+      }
+      if (action === 'close-modal') {
+        if (state.step === 'paying' || state.step === 'submitting') return;
+        closeModal();
+        return;
+      }
+      if (action === 'modal-pick-day') {
+        const day = Number.parseInt(target.dataset.day || '0', 10);
+        if (day) {
+          state.selectedDay = day;
+          renderModal();
+        }
+        return;
+      }
+      if (action === 'modal-continue') {
+        const errorMsg = validateForm();
+        if (errorMsg) {
+          state.errorMsg = errorMsg;
+          renderModal();
+          return;
+        }
+        state.errorMsg = '';
+        state.step = 'confirm';
+        renderModal();
+        return;
+      }
+      if (action === 'modal-back') {
+        state.step = 'form';
+        renderModal();
+        return;
+      }
+      if (action === 'modal-pay') {
+        await payAndSubmit();
+        return;
+      }
+      if (action === 'modal-done') {
+        closeModal();
+        return;
+      }
+      if (action === 'modal-retry') {
+        state.step = 'form';
+        renderModal();
+      }
+    });
+
+    document.addEventListener('input', (event) => {
+      const field = event.target.dataset.field;
+      if (!field || !(field in state.form)) return;
+      state.form[field] = event.target.value;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && state.modalOpen && state.step !== 'paying' && state.step !== 'submitting') {
+        closeModal();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      state.selectedDay = currentSlotDay();
+      renderCalendar();
+      renderHero();
+      loadSpotlight();
+    });
+  </script>
+</body>
+</html>

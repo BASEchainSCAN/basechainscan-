@@ -1,6 +1,9 @@
 {
   "outputDirectory": ".",
   "rewrites": [
+    { "source": "/api/spotlight/admin", "destination": "/api/spotlight-admin" },
+    { "source": "/spotlight/admin", "destination": "/public/spotlight-admin.html" },
+    { "source": "/spotlight", "destination": "/public/spotlight.html" },
     { "source": "/heatmap", "destination": "/public/heatmap.html" },
     { "source": "/data/heatmap.json", "destination": "/public/data/heatmap.json" },
     { "source": "/data/top4.json", "destination": "/public/data/top4.json" }
