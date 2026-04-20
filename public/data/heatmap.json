@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20T09:42:22Z",
+  "generated_at": "2026-04-20T10:04:08Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,7 +11,7 @@
       "severity": "medium",
       "signals": 2,
       "last_seen": "2026-04-20 08:08:43",
-      "price_change_24h": 0.12
+      "price_change_24h": 0.21
     },
     {
       "rank": 2,
@@ -21,7 +21,7 @@
       "severity": "critical",
       "signals": 5,
       "last_seen": "2026-04-20 05:11:00",
-      "price_change_24h": 0.0
+      "price_change_24h": 0.08
     },
     {
       "rank": 3,
@@ -31,7 +31,7 @@
       "severity": "critical",
       "signals": 7,
       "last_seen": "2026-04-20 09:29:45",
-      "price_change_24h": 9.95
+      "price_change_24h": 2.54
     },
     {
       "rank": 4,
@@ -41,7 +41,7 @@
       "severity": "critical",
       "signals": 6,
       "last_seen": "2026-04-20 03:07:45",
-      "price_change_24h": -9.95
+      "price_change_24h": -7.62
     },
     {
       "rank": 5,
@@ -49,9 +49,9 @@
       "token_address": "0x752c5a95d202972e124390f30a50154409d3c858",
       "score": 50.9,
       "severity": "low",
-      "signals": 6,
-      "last_seen": "2026-04-20 08:18:31",
-      "price_change_24h": 6.36
+      "signals": 7,
+      "last_seen": "2026-04-20 09:47:30",
+      "price_change_24h": 5.39
     },
     {
       "rank": 6,
@@ -61,7 +61,7 @@
       "severity": "low",
       "signals": 10,
       "last_seen": "2026-04-20 09:36:36",
-      "price_change_24h": -8.51
+      "price_change_24h": -8.93
     },
     {
       "rank": 7,
@@ -71,7 +71,7 @@
       "severity": "none",
       "signals": 2,
       "last_seen": "2026-04-19 14:33:34",
-      "price_change_24h": -94.05
+      "price_change_24h": -92.72
     },
     {
       "rank": 8,
@@ -81,7 +81,7 @@
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-20 04:55:59",
-      "price_change_24h": 3.32
+      "price_change_24h": 2.07
     },
     {
       "rank": 9,
@@ -91,7 +91,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-20 04:48:33",
-      "price_change_24h": 14.53
+      "price_change_24h": 26.53
     },
     {
       "rank": 10,
@@ -99,9 +99,9 @@
       "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
       "score": 42.7,
       "severity": "low",
-      "signals": 5,
+      "signals": 4,
       "last_seen": "2026-04-20 04:15:34",
-      "price_change_24h": 5.45
+      "price_change_24h": 6.32
     },
     {
       "rank": 11,
@@ -111,7 +111,7 @@
       "severity": "low",
       "signals": 2,
       "last_seen": "2026-04-19 21:01:01",
-      "price_change_24h": 5.14
+      "price_change_24h": 3.05
     },
     {
       "rank": 12,
@@ -121,7 +121,7 @@
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-19 18:53:16",
-      "price_change_24h": 4.09
+      "price_change_24h": 4.24
     },
     {
       "rank": 13,
@@ -129,9 +129,9 @@
       "token_address": "0x1aa8fd5bcce2231c6100d55bf8b377cff33acfc3",
       "score": 41.8,
       "severity": "low",
-      "signals": 7,
+      "signals": 6,
       "last_seen": "2026-04-20 04:27:29",
-      "price_change_24h": -43.15
+      "price_change_24h": -44.49
     },
     {
       "rank": 14,
@@ -141,7 +141,7 @@
       "severity": "low",
       "signals": 2,
       "last_seen": "2026-04-20 09:28:51",
-      "price_change_24h": 1200.0
+      "price_change_24h": 1166.0
     },
     {
       "rank": 15,
@@ -151,7 +151,7 @@
       "severity": "none",
       "signals": 1,
       "last_seen": "2026-04-19 12:19:33",
-      "price_change_24h": -12.08
+      "price_change_24h": -9.89
     },
     {
       "rank": 16,
@@ -161,27 +161,27 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-20 05:37:31",
-      "price_change_24h": 0.79
+      "price_change_24h": 0.88
     },
     {
       "rank": 17,
+      "symbol": "WOON",
+      "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
+      "score": 40.3,
+      "severity": "low",
+      "signals": 4,
+      "last_seen": "2026-04-20 09:53:23",
+      "price_change_24h": 6.7
+    },
+    {
+      "rank": 18,
       "symbol": "HYDX",
       "token_address": "0x00000e7efa313f4e11bfff432471ed9423ac6b30",
       "score": 40.2,
       "severity": "low",
       "signals": 2,
       "last_seen": "2026-04-20 06:54:36",
-      "price_change_24h": -4.64
-    },
-    {
-      "rank": 18,
-      "symbol": "DRB",
-      "token_address": "0x3ec2156d4c0a9cbdab4a016633b7bcf6a8d68ea2",
-      "score": 39.7,
-      "severity": "none",
-      "signals": 5,
-      "last_seen": "2026-04-20 09:39:20",
-      "price_change_24h": 9.03
+      "price_change_24h": -4.68
     }
   ]
 }
