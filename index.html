@@ -2334,10 +2334,30 @@
       updateCountdownTimer = setInterval(renderPublicUpdateCountdown, 1000);
       if (publicDataPollTimer) clearInterval(publicDataPollTimer);
       publicDataPollTimer = setInterval(() => {
-        loadHeatmap();
-        loadTop4();
-        loadSpotlightTeaser();
+        refreshPublicSurfaces();
       }, 60 * 1000);
+    }
+
+    function refreshPublicSurfaces() {
+      loadHeatmap();
+      loadTop4();
+      loadSpotlightTeaser();
+    }
+
+    function bindPublicSurfaceRefresh() {
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          refreshPublicSurfaces();
+        }
+      });
+
+      window.addEventListener('focus', () => {
+        refreshPublicSurfaces();
+      });
+
+      window.addEventListener('pageshow', () => {
+        refreshPublicSurfaces();
+      });
     }
 
     function escapeXml(str) {
@@ -2417,7 +2437,9 @@
     async function loadSpotlightTeaser() {
       try {
         const now = Math.floor(Date.now() / 86400000);
-        const res = await fetch(`/api/spotlight?fromDay=${now}&toDay=${now + 30}&t=` + Date.now());
+        const res = await fetch(`/api/spotlight?fromDay=${now}&toDay=${now + 30}&t=` + Date.now(), {
+          cache: 'no-store'
+        });
         if (!res.ok) throw new Error();
         const data = await res.json();
         latestSpotlight = data?.today || null;
@@ -2439,7 +2461,9 @@
 
     async function loadHeatmap() {
       try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now());
+        const res = await fetch('/data/heatmap.json?t=' + Date.now(), {
+          cache: 'no-store'
+        });
         if (!res.ok) throw new Error();
         const data = await res.json();
         latestHeatmap = data;
@@ -2486,7 +2510,9 @@
     async function loadTop4() {
       const grid = document.getElementById('top4-grid');
       try {
-        const res = await fetch('/data/top4.json?t=' + Date.now());
+        const res = await fetch('/data/top4.json?t=' + Date.now(), {
+          cache: 'no-store'
+        });
         if (!res.ok) {
           grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
           return;
@@ -2970,10 +2996,9 @@
     bindLeaderboardModal();
     bindShareButtons();
     bindTop4ShareButtons();
+    bindPublicSurfaceRefresh();
     startPublicTimers();
-    loadSpotlightTeaser();
-    loadHeatmap();
-    loadTop4();
+    refreshPublicSurfaces();
   </script>
 </body>
 </html>
