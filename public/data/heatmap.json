@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20T12:16:26Z",
+  "generated_at": "2026-04-20T12:41:49Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,7 +11,7 @@
       "severity": "medium",
       "signals": 3,
       "last_seen": "2026-04-20 10:05:48",
-      "price_change_24h": -0.52
+      "price_change_24h": -0.42
     },
     {
       "rank": 2,
@@ -19,9 +19,9 @@
       "token_address": "0x4200000000000000000000000000000000000006",
       "score": 61.5,
       "severity": "critical",
-      "signals": 6,
+      "signals": 5,
       "last_seen": "2026-04-20 11:20:05",
-      "price_change_24h": -0.96
+      "price_change_24h": -0.73
     },
     {
       "rank": 3,
@@ -31,7 +31,7 @@
       "severity": "critical",
       "signals": 7,
       "last_seen": "2026-04-20 09:29:45",
-      "price_change_24h": 10.22
+      "price_change_24h": 6.24
     },
     {
       "rank": 4,
@@ -41,7 +41,7 @@
       "severity": "critical",
       "signals": 7,
       "last_seen": "2026-04-20 11:29:51",
-      "price_change_24h": -2.58
+      "price_change_24h": -2.27
     },
     {
       "rank": 5,
@@ -51,7 +51,7 @@
       "severity": "low",
       "signals": 6,
       "last_seen": "2026-04-20 09:47:30",
-      "price_change_24h": 3.68
+      "price_change_24h": 4.93
     },
     {
       "rank": 6,
@@ -61,7 +61,7 @@
       "severity": "low",
       "signals": 10,
       "last_seen": "2026-04-20 09:36:36",
-      "price_change_24h": -9.53
+      "price_change_24h": -8.88
     },
     {
       "rank": 7,
@@ -71,7 +71,7 @@
       "severity": "none",
       "signals": 2,
       "last_seen": "2026-04-19 14:33:34",
-      "price_change_24h": -89.66
+      "price_change_24h": -88.25
     },
     {
       "rank": 8,
@@ -81,7 +81,7 @@
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-20 04:55:59",
-      "price_change_24h": 3.28
+      "price_change_24h": 3.07
     },
     {
       "rank": 9,
@@ -89,9 +89,9 @@
       "token_address": "0x26e6e2e7a9289b6485c53cd498de510d3a8c8ba3",
       "score": 46.0,
       "severity": "low",
-      "signals": 6,
+      "signals": 5,
       "last_seen": "2026-04-20 10:23:31",
-      "price_change_24h": 10.88
+      "price_change_24h": 3.06
     },
     {
       "rank": 10,
@@ -101,7 +101,7 @@
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-20 04:15:34",
-      "price_change_24h": 4.94
+      "price_change_24h": 5.14
     },
     {
       "rank": 11,
@@ -121,7 +121,7 @@
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-19 18:53:16",
-      "price_change_24h": 14.07
+      "price_change_24h": 7.98
     },
     {
       "rank": 13,
@@ -131,7 +131,7 @@
       "severity": "low",
       "signals": 7,
       "last_seen": "2026-04-20 10:21:58",
-      "price_change_24h": -40.77
+      "price_change_24h": -40.74
     },
     {
       "rank": 14,
@@ -155,33 +155,33 @@
     },
     {
       "rank": 16,
-      "symbol": "MOLT",
-      "token_address": "0xb695559b26bb2c9703ef1935c37aeae9526bab07",
-      "score": 40.5,
-      "severity": "none",
-      "signals": 1,
-      "last_seen": "2026-04-19 12:19:33",
-      "price_change_24h": -7.74
-    },
-    {
-      "rank": 17,
       "symbol": "ZORA",
       "token_address": "0x1111111111166b7fe7bd91427724b487980afc69",
       "score": 40.4,
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-20 11:38:08",
-      "price_change_24h": 0.16
+      "price_change_24h": 0.4
     },
     {
-      "rank": 18,
+      "rank": 17,
       "symbol": "WOON",
       "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
       "score": 40.3,
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-20 09:53:23",
-      "price_change_24h": 20.37
+      "price_change_24h": 6.22
+    },
+    {
+      "rank": 18,
+      "symbol": "HYDX",
+      "token_address": "0x00000e7efa313f4e11bfff432471ed9423ac6b30",
+      "score": 40.2,
+      "severity": "low",
+      "signals": 2,
+      "last_seen": "2026-04-20 06:54:36",
+      "price_change_24h": -5.89
     }
   ]
 }
