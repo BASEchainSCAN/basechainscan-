@@ -8,8 +8,6 @@ export const SPOTLIGHT_RECEIVER_ADDRESS = (
 
 export const SPOTLIGHT_PRICE_ETH = process.env.SPOTLIGHT_PRICE_ETH || '0.01';
 export const BASE_RPC_URL = process.env.BASE_RPC_URL || 'https://mainnet.base.org';
-export const OWNER_FID = Number.parseInt(process.env.NEXT_PUBLIC_USER_FID || '0', 10) || 0;
-export const ALLOW_FID_ADMIN_FALLBACK = process.env.SPOTLIGHT_ALLOW_FID_FALLBACK === 'true';
 const SPOTLIGHT_SEED_PATH = new URL('../public/data/spotlight-seed.json', import.meta.url);
 
 function parseEthToWei(value) {
@@ -40,7 +38,7 @@ export function getSupabaseClient() {
 export function setCorsHeaders(res, methods = 'GET, POST, OPTIONS') {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', methods);
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-token, x-fid');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 export function currentSlotDay(now = new Date()) {
@@ -232,28 +230,3 @@ export async function verifySpotlightPayment({ txHash, submitterAddress }) {
   };
 }
 
-export function isAuthorizedAdminRequest(req) {
-  const adminToken = req.headers['x-admin-token'];
-  const expectedToken = process.env.SPOTLIGHT_ADMIN_TOKEN;
-
-  if (expectedToken) {
-    if (typeof adminToken === 'string' && adminToken === expectedToken) {
-      return { authorized: true, mode: 'token' };
-    }
-    return { authorized: false, mode: 'token' };
-  }
-
-  if (!ALLOW_FID_ADMIN_FALLBACK) {
-    return { authorized: false, mode: 'token_required' };
-  }
-
-  const fidHeader = req.headers['x-fid'];
-  const rawFid = Array.isArray(fidHeader) ? fidHeader[0] : fidHeader;
-  const parsedFid = Number.parseInt(rawFid || '0', 10) || 0;
-
-  if (OWNER_FID && parsedFid === OWNER_FID) {
-    return { authorized: true, mode: 'fid' };
-  }
-
-  return { authorized: false, mode: OWNER_FID ? 'fid' : 'none' };
-}
