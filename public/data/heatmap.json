@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20T00:42:38Z",
+  "generated_at": "2026-04-20T02:24:03Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,7 +11,7 @@
       "severity": "critical",
       "signals": 5,
       "last_seen": "2026-04-19 23:59:49",
-      "price_change_24h": -2.96
+      "price_change_24h": -2.89
     },
     {
       "rank": 2,
@@ -21,7 +21,7 @@
       "severity": "critical",
       "signals": 5,
       "last_seen": "2026-04-20 00:04:58",
-      "price_change_24h": 6.46
+      "price_change_24h": 10.87
     },
     {
       "rank": 3,
@@ -31,7 +31,7 @@
       "severity": "critical",
       "signals": 4,
       "last_seen": "2026-04-20 00:30:58",
-      "price_change_24h": -8.3
+      "price_change_24h": -6.62
     },
     {
       "rank": 4,
@@ -41,7 +41,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-19 22:52:52",
-      "price_change_24h": -10.68
+      "price_change_24h": -8.02
     },
     {
       "rank": 5,
@@ -49,9 +49,9 @@
       "token_address": "0x22af33fe49fd1fa80c7149773dde5890d3c76f3b",
       "score": 48.4,
       "severity": "low",
-      "signals": 5,
-      "last_seen": "2026-04-19 19:01:23",
-      "price_change_24h": -9.45
+      "signals": 7,
+      "last_seen": "2026-04-20 02:21:05",
+      "price_change_24h": -8.28
     },
     {
       "rank": 6,
@@ -61,7 +61,7 @@
       "severity": "none",
       "signals": 2,
       "last_seen": "2026-04-19 14:33:34",
-      "price_change_24h": 43.37
+      "price_change_24h": -92.88
     },
     {
       "rank": 7,
@@ -71,7 +71,7 @@
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-19 20:53:48",
-      "price_change_24h": -9.99
+      "price_change_24h": -10.91
     },
     {
       "rank": 8,
@@ -81,7 +81,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-19 23:23:38",
-      "price_change_24h": 13.65
+      "price_change_24h": 89.29
     },
     {
       "rank": 9,
@@ -91,7 +91,7 @@
       "severity": "low",
       "signals": 1,
       "last_seen": "2026-04-19 05:17:32",
-      "price_change_24h": -10.5
+      "price_change_24h": -9.03
     },
     {
       "rank": 10,
@@ -101,7 +101,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-20 00:18:34",
-      "price_change_24h": -1.46
+      "price_change_24h": 0.24
     },
     {
       "rank": 11,
@@ -111,7 +111,7 @@
       "severity": "none",
       "signals": 1,
       "last_seen": "2026-04-19 06:16:07",
-      "price_change_24h": -1.81
+      "price_change_24h": -1.59
     },
     {
       "rank": 12,
@@ -121,7 +121,7 @@
       "severity": "low",
       "signals": 2,
       "last_seen": "2026-04-19 21:01:01",
-      "price_change_24h": 2.26
+      "price_change_24h": 6.25
     },
     {
       "rank": 13,
@@ -131,7 +131,7 @@
       "severity": "low",
       "signals": 3,
       "last_seen": "2026-04-19 18:53:16",
-      "price_change_24h": -0.69
+      "price_change_24h": 1.92
     },
     {
       "rank": 14,
@@ -141,7 +141,7 @@
       "severity": "low",
       "signals": 7,
       "last_seen": "2026-04-19 23:52:37",
-      "price_change_24h": -82.82
+      "price_change_24h": -75.53
     },
     {
       "rank": 15,
@@ -151,7 +151,7 @@
       "severity": "none",
       "signals": 1,
       "last_seen": "2026-04-19 12:19:33",
-      "price_change_24h": -9.94
+      "price_change_24h": -11.72
     },
     {
       "rank": 16,
@@ -161,7 +161,7 @@
       "severity": "low",
       "signals": 5,
       "last_seen": "2026-04-19 23:57:01",
-      "price_change_24h": -1.01
+      "price_change_24h": -1.27
     },
     {
       "rank": 17,
@@ -169,9 +169,9 @@
       "token_address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
       "score": 39.1,
       "severity": "none",
-      "signals": 4,
-      "last_seen": "2026-04-19 20:06:59",
-      "price_change_24h": -6.06
+      "signals": 6,
+      "last_seen": "2026-04-20 02:22:38",
+      "price_change_24h": -2.56
     },
     {
       "rank": 18,
@@ -181,7 +181,7 @@
       "severity": "none",
       "signals": 6,
       "last_seen": "2026-04-19 22:37:57",
-      "price_change_24h": -9.33
+      "price_change_24h": -5.68
     }
   ]
 }
