@@ -410,9 +410,9 @@
       <div class="header-body">
         <div class="header-row">
           <div>
-            <div class="eyebrow">Parallel Public Route</div>
+            <div class="eyebrow">Private Admin</div>
             <div class="title">Spotlight Admin</div>
-            <div class="subtitle">Review submitted Spotlight slots, inspect tx hashes and moderate pending requests without touching the current homepage.</div>
+            <div class="subtitle">Review submissions, verify payments and moderate Spotlight requests.</div>
           </div>
           <div class="nav">
             <a href="/spotlight">Open Spotlight</a>
@@ -434,7 +434,7 @@
           <button class="btn danger" id="clear-token-btn" type="button">Clear token</button>
         </div>
         <div class="filter-bar" id="filter-bar"></div>
-        <div id="admin-notice" class="notice">Enter the admin token to load Spotlight submissions and server-side payment checks.</div>
+        <div id="admin-notice" class="notice">Enter your admin password to load Spotlight submissions and payment checks.</div>
         <div id="slots" class="slots"></div>
       </div>
     </section>
@@ -595,7 +595,7 @@
     async function loadSlots() {
       const token = state.token.trim();
       if (!token) {
-        setNotice('Admin token is required to load Spotlight submissions.', true);
+        setNotice('Admin password is required to load Spotlight submissions.', true);
         return;
       }
 
@@ -623,7 +623,7 @@
     async function mutateSlot(id, action) {
       const token = state.token.trim();
       if (!token) {
-        setNotice('Admin token is required to moderate Spotlight submissions.', true);
+        setNotice('Admin password is required to moderate Spotlight submissions.', true);
         return;
       }
 
@@ -682,13 +682,13 @@
     document.getElementById('load-btn').addEventListener('click', loadSlots);
     document.getElementById('save-token-btn').addEventListener('click', () => {
       sessionStorage.setItem('spotlight-admin-token', state.token);
-      setNotice('Admin token saved in this browser session.');
+      setNotice('Admin password saved in this browser session.');
     });
     document.getElementById('clear-token-btn').addEventListener('click', () => {
       state.token = '';
       document.getElementById('admin-token').value = '';
       sessionStorage.removeItem('spotlight-admin-token');
-      setNotice('Admin token cleared.');
+      setNotice('Admin password cleared.');
     });
 
     renderSlots();
