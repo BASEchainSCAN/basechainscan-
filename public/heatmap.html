@@ -4,280 +4,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#080d1a">
-  <title>BASEchainSCAN · Emerging Heatmap</title>
+  <title>BasechainSCAN · Emerging Heatmap</title>
   <style>
-    :root {
-      --bg: #080d1a;
-      --panel: rgba(255,255,255,0.035);
-      --panel-2: rgba(255,255,255,0.055);
-      --border: rgba(255,255,255,0.08);
-      --border-2: rgba(0,210,200,0.22);
-      --text: #e2f0ff;
-      --muted: rgba(226,240,255,0.54);
-      --muted-2: rgba(226,240,255,0.34);
-      --brand: #00d2c8;
-      --brand-2: #39a8ff;
-      --danger: #ff4d68;
-      --warn: #ff9c54;
-      --success: #00d2c8;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 8% 0%, rgba(0,210,200,0.10), transparent 26%),
-        radial-gradient(circle at 100% 92%, rgba(57,168,255,0.10), transparent 24%),
-        linear-gradient(180deg, #080d1a 0%, #091122 100%);
-      color: var(--text);
+      background: #080d1a;
+      color: #e2f0ff;
       min-height: 100vh;
-      padding: 18px 16px 40px;
-      overflow-x: hidden;
+      padding: 24px 16px 40px;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.42;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .page-shell {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .page-rail {
-      position: sticky;
-      top: 10px;
-      z-index: 10;
+    /* Header */
+    .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin: 0 auto 16px;
-      padding: 10px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(0,210,200,0.18);
-      background: linear-gradient(180deg, rgba(10,17,33,0.90), rgba(7,11,24,0.94));
-      box-shadow: 0 16px 34px rgba(0,0,0,0.22);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      max-width: 640px;
+      margin: 0 auto 20px;
     }
 
-    .page-rail-links {
+    .header-left {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .rail-link {
+    .header-left a {
+      font-size: 13px;
+      font-weight: 700;
+      color: #00d2c8;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       min-height: 40px;
       padding: 0 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      border: 1px solid rgba(0,210,200,0.22);
+      background: rgba(0,210,200,0.08);
+      color: #e2f0ff;
+      text-decoration: none;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.02em;
       transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
     }
 
-    .rail-link.primary {
-      border-color: rgba(0,210,200,0.22);
-      background: rgba(0,210,200,0.10);
-      color: var(--brand);
-    }
-
-    .rail-link:hover {
+    .back-link:hover {
       transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.16);
+      border-color: rgba(0,210,200,0.4);
+      background: rgba(0,210,200,0.14);
     }
 
-    .page-rail-meta {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(226,240,255,0.34);
+    .header-right {
+      font-size: 11px;
+      color: rgba(226,240,255,0.3);
       text-align: right;
     }
 
-    .hero-card {
-      border-radius: 28px;
-      border: 1px solid rgba(0,210,200,0.18);
-      background: linear-gradient(180deg, rgba(10,17,33,0.94), rgba(7,11,24,0.96));
-      box-shadow: 0 22px 42px rgba(0,0,0,0.26);
-      overflow: hidden;
-      margin-bottom: 16px;
+    /* Title */
+    .title-block {
+      max-width: 640px;
+      margin: 0 auto 6px;
     }
 
-    .hero-accent {
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--brand) 28%, var(--brand-2) 72%, transparent 100%);
-    }
-
-    .hero-body {
-      padding: 18px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(220px, 0.9fr);
-      gap: 16px;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 10px;
+    .title {
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--brand);
-    }
-
-    .hero-kicker::before {
-      content: '';
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--brand);
-      box-shadow: 0 0 10px var(--brand);
-    }
-
-    .hero-title {
-      margin-top: 12px;
-      font-size: clamp(32px, 6vw, 54px);
-      line-height: 0.92;
-      letter-spacing: -0.05em;
-      font-weight: 800;
-    }
-
-    .hero-title span {
-      color: var(--brand);
-    }
-
-    .hero-copy {
-      margin-top: 12px;
-      max-width: 420px;
-      font-size: 14px;
-      line-height: 1.65;
-      color: var(--muted);
-    }
-
-    .hero-side {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .stat-card {
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-      padding: 14px;
-      min-height: 90px;
-    }
-
-    .stat-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--muted-2);
-      margin-bottom: 10px;
-    }
-
-    .stat-value {
-      font-size: 24px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -0.03em;
       color: #fff;
-      margin-bottom: 6px;
+      letter-spacing: -0.5px;
     }
 
-    .stat-sub {
-      font-size: 11px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
+    .title span { color: #00d2c8; }
 
-    .board-card {
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(12,18,34,0.92), rgba(7,11,24,0.95));
-      box-shadow: 0 20px 40px rgba(0,0,0,0.24);
-      overflow: hidden;
-      margin-bottom: 18px;
-    }
-
-    .board-head {
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(0,210,200,0.10);
+    .meta-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .board-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #fff;
-    }
-
-    .board-copy {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .board-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      margin-top: 6px;
+      margin-bottom: 20px;
     }
 
     .meta-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: rgba(0,210,200,0.08);
-      border: 1px solid rgba(0,210,200,0.20);
+      border: 1px solid rgba(0,210,200,0.2);
       border-radius: 100px;
-      padding: 6px 11px;
+      padding: 3px 10px;
       font-size: 10px;
-      font-weight: 700;
-      color: var(--brand);
+      font-weight: 600;
+      color: #00d2c8;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
     .meta-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
-      background: var(--brand);
+      background: #00d2c8;
       animation: pulse 2s infinite;
     }
 
@@ -286,82 +119,63 @@
       50% { opacity: 0.3; }
     }
 
-    .header-right,
     .meta-time {
       font-size: 11px;
-      color: var(--muted-2);
+      color: rgba(226,240,255,0.3);
     }
 
-    .grid-wrap {
-      padding: 18px;
-    }
-
+    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 8px;
+      max-width: 640px;
+      margin: 0 auto;
     }
 
+    @media (max-width: 400px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Card */
     .card {
       position: relative;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 14px;
       border: 1px solid rgba(255,255,255,0.07);
       background: rgba(255,255,255,0.03);
       overflow: hidden;
       cursor: default;
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-      opacity: 0;
-      animation: fadeUp 0.3s forwards;
+      transition: transform 0.15s, border-color 0.15s;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.05);
-    }
+    .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); }
 
+    /* Heat bar background */
     .card::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
+      bottom: 0; left: 0;
       height: 3px;
       width: var(--heat-pct);
-      border-radius: 0 0 0 16px;
+      border-radius: 0 0 0 14px;
       background: var(--heat-color);
       transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
     }
 
+    /* Severity colors */
     .sev-critical { --heat-color: #ff4444; border-color: rgba(255,68,68,0.25); background: rgba(255,68,68,0.05); }
     .sev-high     { --heat-color: #ff8800; border-color: rgba(255,136,0,0.2); background: rgba(255,136,0,0.04); }
     .sev-medium   { --heat-color: #00d2c8; border-color: rgba(0,210,200,0.2); background: rgba(0,210,200,0.04); }
-    .sev-low      { --heat-color: rgba(226,240,255,0.32); }
-    .sev-none     { --heat-color: rgba(226,240,255,0.18); }
+    .sev-low      { --heat-color: rgba(226,240,255,0.3); }
+    .sev-none     { --heat-color: rgba(226,240,255,0.15); }
 
     .rank {
       font-size: 10px;
       color: rgba(226,240,255,0.25);
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 4px;
     }
-
-    .sev-pill {
-      display: inline-block;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 100px;
-      margin-bottom: 6px;
-    }
-
-    .sev-critical .sev-pill { background: rgba(255,68,68,0.15); color: #ff6666; }
-    .sev-high .sev-pill { background: rgba(255,136,0,0.15); color: #ffaa44; }
-    .sev-medium .sev-pill { background: rgba(0,210,200,0.12); color: #00d2c8; }
-    .sev-low .sev-pill { background: rgba(226,240,255,0.06); color: rgba(226,240,255,0.44); }
-    .sev-none .sev-pill { background: rgba(226,240,255,0.04); color: rgba(226,240,255,0.28); }
 
     .symbol {
       font-size: 15px;
@@ -383,7 +197,7 @@
 
     .score-val {
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1;
       color: var(--heat-color, #e2f0ff);
     }
@@ -402,22 +216,63 @@
 
     .change-row {
       font-size: 10px;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .change-row.pos { color: #00d2c8; }
+    .change-row.neg { color: #ff4444; }
+
+    .sev-pill {
+      display: inline-block;
+      font-size: 9px;
       font-weight: 700;
-      margin-top: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 100px;
+      margin-bottom: 4px;
     }
 
-    .change-row.pos { color: var(--success); }
-    .change-row.neg { color: var(--danger); }
+    .sev-critical .sev-pill { background: rgba(255,68,68,0.15); color: #ff6666; }
+    .sev-high     .sev-pill { background: rgba(255,136,0,0.15); color: #ffaa44; }
+    .sev-medium   .sev-pill { background: rgba(0,210,200,0.12); color: #00d2c8; }
+    .sev-low      .sev-pill { background: rgba(226,240,255,0.06); color: rgba(226,240,255,0.4); }
+    .sev-none     .sev-pill { background: rgba(226,240,255,0.04); color: rgba(226,240,255,0.25); }
 
+    /* Footer */
+    .footer {
+      max-width: 640px;
+      margin: 24px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: rgba(226,240,255,0.18);
+    }
+
+    .footer-link {
+      font-size: 11px;
+      color: #00d2c8;
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    /* Loading */
     .loading {
+      max-width: 640px;
+      margin: 60px auto;
       text-align: center;
       color: rgba(226,240,255,0.3);
       font-size: 13px;
-      padding: 44px 18px;
     }
 
+    /* Error */
     .error {
-      margin: 18px;
+      max-width: 640px;
+      margin: 40px auto;
       padding: 16px;
       background: rgba(255,68,68,0.06);
       border: 1px solid rgba(255,68,68,0.2);
@@ -427,115 +282,40 @@
       text-align: center;
     }
 
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 0 6px;
+    /* Entrance animation */
+    .card {
+      opacity: 0;
+      animation: fadeUp 0.3s forwards;
     }
-
-    .footer-note {
-      font-size: 11px;
-      color: rgba(226,240,255,0.22);
-    }
-
-    .footer-link {
-      font-size: 11px;
-      color: var(--brand);
-      opacity: 0.85;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 640px) {
-      .page-rail {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .page-rail-meta {
-        text-align: left;
-      }
-
-      .hero-body {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .page-shell { max-width: 100%; }
-      .board-head,
-      .grid-wrap,
-      .hero-body { padding: 14px; }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <main class="page-shell">
-    <div class="page-rail">
-      <div class="page-rail-links">
-        <a class="rail-link" href="/">Back to Terminal</a>
-        <a class="rail-link primary" href="/spotlight">Open Spotlight</a>
-      </div>
-      <div class="page-rail-meta" id="updated-at">Updated —</div>
+
+  <div class="header">
+    <div class="header-left"><a class="back-link" href="/">&larr; Back to Radar</a><a href="/">BasechainSCAN</a></div>
+    <div class="header-right" id="updated-at">—</div>
+  </div>
+
+  <div class="title-block">
+    <div class="title">Emerging <span>Heatmap</span></div>
+    <div class="meta-row">
+      <div class="meta-badge"><div class="meta-dot"></div> 24h window</div>
+      <div class="meta-time" id="token-count">loading...</div>
     </div>
+  </div>
 
-    <section class="hero-card">
-      <div class="hero-accent"></div>
-      <div class="hero-body">
-        <div>
-          <div class="hero-kicker">Live Signal Surface</div>
-          <div class="hero-title">Emerging <span>Heatmap</span></div>
-          <div class="hero-copy">
-            Score-ranked Base signals in one compact grid. Use this page when you want the cleanest broad scan, without the
-            heavier command surface around it.
-          </div>
-        </div>
-        <div class="hero-side">
-          <div class="stat-card">
-            <div class="stat-label">Tracking Window</div>
-            <div class="stat-value">24H</div>
-            <div class="stat-sub">Fresh public export from the BASEchainSCAN radar pipeline.</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Coverage</div>
-            <div class="stat-value" id="token-count">Loading…</div>
-            <div class="stat-sub">Tokens currently included in the public heatmap snapshot.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div id="container">
+    <div class="loading">Loading signal data...</div>
+  </div>
 
-    <section class="board-card">
-      <div class="board-head">
-        <div>
-          <div class="board-title">Signal Grid</div>
-          <div class="board-copy">Severity, score and move context in a single mobile-friendly board.</div>
-        </div>
-        <div class="board-meta">
-          <div class="meta-badge"><div class="meta-dot"></div>24h window</div>
-          <div class="meta-time" id="updated-at-inline">Updated —</div>
-        </div>
-      </div>
-      <div class="grid-wrap" id="container">
-        <div class="loading">Loading signal data...</div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div class="footer-note">Base · Filtered · Signal-first</div>
-      <a href="https://t.me/basechainscan" target="_blank" class="footer-link" rel="noopener">Telegram →</a>
-    </div>
-  </main>
+  <div class="footer">
+    <div class="footer-note">Base · Filtered · Signal-first</div>
+    <a href="https://t.me/basechainscan" target="_blank" class="footer-link">Telegram →</a>
+  </div>
 
   <script>
     const SEV_ORDER = { critical: 4, high: 3, medium: 2, low: 1, none: 0 };
@@ -561,24 +341,26 @@
     async function load() {
       const container = document.getElementById('container');
       try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now(), { cache: 'no-store' });
+        const res = await fetch('/data/heatmap.json?t=' + Date.now());
         if (!res.ok) throw new Error('fetch failed');
         const data = await res.json();
 
-        const updated = formatUpdateTimestamp(data.generated_at);
-        document.getElementById('updated-at').textContent = updated;
-        document.getElementById('updated-at-inline').textContent = updated;
-        document.getElementById('token-count').textContent = data.token_count + ' tokens';
+        // Update meta
+        document.getElementById('updated-at').textContent = formatUpdateTimestamp(data.generated_at);
+        document.getElementById('token-count').textContent =
+          data.token_count + ' tokens tracked';
 
+        // Max score for heat bar
         const maxScore = Math.max(...data.tokens.map(t => t.score));
-        const sorted = [...data.tokens].sort((a, b) => (SEV_ORDER[b.severity || 'none'] - SEV_ORDER[a.severity || 'none']) || (b.score - a.score));
 
+        // Build grid
         const grid = document.createElement('div');
         grid.className = 'grid';
 
-        sorted.forEach((token, i) => {
+        data.tokens.forEach((token, i) => {
           const heatPct = Math.round((token.score / maxScore) * 100);
           const sev = token.severity || 'none';
+
           const card = document.createElement('div');
           card.className = `card sev-${sev}`;
           card.style.setProperty('--heat-pct', heatPct + '%');
@@ -599,11 +381,13 @@
             <div class="signals-row">${token.signals} signal${token.signals !== 1 ? 's' : ''}</div>
             ${chTxt ? `<div class="change-row ${chCls}">${chTxt}</div>` : ''}
           `;
+
           grid.appendChild(card);
         });
 
         container.innerHTML = '';
         container.appendChild(grid);
+
       } catch (e) {
         container.innerHTML = '<div class="error">Could not load heatmap data.<br>Run export_heatmap.py and push to GitHub.</div>';
       }
