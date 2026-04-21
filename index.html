@@ -2724,11 +2724,9 @@
       const countdownEl = document.getElementById('next-update-countdown');
       const nextChipEl = document.getElementById('next-update-chip');
       const countdownChipEl = document.getElementById('next-update-countdown-chip');
-      const ageEl = document.getElementById('next-update-age');
-      const ageChipEl = document.getElementById('next-update-age-chip');
-      if (!nextTimeEl || !countdownEl || !nextChipEl || !countdownChipEl || !ageEl || !ageChipEl) return;
+      if (!nextTimeEl || !countdownEl || !nextChipEl || !countdownChipEl) return;
 
-      [nextChipEl, countdownChipEl, ageChipEl].forEach(el => {
+      [nextChipEl, countdownChipEl].forEach(el => {
         el.classList.remove('is-checking', 'is-due', 'is-stale');
       });
 
