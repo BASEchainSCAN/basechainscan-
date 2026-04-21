@@ -2088,6 +2088,23 @@
       object-fit: contain;
     }
 
+    .okx-logo-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .okx-logo-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
     .o1-logo-icon.lg {
       width: 26px;
       height: 26px;
@@ -2186,7 +2203,7 @@
             <button class="action-btn" id="copy-post-btn" type="button">Copy Post</button>
             <button class="action-btn" id="share-link-btn" type="button">Share Link</button>
             <button class="action-btn" id="copy-image-btn" type="button">Copy Image</button>
-            <a class="action-btn" href="https://web3.okx.com/ul/joindex?ref=OKX10c" target="_blank" rel="noopener">Trade on OKX</a>
+            <a class="action-btn exchange-okx" href="https://web3.okx.com/ul/joindex?ref=OKX10c" target="_blank" rel="noopener"><span class="okx-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#111111"></rect><path d="M8 8H13V13H8V8ZM19 8H24V13H19V8ZM13 13H19V19H13V13ZM8 19H13V24H8V19ZM19 19H24V24H19V19Z" fill="white"></path></svg></span><span>Trade on OKX</span></a>
             <a class="action-btn" href="https://o1.exchange/@clearn" target="_blank" rel="noopener"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /> <span>Trade on O1</span></a>
           </div>
 
@@ -3002,7 +3019,7 @@
               <div class="tc-metric-capsule"><div class="tc-metric-label">AGE</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
             </div>
             <div class="tc-actions">
-              <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx">Trade OKX</a>
+              <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx"><span class="okx-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#111111"></rect><path d="M8 8H13V13H8V8ZM19 8H24V13H19V8ZM13 13H19V19H13V13ZM8 19H13V24H8V19ZM19 19H24V24H19V19Z" fill="white"></path></svg></span><span>Trade OKX</span></a>
               <a href="${t.o1_url || '#'}" target="_blank" class="tc-btn btn-o1"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /><span>Trade O1</span></a>
               ${t.x_url ? `<a href="${t.x_url}" target="_blank" class="tc-btn btn-x">@${t.x_username}</a>` : ''}
               <a href="${t.dexscreener_url || '#'}" target="_blank" class="tc-btn btn-dex">DEXScreener</a>
