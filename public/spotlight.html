@@ -84,6 +84,67 @@
       gap: 18px;
     }
 
+    .page-rail {
+      position: sticky;
+      top: 10px;
+      z-index: 12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(20,230,212,0.16);
+      background: linear-gradient(180deg, rgba(10,17,33,0.90), rgba(7,11,24,0.94));
+      box-shadow: 0 16px 34px rgba(0,0,0,0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .page-rail-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .rail-link {
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .rail-link.primary {
+      border-color: rgba(20,230,212,0.22);
+      background: rgba(20,230,212,0.10);
+      color: var(--brand);
+    }
+
+    .rail-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .page-rail-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.34);
+      text-align: right;
+    }
+
     .page-header {
       border-radius: 28px;
       border: 1px solid rgba(0,82,255,0.18);
@@ -221,6 +282,45 @@
     .icon-btn:hover,
     .ghost-btn:hover {
       transform: translateY(-1px);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .summary-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      padding: 14px;
+      min-height: 92px;
+    }
+
+    .summary-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.34);
+      margin-bottom: 10px;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .summary-sub {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
     }
 
     .page-card {
@@ -969,6 +1069,12 @@
 
     @media (max-width: 520px) {
       .wrap { padding-inline: 14px; }
+      .page-rail {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .page-rail-meta { text-align: left; }
+      .summary-grid { grid-template-columns: 1fr; }
       .brand-title { font-size: 22px; }
       .nav-btn { min-width: 0; }
       .header-top { align-items: flex-start; }
@@ -980,6 +1086,15 @@
 </head>
 <body>
   <main class="wrap">
+    <div class="page-rail">
+      <div class="page-rail-links">
+        <a class="rail-link" href="/">Back To Terminal</a>
+        <a class="rail-link" href="/heatmap">Open Heatmap</a>
+        <a class="rail-link primary" href="#calendar-strip">Book A Day</a>
+      </div>
+      <div class="page-rail-meta">Public route · Daily feature slot</div>
+    </div>
+
     <header class="page-header">
       <div class="page-header-accent"></div>
       <div class="page-header-body">
@@ -1000,6 +1115,24 @@
         </div>
       </div>
     </header>
+
+    <section class="summary-grid" aria-label="Spotlight summary">
+      <div class="summary-card">
+        <div class="summary-label">Price</div>
+        <div class="summary-value">0.01 ETH</div>
+        <div class="summary-sub">One day per booking, with server-side payment checks before submission is accepted.</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Window</div>
+        <div class="summary-value">30 Days</div>
+        <div class="summary-sub">The public calendar only opens the same booking window you see in the Farcaster-style flow.</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Route</div>
+        <div class="summary-value">Public</div>
+        <div class="summary-sub">Built as the public Spotlight surface, while the homepage terminal stays focused on signals first.</div>
+      </div>
+    </section>
 
     <section class="page-card">
       <div class="page-card-head">
