@@ -1129,6 +1129,26 @@
 
     .tc-story { font-size: 11px; color: var(--muted); }
     .tc-handle { font-size: 10px; color: rgba(20,230,212,0.55); margin-top: 2px; }
+    .tc-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .tc-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      font-size: 9px;
+      color: rgba(234,244,255,0.72);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
 
     .tc-score { text-align: right; flex-shrink: 0; }
 
@@ -1161,7 +1181,7 @@
 
     .tc-metrics {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 13px;
     }
@@ -1184,9 +1204,27 @@
     .tc-metric-capsule {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 7px 8px;
+      border-radius: 10px;
+      padding: 8px 9px;
+      min-height: 58px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
+    .tc-metric-capsule.wide { grid-column: span 2; }
+    .tc-metric-capsule.accent {
+      background: linear-gradient(160deg, rgba(20,230,212,0.08), rgba(57,168,255,0.04));
+      border-color: rgba(20,230,212,0.16);
+    }
+    .tc-metric-sub {
+      font-size: 9px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin-top: 3px;
+    }
+    .tc-metric-sub.pos { color: #14E6D4; }
+    .tc-metric-sub.neg { color: #FF7080; }
+    .tc-metric-sub.flat { color: rgba(234,244,255,0.56); }
 
     .tc-actions { display: flex; gap: 6px; }
 
@@ -1213,7 +1251,8 @@
     .btn-okx { background: var(--brand); color: #050816; border-color: transparent; font-weight: 700; }
     .btn-o1 { background: linear-gradient(135deg, #7dd3fc, #38bdf8); color: #04121f; border-color: transparent; font-weight: 700; }
     .btn-x { background: rgba(255,255,255,0.06); color: rgba(234,244,255,0.8); border-color: rgba(255,255,255,0.1); }
-    .btn-dex { background: rgba(255,255,255,0.03); color: var(--muted-2); border-color: rgba(255,255,255,0.07); }
+    .btn-dex { background: rgba(255,255,255,0.09); color: #f1f6ff; border-color: rgba(255,255,255,0.18); font-weight: 700; }
+    .btn-dex:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.28); color: #ffffff; }
 
     .top4-empty { text-align: center; padding: 24px; font-size: 12px; color: var(--muted-2); }
 
@@ -2829,9 +2868,21 @@
     function fmtNum(v) { if (!v) return '—'; return v >= 1e3 ? (v / 1e3).toFixed(1) + 'K' : String(v); }
     function fmtAge(h) { if (!h) return '—'; return h < 1 ? Math.round(h * 60) + 'm' : h.toFixed(1) + 'h'; }
     function sevBadge(s) { return { critical: 'badge-critical', high: 'badge-high', medium: 'badge-medium', low: 'badge-low' }[s] || 'badge-low'; }
+    function fmtPct(v, digits = 1) {
+      if (v === null || v === undefined || Number.isNaN(Number(v))) return 'â€”';
+      const n = Number(v);
+      return `${n > 0 ? '+' : ''}${n.toFixed(digits)}%`;
+    }
+    function deltaClass(v) {
+      const n = Number(v || 0);
+      if (n > 0) return 'pos';
+      if (n < 0) return 'neg';
+      return 'flat';
+    }
 
     function storyLine(t) {
-      if (t.severity === 'critical' || t.severity === 'high') return 'Strong accumulation signal';
+      if ((t.lp_total_change_24h_pct || 0) > 20 && (t.holder_count_change_24h_pct || 0) > 5) return 'Liquidity and holders rising together';
+      if ((t.lp_total_change_24h_pct || 0) > 15) return 'Liquidity building under the signal';
       if (t.severity === 'medium') return 'Flow building up';
       return 'Early watch setup';
     }
@@ -3004,7 +3055,10 @@
                 <div class="tc-brand">BasechainSCAN · Radar</div>
                 <div class="tc-symbol">${t.symbol}</div>
                 <div class="tc-story">${storyLine(t)}</div>
-                ${t.x_username ? `<div class="tc-handle">@${t.x_username}</div>` : ''}
+                <div class="tc-meta-row">
+                  ${t.x_username ? `<div class="tc-meta-pill">@${t.x_username}</div>` : ''}
+                  <div class="tc-meta-pill">Top 10 ${fmtPct(t.top10_pct, 1)}</div>
+                </div>
               </div>
               <div class="tc-score">
                 <div class="tc-score-val" data-score="${t.score}">${t.score}</div>
@@ -3013,10 +3067,11 @@
             </div>
             <div class="tc-divider"></div>
             <div class="tc-metrics">
-              <div class="tc-metric-capsule"><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div>${(t.price_change_24h && t.price_change_24h !== 0) ? `<div class="tc-metric-change ${t.price_change_24h > 0 ? 'pos' : 'neg'}">${t.price_change_24h > 0 ? '+' : ''}${t.price_change_24h.toFixed(1)}%</div>` : ''}</div>
-              <div class="tc-metric-capsule"><div class="tc-metric-label">LIQ</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div></div>
-              <div class="tc-metric-capsule"><div class="tc-metric-label">HOLD</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div></div>
-              <div class="tc-metric-capsule"><div class="tc-metric-label">AGE</div><div class="tc-metric-val">${fmtAge(t.signal_age_hours)}</div></div>
+              <div class="tc-metric-capsule accent"><div class="tc-metric-label">MCAP</div><div class="tc-metric-val">${fmtUsd(t.mcap_usd)}</div><div class="tc-metric-sub ${deltaClass(t.price_change_24h)}">${fmtPct(t.price_change_24h, 1)} price 24h</div></div>
+              <div class="tc-metric-capsule accent"><div class="tc-metric-label">LIQ</div><div class="tc-metric-val">${fmtUsd(t.lp_total_usd)}</div><div class="tc-metric-sub ${deltaClass(t.lp_total_change_24h_pct)}">${fmtPct(t.lp_total_change_24h_pct, 1)} vs 24h</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">HOLDERS</div><div class="tc-metric-val">${fmtNum(t.holder_count)}</div><div class="tc-metric-sub ${deltaClass(t.holder_count_change_24h_pct)}">${fmtPct(t.holder_count_change_24h_pct, 1)} vs 24h</div></div>
+              <div class="tc-metric-capsule"><div class="tc-metric-label">TOP 10</div><div class="tc-metric-val">${fmtPct(t.top10_pct, 1)}</div><div class="tc-metric-sub flat">supply held</div></div>
+              <div class="tc-metric-capsule wide"><div class="tc-metric-label">VOL 24H</div><div class="tc-metric-val">${fmtUsd(t.volume_24h_usd)}</div><div class="tc-metric-sub flat">live flow on selected pair</div></div>
             </div>
             <div class="tc-actions">
               <a href="${t.okx_url || '#'}" target="_blank" class="tc-btn btn-okx"><span class="okx-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#111111"></rect><path d="M8 8H13V13H8V8ZM19 8H24V13H19V8ZM13 13H19V19H13V13ZM8 19H13V24H8V19ZM19 19H24V24H19V19Z" fill="white"></path></svg></span><span>Trade OKX</span></a>
