@@ -2177,10 +2177,6 @@
               <span class="next-update-label">Refresh In</span>
               <span class="next-update-value" id="next-update-countdown">Waiting</span>
             </div>
-            <div class="next-update-chip" id="next-update-age-chip">
-              <span class="next-update-label">Data Age</span>
-              <span class="next-update-value" id="next-update-age">Waiting for first sync</span>
-            </div>
           </div>
 
           <div class="hm-grid" id="hm-grid"></div>
@@ -2672,11 +2668,9 @@
       const countdownEl = document.getElementById('next-update-countdown');
       const nextChipEl = document.getElementById('next-update-chip');
       const countdownChipEl = document.getElementById('next-update-countdown-chip');
-      const ageEl = document.getElementById('next-update-age');
-      const ageChipEl = document.getElementById('next-update-age-chip');
-      if (!nextTimeEl || !countdownEl || !nextChipEl || !countdownChipEl || !ageEl || !ageChipEl) return;
+      if (!nextTimeEl || !countdownEl || !nextChipEl || !countdownChipEl) return;
 
-      [nextChipEl, countdownChipEl, ageChipEl].forEach(el => {
+      [nextChipEl, countdownChipEl].forEach(el => {
         el.classList.remove('is-checking', 'is-due', 'is-stale');
       });
 
@@ -2741,13 +2735,11 @@
       if (!latestPublicGeneratedAtMs) {
         nextTimeEl.textContent = '—';
         countdownEl.textContent = publicRefreshInFlightCount > 0 ? 'Checking live feed…' : 'Waiting for first sync';
-        ageEl.textContent = 'Waiting for first sync';
         if (publicRefreshInFlightCount > 0) countdownChipEl.classList.add('is-checking');
         return;
       }
 
       const now = Date.now();
-      const ageMs = Math.max(0, now - latestPublicGeneratedAtMs);
       const lastRefreshAnchorMs = latestPublicRefreshCompletedMs || latestPublicRefreshStartedMs || now;
       const nextCheckMs = lastRefreshAnchorMs + PUBLIC_CHECK_INTERVAL_MS;
       const countdownMs = Math.max(0, nextCheckMs - now);
@@ -2757,7 +2749,6 @@
         latestPublicRefreshCompletedMs < latestPublicRefreshStartedMs;
 
       nextTimeEl.textContent = formatClockTimestamp(nextCheckMs);
-      ageEl.textContent = formatRelativeAge(ageMs);
 
       if (publicRefreshInFlightCount > 0 || refreshRecentlyTriggered) {
         countdownEl.textContent = 'Checking live feed…';
@@ -2765,10 +2756,6 @@
       } else {
         countdownEl.textContent = formatCountdown(countdownMs);
         if (countdownMs === 0) countdownChipEl.classList.add('is-due');
-      }
-
-      if (ageMs >= PUBLIC_SYNC_INTERVAL_MS * 2) {
-        ageChipEl.classList.add('is-stale');
       }
     }
 
