@@ -2794,8 +2794,12 @@
       }
 
       const now = Date.now();
-      const lastRefreshAnchorMs = latestPublicRefreshCompletedMs || latestPublicRefreshStartedMs || now;
-      const nextCheckMs = lastRefreshAnchorMs + PUBLIC_CHECK_INTERVAL_MS;
+      // Anchor the countdown to the server-side data generation time so the
+      // "Next Check" / "Refresh In" chips reflect the real 5-minute data cadence
+      // instead of the 1-minute browser polling cadence. The browser still polls
+      // every PUBLIC_CHECK_INTERVAL_MS (1 min) so fresh data lands fast, but the
+      // visible countdown tracks when the next server-side refresh is expected.
+      const nextCheckMs = latestPublicGeneratedAtMs + PUBLIC_SYNC_INTERVAL_MS;
       const countdownMs = Math.max(0, nextCheckMs - now);
       const refreshRecentlyTriggered =
         latestPublicRefreshStartedMs > 0 &&
@@ -3193,7 +3197,7 @@
 
     function buildTop4XPost(data) {
       const t = (data?.tokens || []).slice(0, 4);
-      return ['Low Cap Emerging Tokens', 'Under 1M mcap · Social verified', '', ...t.map((x, i) => `${i + 1}. ${x.symbol} - ${x.score}${x.x_username ? ' @' + x.x_username : ''}`), '', window.location.origin, '', 'Powered by @BASEchainSCAN'].join('\n');
+      return ['Low Cap Emerging Tokens', 'Under 2M mcap · Social verified', '', ...t.map((x, i) => `${i + 1}. ${x.symbol} - ${x.score}${x.x_username ? ' @' + x.x_username : ''}`), '', window.location.origin, '', 'Powered by @BASEchainSCAN'].join('\n');
     }
 
     function buildTop4Svg(data) {
