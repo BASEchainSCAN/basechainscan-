@@ -2969,6 +2969,15 @@
     }
 
     function fmtNum(v) { if (!v) return '—'; return v >= 1e3 ? (v / 1e3).toFixed(1) + 'K' : String(v); }
+    function fmtPrice(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n) || n <= 0) return '—';
+      if (n >= 1000) return '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      if (n >= 1) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (n >= 0.01) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      if (n >= 0.0001) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+      return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 });
+    }
     function fmtAge(h) { if (!h) return '—'; return h < 1 ? Math.round(h * 60) + 'm' : h.toFixed(1) + 'h'; }
     function sevBadge(s) { return { critical: 'badge-critical', high: 'badge-high', medium: 'badge-medium', low: 'badge-low' }[s] || 'badge-low'; }
     function fmtPct(v, digits = 1) {
@@ -2988,6 +2997,186 @@
       if ((t.lp_total_change_24h_pct || 0) > 15) return 'Liquidity building under the signal';
       if (t.severity === 'medium') return 'Flow building up';
       return 'Early watch setup';
+    }
+
+    function fmtChartTime(ts) {
+      const date = new Date(ts);
+      if (Number.isNaN(date.getTime())) return 'Unknown time';
+      return date.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).replace(',', ' ·');
+    }
+
+    function chartLineColor(series) {
+      if (!Array.isArray(series) || series.length < 2) return '#8d98b3';
+      const first = Number(series[0]?.price_usd || 0);
+      const last = Number(series[series.length - 1]?.price_usd || 0);
+      if (!Number.isFinite(first) || !Number.isFinite(last)) return '#8d98b3';
+      if (last > first) return '#31d67b';
+      if (last < first) return '#ff5c6c';
+      return '#14E6D4';
+    }
+
+    function encodeChartSeries(series) {
+      try {
+        return escapeHtml(encodeURIComponent(JSON.stringify(Array.isArray(series) ? series : [])));
+      } catch {
+        return '';
+      }
+    }
+
+    function buildHeatmapChartShell(token) {
+      const rawSeries = Array.isArray(token?.price_history_7d) ? token.price_history_7d : [];
+      const series = rawSeries.filter(point => Number(point?.price_usd) > 0);
+      const color = chartLineColor(series);
+      const minPrice = series.length ? Math.min(...series.map(point => Number(point.price_usd || 0))) : 0;
+      const maxPrice = series.length ? Math.max(...series.map(point => Number(point.price_usd || 0))) : 0;
+      const rangeText = series.length > 1 ? `${fmtPrice(minPrice)} → ${fmtPrice(maxPrice)}` : 'Waiting for enough history';
+      return `
+        <div class="hm-chart-shell" data-series="${encodeChartSeries(series)}" style="--heat-color:${color}">
+          <div class="hm-chart-head">
+            <div class="hm-chart-title">7D price path</div>
+            <div class="hm-chart-range">${rangeText}</div>
+          </div>
+          <div class="hm-chart-wrap">
+            <svg class="hm-chart-svg" viewBox="0 0 320 126" preserveAspectRatio="none"></svg>
+            <div class="hm-chart-tooltip">
+              <div class="hm-chart-tooltip-price">—</div>
+              <div class="hm-chart-tooltip-time">Move over the chart</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHeatmapChart(shell) {
+      const svg = shell.querySelector('.hm-chart-svg');
+      const wrap = shell.querySelector('.hm-chart-wrap');
+      const tooltip = shell.querySelector('.hm-chart-tooltip');
+      if (!svg || !wrap || !tooltip) return;
+
+      let series = [];
+      try {
+        series = JSON.parse(decodeURIComponent(shell.dataset.series || '[]'));
+      } catch {
+        series = [];
+      }
+      series = Array.isArray(series)
+        ? series.filter(point => Number(point?.price_usd) > 0 && point?.ts)
+        : [];
+
+      const width = 320;
+      const height = 126;
+      const pad = { left: 12, right: 8, top: 10, bottom: 20 };
+      const innerWidth = width - pad.left - pad.right;
+      const innerHeight = height - pad.top - pad.bottom;
+
+      if (series.length < 2) {
+        svg.innerHTML = `
+          <line class="hm-chart-axis" x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" />
+          <text class="hm-chart-axis-label strong" x="${width / 2}" y="${height / 2}" text-anchor="middle">Need more 7d price history</text>
+        `;
+        return;
+      }
+
+      const prices = series.map(point => Number(point.price_usd || 0));
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+      const span = max - min || max * 0.02 || 1;
+      const paddedMin = Math.max(0, min - span * 0.08);
+      const paddedMax = max + span * 0.08;
+      const domain = paddedMax - paddedMin || 1;
+      const bottomY = height - pad.bottom;
+      const rightX = width - pad.right;
+
+      const points = series.map((point, idx) => {
+        const x = pad.left + (idx / (series.length - 1)) * innerWidth;
+        const y = pad.top + (1 - ((Number(point.price_usd || 0) - paddedMin) / domain)) * innerHeight;
+        return { x, y, price: Number(point.price_usd || 0), ts: point.ts };
+      });
+
+      const path = points.map((point, idx) => `${idx === 0 ? 'M' : 'L'}${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(' ');
+      const gridYs = [0, 0.5, 1].map(step => pad.top + step * innerHeight);
+      const gridLines = gridYs.map(y => `<line class="hm-chart-grid" x1="${pad.left}" y1="${y.toFixed(2)}" x2="${rightX}" y2="${y.toFixed(2)}" />`).join('');
+      const axisLabels = `
+        <text class="hm-chart-axis-label strong" x="${pad.left}" y="${pad.top - 1}" text-anchor="start">${escapeXml(fmtPrice(max))}</text>
+        <text class="hm-chart-axis-label" x="${pad.left}" y="${bottomY + 14}" text-anchor="start">7d ago</text>
+        <text class="hm-chart-axis-label strong" x="${rightX}" y="${bottomY + 14}" text-anchor="end">now</text>
+        <text class="hm-chart-axis-label" x="${rightX}" y="${pad.top - 1}" text-anchor="end">${escapeXml(fmtPrice(min))}</text>
+      `;
+
+      svg.innerHTML = `
+        ${gridLines}
+        <line class="hm-chart-axis" x1="${pad.left}" y1="${bottomY}" x2="${rightX}" y2="${bottomY}" />
+        <line class="hm-chart-axis" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${bottomY}" />
+        <path class="hm-chart-line" d="${path}" />
+        <line class="hm-chart-grid hm-chart-cursor-line" x1="${points[0].x.toFixed(2)}" y1="${pad.top}" x2="${points[0].x.toFixed(2)}" y2="${bottomY}" style="opacity:0"></line>
+        <circle class="hm-chart-focus" cx="${points[0].x.toFixed(2)}" cy="${points[0].y.toFixed(2)}" r="4"></circle>
+        ${axisLabels}
+      `;
+
+      const focus = svg.querySelector('.hm-chart-focus');
+      const cursorLine = svg.querySelector('.hm-chart-cursor-line');
+      const tooltipPrice = tooltip.querySelector('.hm-chart-tooltip-price');
+      const tooltipTime = tooltip.querySelector('.hm-chart-tooltip-time');
+
+      const setPoint = (index) => {
+        const point = points[Math.max(0, Math.min(points.length - 1, index))];
+        if (!point || !focus || !tooltipPrice || !tooltipTime || !cursorLine) return;
+        focus.setAttribute('cx', point.x.toFixed(2));
+        focus.setAttribute('cy', point.y.toFixed(2));
+        focus.classList.add('visible');
+        cursorLine.setAttribute('x1', point.x.toFixed(2));
+        cursorLine.setAttribute('x2', point.x.toFixed(2));
+        cursorLine.style.opacity = '1';
+        tooltipPrice.textContent = fmtPrice(point.price);
+        tooltipTime.textContent = fmtChartTime(point.ts);
+
+        const wrapWidth = wrap.clientWidth || width;
+        const wrapHeight = wrap.clientHeight || height;
+        const left = (point.x / width) * wrapWidth;
+        const top = (point.y / height) * wrapHeight;
+        tooltip.style.left = `${Math.max(48, Math.min(wrapWidth - 48, left))}px`;
+        tooltip.style.top = `${Math.max(26, top)}px`;
+        tooltip.classList.add('visible');
+      };
+
+      const clearPoint = () => {
+        tooltip.classList.remove('visible');
+        focus?.classList.remove('visible');
+        if (cursorLine) cursorLine.style.opacity = '0';
+      };
+
+      const syncPointer = (clientX) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
+        const ratio = rect.width > 0 ? x / rect.width : 0;
+        const index = Math.round(ratio * (points.length - 1));
+        setPoint(index);
+      };
+
+      wrap.addEventListener('mousemove', (event) => syncPointer(event.clientX));
+      wrap.addEventListener('mouseenter', (event) => syncPointer(event.clientX));
+      wrap.addEventListener('mouseleave', clearPoint);
+      wrap.addEventListener('touchstart', (event) => {
+        const touch = event.touches?.[0];
+        if (touch) syncPointer(touch.clientX);
+      }, { passive: true });
+      wrap.addEventListener('touchmove', (event) => {
+        const touch = event.touches?.[0];
+        if (touch) syncPointer(touch.clientX);
+      }, { passive: true });
+      wrap.addEventListener('touchend', clearPoint, { passive: true });
+
+      setPoint(points.length - 1);
+    }
+
+    function initHeatmapCharts(root) {
+      root.querySelectorAll('.hm-chart-shell').forEach(shell => renderHeatmapChart(shell));
     }
 
     function renderSpotlightTeaser() {
@@ -3107,10 +3296,12 @@
                 <div class="hm-metric-value">${fmtUsd(t.volume_24h_usd)}</div>
               </div>
             </div>
+            ${buildHeatmapChartShell(t)}
           </div>`;
         }).join('');
 
         requestAnimationFrame(() => {
+          initHeatmapCharts(grid);
           grid.querySelectorAll('.hm-score').forEach(el => {
             animateNumber(el, el.dataset.score || el.textContent, 700);
           });
