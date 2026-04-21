@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20T23:13:24Z",
+  "generated_at": "2026-04-21T01:30:59Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -11,47 +11,47 @@
       "severity": "medium",
       "signals": 7,
       "last_seen": "2026-04-20 21:35:35",
-      "price_change_24h": 2.36
+      "price_change_24h": 2.4
     },
     {
       "rank": 2,
-      "symbol": "PLAY",
-      "token_address": "0x853a7c99227499dba9db8c3a02aa691afdebf841",
-      "score": 59.1,
-      "severity": "critical",
-      "signals": 4,
-      "last_seen": "2026-04-20 09:29:45",
-      "price_change_24h": 1.37
-    },
-    {
-      "rank": 3,
       "symbol": "WETH",
       "token_address": "0x4200000000000000000000000000000000000006",
       "score": 57.1,
       "severity": "medium",
-      "signals": 6,
-      "last_seen": "2026-04-20 18:46:51",
-      "price_change_24h": 2.12
+      "signals": 7,
+      "last_seen": "2026-04-21 01:28:43",
+      "price_change_24h": 1.73
     },
     {
-      "rank": 4,
+      "rank": 3,
       "symbol": "CYB3RWR3N",
       "token_address": "0x26e6e2e7a9289b6485c53cd498de510d3a8c8ba3",
       "score": 52.0,
       "severity": "low",
-      "signals": 6,
+      "signals": 5,
       "last_seen": "2026-04-20 21:57:35",
-      "price_change_24h": -18.91
+      "price_change_24h": -40.43
     },
     {
-      "rank": 5,
+      "rank": 4,
       "symbol": "OFC",
       "token_address": "0x752c5a95d202972e124390f30a50154409d3c858",
       "score": 51.7,
       "severity": "low",
       "signals": 7,
       "last_seen": "2026-04-20 21:36:11",
-      "price_change_24h": 21.69
+      "price_change_24h": 27.91
+    },
+    {
+      "rank": 5,
+      "symbol": "PLAY",
+      "token_address": "0x853a7c99227499dba9db8c3a02aa691afdebf841",
+      "score": 51.0,
+      "severity": "low",
+      "signals": 3,
+      "last_seen": "2026-04-20 09:29:45",
+      "price_change_24h": 0.9
     },
     {
       "rank": 6,
@@ -59,9 +59,9 @@
       "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
       "score": 48.8,
       "severity": "low",
-      "signals": 4,
+      "signals": 3,
       "last_seen": "2026-04-20 22:45:51",
-      "price_change_24h": 3.18
+      "price_change_24h": 2.54
     },
     {
       "rank": 7,
@@ -71,7 +71,7 @@
       "severity": "low",
       "signals": 2,
       "last_seen": "2026-04-20 19:55:30",
-      "price_change_24h": 0.55
+      "price_change_24h": -2.47
     },
     {
       "rank": 8,
@@ -80,8 +80,8 @@
       "score": 44.9,
       "severity": "low",
       "signals": 7,
-      "last_seen": "2026-04-20 18:29:21",
-      "price_change_24h": 19.71
+      "last_seen": "2026-04-20 23:22:24",
+      "price_change_24h": 21.84
     },
     {
       "rank": 9,
@@ -91,7 +91,7 @@
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-20 21:45:12",
-      "price_change_24h": -0.71
+      "price_change_24h": 1.65
     },
     {
       "rank": 10,
@@ -101,7 +101,7 @@
       "severity": "low",
       "signals": 10,
       "last_seen": "2026-04-20 21:38:04",
-      "price_change_24h": 0.93
+      "price_change_24h": 0.91
     },
     {
       "rank": 11,
@@ -109,9 +109,9 @@
       "token_address": "0x16332535e2c27da578bc2e82beb09ce9d3c8eb07",
       "score": 42.3,
       "severity": "low",
-      "signals": 4,
-      "last_seen": "2026-04-20 18:30:03",
-      "price_change_24h": 39.5
+      "signals": 6,
+      "last_seen": "2026-04-21 01:19:07",
+      "price_change_24h": 24.76
     },
     {
       "rank": 12,
@@ -120,21 +120,11 @@
       "score": 41.8,
       "severity": "low",
       "signals": 8,
-      "last_seen": "2026-04-20 18:27:26",
-      "price_change_24h": 3.92
+      "last_seen": "2026-04-20 23:37:25",
+      "price_change_24h": 2.6
     },
     {
       "rank": 13,
-      "symbol": "RAVE",
-      "token_address": "0x1aa8fd5bcce2231c6100d55bf8b377cff33acfc3",
-      "score": 41.8,
-      "severity": "low",
-      "signals": 7,
-      "last_seen": "2026-04-20 21:36:53",
-      "price_change_24h": 73.09
-    },
-    {
-      "rank": 14,
       "symbol": "WOJAK REACTOR",
       "token_address": "0xcb8206799c2863c0df5c4cdb4c21c9a7445ca77c",
       "score": 41.5,
@@ -142,6 +132,16 @@
       "signals": 2,
       "last_seen": "2026-04-20 09:28:51",
       "price_change_24h": 49.25
+    },
+    {
+      "rank": 14,
+      "symbol": "RAVE",
+      "token_address": "0x1aa8fd5bcce2231c6100d55bf8b377cff33acfc3",
+      "score": 41.4,
+      "severity": "low",
+      "signals": 6,
+      "last_seen": "2026-04-20 21:36:53",
+      "price_change_24h": 107.0
     },
     {
       "rank": 15,
@@ -159,9 +159,9 @@
       "token_address": "0x1111111111166b7fe7bd91427724b487980afc69",
       "score": 40.5,
       "severity": "low",
-      "signals": 6,
-      "last_seen": "2026-04-20 18:37:42",
-      "price_change_24h": 4.53
+      "signals": 7,
+      "last_seen": "2026-04-21 01:06:10",
+      "price_change_24h": 3.73
     },
     {
       "rank": 17,
@@ -171,7 +171,7 @@
       "severity": "low",
       "signals": 4,
       "last_seen": "2026-04-20 16:25:29",
-      "price_change_24h": -4.67
+      "price_change_24h": -0.88
     },
     {
       "rank": 18,
@@ -181,7 +181,7 @@
       "severity": "none",
       "signals": 5,
       "last_seen": "2026-04-20 22:10:42",
-      "price_change_24h": 10.09
+      "price_change_24h": 7.55
     }
   ]
 }
