@@ -3035,11 +3035,15 @@
       const color = chartLineColor(series);
       const minPrice = series.length ? Math.min(...series.map(point => Number(point.price_usd || 0))) : 0;
       const maxPrice = series.length ? Math.max(...series.map(point => Number(point.price_usd || 0))) : 0;
-      const rangeText = series.length > 1 ? `${fmtPrice(minPrice)} → ${fmtPrice(maxPrice)}` : 'Waiting for enough history';
+      const spanHours = Number(token?.price_history_span_hours || 0);
+      const points = Number(token?.price_history_points || 0);
+      const hasPartial = points >= 12;
+      const title = points >= 42 ? '7D price path' : (hasPartial ? `${(spanHours / 24).toFixed(1)}D price path` : 'Price path');
+      const rangeText = series.length > 1 ? `${fmtPrice(minPrice)} → ${fmtPrice(maxPrice)}` : 'Waiting for enough stable history';
       return `
         <div class="hm-chart-shell" data-series="${encodeChartSeries(series)}" style="--heat-color:${color}">
           <div class="hm-chart-head">
-            <div class="hm-chart-title">7D price path</div>
+            <div class="hm-chart-title">${title}</div>
             <div class="hm-chart-range">${rangeText}</div>
           </div>
           <div class="hm-chart-wrap">
@@ -3078,7 +3082,7 @@
       if (series.length < 2) {
         svg.innerHTML = `
           <line class="hm-chart-axis" x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" />
-          <text class="hm-chart-axis-label strong" x="${width / 2}" y="${height / 2}" text-anchor="middle">Need more 7d price history</text>
+          <text class="hm-chart-axis-label strong" x="${width / 2}" y="${height / 2}" text-anchor="middle">Waiting for enough stable history</text>
         `;
         return;
       }
