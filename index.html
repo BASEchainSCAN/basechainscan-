@@ -2342,7 +2342,7 @@
             <button class="action-btn" id="share-link-btn" type="button">Share Link</button>
             <button class="action-btn" id="copy-image-btn" type="button">Copy Image</button>
             <a class="action-btn exchange-okx" href="https://web3.okx.com/ul/joindex?ref=OKX10c" target="_blank" rel="noopener"><span class="okx-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#111111"></rect><path d="M8 8H13V13H8V8ZM19 8H24V13H19V8ZM13 13H19V19H13V13ZM8 19H13V24H8V19ZM19 19H24V24H19V19Z" fill="white"></path></svg></span><span>Trade on OKX</span></a>
-            <a class="action-btn" href="https://o1.exchange/@clearn" target="_blank" rel="noopener"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /> <span>Trade on O1</span></a>
+            <a class="action-btn" href="https://o1.exchange/@basescan" target="_blank" rel="noopener"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /> <span>Trade on O1</span></a>
           </div>
 
           <div class="share-feedback" id="share-feedback">Radar ready.</div>
@@ -2549,7 +2549,7 @@
           <div class="ref-arrow">&darr;</div>
         </a>
 
-        <a class="referral-btn ref-o1" href="https://o1.exchange/@clearn" target="_blank" rel="noopener noreferrer">
+        <a class="referral-btn ref-o1" href="https://o1.exchange/@basescan" target="_blank" rel="noopener noreferrer">
           <div class="ref-logo-wrap">
             <img class="o1-logo-icon lg" src="/public/images/o1-logo.png" alt="" aria-hidden="true" />
           </div>
@@ -3021,6 +3021,18 @@
       return '#14E6D4';
     }
 
+    function fmtPctChange(value) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num) || num === 0) return 'Flat vs 24h';
+      return `${num > 0 ? '+' : ''}${num.toFixed(1)}% vs 24h`;
+    }
+
+    function pctChangeClass(value) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num) || num === 0) return '';
+      return num > 0 ? 'pos' : 'neg';
+    }
+
     function encodeChartSeries(series) {
       try {
         return escapeHtml(encodeURIComponent(JSON.stringify(Array.isArray(series) ? series : [])));
@@ -3072,6 +3084,14 @@
       series = Array.isArray(series)
         ? series.filter(point => Number(point?.price_usd) > 0 && point?.ts)
         : [];
+      series.sort((a, b) => {
+        const aTs = new Date(a?.ts || '').getTime();
+        const bTs = new Date(b?.ts || '').getTime();
+        if (!Number.isFinite(aTs) && !Number.isFinite(bTs)) return 0;
+        if (!Number.isFinite(aTs)) return 1;
+        if (!Number.isFinite(bTs)) return -1;
+        return aTs - bTs;
+      });
 
       const width = 320;
       const height = 126;
@@ -3272,6 +3292,8 @@
           const ch = t.price_change_24h || 0;
           const chCls = ch > 0 ? 'pos' : ch < 0 ? 'neg' : 'flat';
           const chTxt = ch !== 0 ? (ch > 0 ? '+' : '') + ch.toFixed(1) + '%' : '0.0%';
+          const liqDeltaCls = pctChangeClass(t.liquidity_change_24h_pct);
+          const holderDeltaCls = pctChangeClass(t.holder_count_change_24h_pct);
           return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
             <div class="hm-head">
               <div>
@@ -3290,10 +3312,12 @@
               <div class="hm-metric">
                 <div class="hm-metric-label">LIQ</div>
                 <div class="hm-metric-value">${fmtUsd(t.liquidity_usd)}</div>
+                <div class="tc-metric-change ${liqDeltaCls}">${fmtPctChange(t.liquidity_change_24h_pct)}</div>
               </div>
               <div class="hm-metric">
                 <div class="hm-metric-label">HOLDERS</div>
                 <div class="hm-metric-value">${fmtNum(t.holder_count)}</div>
+                <div class="tc-metric-change ${holderDeltaCls}">${fmtPctChange(t.holder_count_change_24h_pct)}</div>
               </div>
               <div class="hm-metric">
                 <div class="hm-metric-label">VOL 24H</div>
