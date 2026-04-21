@@ -617,7 +617,11 @@
     }
 
     .surface-empty-state.hidden {
-      display: none;
+      display: none !important;
+    }
+
+    .surface-empty-state.is-guiding {
+      animation: surfaceHintFloat 2.8s ease-in-out infinite;
     }
 
     .surface-empty-state::before {
@@ -631,6 +635,11 @@
       border-left: 1px solid rgba(20,230,212,0.20);
       border-top: 1px solid rgba(20,230,212,0.20);
       background: rgba(12,18,34,0.94);
+      transition: left 220ms ease;
+    }
+
+    .surface-empty-state.is-guiding::before {
+      animation: surfaceHintSweep 2.8s ease-in-out infinite;
     }
 
     .surface-empty-icon {
@@ -661,6 +670,16 @@
       font-size: 11px;
       line-height: 1.55;
       color: rgba(234,244,255,0.56);
+    }
+
+    @keyframes surfaceHintFloat {
+      0%, 100% { transform: translateY(0); box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 48px rgba(0,0,0,0.22); }
+      50% { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 28px 54px rgba(0,0,0,0.26); }
+    }
+
+    @keyframes surfaceHintSweep {
+      0%, 100% { left: 42px; }
+      50% { left: calc(100% - 58px); }
     }
 
     .surface-pane {
@@ -2423,6 +2442,9 @@
         });
 
         emptyState.hidden = hasMatch;
+        emptyState.classList.toggle('is-guiding', !hasMatch);
+        emptyState.classList.toggle('hidden', hasMatch);
+        emptyState.style.display = hasMatch ? 'none' : 'flex';
       }
 
       setActiveSurface(null);
