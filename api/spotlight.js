@@ -17,6 +17,17 @@ function uniqueSlotsByDay(slots) {
   return slots.filter((slot, index, all) => slot && all.findIndex((candidate) => candidate.slot_day === slot.slot_day) === index);
 }
 
+function preserveSpotlightActionFields(slot) {
+  if (!slot) return null;
+  return {
+    ...slot,
+    primary_action_label: slot.primary_action_label || undefined,
+    trade_url: slot.trade_url || undefined,
+    trade_action_label: slot.trade_action_label || undefined,
+    source: slot.source || undefined,
+  };
+}
+
 function buildSpotlightPayload({
   seedData,
   todayRow = null,
@@ -32,16 +43,17 @@ function buildSpotlightPayload({
 
   const seedSlots = uniqueSlotsByDay([seedData?.today, ...(seedData?.upcoming || [])]
     .filter(Boolean)
+    .map(preserveSpotlightActionFields)
     .filter((slot) => slot.slot_day >= rangeStart && slot.slot_day <= rangeEnd)
     .sort((left, right) => left.slot_day - right.slot_day));
 
   const scheduledSeedToday = seedSlots.find((slot) => slot.slot_day === todayDay) || null;
-  const mappedToday = mapSpotlightRow(todayRow);
+  const mappedToday = preserveSpotlightActionFields(mapSpotlightRow(todayRow));
   const fallbackToday = !mappedToday && !scheduledSeedToday && isAfterSpotlightFallbackHour(now)
-    ? buildLowCapSpotlightFallback(now)
+    ? preserveSpotlightActionFields(buildLowCapSpotlightFallback(now))
     : null;
 
-  const actualSlots = uniqueSlotsByDay((slotRows || []).map(mapSpotlightRow).filter(Boolean));
+  const actualSlots = uniqueSlotsByDay((slotRows || []).map(mapSpotlightRow).map(preserveSpotlightActionFields).filter(Boolean));
   const slots = uniqueSlotsByDay([
     ...actualSlots,
     ...seedSlots.filter((seedSlot) => !actualSlots.some((slot) => slot.slot_day === seedSlot.slot_day)),
@@ -58,10 +70,10 @@ function buildSpotlightPayload({
     : seedTakenDays;
 
   return {
-    today: mappedToday || scheduledSeedToday || fallbackToday || null,
-    upcoming: slots.filter((slot) => slot.slot_day >= todayDay),
+    today: preserveSpotlightActionFields(mappedToday || scheduledSeedToday || fallbackToday || null),
+    upcoming: slots.filter((slot) => slot.slot_day >= todayDay).map(preserveSpotlightActionFields),
     takenDays: mappedTakenDays,
-    slots,
+    slots: slots.map(preserveSpotlightActionFields),
   };
 }
 
