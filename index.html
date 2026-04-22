@@ -2495,7 +2495,6 @@
           <div class="surface-pane-meta" id="spotlight-meta">Feature your project</div>
         </div>
         <div class="surface-pane-body">
-          <div class="surface-pane-intro">Daily featured project slot with the Farcaster-style promo flow, now exposed as a public route.</div>
           <div class="spotlight-shell">
             <div id="spotlight-public-card"></div>
             <div id="spotlight-public-week-strip" class="spotlight-week-strip"></div>
@@ -3409,6 +3408,10 @@
       `;
       const statusNode = shell.querySelector('.spotlight-status');
       if (statusNode) statusNode.textContent = spotlightStatusText;
+      const logoNode = shell.querySelector('.spotlight-logo');
+      if (logoNode && String(displayedSpotlight.project_url || '').toLowerCase().includes('usd.ai')) {
+        logoNode.src = 'https://usd.ai/images/logo-full-lockup.svg';
+      }
       const logoFallbackNode = shell.querySelector('.spotlight-logo-fallback');
       if (logoFallbackNode) logoFallbackNode.textContent = 'SP';
       const actionsNode = shell.querySelector('.spotlight-actions');

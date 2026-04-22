@@ -1413,7 +1413,7 @@
         : '';
 
       const forcedLogoUrl =
-        viewedDay === currentSlotDay()
+        String(slot.project_url || '').toLowerCase().includes('usd.ai')
           ? 'https://usd.ai/images/logo-full-lockup.svg'
           : slot.project_logo_url;
 
