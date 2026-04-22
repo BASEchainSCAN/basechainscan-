@@ -1735,6 +1735,232 @@
       line-height: 1.6;
     }
 
+    .spotlight-showcase {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .spotlight-main-card {
+      border-radius: 20px;
+      border: 1px solid rgba(20,230,212,0.22);
+      background:
+        radial-gradient(circle at top right, rgba(20,230,212,0.14), transparent 36%),
+        linear-gradient(155deg, rgba(16,30,52,0.95), rgba(10,16,32,0.96));
+      box-shadow: 0 22px 40px rgba(0,0,0,0.24);
+      padding: 16px;
+    }
+
+    .spotlight-main-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .spotlight-kicker,
+    .spotlight-date-line,
+    .spotlight-meta-chip,
+    .spotlight-timeline-kicker,
+    .spotlight-timeline-status,
+    .spotlight-dot-label {
+      font-family: var(--font-mono);
+    }
+
+    .spotlight-kicker {
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(20,230,212,0.86);
+      margin-bottom: 4px;
+    }
+
+    .spotlight-date-line {
+      font-size: 10px;
+      color: rgba(234,244,255,0.44);
+    }
+
+    .spotlight-meta-chip {
+      flex-shrink: 0;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      font-size: 10px;
+      color: rgba(234,244,255,0.76);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .spotlight-row.premium {
+      gap: 14px;
+    }
+
+    .spotlight-logo.premium {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .spotlight-copy-block {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .spotlight-primary-actions,
+    .spotlight-secondary-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .spotlight-secondary-actions {
+      margin-top: 2px;
+    }
+
+    .spotlight-btn.secondary.accent {
+      border-color: rgba(20,230,212,0.18);
+      color: var(--brand);
+      background: rgba(20,230,212,0.08);
+    }
+
+    .spotlight-timeline-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .spotlight-timeline-stage {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 38px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .spotlight-timeline-nav {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: rgba(234,244,255,0.86);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .spotlight-timeline-nav[disabled] {
+      opacity: 0.36;
+      cursor: not-allowed;
+    }
+
+    .spotlight-timeline-cards {
+      display: grid;
+      grid-template-columns: minmax(72px, 0.72fr) minmax(0, 1.4fr) minmax(72px, 0.72fr);
+      gap: 8px;
+    }
+
+    .spotlight-timeline-card {
+      min-height: 90px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      text-align: left;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .spotlight-timeline-card.side {
+      background: rgba(255,255,255,0.025);
+      opacity: 0.84;
+    }
+
+    .spotlight-timeline-card.active {
+      border-color: rgba(20,230,212,0.28);
+      background: rgba(20,230,212,0.10);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    }
+
+    .spotlight-timeline-kicker,
+    .spotlight-timeline-status {
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.42);
+    }
+
+    .spotlight-timeline-date {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .spotlight-timeline-name {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(234,244,255,0.86);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 26px;
+    }
+
+    .spotlight-timeline-dots {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .spotlight-dot {
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 4px;
+    }
+
+    .spotlight-dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(234,244,255,0.22);
+    }
+
+    .spotlight-dot.has-slot::before {
+      background: rgba(20,230,212,0.80);
+      box-shadow: 0 0 10px rgba(20,230,212,0.42);
+    }
+
+    .spotlight-dot.active {
+      border-color: rgba(20,230,212,0.28);
+      background: rgba(20,230,212,0.10);
+    }
+
+    .spotlight-dot-label {
+      font-size: 8px;
+      color: rgba(234,244,255,0.46);
+    }
+
     .spotlight-empty strong {
       display: block;
       color: #fff;
@@ -2116,6 +2342,24 @@
       .heatmap-grid { gap: 5px; }
       .tc-metrics { grid-template-columns: repeat(2, 1fr); }
       .socials { grid-template-columns: 1fr 1fr; }
+      .spotlight-main-meta,
+      .spotlight-row.premium {
+        flex-direction: column;
+      }
+      .spotlight-logo.premium {
+        width: 64px;
+        height: 64px;
+      }
+      .spotlight-primary-actions,
+      .spotlight-secondary-actions {
+        flex-direction: column;
+      }
+      .spotlight-timeline-stage {
+        grid-template-columns: 34px minmax(0, 1fr) 34px;
+      }
+      .spotlight-timeline-cards {
+        grid-template-columns: minmax(64px, 0.68fr) minmax(0, 1.45fr) minmax(64px, 0.68fr);
+      }
     }
 
     /* ── Referral Join Module ── */
@@ -3382,8 +3626,15 @@
       const projectLogo = displayedSpotlight.project_logo_url
         ? `<img class="spotlight-logo" src="${escapeHtml(displayedSpotlight.project_logo_url)}" alt="${escapeHtml(displayedSpotlight.project_name)} logo" />`
         : `<div class="spotlight-logo-fallback">ðŸ“¡</div>`;
-      const tradeUrlResolved = displayedSpotlight.trade_url || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
-      const tradeActionLabelResolved = displayedSpotlight.trade_action_label || (tradeUrlResolved ? 'Open on Dex ->' : '');
+      const projectUrlText = String(displayedSpotlight.project_url || '').toLowerCase();
+      const tokenAddressText = String(displayedSpotlight.token_address || '').toLowerCase();
+      const usdAiChipTradeUrl = 'https://o1.exchange/base/detail/0x592e01edeb601016a20a3e6cd5bf533ebbadbc8b?ca=0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
+      const tradeUrlResolved = displayedSpotlight.trade_url
+        || ((projectUrlText.includes('usd.ai') && tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? usdAiChipTradeUrl : '')
+        || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
+      const tradeActionLabelResolved = displayedSpotlight.trade_action_label
+        || ((tradeUrlResolved === usdAiChipTradeUrl) ? 'Trade CHIP on O1 ->' : '')
+        || (tradeUrlResolved ? 'Open on Dex ->' : '');
       const tradeButtonResolved = tradeUrlResolved && tradeUrlResolved !== displayedSpotlight.project_url
         ? `<a class="spotlight-btn secondary" href="${escapeHtml(tradeUrlResolved)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeActionLabelResolved)}</a>`
         : '';
@@ -3426,6 +3677,162 @@
       renderSpotlightWeekStrip();
     }
 
+    function getSpotlightTimelineDays() {
+      const today = getCurrentSpotlightDay();
+      return Array.from({ length: 7 }, (_, index) => today - 3 + index);
+    }
+
+    function clampSpotlightFocusDay(day) {
+      const days = getSpotlightTimelineDays();
+      if (!day) return getCurrentSpotlightDay();
+      return Math.min(days[days.length - 1], Math.max(days[0], Number(day)));
+    }
+
+    function resolveSpotlightLogoUrl(slot) {
+      if (!slot) return '';
+      const projectUrlText = String(slot.project_url || '').toLowerCase();
+      const tokenAddressText = String(slot.token_address || '').toLowerCase();
+      return slot.project_logo_url
+        || ((projectUrlText.includes('usd.ai') || tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? '/public/images/chip-logo.png' : '');
+    }
+
+    function resolveSpotlightTradeInfo(slot) {
+      if (!slot) return { url: '', label: '' };
+      const projectUrlText = String(slot.project_url || '').toLowerCase();
+      const tokenAddressText = String(slot.token_address || '').toLowerCase();
+      const chipTradeUrl = 'https://o1.exchange/base/detail/0x592e01edeb601016a20a3e6cd5bf533ebbadbc8b?ca=0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
+      const url = slot.trade_url
+        || ((projectUrlText.includes('usd.ai') && tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? chipTradeUrl : '')
+        || (slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : '');
+      const label = slot.trade_action_label
+        || (url === chipTradeUrl ? 'Trade CHIP on O1 ->' : (url ? 'Open on Dex ->' : ''));
+      return { url, label };
+    }
+
+    function renderSpotlightTimelineCard(day, mode) {
+      if (!Number.isInteger(day)) {
+        return '<div class="spotlight-timeline-card side"><div class="spotlight-timeline-name">Edge of range</div></div>';
+      }
+      const slot = getSpotlightSlotForDay(day) || ((latestSpotlight?.slot_day || getCurrentSpotlightDay()) === day ? latestSpotlight : null);
+      const today = getCurrentSpotlightDay();
+      const status = slot
+        ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
+        : (day > today ? 'Open' : 'Empty');
+      const name = slot ? slot.project_name : (day > today ? 'Open slot' : 'No Spotlight');
+      return `
+        <button type="button" class="spotlight-timeline-card ${mode}" data-spotlight-focus-day="${day}">
+          <span class="spotlight-timeline-kicker">${escapeHtml(formatRelativeSpotlightDay(day))}</span>
+          <span class="spotlight-timeline-date">${escapeHtml(formatShortDate(day))}</span>
+          <span class="spotlight-timeline-name">${escapeHtml(name)}</span>
+          <span class="spotlight-timeline-status">${escapeHtml(status)}</span>
+        </button>
+      `;
+    }
+
+    function renderSpotlightWeekStrip() {
+      const shell = document.getElementById('spotlight-public-week-strip');
+      if (!shell) return;
+
+      const days = getSpotlightTimelineDays();
+      const focusDay = clampSpotlightFocusDay(spotlightFocusDay || getCurrentSpotlightDay());
+      const focusIndex = days.indexOf(focusDay);
+      const prevDay = focusIndex > 0 ? days[focusIndex - 1] : null;
+      const nextDay = focusIndex < days.length - 1 ? days[focusIndex + 1] : null;
+
+      shell.innerHTML = `
+        <div class="spotlight-timeline-wrap">
+          <div class="spotlight-timeline-stage">
+            <button class="spotlight-timeline-nav" type="button" data-spotlight-shift-day="-1" ${prevDay === null ? 'disabled' : ''} aria-label="Previous spotlight day">&larr;</button>
+            <div class="spotlight-timeline-cards">
+              ${renderSpotlightTimelineCard(prevDay, 'side')}
+              ${renderSpotlightTimelineCard(focusDay, 'active')}
+              ${renderSpotlightTimelineCard(nextDay, 'side')}
+            </div>
+            <button class="spotlight-timeline-nav" type="button" data-spotlight-shift-day="1" ${nextDay === null ? 'disabled' : ''} aria-label="Next spotlight day">&rarr;</button>
+          </div>
+          <div class="spotlight-timeline-dots">
+            ${days.map((day) => {
+              const slot = getSpotlightSlotForDay(day) || ((latestSpotlight?.slot_day || getCurrentSpotlightDay()) === day ? latestSpotlight : null);
+              const classes = ['spotlight-dot'];
+              if (slot) classes.push('has-slot');
+              if (day === focusDay) classes.push('active');
+              return `
+                <button type="button" class="${classes.join(' ')}" data-spotlight-focus-day="${day}">
+                  <span class="spotlight-dot-label">${escapeHtml(formatShortDate(day))}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSpotlightTeaser() {
+      const shell = document.getElementById('spotlight-public-card');
+      const meta = document.getElementById('spotlight-meta');
+      if (!shell || !meta) return;
+      const today = getCurrentSpotlightDay();
+      const focusedDay = clampSpotlightFocusDay(spotlightFocusDay || today);
+      const displayedSpotlight = getSpotlightSlotForDay(focusedDay)
+        || ((latestSpotlight?.slot_day || today) === focusedDay ? latestSpotlight : null);
+
+      if (!displayedSpotlight) {
+        meta.textContent = formatShortDate(focusedDay);
+        shell.innerHTML = `
+          <div class="spotlight-empty">
+            <strong>No Spotlight Set</strong>
+            This day does not have a published Spotlight yet. Open the public Spotlight page to review the full week.
+          </div>
+          <div class="spotlight-actions">
+            <a class="spotlight-btn primary" href="/spotlight">Open Spotlight -></a>
+          </div>
+        `;
+        renderSpotlightWeekStrip();
+        return;
+      }
+
+      const logoUrl = resolveSpotlightLogoUrl(displayedSpotlight);
+      const tradeInfo = resolveSpotlightTradeInfo(displayedSpotlight);
+      const spotlightStatusText = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : focusedDay > today
+          ? 'Upcoming Spotlight'
+          : focusedDay < today
+            ? 'Previous Spotlight'
+            : 'Today spotlight';
+
+      meta.textContent = formatShortDate(displayedSpotlight.slot_day);
+      shell.innerHTML = `
+        <div class="spotlight-showcase">
+          <div class="spotlight-main-card">
+            <div class="spotlight-main-meta">
+              <div>
+                <div class="spotlight-kicker">${escapeHtml(spotlightStatusText)}</div>
+                <div class="spotlight-date-line">${escapeHtml(formatShortDate(displayedSpotlight.slot_day))}</div>
+              </div>
+              <div class="spotlight-meta-chip">${escapeHtml(formatRelativeSpotlightDay(focusedDay))}</div>
+            </div>
+            <div class="spotlight-row premium">
+              ${logoUrl ? `<img class="spotlight-logo premium" src="${escapeHtml(logoUrl)}" alt="${escapeHtml(displayedSpotlight.project_name)} logo" />` : `<div class="spotlight-logo-fallback">SP</div>`}
+              <div class="spotlight-copy-block">
+                <div class="spotlight-name">${escapeHtml(displayedSpotlight.project_name)}</div>
+                <div class="spotlight-desc">${escapeHtml(displayedSpotlight.project_description)}</div>
+              </div>
+            </div>
+            <div class="spotlight-primary-actions">
+              <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeInfo.url || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayedSpotlight.primary_action_label || 'Visit Project ->')}</a>
+              ${tradeInfo.url && tradeInfo.url !== displayedSpotlight.project_url ? `<a class="spotlight-btn secondary accent" href="${escapeHtml(tradeInfo.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeInfo.label)}</a>` : ''}
+            </div>
+            <div class="spotlight-secondary-actions">
+              ${displayedSpotlight.x_url ? `<a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>` : ''}
+              <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+            </div>
+          </div>
+        </div>
+      `;
+      renderSpotlightWeekStrip();
+    }
+
     async function loadSpotlightTeaser() {
       try {
         const now = getCurrentSpotlightDay();
@@ -3436,7 +3843,7 @@
         const data = await res.json();
         latestSpotlight = data?.today || null;
         spotlightSlots = Array.isArray(data?.slots) ? data.slots : [];
-        spotlightFocusDay = spotlightFocusDay || latestSpotlight?.slot_day || now;
+        spotlightFocusDay = clampSpotlightFocusDay(spotlightFocusDay || latestSpotlight?.slot_day || now);
         renderSpotlightTeaser();
       } catch {
         latestSpotlight = null;
@@ -3450,7 +3857,16 @@
       if (!focusButton) return;
       const day = Number.parseInt(focusButton.getAttribute('data-spotlight-focus-day') || '0', 10);
       if (!day) return;
-      spotlightFocusDay = day;
+      spotlightFocusDay = clampSpotlightFocusDay(day);
+      renderSpotlightTeaser();
+    });
+
+    document.addEventListener('click', (event) => {
+      const shiftButton = event.target.closest('[data-spotlight-shift-day]');
+      if (!shiftButton) return;
+      const dir = Number.parseInt(shiftButton.getAttribute('data-spotlight-shift-day') || '0', 10);
+      if (!dir) return;
+      spotlightFocusDay = clampSpotlightFocusDay((spotlightFocusDay || getCurrentSpotlightDay()) + dir);
       renderSpotlightTeaser();
     });
 
