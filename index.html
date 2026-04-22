@@ -3382,8 +3382,15 @@
       const projectLogo = displayedSpotlight.project_logo_url
         ? `<img class="spotlight-logo" src="${escapeHtml(displayedSpotlight.project_logo_url)}" alt="${escapeHtml(displayedSpotlight.project_name)} logo" />`
         : `<div class="spotlight-logo-fallback">ðŸ“¡</div>`;
-      const tradeUrlResolved = displayedSpotlight.trade_url || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
-      const tradeActionLabelResolved = displayedSpotlight.trade_action_label || (tradeUrlResolved ? 'Open on Dex ->' : '');
+      const projectUrlText = String(displayedSpotlight.project_url || '').toLowerCase();
+      const tokenAddressText = String(displayedSpotlight.token_address || '').toLowerCase();
+      const usdAiChipTradeUrl = 'https://o1.exchange/base/detail/0x592e01edeb601016a20a3e6cd5bf533ebbadbc8b?ca=0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
+      const tradeUrlResolved = displayedSpotlight.trade_url
+        || ((projectUrlText.includes('usd.ai') && tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? usdAiChipTradeUrl : '')
+        || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
+      const tradeActionLabelResolved = displayedSpotlight.trade_action_label
+        || ((tradeUrlResolved === usdAiChipTradeUrl) ? 'Trade CHIP on O1 ->' : '')
+        || (tradeUrlResolved ? 'Open on Dex ->' : '');
       const tradeButtonResolved = tradeUrlResolved && tradeUrlResolved !== displayedSpotlight.project_url
         ? `<a class="spotlight-btn secondary" href="${escapeHtml(tradeUrlResolved)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeActionLabelResolved)}</a>`
         : '';
