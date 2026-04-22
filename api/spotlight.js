@@ -1,6 +1,8 @@
 import {
+  buildLowCapSpotlightFallback,
   currentSlotDay,
   getSupabaseClient,
+  isAfterSpotlightFallbackHour,
   loadSpotlightSeedData,
   mapSpotlightRow,
   normalizeAddress,
@@ -11,6 +13,58 @@ import {
   verifySpotlightPayment,
 } from './_spotlight.js';
 
+function uniqueSlotsByDay(slots) {
+  return slots.filter((slot, index, all) => slot && all.findIndex((candidate) => candidate.slot_day === slot.slot_day) === index);
+}
+
+function buildSpotlightPayload({
+  seedData,
+  todayRow = null,
+  slotRows = [],
+  takenRows = [],
+  now = new Date(),
+  fromDay = 0,
+  toDay = 0,
+}) {
+  const todayDay = currentSlotDay(now);
+  const rangeStart = fromDay || todayDay;
+  const rangeEnd = toDay || todayDay + 30;
+
+  const seedSlots = uniqueSlotsByDay([seedData?.today, ...(seedData?.upcoming || [])]
+    .filter(Boolean)
+    .filter((slot) => slot.slot_day >= rangeStart && slot.slot_day <= rangeEnd)
+    .sort((left, right) => left.slot_day - right.slot_day));
+
+  const scheduledSeedToday = seedSlots.find((slot) => slot.slot_day === todayDay) || null;
+  const mappedToday = mapSpotlightRow(todayRow);
+  const fallbackToday = !mappedToday && !scheduledSeedToday && isAfterSpotlightFallbackHour(now)
+    ? buildLowCapSpotlightFallback(now)
+    : null;
+
+  const actualSlots = uniqueSlotsByDay((slotRows || []).map(mapSpotlightRow).filter(Boolean));
+  const slots = uniqueSlotsByDay([
+    ...actualSlots,
+    ...seedSlots.filter((seedSlot) => !actualSlots.some((slot) => slot.slot_day === seedSlot.slot_day)),
+    ...(fallbackToday && fallbackToday.slot_day >= rangeStart && fallbackToday.slot_day <= rangeEnd ? [fallbackToday] : []),
+  ]).sort((left, right) => left.slot_day - right.slot_day);
+
+  const seedTakenDays = [...(seedData?.takenDays || []), ...seedSlots.map((slot) => slot.slot_day)]
+    .filter((day) => Number.isInteger(day) && day > 0)
+    .filter((day) => day >= rangeStart && day <= rangeEnd)
+    .filter((day, index, all) => all.indexOf(day) === index)
+    .sort((left, right) => left - right);
+  const mappedTakenDays = (takenRows || []).length
+    ? (takenRows || []).map((row) => row.slot_day).filter((day) => Number.isInteger(day) && day > 0)
+    : seedTakenDays;
+
+  return {
+    today: mappedToday || scheduledSeedToday || fallbackToday || null,
+    upcoming: slots.filter((slot) => slot.slot_day >= todayDay),
+    takenDays: mappedTakenDays,
+    slots,
+  };
+}
+
 export default async function handler(req, res) {
   setCorsHeaders(res, 'GET, POST, OPTIONS');
 
@@ -19,20 +73,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  let supabase;
+  let supabase = null;
   try {
     supabase = getSupabaseClient();
   } catch (error) {
-    return res.status(500).json({ error: error instanceof Error ? error.message : 'Supabase is not configured' });
+    if (req.method === 'POST') {
+      return res.status(500).json({ error: error instanceof Error ? error.message : 'Supabase is not configured' });
+    }
   }
 
   if (req.method === 'GET') {
     const seedData = loadSpotlightSeedData();
-    try {
-      const fromDay = Number.parseInt(String(req.query.fromDay || '0'), 10) || 0;
-      const toDay = Number.parseInt(String(req.query.toDay || '0'), 10) || 0;
-      const todayDay = currentSlotDay();
+    const now = new Date();
+    const todayDay = currentSlotDay(now);
+    const fromDay = Number.parseInt(String(req.query.fromDay || '0'), 10) || todayDay;
+    const toDay = Number.parseInt(String(req.query.toDay || '0'), 10) || todayDay + 30;
 
+    if (!supabase) {
+      return res.status(200).json(buildSpotlightPayload({ seedData, now, fromDay, toDay }));
+    }
+
+    try {
       const todayReq = supabase
         .from('spotlight_slots')
         .select('*')
@@ -41,46 +102,42 @@ export default async function handler(req, res) {
         .limit(1)
         .maybeSingle();
 
-      const upcomingReq = supabase
+      const slotsReq = supabase
         .from('spotlight_slots')
         .select('*')
-        .gte('slot_day', todayDay)
+        .eq('status', 'approved')
+        .gte('slot_day', fromDay)
+        .lte('slot_day', toDay)
         .order('slot_day', { ascending: true })
-        .limit(60);
+        .limit(90);
 
-      const takenReq = fromDay && toDay
-        ? supabase
-            .from('spotlight_slots')
-            .select('slot_day')
-            .gte('slot_day', fromDay)
-            .lte('slot_day', toDay)
-        : Promise.resolve({ data: [], error: null });
+      const takenReq = supabase
+        .from('spotlight_slots')
+        .select('slot_day')
+        .gte('slot_day', todayDay)
+        .lte('slot_day', todayDay + 30);
 
-      const [{ data: today, error: todayError }, { data: upcoming, error: upcomingError }, { data: taken, error: takenError }] =
-        await Promise.all([todayReq, upcomingReq, takenReq]);
+      const [{ data: today, error: todayError }, { data: slots, error: slotsError }, { data: taken, error: takenError }] =
+        await Promise.all([todayReq, slotsReq, takenReq]);
 
       if (todayError) throw todayError;
-      if (upcomingError) throw upcomingError;
+      if (slotsError) throw slotsError;
       if (takenError) throw takenError;
 
-      const mappedToday = mapSpotlightRow(today) || seedData?.today || null;
-      const mappedUpcoming = (upcoming || []).length
-        ? (upcoming || []).map(mapSpotlightRow)
-        : (seedData?.upcoming || []);
-      const mappedTakenDays = (taken || []).length
-        ? (taken || []).map((row) => row.slot_day)
-        : (seedData?.takenDays || []);
-
       res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
-      return res.status(200).json({
-        today: mappedToday,
-        upcoming: mappedUpcoming,
-        takenDays: mappedTakenDays,
-      });
+      return res.status(200).json(buildSpotlightPayload({
+        seedData,
+        todayRow: today,
+        slotRows: slots || [],
+        takenRows: taken || [],
+        now,
+        fromDay,
+        toDay,
+      }));
     } catch (error) {
       console.error('[spotlight GET]', error);
       if (seedData) {
-        return res.status(200).json(seedData);
+        return res.status(200).json(buildSpotlightPayload({ seedData, now, fromDay, toDay }));
       }
       return res.status(500).json({ error: 'Failed to fetch spotlight data' });
     }

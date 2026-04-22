@@ -931,6 +931,105 @@
       text-overflow: ellipsis;
       font-family: var(--font-mono);
     }
+    .hm-chart-shell {
+      margin-top: 9px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.016));
+      padding: 9px 10px 10px;
+    }
+    .hm-chart-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .hm-chart-title {
+      font-size: 8px;
+      color: var(--muted-2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+    .hm-chart-range {
+      font-size: 9px;
+      color: rgba(234,244,255,0.56);
+      font-family: var(--font-mono);
+    }
+    .hm-chart-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 126px;
+    }
+    .hm-chart-svg {
+      width: 100%;
+      height: 126px;
+      display: block;
+      overflow: visible;
+    }
+    .hm-chart-axis,
+    .hm-chart-grid {
+      stroke: rgba(234,244,255,0.13);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    .hm-chart-grid {
+      stroke-dasharray: 3 4;
+      opacity: 0.8;
+    }
+    .hm-chart-line {
+      fill: none;
+      stroke: var(--heat-color, #14E6D4);
+      stroke-width: 2.1;
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(20,230,212,0.18));
+    }
+    .hm-chart-axis-label {
+      fill: rgba(234,244,255,0.52);
+      font-size: 8px;
+      font-family: var(--font-mono);
+    }
+    .hm-chart-axis-label.strong {
+      fill: rgba(234,244,255,0.72);
+    }
+    .hm-chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, calc(-100% - 10px));
+      padding: 7px 8px;
+      border-radius: 9px;
+      border: 1px solid rgba(20,230,212,0.22);
+      background: rgba(9,16,30,0.96);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+      min-width: 108px;
+      opacity: 0;
+      transition: opacity 120ms ease;
+      z-index: 3;
+    }
+    .hm-chart-tooltip.visible { opacity: 1; }
+    .hm-chart-tooltip-price {
+      font-size: 10px;
+      color: #f5fbff;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin-bottom: 2px;
+    }
+    .hm-chart-tooltip-time {
+      font-size: 8px;
+      color: rgba(234,244,255,0.58);
+      font-family: var(--font-mono);
+    }
+    .hm-chart-focus {
+      fill: #ffffff;
+      stroke: var(--heat-color, #14E6D4);
+      stroke-width: 2;
+      opacity: 0;
+      transition: opacity 120ms ease;
+    }
+    .hm-chart-focus.visible { opacity: 1; }
     .tc-metric-change { font-size: 10px; font-weight: 600; font-family: var(--font-mono); margin-top: 1px; }
     .tc-metric-change.pos { color: #14E6D4; }
     .tc-metric-change.neg { color: #FF4757; }
@@ -1515,6 +1614,84 @@
       gap: 10px;
       flex-wrap: wrap;
       margin-top: 14px;
+    }
+
+    .spotlight-week-strip {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-top: 12px;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .spotlight-week-pill {
+      flex: 0 0 88px;
+      min-width: 88px;
+      padding: 9px 9px 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      text-align: left;
+      min-height: 68px;
+      justify-content: flex-start;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .spotlight-week-pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .spotlight-week-pill.active {
+      border-color: rgba(20,230,212,0.34);
+      background: rgba(20,230,212,0.12);
+      box-shadow: 0 0 0 1px rgba(20,230,212,0.12) inset;
+    }
+
+    .spotlight-week-pill.has-slot {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .spotlight-week-kicker {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.38);
+    }
+
+    .spotlight-week-date {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .spotlight-week-name {
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: rgba(234,244,255,0.84);
+      min-height: 22px;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .spotlight-week-status {
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.4);
     }
 
     .spotlight-btn {
@@ -2243,7 +2420,7 @@
             <button class="action-btn" id="share-link-btn" type="button">Share Link</button>
             <button class="action-btn" id="copy-image-btn" type="button">Copy Image</button>
             <a class="action-btn exchange-okx" href="https://web3.okx.com/ul/joindex?ref=OKX10c" target="_blank" rel="noopener"><span class="okx-logo-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#111111"></rect><path d="M8 8H13V13H8V8ZM19 8H24V13H19V8ZM13 13H19V19H13V13ZM8 19H13V24H8V19ZM19 19H24V24H19V19Z" fill="white"></path></svg></span><span>Trade on OKX</span></a>
-            <a class="action-btn" href="https://o1.exchange/@clearn" target="_blank" rel="noopener"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /> <span>Trade on O1</span></a>
+            <a class="action-btn" href="https://o1.exchange/@basescan" target="_blank" rel="noopener"><img class="o1-logo-icon" src="/public/images/o1-logo.png" alt="" aria-hidden="true" /> <span>Trade on O1</span></a>
           </div>
 
           <div class="share-feedback" id="share-feedback">Radar ready.</div>
@@ -2321,6 +2498,7 @@
           <div class="surface-pane-intro">Daily featured project slot with the Farcaster-style promo flow, now exposed as a public route.</div>
           <div class="spotlight-shell">
             <div id="spotlight-public-card"></div>
+            <div id="spotlight-public-week-strip" class="spotlight-week-strip"></div>
           </div>
         </div>
       </section>
@@ -2450,7 +2628,7 @@
           <div class="ref-arrow">&darr;</div>
         </a>
 
-        <a class="referral-btn ref-o1" href="https://o1.exchange/@clearn" target="_blank" rel="noopener noreferrer">
+        <a class="referral-btn ref-o1" href="https://o1.exchange/@basescan" target="_blank" rel="noopener noreferrer">
           <div class="ref-logo-wrap">
             <img class="o1-logo-icon lg" src="/public/images/o1-logo.png" alt="" aria-hidden="true" />
           </div>
@@ -2470,6 +2648,8 @@
     let latestHeatmap = null;
     let latestTop4 = null;
     let latestSpotlight = null;
+    let spotlightSlots = [];
+    let spotlightFocusDay = null;
     let latestPublicGeneratedAtMs = 0;
     let latestPublicRefreshStartedMs = 0;
     let latestPublicRefreshCompletedMs = 0;
@@ -2683,6 +2863,51 @@
       }
     }
 
+    function getCurrentSpotlightDay() {
+      return Math.floor(Date.now() / 86400000);
+    }
+
+    function formatRelativeSpotlightDay(slotDay) {
+      const diff = Number(slotDay) - getCurrentSpotlightDay();
+      if (diff === 0) return 'Today';
+      if (diff === 1) return 'Tomorrow';
+      if (diff === -1) return 'Yesterday';
+      if (diff > 1) return `In ${diff} Days`;
+      return `${Math.abs(diff)} Days Ago`;
+    }
+
+    function getSpotlightSlotForDay(slotDay) {
+      return (spotlightSlots || []).find((slot) => Number(slot?.slot_day) === Number(slotDay)) || null;
+    }
+
+    function renderSpotlightWeekStrip() {
+      const shell = document.getElementById('spotlight-public-week-strip');
+      if (!shell) return;
+
+      const today = getCurrentSpotlightDay();
+      const focusDay = spotlightFocusDay || today;
+      const days = Array.from({ length: 7 }, (_, index) => today - 3 + index);
+
+      shell.innerHTML = days.map((day) => {
+        const slot = getSpotlightSlotForDay(day);
+        const classes = ['spotlight-week-pill'];
+        if (slot) classes.push('has-slot');
+        if (day === focusDay) classes.push('active');
+        const status = slot
+          ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
+          : (day > today ? 'Open' : 'None');
+        const name = slot ? slot.project_name : (day > today ? 'Available' : 'No slot');
+        return `
+          <button type="button" class="${classes.join(' ')}" data-spotlight-focus-day="${day}">
+            <span class="spotlight-week-kicker">${escapeHtml(formatRelativeSpotlightDay(day))}</span>
+            <span class="spotlight-week-date">${escapeHtml(formatShortDate(day))}</span>
+            <span class="spotlight-week-name">${escapeHtml(name)}</span>
+            <span class="spotlight-week-status">${escapeHtml(status)}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
     function syncPublicUpdateState() {
       const timestamps = [latestHeatmap?.generated_at, latestTop4?.generated_at]
         .map(value => {
@@ -2870,6 +3095,15 @@
     }
 
     function fmtNum(v) { if (!v) return '—'; return v >= 1e3 ? (v / 1e3).toFixed(1) + 'K' : String(v); }
+    function fmtPrice(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n) || n <= 0) return '—';
+      if (n >= 1000) return '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      if (n >= 1) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (n >= 0.01) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      if (n >= 0.0001) return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+      return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 });
+    }
     function fmtAge(h) { if (!h) return '—'; return h < 1 ? Math.round(h * 60) + 'm' : h.toFixed(1) + 'h'; }
     function sevBadge(s) { return { critical: 'badge-critical', high: 'badge-high', medium: 'badge-medium', low: 'badge-low' }[s] || 'badge-low'; }
     function fmtPct(v, digits = 1) {
@@ -2891,39 +3125,279 @@
       return 'Early watch setup';
     }
 
+    function fmtChartTime(ts) {
+      const date = new Date(ts);
+      if (Number.isNaN(date.getTime())) return 'Unknown time';
+      return date.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).replace(',', ' ·');
+    }
+
+    function chartLineColor(series) {
+      if (!Array.isArray(series) || series.length < 2) return '#8d98b3';
+      const first = Number(series[0]?.price_usd || 0);
+      const last = Number(series[series.length - 1]?.price_usd || 0);
+      if (!Number.isFinite(first) || !Number.isFinite(last)) return '#8d98b3';
+      if (last > first) return '#31d67b';
+      if (last < first) return '#ff5c6c';
+      return '#14E6D4';
+    }
+
+    function fmtPctChange(value) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num) || num === 0) return 'Flat vs 24h';
+      return `${num > 0 ? '+' : ''}${num.toFixed(1)}% vs 24h`;
+    }
+
+    function pctChangeClass(value) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num) || num === 0) return '';
+      return num > 0 ? 'pos' : 'neg';
+    }
+
+    function encodeChartSeries(series) {
+      try {
+        return escapeHtml(encodeURIComponent(JSON.stringify(Array.isArray(series) ? series : [])));
+      } catch {
+        return '';
+      }
+    }
+
+    function buildHeatmapChartShell(token) {
+      const rawSeries = Array.isArray(token?.price_history_7d) ? token.price_history_7d : [];
+      const series = rawSeries.filter(point => Number(point?.price_usd) > 0);
+      const color = chartLineColor(series);
+      const minPrice = series.length ? Math.min(...series.map(point => Number(point.price_usd || 0))) : 0;
+      const maxPrice = series.length ? Math.max(...series.map(point => Number(point.price_usd || 0))) : 0;
+      const spanHours = Number(token?.price_history_span_hours || 0);
+      const points = Number(token?.price_history_points || 0);
+      const hasPartial = points >= 12;
+      const title = points >= 42 ? '7D price path' : (hasPartial ? `${(spanHours / 24).toFixed(1)}D price path` : 'Price path');
+      const rangeText = series.length > 1 ? `${fmtPrice(minPrice)} → ${fmtPrice(maxPrice)}` : 'Waiting for enough stable history';
+      return `
+        <div class="hm-chart-shell" data-series="${encodeChartSeries(series)}" style="--heat-color:${color}">
+          <div class="hm-chart-head">
+            <div class="hm-chart-title">${title}</div>
+            <div class="hm-chart-range">${rangeText}</div>
+          </div>
+          <div class="hm-chart-wrap">
+            <svg class="hm-chart-svg" viewBox="0 0 320 126" preserveAspectRatio="none"></svg>
+            <div class="hm-chart-tooltip">
+              <div class="hm-chart-tooltip-price">—</div>
+              <div class="hm-chart-tooltip-time">Move over the chart</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHeatmapChart(shell) {
+      const svg = shell.querySelector('.hm-chart-svg');
+      const wrap = shell.querySelector('.hm-chart-wrap');
+      const tooltip = shell.querySelector('.hm-chart-tooltip');
+      if (!svg || !wrap || !tooltip) return;
+
+      let series = [];
+      try {
+        series = JSON.parse(decodeURIComponent(shell.dataset.series || '[]'));
+      } catch {
+        series = [];
+      }
+      series = Array.isArray(series)
+        ? series.filter(point => Number(point?.price_usd) > 0 && point?.ts)
+        : [];
+      series.sort((a, b) => {
+        const aTs = new Date(a?.ts || '').getTime();
+        const bTs = new Date(b?.ts || '').getTime();
+        if (!Number.isFinite(aTs) && !Number.isFinite(bTs)) return 0;
+        if (!Number.isFinite(aTs)) return 1;
+        if (!Number.isFinite(bTs)) return -1;
+        return aTs - bTs;
+      });
+
+      const width = 320;
+      const height = 126;
+      const pad = { left: 12, right: 8, top: 10, bottom: 20 };
+      const innerWidth = width - pad.left - pad.right;
+      const innerHeight = height - pad.top - pad.bottom;
+
+      if (series.length < 2) {
+        svg.innerHTML = `
+          <line class="hm-chart-axis" x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" />
+          <text class="hm-chart-axis-label strong" x="${width / 2}" y="${height / 2}" text-anchor="middle">Waiting for enough stable history</text>
+        `;
+        return;
+      }
+
+      const prices = series.map(point => Number(point.price_usd || 0));
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+      const span = max - min || max * 0.02 || 1;
+      const paddedMin = Math.max(0, min - span * 0.08);
+      const paddedMax = max + span * 0.08;
+      const domain = paddedMax - paddedMin || 1;
+      const bottomY = height - pad.bottom;
+      const rightX = width - pad.right;
+
+      const points = series.map((point, idx) => {
+        const x = pad.left + (idx / (series.length - 1)) * innerWidth;
+        const y = pad.top + (1 - ((Number(point.price_usd || 0) - paddedMin) / domain)) * innerHeight;
+        return { x, y, price: Number(point.price_usd || 0), ts: point.ts };
+      });
+
+      const path = points.map((point, idx) => `${idx === 0 ? 'M' : 'L'}${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(' ');
+      const gridYs = [0, 0.5, 1].map(step => pad.top + step * innerHeight);
+      const gridLines = gridYs.map(y => `<line class="hm-chart-grid" x1="${pad.left}" y1="${y.toFixed(2)}" x2="${rightX}" y2="${y.toFixed(2)}" />`).join('');
+      const axisLabels = `
+        <text class="hm-chart-axis-label strong" x="${pad.left}" y="${pad.top - 1}" text-anchor="start">${escapeXml(fmtPrice(max))}</text>
+        <text class="hm-chart-axis-label" x="${pad.left}" y="${bottomY + 14}" text-anchor="start">7d ago</text>
+        <text class="hm-chart-axis-label strong" x="${rightX}" y="${bottomY + 14}" text-anchor="end">now</text>
+        <text class="hm-chart-axis-label" x="${rightX}" y="${pad.top - 1}" text-anchor="end">${escapeXml(fmtPrice(min))}</text>
+      `;
+
+      svg.innerHTML = `
+        ${gridLines}
+        <line class="hm-chart-axis" x1="${pad.left}" y1="${bottomY}" x2="${rightX}" y2="${bottomY}" />
+        <line class="hm-chart-axis" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${bottomY}" />
+        <path class="hm-chart-line" d="${path}" />
+        <line class="hm-chart-grid hm-chart-cursor-line" x1="${points[0].x.toFixed(2)}" y1="${pad.top}" x2="${points[0].x.toFixed(2)}" y2="${bottomY}" style="opacity:0"></line>
+        <circle class="hm-chart-focus" cx="${points[0].x.toFixed(2)}" cy="${points[0].y.toFixed(2)}" r="4"></circle>
+        ${axisLabels}
+      `;
+
+      const focus = svg.querySelector('.hm-chart-focus');
+      const cursorLine = svg.querySelector('.hm-chart-cursor-line');
+      const tooltipPrice = tooltip.querySelector('.hm-chart-tooltip-price');
+      const tooltipTime = tooltip.querySelector('.hm-chart-tooltip-time');
+
+      const setPoint = (index) => {
+        const point = points[Math.max(0, Math.min(points.length - 1, index))];
+        if (!point || !focus || !tooltipPrice || !tooltipTime || !cursorLine) return;
+        focus.setAttribute('cx', point.x.toFixed(2));
+        focus.setAttribute('cy', point.y.toFixed(2));
+        focus.classList.add('visible');
+        cursorLine.setAttribute('x1', point.x.toFixed(2));
+        cursorLine.setAttribute('x2', point.x.toFixed(2));
+        cursorLine.style.opacity = '1';
+        tooltipPrice.textContent = fmtPrice(point.price);
+        tooltipTime.textContent = fmtChartTime(point.ts);
+
+        const wrapWidth = wrap.clientWidth || width;
+        const wrapHeight = wrap.clientHeight || height;
+        const left = (point.x / width) * wrapWidth;
+        const top = (point.y / height) * wrapHeight;
+        tooltip.style.left = `${Math.max(48, Math.min(wrapWidth - 48, left))}px`;
+        tooltip.style.top = `${Math.max(26, top)}px`;
+        tooltip.classList.add('visible');
+      };
+
+      const clearPoint = () => {
+        tooltip.classList.remove('visible');
+        focus?.classList.remove('visible');
+        if (cursorLine) cursorLine.style.opacity = '0';
+      };
+
+      const syncPointer = (clientX) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
+        const ratio = rect.width > 0 ? x / rect.width : 0;
+        const index = Math.round(ratio * (points.length - 1));
+        setPoint(index);
+      };
+
+      wrap.addEventListener('mousemove', (event) => syncPointer(event.clientX));
+      wrap.addEventListener('mouseenter', (event) => syncPointer(event.clientX));
+      wrap.addEventListener('mouseleave', clearPoint);
+      wrap.addEventListener('touchstart', (event) => {
+        const touch = event.touches?.[0];
+        if (touch) syncPointer(touch.clientX);
+      }, { passive: true });
+      wrap.addEventListener('touchmove', (event) => {
+        const touch = event.touches?.[0];
+        if (touch) syncPointer(touch.clientX);
+      }, { passive: true });
+      wrap.addEventListener('touchend', clearPoint, { passive: true });
+
+      setPoint(points.length - 1);
+    }
+
+    function initHeatmapCharts(root) {
+      root.querySelectorAll('.hm-chart-shell').forEach(shell => renderHeatmapChart(shell));
+    }
+
     function renderSpotlightTeaser() {
       const shell = document.getElementById('spotlight-public-card');
       const meta = document.getElementById('spotlight-meta');
       if (!shell || !meta) return;
+      const today = getCurrentSpotlightDay();
+      const focusedDay = spotlightFocusDay || today;
+      const displayedSpotlight = getSpotlightSlotForDay(focusedDay)
+        || ((latestSpotlight?.slot_day || today) === focusedDay ? latestSpotlight : null);
 
-      if (!latestSpotlight) {
-        meta.textContent = 'Feature your project';
+      if (!displayedSpotlight) {
+        meta.textContent = formatShortDate(focusedDay);
         shell.innerHTML = `
           <div class="spotlight-empty">
-            <strong>No Spotlight Live</strong>
-            This feature slot is open right now. Use the public Spotlight route to reserve a day.
+            <strong>No Spotlight Set</strong>
+            This day does not have a published Spotlight yet. Open the public Spotlight page to review the full week.
           </div>
           <div class="spotlight-actions">
           <a class="spotlight-btn primary" href="/spotlight">Open Spotlight →</a>
           </div>
         `;
+        renderSpotlightWeekStrip();
         return;
       }
 
-      meta.textContent = formatShortDate(latestSpotlight.slot_day);
+      meta.textContent = formatShortDate(displayedSpotlight.slot_day);
+      latestSpotlight = latestSpotlight || displayedSpotlight;
+      const spotlightStatus = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : 'Today’s public feature slot';
+      const primaryActionLabel = latestSpotlight.primary_action_label || 'Visit Project →';
       const logo = latestSpotlight.project_logo_url
         ? `<img class="spotlight-logo" src="${escapeHtml(latestSpotlight.project_logo_url)}" alt="${escapeHtml(latestSpotlight.project_name)} logo" />`
         : `<div class="spotlight-logo-fallback">📡</div>`;
       const xButton = latestSpotlight.x_url
         ? `<a class="spotlight-btn secondary" href="${escapeHtml(latestSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
         : '';
+      const spotlightStatusCopy = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : focusedDay > today
+          ? 'Upcoming Spotlight'
+          : focusedDay < today
+            ? 'Previous Spotlight'
+            : 'Todayâ€™s public feature slot';
+      const spotlightStatusText = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : focusedDay > today
+          ? 'Upcoming Spotlight'
+          : focusedDay < today
+            ? 'Previous Spotlight'
+            : 'Today spotlight';
+      const projectPrimaryLabel = displayedSpotlight.primary_action_label || 'Visit Project ->';
+      const projectLogo = displayedSpotlight.project_logo_url
+        ? `<img class="spotlight-logo" src="${escapeHtml(displayedSpotlight.project_logo_url)}" alt="${escapeHtml(displayedSpotlight.project_name)} logo" />`
+        : `<div class="spotlight-logo-fallback">ðŸ“¡</div>`;
+      const tradeUrlResolved = displayedSpotlight.trade_url || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
+      const tradeActionLabelResolved = displayedSpotlight.trade_action_label || (tradeUrlResolved ? 'Open on Dex ->' : '');
+      const tradeButtonResolved = tradeUrlResolved && tradeUrlResolved !== displayedSpotlight.project_url
+        ? `<a class="spotlight-btn secondary" href="${escapeHtml(tradeUrlResolved)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeActionLabelResolved)}</a>`
+        : '';
+      const xButtonResolved = displayedSpotlight.x_url
+        ? `<a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
+        : '';
 
       shell.innerHTML = `
         <div class="spotlight-row">
-          ${logo}
+          ${projectLogo}
           <div>
-            <div class="spotlight-name">${escapeHtml(latestSpotlight.project_name)}</div>
-            <div class="spotlight-desc">${escapeHtml(latestSpotlight.project_description)}</div>
+            <div class="spotlight-name">${escapeHtml(displayedSpotlight.project_name)}</div>
+            <div class="spotlight-desc">${escapeHtml(displayedSpotlight.project_description)}</div>
             <div class="spotlight-status">Today’s public feature slot</div>
           </div>
         </div>
@@ -2933,23 +3407,49 @@
           ${xButton}
         </div>
       `;
+      const statusNode = shell.querySelector('.spotlight-status');
+      if (statusNode) statusNode.textContent = spotlightStatusText;
+      const logoFallbackNode = shell.querySelector('.spotlight-logo-fallback');
+      if (logoFallbackNode) logoFallbackNode.textContent = 'SP';
+      const actionsNode = shell.querySelector('.spotlight-actions');
+      if (actionsNode) {
+        actionsNode.innerHTML = `
+          <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeUrlResolved || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(projectPrimaryLabel)}</a>
+          ${tradeButtonResolved}
+          ${xButtonResolved}
+          <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+        `;
+      }
+      renderSpotlightWeekStrip();
     }
 
     async function loadSpotlightTeaser() {
       try {
-        const now = Math.floor(Date.now() / 86400000);
-        const res = await fetch(`/api/spotlight?fromDay=${now}&toDay=${now + 30}&t=` + Date.now(), {
+        const now = getCurrentSpotlightDay();
+        const res = await fetch(`/api/spotlight?fromDay=${now - 3}&toDay=${now + 30}&t=` + Date.now(), {
           cache: 'no-store'
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
         latestSpotlight = data?.today || null;
+        spotlightSlots = Array.isArray(data?.slots) ? data.slots : [];
+        spotlightFocusDay = spotlightFocusDay || latestSpotlight?.slot_day || now;
         renderSpotlightTeaser();
       } catch {
         latestSpotlight = null;
+        spotlightSlots = [];
         renderSpotlightTeaser();
       }
     }
+
+    document.addEventListener('click', (event) => {
+      const focusButton = event.target.closest('[data-spotlight-focus-day]');
+      if (!focusButton) return;
+      const day = Number.parseInt(focusButton.getAttribute('data-spotlight-focus-day') || '0', 10);
+      if (!day) return;
+      spotlightFocusDay = day;
+      renderSpotlightTeaser();
+    });
 
     async function copyText(text) {
       try {
@@ -2980,6 +3480,8 @@
           const ch = t.price_change_24h || 0;
           const chCls = ch > 0 ? 'pos' : ch < 0 ? 'neg' : 'flat';
           const chTxt = ch !== 0 ? (ch > 0 ? '+' : '') + ch.toFixed(1) + '%' : '0.0%';
+          const liqDeltaCls = pctChangeClass(t.liquidity_change_24h_pct);
+          const holderDeltaCls = pctChangeClass(t.holder_count_change_24h_pct);
           return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
             <div class="hm-head">
               <div>
@@ -2998,20 +3500,24 @@
               <div class="hm-metric">
                 <div class="hm-metric-label">LIQ</div>
                 <div class="hm-metric-value">${fmtUsd(t.liquidity_usd)}</div>
+                <div class="tc-metric-change ${liqDeltaCls}">${fmtPctChange(t.liquidity_change_24h_pct)}</div>
               </div>
               <div class="hm-metric">
                 <div class="hm-metric-label">HOLDERS</div>
                 <div class="hm-metric-value">${fmtNum(t.holder_count)}</div>
+                <div class="tc-metric-change ${holderDeltaCls}">${fmtPctChange(t.holder_count_change_24h_pct)}</div>
               </div>
               <div class="hm-metric">
                 <div class="hm-metric-label">VOL 24H</div>
                 <div class="hm-metric-value">${fmtUsd(t.volume_24h_usd)}</div>
               </div>
             </div>
+            ${buildHeatmapChartShell(t)}
           </div>`;
         }).join('');
 
         requestAnimationFrame(() => {
+          initHeatmapCharts(grid);
           grid.querySelectorAll('.hm-score').forEach(el => {
             animateNumber(el, el.dataset.score || el.textContent, 700);
           });

@@ -284,45 +284,6 @@
       transform: translateY(-1px);
     }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .summary-card {
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-      padding: 14px;
-      min-height: 92px;
-    }
-
-    .summary-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: rgba(234,244,255,0.34);
-      margin-bottom: 10px;
-    }
-
-    .summary-value {
-      font-size: 22px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: white;
-      margin-bottom: 6px;
-    }
-
-    .summary-sub {
-      font-size: 11px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
     .page-card {
       border-radius: 26px;
       border: 1px solid rgba(20,230,212,0.18);
@@ -671,6 +632,76 @@
     .day-pill.taken .mon,
     .day-pill.taken .num,
     .day-pill.taken .state { color: #FF7080; }
+
+    .week-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .week-pill {
+      flex: 0 0 88px;
+      min-width: 88px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      padding: 9px 9px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      text-align: left;
+      min-height: 68px;
+      justify-content: flex-start;
+    }
+
+    .week-pill.active {
+      border-color: rgba(20,230,212,0.34);
+      background: rgba(20,230,212,0.11);
+      box-shadow: 0 0 0 1px rgba(20,230,212,0.12) inset;
+    }
+
+    .week-pill.has-slot {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .week-pill-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.38);
+    }
+
+    .week-pill-date {
+      font-size: 12px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .week-pill-name {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(234,244,255,0.86);
+      line-height: 1.25;
+      min-height: 22px;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .week-pill-status {
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.40);
+    }
 
     .how-card {
       padding: 16px;
@@ -1067,6 +1098,10 @@
       text-align: center;
     }
 
+    .page-card-body .surface-card:first-of-type .section-label:first-child {
+      display: none;
+    }
+
     @media (max-width: 520px) {
       .wrap { padding-inline: 14px; }
       .page-rail {
@@ -1074,13 +1109,16 @@
         align-items: flex-start;
       }
       .page-rail-meta { text-align: left; }
-      .summary-grid { grid-template-columns: 1fr; }
       .brand-title { font-size: 22px; }
       .nav-btn { min-width: 0; }
       .header-top { align-items: flex-start; }
       .status-badge { margin-top: 2px; }
       .hero-actions,
       .modal-actions { flex-direction: column; }
+      .week-pill {
+        flex-basis: 92px;
+        min-width: 92px;
+      }
     }
   </style>
 </head>
@@ -1116,24 +1154,6 @@
       </div>
     </header>
 
-    <section class="summary-grid" aria-label="Spotlight summary">
-      <div class="summary-card">
-        <div class="summary-label">Price</div>
-        <div class="summary-value">0.01 ETH</div>
-        <div class="summary-sub">One day per booking, with server-side payment checks before submission is accepted.</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">Window</div>
-        <div class="summary-value">30 Days</div>
-        <div class="summary-sub">The public calendar only opens the same booking window you see in the Farcaster-style flow.</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">Route</div>
-        <div class="summary-value">Public</div>
-        <div class="summary-sub">Built as the public Spotlight surface, while the homepage terminal stays focused on signals first.</div>
-      </div>
-    </section>
-
     <section class="page-card">
       <div class="page-card-head">
         <div class="eyebrow"><span class="dot"></span>Feature Your Project</div>
@@ -1144,6 +1164,12 @@
         <div class="surface-card">
           <div class="hero-body">
             <div class="section-label">Available Days · 0.01 ETH / day</div>
+            <div id="spotlight-week-strip" class="week-strip"></div>
+          </div>
+        </div>
+        <div class="surface-card">
+          <div class="hero-body">
+            <div class="section-label">Available Days</div>
             <div id="calendar-strip" class="day-strip"></div>
           </div>
         </div>
@@ -1217,6 +1243,8 @@
     const state = {
       loading: true,
       todaySlot: null,
+      slots: [],
+      focusDay: null,
       takenDays: new Set(),
       modalOpen: false,
       step: 'form',
@@ -1253,6 +1281,60 @@
       });
     }
 
+    function formatShortDay(day) {
+      return slotDayToDate(day).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    function getSlotForDay(day) {
+      return (state.slots || []).find((slot) => slot.slot_day === day) || null;
+    }
+
+    function getRelativeDayLabel(day) {
+      const diff = day - currentSlotDay();
+      if (diff === 0) return 'Today';
+      if (diff === 1) return 'Tomorrow';
+      if (diff === -1) return 'Yesterday';
+      if (diff > 1) return `In ${diff} Days`;
+      return `${Math.abs(diff)} Days Ago`;
+    }
+
+    function getHeroStatus(slot, viewedDay) {
+      if (slot?.source === 'lowcaps_auto') return 'Auto-filled from Low Caps Emerging';
+      if (viewedDay === currentSlotDay()) return 'Today\'s featured slot';
+      if (viewedDay > currentSlotDay()) return 'Upcoming scheduled Spotlight';
+      return 'Previous Spotlight';
+    }
+
+    function renderWeekStrip() {
+      const shell = document.getElementById('spotlight-week-strip');
+      if (!shell) return;
+      const today = currentSlotDay();
+      const focusDay = state.focusDay || today;
+      const days = Array.from({ length: 7 }, (_, index) => today - 3 + index);
+
+      shell.innerHTML = days.map((day) => {
+        const slot = getSlotForDay(day);
+        const classes = ['week-pill'];
+        if (slot) classes.push('has-slot');
+        if (day === focusDay) classes.push('active');
+        const status = slot
+          ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
+          : (day > today ? 'Open' : 'None');
+        const name = slot ? slot.project_name : (day > today ? 'Available' : 'No slot');
+        return `
+          <button type="button" class="${classes.join(' ')}" data-action="focus-day" data-day="${day}">
+            <span class="week-pill-label">${escapeHtml(getRelativeDayLabel(day))}</span>
+            <span class="week-pill-date">${escapeHtml(formatShortDay(day))}</span>
+            <span class="week-pill-name">${escapeHtml(name)}</span>
+            <span class="week-pill-status">${escapeHtml(status)}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
     function escapeHtml(value) {
       return String(value ?? '')
         .replaceAll('&', '&amp;')
@@ -1284,20 +1366,32 @@
         return;
       }
 
-      if (!state.todaySlot) {
+      const viewedDay = state.focusDay || currentSlotDay();
+      const slot = getSlotForDay(viewedDay) || (viewedDay === currentSlotDay() ? state.todaySlot : null);
+
+      if (!slot) {
+        const isPast = viewedDay < currentSlotDay();
+        const isToday = viewedDay === currentSlotDay();
+        const title = isPast ? 'No Spotlight For This Day' : isToday ? 'No Spotlight Today' : 'No Spotlight Scheduled Yet';
+        const copy = isPast
+          ? 'There was no published Spotlight captured for this date.'
+          : isToday
+            ? 'This slot is still open. If nothing is approved by the fallback hour, Low Caps Emerging can fill it automatically.'
+            : 'This future slot is still open. If it stays empty on the day, Low Caps Emerging can auto-fill it after the daily cutoff.';
+        const buttonLabel = isPast ? 'Back To Today' : 'Book This Day';
+        const buttonAction = isPast ? 'focus-today' : 'apply-day';
         shell.className = 'empty-card';
         shell.innerHTML = `
           <div class="empty-icon">📡</div>
           <div>
-            <div class="empty-title">No Spotlight Today</div>
-            <div class="empty-copy">This slot is open right now. Be the first to reserve it and feature your project.</div>
+            <div class="empty-title">${escapeHtml(title)}</div>
+            <div class="empty-copy">${escapeHtml(copy)}</div>
           </div>
-          <button class="primary-btn" type="button" data-action="apply-today">Claim Today →</button>
+          <button class="primary-btn" type="button" data-action="${buttonAction}">${escapeHtml(buttonLabel)}</button>
         `;
         return;
       }
 
-      const slot = state.todaySlot;
       const media = slot.video_url
         ? (() => {
             const isGif = slot.video_url.toLowerCase().endsWith('.gif');
@@ -1318,12 +1412,25 @@
           })()
         : '';
 
-      const logo = slot.project_logo_url
-        ? `<img class="hero-logo" src="${escapeHtml(slot.project_logo_url)}" alt="${escapeHtml(slot.project_name)} logo" onerror="this.style.display='none'" />`
-        : '';
+      const forcedLogoUrl =
+        viewedDay === currentSlotDay()
+          ? 'https://usd.ai/images/logo-full-lockup.svg'
+          : slot.project_logo_url;
 
-      const dexAction = slot.token_address
-        ? `<button class="secondary-btn green" type="button" data-open-url="${escapeHtml(`https://dexscreener.com/base/${slot.token_address}`)}">Open On Dex →</button>`
+      const logo = forcedLogoUrl
+        ? `<img class="hero-logo" src="${escapeHtml(forcedLogoUrl)}" alt="${escapeHtml(slot.project_name)} logo" onerror="this.style.display='none'" />`
+        : '';
+      const heroStatus = getHeroStatus(slot, viewedDay);
+      const heroLabel = viewedDay > currentSlotDay()
+        ? 'Upcoming Spotlight'
+        : viewedDay < currentSlotDay()
+          ? 'Previous Spotlight'
+          : 'Today Spotlight';
+      const primaryActionLabel = slot.primary_action_label || 'Visit Project ->';
+      const tradeUrl = slot.trade_url || (slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : '');
+      const tradeActionLabel = slot.trade_action_label || (tradeUrl ? 'Open on Dex ->' : '');
+      const tradeAction = tradeUrl && tradeUrl !== slot.project_url
+        ? `<button class="secondary-btn green" type="button" data-open-url="${escapeHtml(tradeUrl)}">${escapeHtml(tradeActionLabel)}</button>`
         : '';
 
       const xAction = slot.x_url
@@ -1339,8 +1446,9 @@
         <div class="hero-accent"></div>
         <div class="hero-body">
           <div class="hero-meta">
-            <div class="hero-label">Today’s Spotlight</div>
+            <div class="hero-label">${escapeHtml(heroLabel)}</div>
             <div class="hero-date">${escapeHtml(formatDate(slot.slot_day))}</div>
+            <div class="section-label" style="margin-bottom:0">${escapeHtml(getRelativeDayLabel(viewedDay))}</div>
           </div>
           ${media}
           <div class="hero-copy">
@@ -1348,11 +1456,12 @@
             <div>
               <div class="hero-title">${escapeHtml(slot.project_name)}</div>
               <div class="hero-description">${escapeHtml(slot.project_description)}</div>
+              <div class="section-label" style="margin-top:12px; margin-bottom:0">${escapeHtml(heroStatus)}</div>
             </div>
           </div>
           <div class="hero-actions">
-            <button class="primary-btn" type="button" data-open-url="${escapeHtml(slot.project_url)}">Visit Project →</button>
-            ${dexAction}
+            <button class="primary-btn" type="button" data-open-url="${escapeHtml(slot.project_url)}">${escapeHtml(primaryActionLabel)}</button>
+            ${tradeAction}
             ${xAction}
           </div>
         </div>
@@ -1666,13 +1775,16 @@
       renderHero();
       try {
         const today = currentSlotDay();
-        const res = await fetch(`/api/spotlight?fromDay=${today}&toDay=${today + 30}`, { cache: 'no-store' });
+        const res = await fetch(`/api/spotlight?fromDay=${today - 3}&toDay=${today + 30}`, { cache: 'no-store' });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
         state.todaySlot = data.today || null;
+        state.slots = Array.isArray(data.slots) ? data.slots : [];
+        state.focusDay = state.focusDay || today;
         state.takenDays = new Set(data.takenDays || []);
       } catch (error) {
         state.todaySlot = null;
+        state.slots = [];
         state.takenDays = new Set();
         const shell = document.getElementById('spotlight-hero');
         shell.className = 'notice error';
@@ -1680,6 +1792,7 @@
       } finally {
         state.loading = false;
         renderHero();
+        renderWeekStrip();
         renderCalendar();
       }
     }
@@ -1787,7 +1900,27 @@
 
       const action = target.dataset.action;
       if (action === 'apply-today') {
-        openModal(currentSlotDay());
+        openModal(Math.max(currentSlotDay(), state.focusDay || currentSlotDay()));
+        return;
+      }
+      if (action === 'apply-day') {
+        const day = Number.parseInt(target.dataset.day || '0', 10);
+        if (day) openModal(Math.max(currentSlotDay(), day));
+        return;
+      }
+      if (action === 'focus-day') {
+        const day = Number.parseInt(target.dataset.day || '0', 10);
+        if (day) {
+          state.focusDay = day;
+          renderWeekStrip();
+          renderHero();
+        }
+        return;
+      }
+      if (action === 'focus-today') {
+        state.focusDay = currentSlotDay();
+        renderWeekStrip();
+        renderHero();
         return;
       }
       if (action === 'pick-day') {
@@ -1853,7 +1986,9 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       state.selectedDay = currentSlotDay();
+      state.focusDay = currentSlotDay();
       renderCalendar();
+      renderWeekStrip();
       renderHero();
       loadSpotlight();
     });
