@@ -99,6 +99,8 @@ export function mapSpotlightRow(row) {
     submitter_address: row.submitter_address || undefined,
     submitter_fid: row.submitter_fid || undefined,
     primary_action_label: row.primary_action_label || undefined,
+    trade_url: row.trade_url || undefined,
+    trade_action_label: row.trade_action_label || undefined,
     source: row.source || undefined,
     status: row.status,
     nft_token_id: row.nft_token_id || undefined,
@@ -165,7 +167,8 @@ export function buildLowCapSpotlightFallback(now = new Date()) {
   if (!token) return null;
 
   const slotDay = currentSlotDay(now);
-  const projectUrl = token.o1_url || token.dexscreener_url || token.okx_url;
+  const tradeUrl = token.o1_url || token.dexscreener_url || token.okx_url;
+  const projectUrl = token.x_url || token.dexscreener_url || token.okx_url || tradeUrl;
   const marketCap = formatCompactUsd(token.mcap_usd);
   const liquidity = formatCompactUsd(token.lp_total_usd);
   const move24h = formatSignedPercent(token.price_change_24h);
@@ -188,7 +191,9 @@ export function buildLowCapSpotlightFallback(now = new Date()) {
     token_address: normalizeAddress(token.token_address) || undefined,
     submitter_address: undefined,
     submitter_fid: undefined,
-    primary_action_label: token.o1_url ? 'Trade on O1 ->' : token.dexscreener_url ? 'Open on DEX ->' : 'Open setup ->',
+    primary_action_label: token.x_url ? 'Open on X ->' : projectUrl === token.dexscreener_url ? 'Open on DEX ->' : 'Open setup ->',
+    trade_url: tradeUrl || undefined,
+    trade_action_label: token.o1_url ? 'Trade on O1 ->' : token.dexscreener_url ? 'Open on DEX ->' : token.okx_url ? 'Trade on OKX ->' : undefined,
     source: 'lowcaps_auto',
     status: 'auto_fallback',
     nft_token_id: undefined,
