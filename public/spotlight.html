@@ -1026,14 +1026,51 @@
       letter-spacing: 0.04em;
     }
 
-    .hero-action-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero-action-stack {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
-    .hero-action-grid .secondary-btn.utility {
+    .hero-action-row {
+      display: grid;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.025);
+    }
+
+    .hero-action-row.primary {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025));
+    }
+
+    .hero-action-row.trade {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-color: rgba(20,230,212,0.10);
+      background: linear-gradient(180deg, rgba(20,230,212,0.05), rgba(255,255,255,0.02));
+    }
+
+    .hero-action-row.share {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      background: linear-gradient(180deg, rgba(0,82,255,0.05), rgba(255,255,255,0.02));
+    }
+
+    .hero-action-row .secondary-btn.utility {
       color: rgba(234,244,255,0.86);
+    }
+
+    .secondary-btn.okx {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.16);
+      color: #ffffff;
+    }
+
+    .secondary-btn.dex {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+      color: rgba(234,244,255,0.92);
     }
 
     .hero-feedback {
@@ -1484,7 +1521,9 @@
         height: 64px;
         border-radius: 18px;
       }
-      .hero-action-grid {
+      .hero-action-row.primary,
+      .hero-action-row.trade,
+      .hero-action-row.share {
         grid-template-columns: 1fr;
       }
     }
@@ -1715,19 +1754,18 @@
       return '';
     }
 
-    function getResolvedSpotlightTradeUrl(slot) {
-      if (!slot) return '';
+    function getSpotlightTradeLinks(slot) {
+      if (!slot) return { o1Url: '', okxUrl: '', dexUrl: '' };
       const projectUrlText = String(slot.project_url || '').toLowerCase();
       const tokenAddressText = String(slot.token_address || '').toLowerCase();
-      return slot.trade_url
-        || ((projectUrlText.includes('usd.ai') && tokenAddressText === CHIP_TOKEN_ADDRESS) ? CHIP_TRADE_URL : '')
-        || (slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : '');
-    }
-
-    function getResolvedSpotlightTradeLabel(slot, tradeUrl) {
-      if (!tradeUrl) return '';
-      return slot?.trade_action_label
-        || (tradeUrl === CHIP_TRADE_URL ? 'Trade CHIP on O1 ->' : 'Open on Dex ->');
+      const tokenAddress = slot.token_address || '';
+      const o1Url = slot.trade_url
+        || ((projectUrlText.includes('usd.ai') && tokenAddressText === CHIP_TOKEN_ADDRESS) ? CHIP_TRADE_URL : '');
+      return {
+        o1Url,
+        okxUrl: tokenAddress ? `https://web3.okx.com/token/base/${tokenAddress}?ref=OKX10c` : '',
+        dexUrl: tokenAddress ? `https://dexscreener.com/base/${tokenAddress}` : ''
+      };
     }
 
     function getSpotlightWindowStatus(slot, day) {
@@ -1827,7 +1865,8 @@
         slot.project_description || '',
       ].filter(Boolean);
       if (slot.project_url) lines.push(`Project: ${slot.project_url}`);
-      const tradeUrl = getResolvedSpotlightTradeUrl(slot);
+      const tradeLinks = getSpotlightTradeLinks(slot);
+      const tradeUrl = tradeLinks.o1Url || tradeLinks.dexUrl || tradeLinks.okxUrl;
       if (tradeUrl && tradeUrl !== slot.project_url) lines.push(`Trade: ${tradeUrl}`);
       lines.push(`Date: ${formatDate(viewedDay)}`);
       lines.push(`View: ${window.location.origin}/spotlight`);
@@ -1903,15 +1942,20 @@
           ? 'Previous Spotlight'
           : 'Today Spotlight';
       const primaryActionLabel = slot.primary_action_label || 'Visit Project ->';
-      const tradeUrl = getResolvedSpotlightTradeUrl(slot);
-      const tradeActionLabel = getResolvedSpotlightTradeLabel(slot, tradeUrl);
-      const tradeAction = tradeUrl && tradeUrl !== slot.project_url
-        ? `<button class="secondary-btn green" type="button" data-open-url="${escapeHtml(tradeUrl)}">${escapeHtml(tradeActionLabel)}</button>`
-        : '';
-
-      const xAction = slot.x_url
-        ? `<button class="secondary-btn utility" type="button" data-open-url="${escapeHtml(slot.x_url)}">X / Twitter</button>`
-        : '';
+      const tradeLinks = getSpotlightTradeLinks(slot);
+      const primaryRowActions = [
+        slot.project_url
+          ? `<button class="primary-btn" type="button" data-open-url="${escapeHtml(slot.project_url)}">${escapeHtml(primaryActionLabel)}</button>`
+          : '',
+        slot.x_url
+          ? `<button class="secondary-btn utility" type="button" data-open-url="${escapeHtml(slot.x_url)}">X / Twitter</button>`
+          : ''
+      ].filter(Boolean).join('');
+      const tradeRowActions = [
+        tradeLinks.o1Url ? `<button class="secondary-btn green" type="button" data-open-url="${escapeHtml(tradeLinks.o1Url)}">Trade on O1</button>` : '',
+        tradeLinks.okxUrl ? `<button class="secondary-btn okx" type="button" data-open-url="${escapeHtml(tradeLinks.okxUrl)}">Trade on OKX</button>` : '',
+        tradeLinks.dexUrl ? `<button class="secondary-btn dex" type="button" data-open-url="${escapeHtml(tradeLinks.dexUrl)}">DEXScreener</button>` : ''
+      ].filter(Boolean).join('');
       const dayCaption = viewedDay === currentSlotDay() ? 'In focus now' : getRelativeDayLabel(viewedDay);
 
       shell.className = 'hero-premium';
@@ -1936,12 +1980,15 @@
               <div class="hero-status-copy">${escapeHtml(heroStatus)}</div>
             </div>
           </div>
-          <div class="hero-action-grid">
-            <button class="primary-btn" type="button" data-open-url="${escapeHtml(slot.project_url)}">${escapeHtml(primaryActionLabel)}</button>
-            ${tradeAction}
-            ${xAction}
-            <button class="secondary-btn utility" type="button" data-action="post-spotlight-x">Post on X</button>
-            <button class="secondary-btn utility" type="button" data-action="copy-spotlight-image">Copy Image</button>
+          <div class="hero-action-stack">
+            <div class="hero-action-row primary">
+              ${primaryRowActions}
+            </div>
+            ${tradeRowActions ? `<div class="hero-action-row trade">${tradeRowActions}</div>` : ''}
+            <div class="hero-action-row share">
+              <button class="secondary-btn utility" type="button" data-action="post-spotlight-x">Post on X</button>
+              <button class="secondary-btn utility" type="button" data-action="copy-spotlight-image">Copy Image</button>
+            </div>
           </div>
           <div id="spotlight-share-feedback" class="hero-feedback">Share-ready card.</div>
         </div>
