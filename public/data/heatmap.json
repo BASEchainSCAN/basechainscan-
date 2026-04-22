@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T06:56:35Z",
+  "generated_at": "2026-04-22T06:56:43Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -205,14 +205,14 @@
         {
           "ts": "2026-04-22 04:00:00",
           "ts_unix": 1776830400,
-          "price_usd": 0.064541157575
+          "price_usd": 0.064908939855
         }
       ],
-      "price_history_source": "provider_ohlcv_same_pool",
+      "price_history_source": "cached_provider_ohlcv_same_pool",
       "canonical_pool_address": "0x44b5d0d8ce8c643c7e217e92492621c4c0ae3121",
       "price_history_points": 37,
       "price_history_span_hours": 144.0,
-      "price_history_reason": "partial_history_from_provider_ohlcv_same_pool"
+      "price_history_reason": "partial_history_from_cached_provider_ohlcv_same_pool"
     },
     {
       "rank": 2,
