@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T05:25:30Z",
+  "generated_at": "2026-04-22T05:30:30Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -353,11 +353,11 @@
           "price_usd": 0.018975565091
         }
       ],
-      "price_history_source": "provider_ohlcv_same_pool",
+      "price_history_source": "cached_provider_ohlcv_same_pool",
       "canonical_pool_address": "0x7f31b371ac675bca3357fd9c26854fed067400c0",
       "price_history_points": 56,
       "price_history_span_hours": 220.0,
-      "price_history_reason": "full_history_from_provider_ohlcv_same_pool"
+      "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
       "rank": 4,
@@ -659,11 +659,11 @@
           "price_usd": 2431.18693306812
         }
       ],
-      "price_history_source": "provider_ohlcv_same_pool",
+      "price_history_source": "cached_provider_ohlcv_same_pool",
       "canonical_pool_address": "0xba154beaa14172ff9384b82499732c669527d85d",
       "price_history_points": 56,
       "price_history_span_hours": 220.0,
-      "price_history_reason": "full_history_from_provider_ohlcv_same_pool"
+      "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
       "rank": 5,
@@ -2188,7 +2188,7 @@
       "market_cap_usd": 4646596.0,
       "liquidity_usd": 0.03,
       "holder_count": 332782,
-      "liquidity_change_24h_pct": -5.43,
+      "liquidity_change_24h_pct": -5.07,
       "holder_count_change_24h_pct": 0.26,
       "top10_pct": 61.69,
       "volume_24h_usd": 0.0,
