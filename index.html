@@ -1616,6 +1616,84 @@
       margin-top: 14px;
     }
 
+    .spotlight-week-strip {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-top: 12px;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .spotlight-week-pill {
+      flex: 0 0 88px;
+      min-width: 88px;
+      padding: 9px 9px 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      text-align: left;
+      min-height: 68px;
+      justify-content: flex-start;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .spotlight-week-pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .spotlight-week-pill.active {
+      border-color: rgba(20,230,212,0.34);
+      background: rgba(20,230,212,0.12);
+      box-shadow: 0 0 0 1px rgba(20,230,212,0.12) inset;
+    }
+
+    .spotlight-week-pill.has-slot {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .spotlight-week-kicker {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.38);
+    }
+
+    .spotlight-week-date {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .spotlight-week-name {
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: rgba(234,244,255,0.84);
+      min-height: 22px;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .spotlight-week-status {
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,244,255,0.4);
+    }
+
     .spotlight-btn {
       min-height: 42px;
       padding: 11px 14px;
@@ -2417,9 +2495,9 @@
           <div class="surface-pane-meta" id="spotlight-meta">Feature your project</div>
         </div>
         <div class="surface-pane-body">
-          <div class="surface-pane-intro">Daily featured project slot with the Farcaster-style promo flow, now exposed as a public route.</div>
           <div class="spotlight-shell">
             <div id="spotlight-public-card"></div>
+            <div id="spotlight-public-week-strip" class="spotlight-week-strip"></div>
           </div>
         </div>
       </section>
@@ -2569,6 +2647,8 @@
     let latestHeatmap = null;
     let latestTop4 = null;
     let latestSpotlight = null;
+    let spotlightSlots = [];
+    let spotlightFocusDay = null;
     let latestPublicGeneratedAtMs = 0;
     let latestPublicRefreshStartedMs = 0;
     let latestPublicRefreshCompletedMs = 0;
@@ -2780,6 +2860,51 @@
       } catch {
         return 'Today';
       }
+    }
+
+    function getCurrentSpotlightDay() {
+      return Math.floor(Date.now() / 86400000);
+    }
+
+    function formatRelativeSpotlightDay(slotDay) {
+      const diff = Number(slotDay) - getCurrentSpotlightDay();
+      if (diff === 0) return 'Today';
+      if (diff === 1) return 'Tomorrow';
+      if (diff === -1) return 'Yesterday';
+      if (diff > 1) return `In ${diff} Days`;
+      return `${Math.abs(diff)} Days Ago`;
+    }
+
+    function getSpotlightSlotForDay(slotDay) {
+      return (spotlightSlots || []).find((slot) => Number(slot?.slot_day) === Number(slotDay)) || null;
+    }
+
+    function renderSpotlightWeekStrip() {
+      const shell = document.getElementById('spotlight-public-week-strip');
+      if (!shell) return;
+
+      const today = getCurrentSpotlightDay();
+      const focusDay = spotlightFocusDay || today;
+      const days = Array.from({ length: 7 }, (_, index) => today - 3 + index);
+
+      shell.innerHTML = days.map((day) => {
+        const slot = getSpotlightSlotForDay(day);
+        const classes = ['spotlight-week-pill'];
+        if (slot) classes.push('has-slot');
+        if (day === focusDay) classes.push('active');
+        const status = slot
+          ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
+          : (day > today ? 'Open' : 'None');
+        const name = slot ? slot.project_name : (day > today ? 'Available' : 'No slot');
+        return `
+          <button type="button" class="${classes.join(' ')}" data-spotlight-focus-day="${day}">
+            <span class="spotlight-week-kicker">${escapeHtml(formatRelativeSpotlightDay(day))}</span>
+            <span class="spotlight-week-date">${escapeHtml(formatShortDate(day))}</span>
+            <span class="spotlight-week-name">${escapeHtml(name)}</span>
+            <span class="spotlight-week-status">${escapeHtml(status)}</span>
+          </button>
+        `;
+      }).join('');
     }
 
     function syncPublicUpdateState() {
@@ -3207,35 +3332,71 @@
       const shell = document.getElementById('spotlight-public-card');
       const meta = document.getElementById('spotlight-meta');
       if (!shell || !meta) return;
+      const today = getCurrentSpotlightDay();
+      const focusedDay = spotlightFocusDay || today;
+      const displayedSpotlight = getSpotlightSlotForDay(focusedDay)
+        || ((latestSpotlight?.slot_day || today) === focusedDay ? latestSpotlight : null);
 
-      if (!latestSpotlight) {
-        meta.textContent = 'Feature your project';
+      if (!displayedSpotlight) {
+        meta.textContent = formatShortDate(focusedDay);
         shell.innerHTML = `
           <div class="spotlight-empty">
-            <strong>No Spotlight Live</strong>
-            This feature slot is open right now. Use the public Spotlight route to reserve a day.
+            <strong>No Spotlight Set</strong>
+            This day does not have a published Spotlight yet. Open the public Spotlight page to review the full week.
           </div>
           <div class="spotlight-actions">
           <a class="spotlight-btn primary" href="/spotlight">Open Spotlight →</a>
           </div>
         `;
+        renderSpotlightWeekStrip();
         return;
       }
 
-      meta.textContent = formatShortDate(latestSpotlight.slot_day);
+      meta.textContent = formatShortDate(displayedSpotlight.slot_day);
+      latestSpotlight = latestSpotlight || displayedSpotlight;
+      const spotlightStatus = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : 'Today’s public feature slot';
+      const primaryActionLabel = latestSpotlight.primary_action_label || 'Visit Project →';
       const logo = latestSpotlight.project_logo_url
         ? `<img class="spotlight-logo" src="${escapeHtml(latestSpotlight.project_logo_url)}" alt="${escapeHtml(latestSpotlight.project_name)} logo" />`
         : `<div class="spotlight-logo-fallback">📡</div>`;
       const xButton = latestSpotlight.x_url
         ? `<a class="spotlight-btn secondary" href="${escapeHtml(latestSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
         : '';
+      const spotlightStatusCopy = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : focusedDay > today
+          ? 'Upcoming Spotlight'
+          : focusedDay < today
+            ? 'Previous Spotlight'
+            : 'Todayâ€™s public feature slot';
+      const spotlightStatusText = displayedSpotlight.source === 'lowcaps_auto'
+        ? 'Auto-filled from Low Caps Emerging'
+        : focusedDay > today
+          ? 'Upcoming Spotlight'
+          : focusedDay < today
+            ? 'Previous Spotlight'
+            : 'Today spotlight';
+      const projectPrimaryLabel = displayedSpotlight.primary_action_label || 'Visit Project ->';
+      const projectLogo = displayedSpotlight.project_logo_url
+        ? `<img class="spotlight-logo" src="${escapeHtml(displayedSpotlight.project_logo_url)}" alt="${escapeHtml(displayedSpotlight.project_name)} logo" />`
+        : `<div class="spotlight-logo-fallback">ðŸ“¡</div>`;
+      const tradeUrlResolved = displayedSpotlight.trade_url || (displayedSpotlight.token_address ? `https://dexscreener.com/base/${displayedSpotlight.token_address}` : '');
+      const tradeActionLabelResolved = displayedSpotlight.trade_action_label || (tradeUrlResolved ? 'Open on Dex ->' : '');
+      const tradeButtonResolved = tradeUrlResolved && tradeUrlResolved !== displayedSpotlight.project_url
+        ? `<a class="spotlight-btn secondary" href="${escapeHtml(tradeUrlResolved)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeActionLabelResolved)}</a>`
+        : '';
+      const xButtonResolved = displayedSpotlight.x_url
+        ? `<a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
+        : '';
 
       shell.innerHTML = `
         <div class="spotlight-row">
-          ${logo}
+          ${projectLogo}
           <div>
-            <div class="spotlight-name">${escapeHtml(latestSpotlight.project_name)}</div>
-            <div class="spotlight-desc">${escapeHtml(latestSpotlight.project_description)}</div>
+            <div class="spotlight-name">${escapeHtml(displayedSpotlight.project_name)}</div>
+            <div class="spotlight-desc">${escapeHtml(displayedSpotlight.project_description)}</div>
             <div class="spotlight-status">Today’s public feature slot</div>
           </div>
         </div>
@@ -3245,23 +3406,53 @@
           ${xButton}
         </div>
       `;
+      const statusNode = shell.querySelector('.spotlight-status');
+      if (statusNode) statusNode.textContent = spotlightStatusText;
+      const logoNode = shell.querySelector('.spotlight-logo');
+      if (logoNode && String(displayedSpotlight.project_url || '').toLowerCase().includes('usd.ai')) {
+        logoNode.src = 'https://usd.ai/images/logo-full-lockup.svg';
+      }
+      const logoFallbackNode = shell.querySelector('.spotlight-logo-fallback');
+      if (logoFallbackNode) logoFallbackNode.textContent = 'SP';
+      const actionsNode = shell.querySelector('.spotlight-actions');
+      if (actionsNode) {
+        actionsNode.innerHTML = `
+          <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeUrlResolved || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(projectPrimaryLabel)}</a>
+          ${tradeButtonResolved}
+          ${xButtonResolved}
+          <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+        `;
+      }
+      renderSpotlightWeekStrip();
     }
 
     async function loadSpotlightTeaser() {
       try {
-        const now = Math.floor(Date.now() / 86400000);
-        const res = await fetch(`/api/spotlight?fromDay=${now}&toDay=${now + 30}&t=` + Date.now(), {
+        const now = getCurrentSpotlightDay();
+        const res = await fetch(`/api/spotlight?fromDay=${now - 3}&toDay=${now + 30}&t=` + Date.now(), {
           cache: 'no-store'
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
         latestSpotlight = data?.today || null;
+        spotlightSlots = Array.isArray(data?.slots) ? data.slots : [];
+        spotlightFocusDay = spotlightFocusDay || latestSpotlight?.slot_day || now;
         renderSpotlightTeaser();
       } catch {
         latestSpotlight = null;
+        spotlightSlots = [];
         renderSpotlightTeaser();
       }
     }
+
+    document.addEventListener('click', (event) => {
+      const focusButton = event.target.closest('[data-spotlight-focus-day]');
+      if (!focusButton) return;
+      const day = Number.parseInt(focusButton.getAttribute('data-spotlight-focus-day') || '0', 10);
+      if (!day) return;
+      spotlightFocusDay = day;
+      renderSpotlightTeaser();
+    });
 
     async function copyText(text) {
       try {
