@@ -3843,7 +3843,7 @@
         const data = await res.json();
         latestSpotlight = data?.today || null;
         spotlightSlots = Array.isArray(data?.slots) ? data.slots : [];
-        spotlightFocusDay = spotlightFocusDay || latestSpotlight?.slot_day || now;
+        spotlightFocusDay = clampSpotlightFocusDay(spotlightFocusDay || latestSpotlight?.slot_day || now);
         renderSpotlightTeaser();
       } catch {
         latestSpotlight = null;

@@ -1867,7 +1867,7 @@
             <div class="empty-title">${escapeHtml(title)}</div>
             <div class="empty-copy">${escapeHtml(copy)}</div>
           </div>
-          <button class="primary-btn" type="button" data-action="${buttonAction}">${escapeHtml(buttonLabel)}</button>
+          <button class="primary-btn" type="button" data-action="${buttonAction}" data-day="${viewedDay}">${escapeHtml(buttonLabel)}</button>
         `;
         return;
       }
@@ -2296,7 +2296,7 @@
         if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
         state.todaySlot = data.today || null;
         state.slots = Array.isArray(data.slots) ? data.slots : [];
-        state.focusDay = state.focusDay || today;
+        state.focusDay = clampTimelineDay(state.focusDay || today);
         state.takenDays = new Set(data.takenDays || []);
       } catch (error) {
         state.todaySlot = null;
