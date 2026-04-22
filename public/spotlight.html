@@ -703,6 +703,346 @@
       color: rgba(234,244,255,0.40);
     }
 
+    .timeline-headline,
+    .booking-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .timeline-title,
+    .booking-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-sub,
+    .booking-sub {
+      margin-top: 4px;
+      font-size: 11px;
+      line-height: 1.55;
+      color: rgba(234,244,255,0.52);
+    }
+
+    .timeline-badge {
+      flex-shrink: 0;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,230,212,0.18);
+      background: rgba(20,230,212,0.10);
+      color: var(--brand);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .timeline-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .timeline-stage {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) 42px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .timeline-nav {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: rgba(234,244,255,0.84);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .timeline-nav[disabled] {
+      opacity: 0.36;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .timeline-lane {
+      display: grid;
+      grid-template-columns: minmax(76px, 0.7fr) minmax(0, 1.35fr) minmax(76px, 0.7fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .timeline-preview {
+      min-height: 112px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      padding: 12px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
+    }
+
+    .timeline-preview.side {
+      opacity: 0.84;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .timeline-preview.active {
+      border-color: rgba(20,230,212,0.30);
+      background: linear-gradient(135deg, rgba(20,230,212,0.12), rgba(0,82,255,0.10));
+      box-shadow: 0 18px 32px rgba(0,0,0,0.18);
+    }
+
+    .timeline-preview.empty {
+      justify-content: center;
+    }
+
+    .timeline-preview-kicker,
+    .timeline-preview-status {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .timeline-preview-kicker {
+      color: rgba(234,244,255,0.40);
+    }
+
+    .timeline-preview-date {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-preview-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(234,244,255,0.90);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 30px;
+    }
+
+    .timeline-preview-status {
+      margin-top: auto;
+      color: rgba(234,244,255,0.48);
+    }
+
+    .timeline-preview.active .timeline-preview-status {
+      color: var(--brand);
+    }
+
+    .timeline-meter {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .timeline-node {
+      min-height: 52px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 6px;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .timeline-node-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(234,244,255,0.24);
+    }
+
+    .timeline-node-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: rgba(234,244,255,0.44);
+      white-space: nowrap;
+    }
+
+    .timeline-node.has-slot .timeline-node-dot {
+      background: rgba(20,230,212,0.76);
+      box-shadow: 0 0 10px rgba(20,230,212,0.44);
+    }
+
+    .timeline-node.active {
+      border-color: rgba(20,230,212,0.30);
+      background: rgba(20,230,212,0.10);
+    }
+
+    .timeline-node.active .timeline-node-label {
+      color: rgba(234,244,255,0.84);
+    }
+
+    .booking-panel {
+      border-color: rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.025));
+    }
+
+    .booking-strip .day-pill {
+      width: 56px;
+      border-radius: 16px;
+    }
+
+    .hero-premium {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(20,230,212,0.22);
+      background:
+        radial-gradient(circle at top right, rgba(20,230,212,0.16), transparent 34%),
+        linear-gradient(160deg, rgba(14,28,52,0.96), rgba(9,16,34,0.96));
+      box-shadow: 0 26px 50px rgba(0,0,0,0.28);
+    }
+
+    .hero-premium::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 38%);
+      pointer-events: none;
+    }
+
+    .hero-premium-body {
+      position: relative;
+      z-index: 1;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hero-topline-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hero-status-pill {
+      flex-shrink: 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,230,212,0.18);
+      background: rgba(20,230,212,0.10);
+      color: var(--brand);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero-date-strong {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(234,244,255,0.48);
+    }
+
+    .hero-showcase {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .hero-logo.premium {
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      box-shadow: 0 18px 30px rgba(0,0,0,0.20);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-copy-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hero-caption {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(234,244,255,0.38);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-description.premium-copy {
+      margin-top: 0;
+      font-family: var(--font-main);
+      font-size: 15px;
+      line-height: 1.58;
+      color: rgba(234,244,255,0.82);
+    }
+
+    .hero-status-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(234,244,255,0.42);
+      letter-spacing: 0.04em;
+    }
+
+    .hero-action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .hero-action-grid .secondary-btn.utility {
+      color: rgba(234,244,255,0.86);
+    }
+
+    .hero-feedback {
+      min-height: 18px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(234,244,255,0.40);
+    }
+
+    .hero-feedback.error {
+      color: #ff8a98;
+    }
+
     .how-card {
       padding: 16px;
       display: flex;
@@ -1115,9 +1455,33 @@
       .status-badge { margin-top: 2px; }
       .hero-actions,
       .modal-actions { flex-direction: column; }
-      .week-pill {
-        flex-basis: 92px;
-        min-width: 92px;
+      .timeline-headline,
+      .booking-head,
+      .hero-topline,
+      .hero-title-row {
+        flex-direction: column;
+      }
+      .timeline-stage {
+        grid-template-columns: 38px minmax(0, 1fr) 38px;
+      }
+      .timeline-lane {
+        grid-template-columns: minmax(64px, 0.65fr) minmax(0, 1.45fr) minmax(64px, 0.65fr);
+        gap: 8px;
+      }
+      .timeline-preview {
+        min-height: 106px;
+        padding: 10px;
+      }
+      .hero-showcase {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+      .hero-logo.premium {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+      }
+      .hero-action-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1164,13 +1528,27 @@
         <div class="surface-card">
           <div class="hero-body">
             <div class="section-label">Available Days · 0.01 ETH / day</div>
-            <div id="spotlight-week-strip" class="week-strip"></div>
+            <div class="timeline-headline">
+              <div>
+                <div class="section-label">Spotlight Timeline</div>
+                <div class="timeline-title">Move through the featured week</div>
+                <div class="timeline-sub">Yesterday, today and next slots stay one tap away.</div>
+              </div>
+              <div class="timeline-badge">7-Day View</div>
+            </div>
+            <div id="spotlight-week-strip" class="timeline-shell"></div>
           </div>
         </div>
         <div class="surface-card">
           <div class="hero-body">
-            <div class="section-label">Available Days</div>
-            <div id="calendar-strip" class="day-strip"></div>
+            <div class="booking-head">
+              <div>
+                <div class="section-label">Booking Window</div>
+                <div class="booking-title">Reserve an upcoming day</div>
+                <div class="booking-sub">30-day calendar. 0.01 ETH per approved Spotlight slot.</div>
+              </div>
+            </div>
+            <div id="calendar-strip" class="day-strip booking-strip"></div>
           </div>
         </div>
         <div class="how-card">
@@ -1226,6 +1604,7 @@
     <div id="modal-body" class="modal-body"></div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
     const SPOTLIGHT_RECEIVER = '0xaf0a6355d2698976d31d9fbdba53124746af6e9e';
     const SPOTLIGHT_PRICE_ETH = '0.01';
@@ -1263,6 +1642,10 @@
         tokenAddress: ''
       }
     };
+
+    const CHIP_TOKEN_ADDRESS = '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
+    const CHIP_LOGO_URL = '/public/images/chip-logo.png';
+    const CHIP_TRADE_URL = 'https://o1.exchange/base/detail/0x592e01edeb601016a20a3e6cd5bf533ebbadbc8b?ca=0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
 
     function currentSlotDay() {
       return Math.floor(Date.now() / 86400000);
@@ -1308,31 +1691,103 @@
       return 'Previous Spotlight';
     }
 
+    function getTimelineDays() {
+      const today = currentSlotDay();
+      return Array.from({ length: 7 }, (_, index) => today - 3 + index);
+    }
+
+    function clampTimelineDay(day) {
+      const days = getTimelineDays();
+      if (!day) return currentSlotDay();
+      return Math.min(days[days.length - 1], Math.max(days[0], day));
+    }
+
+    function getResolvedSpotlightLogo(slot) {
+      if (!slot) return '';
+      const projectUrlText = String(slot.project_url || '').toLowerCase();
+      const tokenAddressText = String(slot.token_address || '').toLowerCase();
+      if (slot.project_logo_url) return slot.project_logo_url;
+      if (projectUrlText.includes('usd.ai') || tokenAddressText === CHIP_TOKEN_ADDRESS) return CHIP_LOGO_URL;
+      return '';
+    }
+
+    function getResolvedSpotlightTradeUrl(slot) {
+      if (!slot) return '';
+      const projectUrlText = String(slot.project_url || '').toLowerCase();
+      const tokenAddressText = String(slot.token_address || '').toLowerCase();
+      return slot.trade_url
+        || ((projectUrlText.includes('usd.ai') && tokenAddressText === CHIP_TOKEN_ADDRESS) ? CHIP_TRADE_URL : '')
+        || (slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : '');
+    }
+
+    function getResolvedSpotlightTradeLabel(slot, tradeUrl) {
+      if (!tradeUrl) return '';
+      return slot?.trade_action_label
+        || (tradeUrl === CHIP_TRADE_URL ? 'Trade CHIP on O1 ->' : 'Open on Dex ->');
+    }
+
+    function getSpotlightWindowStatus(slot, day) {
+      const today = currentSlotDay();
+      if (!slot) return day > today ? 'Open' : 'Empty';
+      if (slot.source === 'lowcaps_auto') return 'Auto';
+      if (day === today) return 'Live';
+      if (day > today) return 'Next';
+      return 'Past';
+    }
+
+    function renderTimelinePreview(day, mode) {
+      if (!Number.isInteger(day)) {
+        return '<div class="timeline-preview side empty"><div class="timeline-preview-name">Edge of range</div></div>';
+      }
+      const slot = getSlotForDay(day) || (day === currentSlotDay() ? state.todaySlot : null);
+      const status = getSpotlightWindowStatus(slot, day);
+      const name = slot ? slot.project_name : (day > currentSlotDay() ? 'Open slot' : 'No Spotlight');
+      const classes = ['timeline-preview', mode];
+      if (mode === 'active') classes.push('has-slot');
+      return `
+        <button type="button" class="${classes.join(' ')}" data-action="focus-day" data-day="${day}">
+          <span class="timeline-preview-kicker">${escapeHtml(getRelativeDayLabel(day))}</span>
+          <span class="timeline-preview-date">${escapeHtml(formatShortDay(day))}</span>
+          <span class="timeline-preview-name">${escapeHtml(name)}</span>
+          <span class="timeline-preview-status">${escapeHtml(status)}</span>
+        </button>
+      `;
+    }
+
     function renderWeekStrip() {
       const shell = document.getElementById('spotlight-week-strip');
       if (!shell) return;
-      const today = currentSlotDay();
-      const focusDay = state.focusDay || today;
-      const days = Array.from({ length: 7 }, (_, index) => today - 3 + index);
+      const days = getTimelineDays();
+      const focusDay = clampTimelineDay(state.focusDay || currentSlotDay());
+      const focusIndex = days.indexOf(focusDay);
+      const prevDay = focusIndex > 0 ? days[focusIndex - 1] : null;
+      const nextDay = focusIndex < days.length - 1 ? days[focusIndex + 1] : null;
 
-      shell.innerHTML = days.map((day) => {
-        const slot = getSlotForDay(day);
-        const classes = ['week-pill'];
-        if (slot) classes.push('has-slot');
-        if (day === focusDay) classes.push('active');
-        const status = slot
-          ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
-          : (day > today ? 'Open' : 'None');
-        const name = slot ? slot.project_name : (day > today ? 'Available' : 'No slot');
-        return `
-          <button type="button" class="${classes.join(' ')}" data-action="focus-day" data-day="${day}">
-            <span class="week-pill-label">${escapeHtml(getRelativeDayLabel(day))}</span>
-            <span class="week-pill-date">${escapeHtml(formatShortDay(day))}</span>
-            <span class="week-pill-name">${escapeHtml(name)}</span>
-            <span class="week-pill-status">${escapeHtml(status)}</span>
-          </button>
-        `;
-      }).join('');
+      shell.innerHTML = `
+        <div class="timeline-stage">
+          <button class="timeline-nav" type="button" data-action="shift-day" data-dir="-1" ${prevDay === null ? 'disabled' : ''} aria-label="Previous day">&larr;</button>
+          <div class="timeline-lane">
+            ${renderTimelinePreview(prevDay, 'side')}
+            ${renderTimelinePreview(focusDay, 'active')}
+            ${renderTimelinePreview(nextDay, 'side')}
+          </div>
+          <button class="timeline-nav" type="button" data-action="shift-day" data-dir="1" ${nextDay === null ? 'disabled' : ''} aria-label="Next day">&rarr;</button>
+        </div>
+        <div class="timeline-meter">
+          ${days.map((day) => {
+            const slot = getSlotForDay(day) || (day === currentSlotDay() ? state.todaySlot : null);
+            const classes = ['timeline-node'];
+            if (slot) classes.push('has-slot');
+            if (day === focusDay) classes.push('active');
+            return `
+              <button type="button" class="${classes.join(' ')}" data-action="focus-day" data-day="${day}">
+                <span class="timeline-node-dot"></span>
+                <span class="timeline-node-label">${escapeHtml(formatShortDay(day))}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
     }
 
     function escapeHtml(value) {

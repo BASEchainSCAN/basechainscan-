@@ -115,12 +115,16 @@ export function loadSpotlightSeedData() {
     const raw = fs.readFileSync(SPOTLIGHT_SEED_PATH, 'utf-8');
     const payload = JSON.parse(raw);
     if (!payload || typeof payload !== 'object') return null;
+    const explicitSlots = Array.isArray(payload.slots) ? payload.slots.map(mapSpotlightRow).filter(Boolean) : [];
     const today = payload.today ? mapSpotlightRow(payload.today) : null;
     const upcoming = Array.isArray(payload.upcoming) ? payload.upcoming.map(mapSpotlightRow).filter(Boolean) : [];
+    const slots = [...explicitSlots, ...[today, ...upcoming].filter(Boolean)]
+      .filter((slot, index, all) => all.findIndex((candidate) => candidate.slot_day === slot.slot_day) === index)
+      .sort((left, right) => left.slot_day - right.slot_day);
     const takenDays = Array.isArray(payload.takenDays)
       ? payload.takenDays.map((value) => Number.parseInt(String(value || '0'), 10)).filter((value) => value > 0)
       : [];
-    return { today, upcoming, takenDays };
+    return { today, upcoming, slots, takenDays };
   } catch {
     return null;
   }

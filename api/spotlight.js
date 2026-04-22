@@ -58,7 +58,10 @@ function buildSpotlightPayload({
   const rangeStart = fromDay || todayDay;
   const rangeEnd = toDay || todayDay + 30;
 
-  const seedSlots = uniqueSlotsByDay([seedData?.today, ...(seedData?.upcoming || [])]
+  const rawSeedSlots = Array.isArray(seedData?.slots) && seedData.slots.length
+    ? seedData.slots
+    : [seedData?.today, ...(seedData?.upcoming || [])];
+  const seedSlots = uniqueSlotsByDay(rawSeedSlots
     .filter(Boolean)
     .map(preserveSpotlightActionFields)
     .filter((slot) => slot.slot_day >= rangeStart && slot.slot_day <= rangeEnd)
