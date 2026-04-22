@@ -1815,16 +1815,25 @@
       gap: 8px;
     }
 
-    .spotlight-primary-actions,
-    .spotlight-secondary-actions {
+    .spotlight-actions-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .spotlight-primary-actions {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       align-items: stretch;
     }
 
-    .spotlight-secondary-actions {
-      margin-top: 2px;
+    .spotlight-utility-actions,
+    .spotlight-open-action {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
     }
 
     .spotlight-btn.secondary.accent {
@@ -2352,9 +2361,11 @@
         width: 64px;
         height: 64px;
       }
-      .spotlight-primary-actions,
-      .spotlight-secondary-actions {
-        flex-direction: column;
+      .spotlight-primary-actions {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .spotlight-actions-panel {
+        gap: 8px;
       }
       .spotlight-timeline-stage {
         grid-template-columns: 34px minmax(0, 1fr) 34px;
@@ -3821,13 +3832,17 @@
                 <div class="spotlight-desc">${escapeHtml(displayedSpotlight.project_description)}</div>
               </div>
             </div>
-            <div class="spotlight-primary-actions">
-              <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeInfo.url || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayedSpotlight.primary_action_label || 'Visit Project ->')}</a>
-              ${tradeInfo.url && tradeInfo.url !== displayedSpotlight.project_url ? `<a class="spotlight-btn secondary accent" href="${escapeHtml(tradeInfo.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeInfo.label)}</a>` : ''}
-            </div>
-            <div class="spotlight-secondary-actions">
-              ${displayedSpotlight.x_url ? `<a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>` : ''}
-              <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+            <div class="spotlight-actions-panel">
+              <div class="spotlight-primary-actions">
+                <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeInfo.url || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayedSpotlight.primary_action_label || 'Visit Project ->')}</a>
+                ${tradeInfo.url && tradeInfo.url !== displayedSpotlight.project_url ? `<a class="spotlight-btn secondary accent" href="${escapeHtml(tradeInfo.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeInfo.label)}</a>` : ''}
+              </div>
+              ${displayedSpotlight.x_url ? `<div class="spotlight-utility-actions">
+                <a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+              </div>` : ''}
+              <div class="spotlight-open-action">
+                <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
+              </div>
             </div>
           </div>
         </div>
