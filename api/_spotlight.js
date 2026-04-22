@@ -9,6 +9,11 @@ export const SPOTLIGHT_RECEIVER_ADDRESS = (
 export const SPOTLIGHT_PRICE_ETH = process.env.SPOTLIGHT_PRICE_ETH || '0.01';
 export const BASE_RPC_URL = process.env.BASE_RPC_URL || 'https://mainnet.base.org';
 const SPOTLIGHT_SEED_PATH = new URL('../public/data/spotlight-seed.json', import.meta.url);
+const TOP4_FEED_PATH = new URL('../public/data/top4.json', import.meta.url);
+const fallbackHour = Number.parseInt(process.env.SPOTLIGHT_FALLBACK_HOUR_UTC || '5', 10);
+export const SPOTLIGHT_FALLBACK_HOUR_UTC = Number.isFinite(fallbackHour)
+  ? Math.min(Math.max(fallbackHour, 0), 23)
+  : 5;
 
 function parseEthToWei(value) {
   const raw = String(value || '').trim();
@@ -93,6 +98,8 @@ export function mapSpotlightRow(row) {
     token_address: row.token_address || undefined,
     submitter_address: row.submitter_address || undefined,
     submitter_fid: row.submitter_fid || undefined,
+    primary_action_label: row.primary_action_label || undefined,
+    source: row.source || undefined,
     status: row.status,
     nft_token_id: row.nft_token_id || undefined,
     tx_hash: row.tx_hash || undefined,
@@ -115,6 +122,80 @@ export function loadSpotlightSeedData() {
   } catch {
     return null;
   }
+}
+
+export function loadTop4Feed() {
+  try {
+    const raw = fs.readFileSync(TOP4_FEED_PATH, 'utf-8');
+    const payload = JSON.parse(raw);
+    if (!payload || typeof payload !== 'object') return null;
+    return {
+      generated_at: typeof payload.generated_at === 'string' ? payload.generated_at : null,
+      tokens: Array.isArray(payload.tokens) ? payload.tokens : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function isAfterSpotlightFallbackHour(now = new Date()) {
+  return now.getUTCHours() >= SPOTLIGHT_FALLBACK_HOUR_UTC;
+}
+
+function formatCompactUsd(value) {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) return null;
+  const digits = value >= 1_000_000 ? 1 : 0;
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    notation: 'compact',
+    maximumFractionDigits: digits,
+  }).format(value);
+}
+
+function formatSignedPercent(value) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+  const sign = value > 0 ? '+' : '';
+  return `${sign}${value.toFixed(1)}%`;
+}
+
+export function buildLowCapSpotlightFallback(now = new Date()) {
+  const feed = loadTop4Feed();
+  const token = feed?.tokens?.find((entry) => entry && entry.symbol && (entry.o1_url || entry.dexscreener_url || entry.okx_url));
+  if (!token) return null;
+
+  const slotDay = currentSlotDay(now);
+  const projectUrl = token.o1_url || token.dexscreener_url || token.okx_url;
+  const marketCap = formatCompactUsd(token.mcap_usd);
+  const liquidity = formatCompactUsd(token.lp_total_usd);
+  const move24h = formatSignedPercent(token.price_change_24h);
+  const metrics = [marketCap ? `Mcap ${marketCap}` : null, liquidity ? `liquidity ${liquidity}` : null, move24h ? `${move24h} in 24h` : null]
+    .filter(Boolean)
+    .join(', ');
+  const metricLine = metrics ? ` ${metrics}.` : '';
+  const venue = token.o1_url ? 'O1 Exchange' : token.dexscreener_url ? 'DEXScreener' : 'the live pair';
+
+  return {
+    id: `auto-lowcap-${slotDay}`,
+    slot_day: slotDay,
+    slot_date: slotDayToDate(slotDay),
+    project_name: token.symbol,
+    project_description: `Today's auto Spotlight from Low Caps Emerging: ${token.symbol}.${metricLine} Watch the live Base setup on ${venue}.`,
+    project_logo_url: null,
+    project_url: projectUrl,
+    x_url: token.x_url || undefined,
+    video_url: undefined,
+    token_address: normalizeAddress(token.token_address) || undefined,
+    submitter_address: undefined,
+    submitter_fid: undefined,
+    primary_action_label: token.o1_url ? 'Trade on O1 ->' : token.dexscreener_url ? 'Open on DEX ->' : 'Open setup ->',
+    source: 'lowcaps_auto',
+    status: 'auto_fallback',
+    nft_token_id: undefined,
+    tx_hash: undefined,
+    approved_at: now.toISOString(),
+    created_at: feed?.generated_at || now.toISOString(),
+  };
 }
 
 export async function jsonRpc(method, params = []) {
