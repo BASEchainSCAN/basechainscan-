@@ -1709,6 +1709,7 @@
       transition: transform 0.12s ease, opacity 0.12s ease, border-color 0.15s ease, background 0.15s ease;
       border: 1px solid transparent;
       white-space: nowrap;
+      width: 100%;
     }
 
     .spotlight-btn:active { transform: scale(0.98); }
@@ -1816,9 +1817,10 @@
 
     .spotlight-primary-actions,
     .spotlight-secondary-actions {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      flex-wrap: wrap;
+      align-items: stretch;
     }
 
     .spotlight-secondary-actions {
