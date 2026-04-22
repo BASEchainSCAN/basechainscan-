@@ -1865,7 +1865,8 @@
         slot.project_description || '',
       ].filter(Boolean);
       if (slot.project_url) lines.push(`Project: ${slot.project_url}`);
-      const tradeUrl = getResolvedSpotlightTradeUrl(slot);
+      const tradeLinks = getSpotlightTradeLinks(slot);
+      const tradeUrl = tradeLinks.o1Url || tradeLinks.dexUrl || tradeLinks.okxUrl;
       if (tradeUrl && tradeUrl !== slot.project_url) lines.push(`Trade: ${tradeUrl}`);
       lines.push(`Date: ${formatDate(viewedDay)}`);
       lines.push(`View: ${window.location.origin}/spotlight`);

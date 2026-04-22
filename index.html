@@ -1822,24 +1822,48 @@
       margin-top: 2px;
     }
 
-    .spotlight-primary-actions {
+    .spotlight-action-row {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      align-items: stretch;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
     }
 
-    .spotlight-utility-actions,
-    .spotlight-open-action {
+    .spotlight-action-row.primary {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025));
+    }
+
+    .spotlight-action-row.trade {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-color: rgba(20,230,212,0.10);
+      background: linear-gradient(180deg, rgba(20,230,212,0.05), rgba(255,255,255,0.02));
+    }
+
+    .spotlight-action-row.open {
       grid-template-columns: minmax(0, 1fr);
-      gap: 10px;
+      background: linear-gradient(180deg, rgba(0,82,255,0.05), rgba(255,255,255,0.02));
     }
 
     .spotlight-btn.secondary.accent {
       border-color: rgba(20,230,212,0.18);
       color: var(--brand);
       background: rgba(20,230,212,0.08);
+    }
+
+    .spotlight-btn.secondary.okx {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.16);
+      color: #ffffff;
+    }
+
+    .spotlight-btn.secondary.dex {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+      color: rgba(234,244,255,0.92);
     }
 
     .spotlight-timeline-wrap {
@@ -2361,7 +2385,8 @@
         width: 64px;
         height: 64px;
       }
-      .spotlight-primary-actions {
+      .spotlight-action-row.primary,
+      .spotlight-action-row.trade {
         grid-template-columns: minmax(0, 1fr);
       }
       .spotlight-actions-panel {
@@ -3709,17 +3734,19 @@
         || ((projectUrlText.includes('usd.ai') || tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? '/public/images/chip-logo.png' : '');
     }
 
-    function resolveSpotlightTradeInfo(slot) {
-      if (!slot) return { url: '', label: '' };
+    function resolveSpotlightTradeLinks(slot) {
+      if (!slot) return { o1Url: '', okxUrl: '', dexUrl: '' };
       const projectUrlText = String(slot.project_url || '').toLowerCase();
       const tokenAddressText = String(slot.token_address || '').toLowerCase();
       const chipTradeUrl = 'https://o1.exchange/base/detail/0x592e01edeb601016a20a3e6cd5bf533ebbadbc8b?ca=0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e';
-      const url = slot.trade_url
+      const o1Url = slot.trade_url
         || ((projectUrlText.includes('usd.ai') && tokenAddressText === '0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e') ? chipTradeUrl : '')
-        || (slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : '');
-      const label = slot.trade_action_label
-        || (url === chipTradeUrl ? 'Trade CHIP on O1 ->' : (url ? 'Open on Dex ->' : ''));
-      return { url, label };
+      ;
+      return {
+        o1Url,
+        okxUrl: slot.token_address ? `https://web3.okx.com/token/base/${slot.token_address}?ref=OKX10c` : '',
+        dexUrl: slot.token_address ? `https://dexscreener.com/base/${slot.token_address}` : ''
+      };
     }
 
     function renderSpotlightTimelineCard(day, mode) {
@@ -3805,7 +3832,20 @@
       }
 
       const logoUrl = resolveSpotlightLogoUrl(displayedSpotlight);
-      const tradeInfo = resolveSpotlightTradeInfo(displayedSpotlight);
+      const tradeLinks = resolveSpotlightTradeLinks(displayedSpotlight);
+      const primaryRowActions = [
+        displayedSpotlight.project_url
+          ? `<a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayedSpotlight.primary_action_label || 'Visit Project ->')}</a>`
+          : '',
+        displayedSpotlight.x_url
+          ? `<a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>`
+          : ''
+      ].filter(Boolean).join('');
+      const tradeRowActions = [
+        tradeLinks.o1Url ? `<a class="spotlight-btn secondary accent" href="${escapeHtml(tradeLinks.o1Url)}" target="_blank" rel="noopener noreferrer">Trade on O1</a>` : '',
+        tradeLinks.okxUrl ? `<a class="spotlight-btn secondary okx" href="${escapeHtml(tradeLinks.okxUrl)}" target="_blank" rel="noopener noreferrer">Trade on OKX</a>` : '',
+        tradeLinks.dexUrl ? `<a class="spotlight-btn secondary dex" href="${escapeHtml(tradeLinks.dexUrl)}" target="_blank" rel="noopener noreferrer">DEXScreener</a>` : ''
+      ].filter(Boolean).join('');
       const spotlightStatusText = displayedSpotlight.source === 'lowcaps_auto'
         ? 'Auto-filled from Low Caps Emerging'
         : focusedDay > today
@@ -3833,14 +3873,13 @@
               </div>
             </div>
             <div class="spotlight-actions-panel">
-              <div class="spotlight-primary-actions">
-                <a class="spotlight-btn primary" href="${escapeHtml(displayedSpotlight.project_url || tradeInfo.url || '/spotlight')}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayedSpotlight.primary_action_label || 'Visit Project ->')}</a>
-                ${tradeInfo.url && tradeInfo.url !== displayedSpotlight.project_url ? `<a class="spotlight-btn secondary accent" href="${escapeHtml(tradeInfo.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(tradeInfo.label)}</a>` : ''}
+              <div class="spotlight-action-row primary">
+                ${primaryRowActions}
               </div>
-              ${displayedSpotlight.x_url ? `<div class="spotlight-utility-actions">
-                <a class="spotlight-btn secondary" href="${escapeHtml(displayedSpotlight.x_url)}" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+              ${tradeRowActions ? `<div class="spotlight-action-row trade">
+                ${tradeRowActions}
               </div>` : ''}
-              <div class="spotlight-open-action">
+              <div class="spotlight-action-row open">
                 <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
               </div>
             </div>
