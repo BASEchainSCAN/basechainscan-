@@ -880,10 +880,10 @@
       margin-bottom: 8px;
     }
 
-    .hm-rank { font-size: 9px; color: var(--muted-2); margin-bottom: 2px; }
-    .hm-symbol { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hm-score { font-size: 18px; font-weight: 800; color: var(--heat-color, #EAF4FF); line-height: 1; font-family: var(--font-mono); letter-spacing: -0.04em; }
-    .hm-score-label { font-size: 8px; color: var(--muted-2); letter-spacing: 0.06em; text-transform: uppercase; }
+    .hm-rank { font-size: 10px; color: rgba(234,244,255,0.52); margin-bottom: 4px; letter-spacing: 0.04em; }
+    .hm-symbol { font-size: 15px; font-weight: 800; color: #fbfdff; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.08; }
+    .hm-score { font-size: 22px; font-weight: 800; color: var(--heat-color, #EAF4FF); line-height: 1; font-family: var(--font-mono); letter-spacing: -0.04em; }
+    .hm-score-label { font-size: 8.5px; color: rgba(234,244,255,0.44); letter-spacing: 0.08em; text-transform: uppercase; }
     .hm-change {
       display: inline-flex;
       align-items: center;
@@ -910,26 +910,31 @@
     .hm-metric {
       min-width: 0;
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.035);
-      padding: 7px 8px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.04);
+      padding: 8px 9px;
     }
     .hm-metric-label {
-      font-size: 8px;
-      color: var(--muted-2);
+      font-size: 9px;
+      color: rgba(234,244,255,0.46);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-family: var(--font-mono);
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
     .hm-metric-value {
-      font-size: 11px;
-      color: #f6fbff;
+      font-size: 13px;
+      color: #fcfeff;
       font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       font-family: var(--font-mono);
+    }
+    .hm-card .tc-metric-change {
+      font-size: 11px;
+      color: rgba(234,244,255,0.78);
+      margin-top: 3px;
     }
     .hm-chart-shell {
       margin-top: 9px;
@@ -946,15 +951,15 @@
       margin-bottom: 6px;
     }
     .hm-chart-title {
-      font-size: 8px;
-      color: var(--muted-2);
+      font-size: 9px;
+      color: rgba(234,244,255,0.48);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-family: var(--font-mono);
     }
     .hm-chart-range {
-      font-size: 9px;
-      color: rgba(234,244,255,0.56);
+      font-size: 10px;
+      color: rgba(246,251,255,0.78);
       font-family: var(--font-mono);
     }
     .hm-chart-wrap {
@@ -988,12 +993,12 @@
       filter: drop-shadow(0 0 6px rgba(20,230,212,0.18));
     }
     .hm-chart-axis-label {
-      fill: rgba(234,244,255,0.52);
-      font-size: 8px;
+      fill: rgba(234,244,255,0.66);
+      font-size: 9px;
       font-family: var(--font-mono);
     }
     .hm-chart-axis-label.strong {
-      fill: rgba(234,244,255,0.72);
+      fill: rgba(248,252,255,0.92);
     }
     .hm-chart-tooltip {
       position: absolute;
@@ -1011,7 +1016,7 @@
     }
     .hm-chart-tooltip.visible { opacity: 1; }
     .hm-chart-tooltip-price {
-      font-size: 10px;
+      font-size: 11px;
       color: #f5fbff;
       font-weight: 700;
       font-family: var(--font-mono);
