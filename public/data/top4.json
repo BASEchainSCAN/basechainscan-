@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T14:36:17Z",
+  "generated_at": "2026-04-23T14:41:04Z",
   "token_count": 2,
   "tokens": [
     {
@@ -8,8 +8,8 @@
       "token_address": "0x66dc9103496c0fd2639f30ea429767540eef07b8",
       "score": 34.9,
       "severity": "none",
-      "mcap_usd": 56682.0,
-      "lp_total_usd": 46284.49,
+      "mcap_usd": 58233.0,
+      "lp_total_usd": 46905.25,
       "lp_total_usd_24h_ago": 47003.89,
       "lp_total_change_24h_pct": -2.07,
       "holder_count": 3943,
@@ -18,13 +18,13 @@
       "top10_pct": 52.3,
       "x_username": "Bojak_Token",
       "x_url": "https://x.com/Bojak_Token",
-      "signal_age_hours": 3.14,
+      "signal_age_hours": 3.22,
       "pair_address": "0x2a8577b8135742e9bd8555f4081ffbdc05b43782",
       "dexscreener_url": "https://dexscreener.com/base/0x2a8577b8135742e9bd8555f4081ffbdc05b43782",
       "okx_url": "https://web3.okx.com/token/base/0x66dc9103496c0fd2639f30ea429767540eef07b8?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x2a8577b8135742e9bd8555f4081ffbdc05b43782?ca=0x66dc9103496c0fd2639f30ea429767540eef07b8@basescan",
-      "price_change_24h": -4.07,
-      "volume_24h_usd": 97331.59,
+      "price_change_24h": -3.32,
+      "volume_24h_usd": 97164.25,
       "mcap_source": "dexscreener"
     },
     {
@@ -43,7 +43,7 @@
       "top10_pct": 46.74,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 5.16,
+      "signal_age_hours": 5.24,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
