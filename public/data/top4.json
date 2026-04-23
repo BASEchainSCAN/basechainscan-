@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T14:25:46Z",
+  "generated_at": "2026-04-23T14:31:39Z",
   "token_count": 2,
   "tokens": [
     {
@@ -8,8 +8,8 @@
       "token_address": "0x66dc9103496c0fd2639f30ea429767540eef07b8",
       "score": 34.9,
       "severity": "none",
-      "mcap_usd": 55284.0,
-      "lp_total_usd": 45632.39,
+      "mcap_usd": 56017.0,
+      "lp_total_usd": 46009.84,
       "lp_total_usd_24h_ago": 47003.89,
       "lp_total_change_24h_pct": -2.07,
       "holder_count": 3943,
@@ -18,13 +18,13 @@
       "top10_pct": 52.3,
       "x_username": "Bojak_Token",
       "x_url": "https://x.com/Bojak_Token",
-      "signal_age_hours": 2.97,
+      "signal_age_hours": 3.07,
       "pair_address": "0x2a8577b8135742e9bd8555f4081ffbdc05b43782",
       "dexscreener_url": "https://dexscreener.com/base/0x2a8577b8135742e9bd8555f4081ffbdc05b43782",
       "okx_url": "https://web3.okx.com/token/base/0x66dc9103496c0fd2639f30ea429767540eef07b8?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x2a8577b8135742e9bd8555f4081ffbdc05b43782?ca=0x66dc9103496c0fd2639f30ea429767540eef07b8@basescan",
-      "price_change_24h": -6.37,
-      "volume_24h_usd": 97641.85,
+      "price_change_24h": -4.8,
+      "volume_24h_usd": 97376.09,
       "mcap_source": "dexscreener"
     },
     {
@@ -33,8 +33,8 @@
       "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
       "score": 32.9,
       "severity": "none",
-      "mcap_usd": 573857.0,
-      "lp_total_usd": 241854.91,
+      "mcap_usd": 585788.0,
+      "lp_total_usd": 244804.16,
       "lp_total_usd_24h_ago": 248255.26,
       "lp_total_change_24h_pct": 5.34,
       "holder_count": 2476,
@@ -43,13 +43,13 @@
       "top10_pct": 46.74,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 4.99,
+      "signal_age_hours": 5.08,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009?ca=0x85eac631c800af804476b140f87039f742c28ba3@basescan",
-      "price_change_24h": 12.42,
-      "volume_24h_usd": 129060.19,
+      "price_change_24h": 4.79,
+      "volume_24h_usd": 126342.3,
       "mcap_source": "dexscreener"
     }
   ]
