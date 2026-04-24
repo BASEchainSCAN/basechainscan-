@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T09:15:59Z",
+  "generated_at": "2026-04-24T09:20:59Z",
   "token_count": 1,
   "tokens": [
     {
@@ -18,7 +18,7 @@
       "top10_pct": 46.97,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 15.56,
+      "signal_age_hours": 15.64,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
