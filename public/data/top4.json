@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T05:08:41Z",
+  "generated_at": "2026-04-24T05:13:15Z",
   "token_count": 2,
   "tokens": [
     {
@@ -18,7 +18,7 @@
       "top10_pct": 46.97,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 11.44,
+      "signal_age_hours": 11.51,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
@@ -43,7 +43,7 @@
       "top10_pct": 100.0,
       "x_username": "BASHIBCOIN",
       "x_url": "https://x.com/BASHIBCOIN",
-      "signal_age_hours": 7.56,
+      "signal_age_hours": 7.64,
       "pair_address": "0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
       "dexscreener_url": "https://dexscreener.com/base/0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
       "okx_url": "https://web3.okx.com/token/base/0xb99ec3c75d2e0bf1f9fd2403963fd74da2c20410?ref=OKX10c",
