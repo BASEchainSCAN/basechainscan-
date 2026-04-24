@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-24T08:30:59Z",
-  "token_count": 2,
+  "generated_at": "2026-04-24T08:35:59Z",
+  "token_count": 1,
   "tokens": [
     {
       "rank": 1,
@@ -18,38 +18,13 @@
       "top10_pct": 46.97,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 14.81,
+      "signal_age_hours": 14.89,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009?ca=0x85eac631c800af804476b140f87039f742c28ba3@basescan",
       "price_change_24h": -3.06,
       "volume_24h_usd": 181209.42,
-      "mcap_source": "dexscreener"
-    },
-    {
-      "rank": 2,
-      "symbol": "BASHIB",
-      "token_address": "0xb99ec3c75d2e0bf1f9fd2403963fd74da2c20410",
-      "score": 24.9,
-      "severity": "none",
-      "mcap_usd": 10690.0,
-      "lp_total_usd": 10679.93,
-      "lp_total_usd_24h_ago": 15508.44,
-      "lp_total_change_24h_pct": -31.08,
-      "holder_count": 70,
-      "holder_count_24h_ago": 169,
-      "holder_count_change_24h_pct": -58.58,
-      "top10_pct": 100.0,
-      "x_username": "BASHIBCOIN",
-      "x_url": "https://x.com/BASHIBCOIN",
-      "signal_age_hours": 10.93,
-      "pair_address": "0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
-      "dexscreener_url": "https://dexscreener.com/base/0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
-      "okx_url": "https://web3.okx.com/token/base/0xb99ec3c75d2e0bf1f9fd2403963fd74da2c20410?ref=OKX10c",
-      "o1_url": "https://o1.exchange/base/detail/0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6?ca=0xb99ec3c75d2e0bf1f9fd2403963fd74da2c20410@basescan",
-      "price_change_24h": -32.53,
-      "volume_24h_usd": 2905.05,
       "mcap_source": "dexscreener"
     }
   ]
