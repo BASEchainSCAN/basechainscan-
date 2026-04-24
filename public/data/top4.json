@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T03:43:19Z",
+  "generated_at": "2026-04-24T03:48:19Z",
   "token_count": 2,
   "tokens": [
     {
@@ -8,8 +8,8 @@
       "token_address": "0x85eac631c800af804476b140f87039f742c28ba3",
       "score": 34.1,
       "severity": "none",
-      "mcap_usd": 550803.0,
-      "lp_total_usd": 236508.05,
+      "mcap_usd": 549636.0,
+      "lp_total_usd": 236425.39,
       "lp_total_usd_24h_ago": 274387.61,
       "lp_total_change_24h_pct": 3.64,
       "holder_count": 2474,
@@ -18,13 +18,13 @@
       "top10_pct": 46.74,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 10.01,
+      "signal_age_hours": 10.1,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009?ca=0x85eac631c800af804476b140f87039f742c28ba3@basescan",
-      "price_change_24h": -17.84,
-      "volume_24h_usd": 181562.19,
+      "price_change_24h": -18.02,
+      "volume_24h_usd": 181759.22,
       "mcap_source": "dexscreener"
     },
     {
@@ -43,7 +43,7 @@
       "top10_pct": 100.0,
       "x_username": "BASHIBCOIN",
       "x_url": "https://x.com/BASHIBCOIN",
-      "signal_age_hours": 6.14,
+      "signal_age_hours": 6.22,
       "pair_address": "0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
       "dexscreener_url": "https://dexscreener.com/base/0xfc44b84b4d23224be81f3e4853c0ed8e25367c32e3f7705164aadb97fabf4ad6",
       "okx_url": "https://web3.okx.com/token/base/0xb99ec3c75d2e0bf1f9fd2403963fd74da2c20410?ref=OKX10c",
