@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T20:29:29Z",
+  "generated_at": "2026-04-25T20:33:17Z",
   "token_count": 1,
   "tokens": [
     {
@@ -18,7 +18,7 @@
       "top10_pct": 100.0,
       "x_username": "AgentConductor",
       "x_url": "https://x.com/AgentConductor",
-      "signal_age_hours": 1.55,
+      "signal_age_hours": 1.62,
       "pair_address": "0x5e4a3d868fc361e7da629a6d2650e77e582bf68ca607419b475a3b2b6fa5b52a",
       "dexscreener_url": "https://dexscreener.com/base/0x5e4a3d868fc361e7da629a6d2650e77e582bf68ca607419b475a3b2b6fa5b52a",
       "okx_url": "https://web3.okx.com/token/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07?ref=OKX10c",
