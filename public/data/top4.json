@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T14:18:20Z",
+  "generated_at": "2026-04-26T14:23:37Z",
   "token_count": 3,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 65.85,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 1.58,
+      "signal_age_hours": 1.67,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 33.18,
-      "volume_24h_usd": 46845.63,
+      "price_change_24h": 39.67,
+      "volume_24h_usd": 46037.18,
       "mcap_source": "dexscreener"
     },
     {
@@ -43,7 +43,7 @@
       "top10_pct": 47.01,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 13.68,
+      "signal_age_hours": 13.77,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
@@ -68,7 +68,7 @@
       "top10_pct": 100.0,
       "x_username": "AgentConductor",
       "x_url": "https://x.com/AgentConductor",
-      "signal_age_hours": 19.37,
+      "signal_age_hours": 19.45,
       "pair_address": "0x5e4a3d868fc361e7da629a6d2650e77e582bf68ca607419b475a3b2b6fa5b52a",
       "dexscreener_url": "https://dexscreener.com/base/0x5e4a3d868fc361e7da629a6d2650e77e582bf68ca607419b475a3b2b6fa5b52a",
       "okx_url": "https://web3.okx.com/token/base/0x76d1d20ad655323a26908388b24d69f42c4d3b07?ref=OKX10c",
