@@ -1906,6 +1906,76 @@
       margin-top: 2px;
     }
 
+    .spotlight-recent-panel {
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.025);
+      padding: 11px;
+    }
+
+    .spotlight-recent-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .spotlight-recent-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(20,230,212,0.88);
+    }
+
+    .spotlight-recent-sub {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(234,244,255,0.38);
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .spotlight-recent-card {
+      min-width: 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      padding: 9px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .spotlight-recent-symbol {
+      font-size: 12px;
+      font-weight: 850;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-metric {
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(234,244,255,0.56);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-metric.positive { color: rgba(20,230,212,0.84); }
+    .spotlight-recent-metric.negative { color: rgba(255,86,112,0.84); }
+
     .spotlight-action-row {
       display: grid;
       gap: 10px;
@@ -2475,6 +2545,9 @@
       }
       .spotlight-actions-panel {
         gap: 8px;
+      }
+      .spotlight-recent-grid {
+        grid-template-columns: 1fr;
       }
       .spotlight-timeline-stage {
         grid-template-columns: 34px minmax(0, 1fr) 34px;
@@ -3982,6 +4055,54 @@
       `;
     }
 
+    function spotlightTokenLink(token) {
+      return token?.o1_url || token?.dexscreener_url || token?.okx_url || (token?.token_address ? `https://dexscreener.com/base/${token.token_address}` : '/heatmap');
+    }
+
+    function spotlightRecentTokens(currentSlot, maxItems = 3) {
+      const currentAddress = String(currentSlot?.token_address || '').toLowerCase();
+      const currentSymbol = String(currentSlot?.project_name || '').toUpperCase();
+      const seen = new Set([currentAddress, currentSymbol].filter(Boolean));
+      const candidates = [
+        ...((latestTop4 && Array.isArray(latestTop4.tokens)) ? latestTop4.tokens : []),
+        ...((latestHeatmap && Array.isArray(latestHeatmap.tokens)) ? latestHeatmap.tokens : []),
+      ];
+      const out = [];
+      for (const token of candidates) {
+        const addr = String(token?.token_address || '').toLowerCase();
+        const symbol = String(token?.symbol || '').toUpperCase();
+        const key = addr || symbol;
+        if (!key || seen.has(addr) || seen.has(symbol)) continue;
+        seen.add(addr);
+        seen.add(symbol);
+        out.push(token);
+        if (out.length >= maxItems) break;
+      }
+      return out;
+    }
+
+    function renderSpotlightRecentPanel(currentSlot) {
+      const tokens = spotlightRecentTokens(currentSlot, 3);
+      if (!tokens.length) return '';
+      return `
+        <div class="spotlight-recent-panel">
+          <div class="spotlight-recent-head">
+            <div class="spotlight-recent-title">Past 24h Spotlight Queue</div>
+            <div class="spotlight-recent-sub">${tokens.length} more surfaced</div>
+          </div>
+          <div class="spotlight-recent-grid">
+            ${tokens.map((token) => `
+              <a class="spotlight-recent-card" href="${escapeHtml(spotlightTokenLink(token))}" target="_blank" rel="noopener noreferrer">
+                <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                <div class="spotlight-recent-metric">${escapeHtml(fmtUsd(token.mcap_usd || token.market_cap_usd))} mcap</div>
+                <div class="spotlight-recent-metric ${deltaClass(token.price_change_24h)}">${escapeHtml(fmtPct(token.price_change_24h, 1))} 24h</div>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     function renderSpotlightTeaser() {
       const shell = document.getElementById('spotlight-public-card');
       const meta = document.getElementById('spotlight-meta');
@@ -4058,6 +4179,7 @@
                 <a class="spotlight-btn secondary" href="/spotlight">Open Spotlight</a>
               </div>
             </div>
+            ${renderSpotlightRecentPanel(displayedSpotlight)}
           </div>
         </div>
       `;
@@ -4142,6 +4264,7 @@
           return;
         }
         latestHeatmap = data;
+        renderSpotlightTeaser();
         document.getElementById('signal-time').textContent = formatUpdateTimestamp(data.generated_at);
         syncPublicUpdateState();
         const maxScore = Math.max(...data.tokens.map(t => t.score));
@@ -4231,6 +4354,7 @@
         }
         const data = await res.json();
         latestTop4 = data;
+        renderSpotlightTeaser();
         syncPublicUpdateState();
         if (!data.tokens?.length) {
           grid.innerHTML = chainEmptyHtml('low-cap board');

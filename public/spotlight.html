@@ -980,6 +980,10 @@
       align-items: flex-start;
     }
 
+    .hero-showcase.no-logo {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .hero-logo.premium {
       width: 76px;
       height: 76px;
@@ -1025,6 +1029,75 @@
       color: rgba(234,244,255,0.42);
       letter-spacing: 0.04em;
     }
+
+    .spotlight-recent-panel {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.025);
+      padding: 12px;
+    }
+
+    .spotlight-recent-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .spotlight-recent-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(20,230,212,0.88);
+    }
+
+    .spotlight-recent-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: rgba(234,244,255,0.38);
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .spotlight-recent-card {
+      min-width: 0;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      padding: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .spotlight-recent-symbol {
+      font-size: 14px;
+      font-weight: 850;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-metric {
+      margin-top: 5px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: rgba(234,244,255,0.56);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .spotlight-recent-metric.positive { color: rgba(20,230,212,0.84); }
+    .spotlight-recent-metric.negative { color: rgba(255,86,112,0.84); }
 
     .hero-action-stack {
       display: flex;
@@ -1516,10 +1589,16 @@
       .hero-showcase {
         grid-template-columns: 64px minmax(0, 1fr);
       }
+      .hero-showcase.no-logo {
+        grid-template-columns: minmax(0, 1fr);
+      }
       .hero-logo.premium {
         width: 64px;
         height: 64px;
         border-radius: 18px;
+      }
+      .spotlight-recent-grid {
+        grid-template-columns: 1fr;
       }
       .hero-action-row.primary,
       .hero-action-row.trade,
@@ -1675,6 +1754,7 @@
       txHash: '',
       verification: null,
       walletAddress: null,
+      lowCapTokens: [],
       form: {
         projectName: '',
         projectDescription: '',
@@ -1766,6 +1846,73 @@
         okxUrl: tokenAddress ? `https://web3.okx.com/token/base/${tokenAddress}?ref=OKX10c` : '',
         dexUrl: tokenAddress ? `https://dexscreener.com/base/${tokenAddress}` : ''
       };
+    }
+
+    function formatUsdCompact(value) {
+      const numeric = Number(value || 0);
+      if (!Number.isFinite(numeric) || numeric <= 0) return '$0';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        notation: 'compact',
+        maximumFractionDigits: numeric >= 1_000_000 ? 1 : 0,
+      }).format(numeric);
+    }
+
+    function formatSignedPct(value) {
+      const numeric = Number(value || 0);
+      if (!Number.isFinite(numeric) || numeric === 0) return 'Flat 24h';
+      return `${numeric > 0 ? '+' : ''}${numeric.toFixed(1)}% 24h`;
+    }
+
+    function metricTone(value) {
+      const numeric = Number(value || 0);
+      if (!Number.isFinite(numeric) || numeric === 0) return '';
+      return numeric > 0 ? 'positive' : 'negative';
+    }
+
+    function tokenLink(token) {
+      return token?.o1_url || token?.dexscreener_url || token?.okx_url || (token?.token_address ? `https://dexscreener.com/base/${token.token_address}` : '/heatmap');
+    }
+
+    function recentSpotlightTokens(currentSlot, maxItems = 3) {
+      const currentAddress = String(currentSlot?.token_address || '').toLowerCase();
+      const currentSymbol = String(currentSlot?.project_name || '').toUpperCase();
+      const seen = new Set([currentAddress, currentSymbol].filter(Boolean));
+      const out = [];
+      for (const token of state.lowCapTokens || []) {
+        const addr = String(token?.token_address || '').toLowerCase();
+        const symbol = String(token?.symbol || '').toUpperCase();
+        const key = addr || symbol;
+        if (!key || seen.has(addr) || seen.has(symbol)) continue;
+        seen.add(addr);
+        seen.add(symbol);
+        out.push(token);
+        if (out.length >= maxItems) break;
+      }
+      return out;
+    }
+
+    function renderRecentSpotlightTokens(currentSlot) {
+      const tokens = recentSpotlightTokens(currentSlot, 3);
+      if (!tokens.length) return '';
+      return `
+        <div class="spotlight-recent-panel">
+          <div class="spotlight-recent-head">
+            <div class="spotlight-recent-title">Past 24h Spotlight Queue</div>
+            <div class="spotlight-recent-sub">${tokens.length} more surfaced</div>
+          </div>
+          <div class="spotlight-recent-grid">
+            ${tokens.map((token) => `
+              <a class="spotlight-recent-card" href="${escapeHtml(tokenLink(token))}" target="_blank" rel="noopener noreferrer">
+                <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                <div class="spotlight-recent-metric">${escapeHtml(formatUsdCompact(token.mcap_usd || token.market_cap_usd))} mcap</div>
+                <div class="spotlight-recent-metric ${metricTone(token.price_change_24h)}">${escapeHtml(formatSignedPct(token.price_change_24h))}</div>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `;
     }
 
     function getSpotlightWindowStatus(slot, day) {
@@ -1969,7 +2116,7 @@
             <div class="hero-status-pill">${escapeHtml(getSpotlightWindowStatus(slot, viewedDay))}</div>
           </div>
           ${media}
-          <div class="hero-showcase">
+          <div class="hero-showcase ${logo ? '' : 'no-logo'}">
             ${logo}
             <div class="hero-copy-block">
               <div class="hero-title-row">
@@ -1980,6 +2127,7 @@
               <div class="hero-status-copy">${escapeHtml(heroStatus)}</div>
             </div>
           </div>
+          ${renderRecentSpotlightTokens(slot)}
           <div class="hero-action-stack">
             <div class="hero-action-row primary">
               ${primaryRowActions}
@@ -2338,9 +2486,19 @@
       renderHero();
       try {
         const today = currentSlotDay();
-        const res = await fetch(`/api/spotlight?fromDay=${today - 3}&toDay=${today + 30}`, { cache: 'no-store' });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        const [spotlightRes, top4Res, heatmapRes] = await Promise.all([
+          fetch(`/api/spotlight?fromDay=${today - 3}&toDay=${today + 30}`, { cache: 'no-store' }),
+          fetch('/data/top4.json?t=' + Date.now(), { cache: 'no-store' }).catch(() => null),
+          fetch('/data/heatmap.json?t=' + Date.now(), { cache: 'no-store' }).catch(() => null),
+        ]);
+        const data = await spotlightRes.json();
+        const top4Data = top4Res && top4Res.ok ? await top4Res.json().catch(() => null) : null;
+        const heatmapData = heatmapRes && heatmapRes.ok ? await heatmapRes.json().catch(() => null) : null;
+        state.lowCapTokens = [
+          ...((top4Data && Array.isArray(top4Data.tokens)) ? top4Data.tokens : []),
+          ...((heatmapData && Array.isArray(heatmapData.tokens)) ? heatmapData.tokens : []),
+        ];
+        if (!spotlightRes.ok) throw new Error(data.error || `HTTP ${spotlightRes.status}`);
         state.todaySlot = data.today || null;
         state.slots = Array.isArray(data.slots) ? data.slots : [];
         state.focusDay = clampTimelineDay(state.focusDay || today);
