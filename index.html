@@ -184,6 +184,85 @@
       flex-shrink: 0;
     }
 
+    /* Chain switch (BASE / ETH) */
+    .chain-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      margin: 0 auto 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-pill);
+    }
+
+    .chain-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.55);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: var(--r-pill);
+      cursor: pointer;
+      transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .chain-switch-btn:hover { color: rgba(255,255,255,0.85); }
+
+    .chain-switch-btn[aria-pressed="true"] {
+      color: #fff;
+      background: rgba(20,230,212,0.18);
+      box-shadow: 0 0 0 1px rgba(20,230,212,0.32) inset, 0 6px 18px rgba(20,230,212,0.12);
+    }
+
+    .chain-switch-btn[data-chain="eth"][aria-pressed="true"] {
+      background: rgba(98,126,234,0.22);
+      box-shadow: 0 0 0 1px rgba(98,126,234,0.42) inset, 0 6px 18px rgba(98,126,234,0.14);
+    }
+
+    .chain-switch-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      flex-shrink: 0;
+    }
+
+    .chain-switch-btn[data-chain="base"][aria-pressed="true"] .chain-switch-dot { background: var(--brand); }
+    .chain-switch-btn[data-chain="eth"][aria-pressed="true"]  .chain-switch-dot { background: #8a9efc; }
+
+    /* Chain-empty state shown when a chain has no published feed yet */
+    .chain-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 28px 16px;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: var(--r-md);
+      background: rgba(255,255,255,0.02);
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .chain-empty .chain-empty-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+    .chain-empty .chain-empty-hint {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+    }
+
     @keyframes heroIn {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
@@ -2621,7 +2700,16 @@
   <div class="wrap">
     <div class="live-badge reveal" style="--i:0">
       <div class="live-dot"></div>
-      Base Network · Live
+      <span data-chain-text="liveBadge">Base Network · Live</span>
+    </div>
+
+    <div class="chain-switch reveal" role="tablist" aria-label="Active chain" style="--i:0">
+      <button class="chain-switch-btn" data-chain="base" type="button" role="tab" aria-pressed="true">
+        <span class="chain-switch-dot"></span>BASE
+      </button>
+      <button class="chain-switch-btn" data-chain="eth" type="button" role="tab" aria-pressed="false">
+        <span class="chain-switch-dot"></span>ETH
+      </button>
     </div>
 
     <div class="hero-shell reveal" id="hero-shell" style="--i:1">
@@ -2631,7 +2719,7 @@
           <img class="brand-logo" src="/public/images/blogo1.jpg" alt="BASEchainSCAN logo" />
           <div>
             <div class="logo">BASEchain<span>SCAN</span></div>
-            <p class="subtitle">Signal-first terminal for Base · filtered noise, cleaner token discovery</p>
+            <p class="subtitle" data-chain-text="subtitle">Signal-first terminal for Base · filtered noise, cleaner token discovery</p>
           </div>
         </div>
         <div class="proof-strip">
@@ -2687,7 +2775,7 @@
           <div class="surface-pane-meta" id="signal-time">—</div>
         </div>
         <div class="surface-pane-body">
-          <div class="surface-pane-intro">Public radar board for the strongest live Base signals, built for scanning and sharing fast.</div>
+          <div class="surface-pane-intro" data-chain-text="emergingIntro">Public radar board for the strongest live Base signals, built for scanning and sharing fast.</div>
           <div class="next-update-row">
             <div class="next-update-chip" id="next-update-chip">
               <span class="next-update-label">Next Check</span>
@@ -2927,7 +3015,7 @@
       </div>
     </div>
 
-    <p class="footer-note">Built on Base · Early stage · Signal-first</p>
+    <p class="footer-note" data-chain-text="footerNote">Built on Base · Early stage · Signal-first</p>
   </div>
 
   <script>
@@ -3336,6 +3424,88 @@
       publicDataPollTimer = setInterval(() => {
         refreshPublicSurfaces();
       }, PUBLIC_CHECK_INTERVAL_MS);
+    }
+
+    // ------------------------------------------------------------------
+    // Chain switch (BASE / ETH) — controls which feed paths the public
+    // surfaces fetch from. Default: base. ETH falls back gracefully when
+    // its feed is missing (no fake data, no Base data shown under ETH).
+    // ------------------------------------------------------------------
+    const CHAIN_STORAGE_KEY = 'bcs.activeChain';
+    const CHAIN_CONFIG = {
+      base: {
+        id: 'base',
+        label: 'Base',
+        liveBadge: 'Base Network · Live',
+        subtitle: 'Signal-first terminal for Base · filtered noise, cleaner token discovery',
+        emergingIntro: 'Public radar board for the strongest live Base signals, built for scanning and sharing fast.',
+        footerNote: 'Built on Base · Early stage · Signal-first',
+        heatmapPath: '/data/heatmap.json',
+        top4Path: '/data/top4.json',
+        spotlightApi: true,
+      },
+      eth: {
+        id: 'eth',
+        label: 'Ethereum',
+        liveBadge: 'Ethereum Network · Preview',
+        subtitle: 'Signal-first terminal for Ethereum · filtered noise, cleaner token discovery',
+        emergingIntro: 'Public radar board for live Ethereum signals — published feeds will appear here when available.',
+        footerNote: 'Multichain preview · Ethereum surfaces in rollout',
+        heatmapPath: '/data/eth/heatmap.json',
+        top4Path: '/data/eth/top4.json',
+        spotlightApi: false,
+      },
+    };
+
+    function readActiveChain() {
+      try {
+        const v = localStorage.getItem(CHAIN_STORAGE_KEY);
+        if (v && CHAIN_CONFIG[v]) return v;
+      } catch {}
+      return 'base';
+    }
+
+    let activeChain = readActiveChain();
+    function getChainConfig() { return CHAIN_CONFIG[activeChain] || CHAIN_CONFIG.base; }
+
+    function applyChainLabels() {
+      const cfg = getChainConfig();
+      document.querySelectorAll('[data-chain-text]').forEach(el => {
+        const key = el.getAttribute('data-chain-text');
+        if (key && cfg[key]) el.textContent = cfg[key];
+      });
+      document.querySelectorAll('.chain-switch-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-chain') === activeChain;
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('data-active-chain', activeChain);
+    }
+
+    function setActiveChain(next) {
+      const target = CHAIN_CONFIG[next] ? next : 'base';
+      if (target === activeChain) return;
+      activeChain = target;
+      try { localStorage.setItem(CHAIN_STORAGE_KEY, activeChain); } catch {}
+      applyChainLabels();
+      refreshPublicSurfaces();
+    }
+
+    function bindChainSwitch() {
+      document.querySelectorAll('.chain-switch-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const next = btn.getAttribute('data-chain') || 'base';
+          setActiveChain(next);
+        });
+      });
+    }
+
+    function chainEmptyHtml(surfaceLabel) {
+      const cfg = getChainConfig();
+      return `<div class="chain-empty">
+        <div class="chain-empty-title">${cfg.label} ${surfaceLabel} not published yet</div>
+        <div>This surface will light up when ${cfg.label} feeds go live.</div>
+        <div class="chain-empty-hint">Switch back to BASE for live data.</div>
+      </div>`;
     }
 
     function refreshPublicSurfaces() {
@@ -3895,6 +4065,13 @@
     }
 
     async function loadSpotlightTeaser() {
+      const cfg = getChainConfig();
+      if (!cfg.spotlightApi) {
+        latestSpotlight = null;
+        spotlightSlots = [];
+        renderSpotlightTeaser();
+        return;
+      }
       try {
         const now = getCurrentSpotlightDay();
         const res = await fetch(`/api/spotlight?fromDay=${now - 3}&toDay=${now + 30}&t=` + Date.now(), {
@@ -3942,12 +4119,28 @@
 
     async function loadHeatmap() {
       beginPublicRefresh();
+      const cfg = getChainConfig();
+      const grid = document.getElementById('hm-grid');
       try {
-        const res = await fetch('/data/heatmap.json?t=' + Date.now(), {
+        const res = await fetch(cfg.heatmapPath + '?t=' + Date.now(), {
           cache: 'no-store'
         });
+        if (res.status === 404) {
+          latestHeatmap = null;
+          if (grid) grid.innerHTML = chainEmptyHtml('radar');
+          document.getElementById('signal-time').textContent = '—';
+          setFeedback('share-feedback', cfg.label + ' radar not published yet.');
+          return;
+        }
         if (!res.ok) throw new Error();
         const data = await res.json();
+        if (!data || !Array.isArray(data.tokens) || data.tokens.length === 0) {
+          latestHeatmap = data || null;
+          if (grid) grid.innerHTML = chainEmptyHtml('radar');
+          document.getElementById('signal-time').textContent = '—';
+          setFeedback('share-feedback', cfg.label + ' radar empty.');
+          return;
+        }
         latestHeatmap = data;
         document.getElementById('signal-time').textContent = formatUpdateTimestamp(data.generated_at);
         syncPublicUpdateState();
@@ -4022,10 +4215,16 @@
     async function loadTop4() {
       const grid = document.getElementById('top4-grid');
       beginPublicRefresh();
+      const cfg = getChainConfig();
       try {
-        const res = await fetch('/data/top4.json?t=' + Date.now(), {
+        const res = await fetch(cfg.top4Path + '?t=' + Date.now(), {
           cache: 'no-store'
         });
+        if (res.status === 404) {
+          latestTop4 = null;
+          if (grid) grid.innerHTML = chainEmptyHtml('low-cap board');
+          return;
+        }
         if (!res.ok) {
           grid.innerHTML = '<div class="top4-empty">Low-cap feed unavailable right now</div>';
           return;
@@ -4034,7 +4233,7 @@
         latestTop4 = data;
         syncPublicUpdateState();
         if (!data.tokens?.length) {
-          grid.innerHTML = '<div class="top4-empty">No low-cap signals right now</div>';
+          grid.innerHTML = chainEmptyHtml('low-cap board');
           return;
         }
 
@@ -4509,6 +4708,8 @@
       return true;
     }
 
+    applyChainLabels();
+    bindChainSwitch();
     bindSurfaceTabs();
     bindGMSubtabs();
     bindTopCardSpotlight();
