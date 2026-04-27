@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T20:46:04Z",
+  "generated_at": "2026-04-27T20:51:02Z",
   "token_count": 1,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 65.92,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 1.07,
+      "signal_age_hours": 1.15,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 41.73,
-      "volume_24h_usd": 97948.79,
+      "price_change_24h": 42.08,
+      "volume_24h_usd": 97926.41,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/JvmH2HVLKj76jggS?width=800&height=800&quality=95&format=auto"
     }
