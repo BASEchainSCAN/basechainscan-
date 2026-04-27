@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T20:16:01Z",
+  "generated_at": "2026-04-27T20:21:01Z",
   "token_count": 2,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 47.04,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 1.07,
+      "signal_age_hours": 1.16,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009?ca=0x85eac631c800af804476b140f87039f742c28ba3@basescan",
-      "price_change_24h": 12.53,
-      "volume_24h_usd": 57169.99,
+      "price_change_24h": 1.6,
+      "volume_24h_usd": 57153.26,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/m69wEE2Xts5iEO4M?width=800&height=800&quality=95&format=auto"
     },
@@ -34,8 +34,8 @@
       "token_address": "0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68",
       "score": 26.6,
       "severity": "none",
-      "mcap_usd": 322065.0,
-      "lp_total_usd": 103260.74,
+      "mcap_usd": 299382.0,
+      "lp_total_usd": 99193.59,
       "lp_total_usd_24h_ago": 85353.15,
       "lp_total_change_24h_pct": 26.85,
       "holder_count": 635,
@@ -44,13 +44,13 @@
       "top10_pct": 65.92,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 0.57,
+      "signal_age_hours": 0.65,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 50.81,
-      "volume_24h_usd": 95071.39,
+      "price_change_24h": 40.88,
+      "volume_24h_usd": 97748.37,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/JvmH2HVLKj76jggS?width=800&height=800&quality=95&format=auto"
     }
