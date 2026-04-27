@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T23:21:02Z",
+  "generated_at": "2026-04-27T23:26:01Z",
   "token_count": 1,
   "tokens": [
     {
@@ -8,8 +8,8 @@
       "token_address": "0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68",
       "score": 26.6,
       "severity": "none",
-      "mcap_usd": 308911.0,
-      "lp_total_usd": 100890.98,
+      "mcap_usd": 306860.0,
+      "lp_total_usd": 100583.52,
       "lp_total_usd_24h_ago": 90545.59,
       "lp_total_change_24h_pct": 14.34,
       "holder_count": 652,
@@ -18,13 +18,13 @@
       "top10_pct": 66.09,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 3.65,
+      "signal_age_hours": 3.73,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 54.3,
-      "volume_24h_usd": 98096.36,
+      "price_change_24h": 53.27,
+      "volume_24h_usd": 98317.68,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/JvmH2HVLKj76jggS?width=800&height=800&quality=95&format=auto"
     }
