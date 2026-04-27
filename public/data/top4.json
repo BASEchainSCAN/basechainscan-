@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T06:23:31Z",
+  "generated_at": "2026-04-27T06:28:31Z",
   "token_count": 2,
   "tokens": [
     {
@@ -18,7 +18,7 @@
       "top10_pct": 47.04,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 9.2,
+      "signal_age_hours": 9.28,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
@@ -35,21 +35,21 @@
       "severity": "none",
       "mcap_usd": 221267.0,
       "lp_total_usd": 84390.76,
-      "lp_total_usd_24h_ago": 71565.8,
-      "lp_total_change_24h_pct": 27.53,
+      "lp_total_usd_24h_ago": 78046.03,
+      "lp_total_change_24h_pct": 16.94,
       "holder_count": 596,
-      "holder_count_24h_ago": 542,
-      "holder_count_change_24h_pct": 9.96,
+      "holder_count_24h_ago": 550,
+      "holder_count_change_24h_pct": 8.36,
       "top10_pct": 65.85,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 1.13,
+      "signal_age_hours": 1.21,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 35.22,
-      "volume_24h_usd": 59123.49,
+      "price_change_24h": 38.53,
+      "volume_24h_usd": 58983.95,
       "mcap_source": "dexscreener"
     }
   ]
