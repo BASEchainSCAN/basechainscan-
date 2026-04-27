@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T19:14:57Z",
+  "generated_at": "2026-04-27T19:14:38Z",
   "token_count": 2,
   "tokens": [
     {
@@ -34,8 +34,8 @@
       "token_address": "0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68",
       "score": 26.6,
       "severity": "none",
-      "mcap_usd": 319803.0,
-      "lp_total_usd": 102807.57,
+      "mcap_usd": 313862.0,
+      "lp_total_usd": 101731.57,
       "lp_total_usd_24h_ago": 85353.15,
       "lp_total_change_24h_pct": 24.09,
       "holder_count": 629,
@@ -49,8 +49,8 @@
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 53.45,
-      "volume_24h_usd": 95038.65,
+      "price_change_24h": 50.6,
+      "volume_24h_usd": 94535.19,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/JvmH2HVLKj76jggS?width=800&height=800&quality=95&format=auto"
     }
