@@ -1077,6 +1077,39 @@
       color: inherit;
     }
 
+    .spotlight-recent-token-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .token-logo,
+    .token-logo-fallback {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(20,230,212,0.09);
+    }
+
+    .token-logo {
+      display: block;
+      object-fit: cover;
+    }
+
+    .token-logo-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(20,230,212,0.9);
+      font-size: 10px;
+      font-weight: 850;
+      font-family: var(--font-mono);
+      letter-spacing: 0.02em;
+    }
+
     .spotlight-recent-symbol {
       font-size: 14px;
       font-weight: 850;
@@ -1875,6 +1908,21 @@
       return token?.o1_url || token?.dexscreener_url || token?.okx_url || (token?.token_address ? `https://dexscreener.com/base/${token.token_address}` : '/heatmap');
     }
 
+    function tokenLogoUrl(token) {
+      return token?.logo_url || token?.image_url || token?.project_logo_url || '';
+    }
+
+    function tokenInitials(token) {
+      const symbol = String(token?.symbol || token?.project_name || '?').trim();
+      return escapeHtml(symbol.slice(0, 2).toUpperCase() || '?');
+    }
+
+    function renderTokenLogo(token) {
+      const url = tokenLogoUrl(token);
+      if (!url) return `<span class="token-logo-fallback">${tokenInitials(token)}</span>`;
+      return `<img class="token-logo" src="${escapeHtml(url)}" alt="${escapeHtml(token?.symbol || token?.project_name || 'Token')} logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'token-logo-fallback',textContent:'${tokenInitials(token)}'}))" />`;
+    }
+
     function recentSpotlightTokens(currentSlot, maxItems = 3) {
       const currentAddress = String(currentSlot?.token_address || '').toLowerCase();
       const currentSymbol = String(currentSlot?.project_name || '').toUpperCase();
@@ -1905,7 +1953,10 @@
           <div class="spotlight-recent-grid">
             ${tokens.map((token) => `
               <a class="spotlight-recent-card" href="${escapeHtml(tokenLink(token))}" target="_blank" rel="noopener noreferrer">
-                <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                <div class="spotlight-recent-token-row">
+                  ${renderTokenLogo(token)}
+                  <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                </div>
                 <div class="spotlight-recent-metric">${escapeHtml(formatUsdCompact(token.mcap_usd || token.market_cap_usd))} mcap</div>
                 <div class="spotlight-recent-metric ${metricTone(token.price_change_24h)}">${escapeHtml(formatSignedPct(token.price_change_24h))}</div>
               </a>

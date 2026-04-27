@@ -959,6 +959,39 @@
       margin-bottom: 10px;
     }
 
+    .token-title-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .token-logo,
+    .token-logo-fallback {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(20,230,212,0.09);
+    }
+
+    .token-logo {
+      display: block;
+      object-fit: cover;
+    }
+
+    .token-logo-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(20,230,212,0.9);
+      font-size: 11px;
+      font-weight: 850;
+      font-family: var(--font-mono);
+      letter-spacing: 0.02em;
+    }
+
     .hm-rank { font-size: 12px; color: rgba(234,244,255,0.62); margin-bottom: 5px; letter-spacing: 0.04em; }
     .hm-symbol { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.05; }
     .hm-score { font-size: 29px; font-weight: 800; color: var(--heat-color, #F5FBFF); line-height: 1; font-family: var(--font-mono); letter-spacing: -0.045em; }
@@ -1289,7 +1322,31 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      gap: 12px;
       margin-bottom: 12px;
+    }
+
+    .tc-token-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .tc-token-copy {
+      min-width: 0;
+    }
+
+    .tc .token-logo,
+    .tc .token-logo-fallback {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      margin-top: 2px;
+    }
+
+    .tc .token-logo-fallback {
+      font-size: 13px;
     }
 
     .tc-brand {
@@ -1952,6 +2009,24 @@
       padding: 9px;
       text-decoration: none;
       color: inherit;
+    }
+
+    .spotlight-recent-token-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .spotlight-recent-card .token-logo,
+    .spotlight-recent-card .token-logo-fallback {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+    }
+
+    .spotlight-recent-card .token-logo-fallback {
+      font-size: 9px;
     }
 
     .spotlight-recent-symbol {
@@ -4031,6 +4106,22 @@
       return token?.o1_url || token?.dexscreener_url || token?.okx_url || (token?.token_address ? `https://dexscreener.com/base/${token.token_address}` : '/heatmap');
     }
 
+    function tokenLogoUrl(token) {
+      return token?.logo_url || token?.image_url || token?.project_logo_url || '';
+    }
+
+    function tokenInitials(token) {
+      const symbol = String(token?.symbol || token?.project_name || '?').trim();
+      return escapeHtml(symbol.slice(0, 2).toUpperCase() || '?');
+    }
+
+    function renderTokenLogo(token, className = 'token-logo') {
+      const url = tokenLogoUrl(token);
+      const alt = escapeHtml(`${token?.symbol || token?.project_name || 'Token'} logo`);
+      if (!url) return `<span class="${className}-fallback">${tokenInitials(token)}</span>`;
+      return `<img class="${className}" src="${escapeHtml(url)}" alt="${alt}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'${className}-fallback',textContent:'${tokenInitials(token)}'}))" />`;
+    }
+
     function spotlightRecentTokens(currentSlot, maxItems = 3) {
       const currentAddress = String(currentSlot?.token_address || '').toLowerCase();
       const currentSymbol = String(currentSlot?.project_name || '').toUpperCase();
@@ -4065,7 +4156,10 @@
           <div class="spotlight-recent-grid">
             ${tokens.map((token) => `
               <a class="spotlight-recent-card" href="${escapeHtml(spotlightTokenLink(token))}" target="_blank" rel="noopener noreferrer">
-                <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                <div class="spotlight-recent-token-row">
+                  ${renderTokenLogo(token)}
+                  <div class="spotlight-recent-symbol">${escapeHtml(token.symbol || '?')}</div>
+                </div>
                 <div class="spotlight-recent-metric">${escapeHtml(fmtUsd(token.mcap_usd || token.market_cap_usd))} mcap</div>
                 <div class="spotlight-recent-metric ${deltaClass(token.price_change_24h)}">${escapeHtml(fmtPct(token.price_change_24h, 1))} 24h</div>
               </a>
@@ -4252,9 +4346,14 @@
           const holderDeltaCls = pctChangeClass(t.holder_count_change_24h_pct);
           return `<div class="hm-card hm-sev-${sev}" style="--heat-pct:${pct}%">
             <div class="hm-head">
+              <div class="token-title-row">
+                ${renderTokenLogo(t)}
+                <div>
+                  <div class="hm-rank">#${t.rank}</div>
+                  <div class="hm-symbol">${t.symbol}</div>
+                </div>
+              </div>
               <div>
-                <div class="hm-rank">#${t.rank}</div>
-                <div class="hm-symbol">${t.symbol}</div>
                 <div class="hm-score" data-score="${t.score}">${t.score}</div>
                 <div class="hm-score-label">score</div>
               </div>
@@ -4336,13 +4435,16 @@
         grid.innerHTML = data.tokens.map(t => `
           <div class="tc">
             <div class="tc-top">
-              <div>
+              <div class="tc-token-head">
+                ${renderTokenLogo(t)}
+                <div class="tc-token-copy">
                 <div class="tc-brand">BasechainSCAN · Radar</div>
                 <div class="tc-symbol">${t.symbol}</div>
                 <div class="tc-story">${storyLine(t)}</div>
                 <div class="tc-meta-row">
                   ${t.x_username ? `<div class="tc-meta-pill">@${t.x_username}</div>` : ''}
                   <div class="tc-meta-pill">Top 10 ${fmtPct(t.top10_pct, 1)}</div>
+                </div>
                 </div>
               </div>
               <div class="tc-score">

@@ -219,7 +219,7 @@ function buildLowCapSpotlightSlotFromToken(token, slotDay, now = new Date()) {
     slot_date: slotDayToDate(slotDay),
     project_name: token.symbol,
     project_description: `Today's auto Spotlight from Low Caps Emerging: ${token.symbol}.${metricLine} Watch the live Base setup on ${venue}.`,
-    project_logo_url: null,
+    project_logo_url: token.project_logo_url || token.logo_url || token.image_url || null,
     project_url: projectUrl,
     x_url: token.x_url || undefined,
     video_url: undefined,
