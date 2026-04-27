@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T00:58:31Z",
+  "generated_at": "2026-04-27T01:04:06Z",
   "token_count": 2,
   "tokens": [
     {
@@ -11,20 +11,20 @@
       "mcap_usd": 480326.0,
       "lp_total_usd": 224485.28,
       "lp_total_usd_24h_ago": 236642.69,
-      "lp_total_change_24h_pct": 0.6,
-      "holder_count": 2442,
+      "lp_total_change_24h_pct": -1.51,
+      "holder_count": 2440,
       "holder_count_24h_ago": 2452,
-      "holder_count_change_24h_pct": -0.41,
+      "holder_count_change_24h_pct": -0.49,
       "top10_pct": 47.01,
       "x_username": "Woon_agent",
       "x_url": "https://x.com/Woon_agent",
-      "signal_age_hours": 3.78,
+      "signal_age_hours": 3.87,
       "pair_address": "0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "dexscreener_url": "https://dexscreener.com/base/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009",
       "okx_url": "https://web3.okx.com/token/base/0x85eac631c800af804476b140f87039f742c28ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xd09b80fba50d53fa75da9ad1c823f7085b2478e00757619ee39a4a406874b009?ca=0x85eac631c800af804476b140f87039f742c28ba3@basescan",
-      "price_change_24h": -4.85,
-      "volume_24h_usd": 66265.68,
+      "price_change_24h": -4.72,
+      "volume_24h_usd": 66099.89,
       "mcap_source": "dexscreener"
     },
     {
@@ -43,13 +43,13 @@
       "top10_pct": 65.85,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 0.44,
+      "signal_age_hours": 0.54,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6?ca=0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68@basescan",
-      "price_change_24h": 56.76,
-      "volume_24h_usd": 59912.02,
+      "price_change_24h": 56.35,
+      "volume_24h_usd": 59858.9,
       "mcap_source": "dexscreener"
     }
   ]
