@@ -1,5 +1,6 @@
 import {
   buildLowCapSpotlightFallback,
+  buildLowCapSpotlightFallbackSlots,
   currentSlotDay,
   getSupabaseClient,
   isAfterSpotlightFallbackHour,
@@ -73,8 +74,15 @@ function buildSpotlightPayload({
     preserveSpotlightActionFields(mapSpotlightRow(todayRow)),
     scheduledSeedToday,
   );
-  const fallbackToday = !mappedToday && !scheduledSeedToday && isAfterSpotlightFallbackHour(now)
-    ? preserveSpotlightActionFields(buildLowCapSpotlightFallback(now))
+  const autoFallbackSlots = buildLowCapSpotlightFallbackSlots({
+    now,
+    fromDay: rangeStart,
+    toDay: rangeEnd,
+    count: 4,
+  }).map(preserveSpotlightActionFields);
+  const autoFallbackByDay = new Map(autoFallbackSlots.map((slot) => [slot.slot_day, slot]));
+  const fallbackToday = !mappedToday && !scheduledSeedToday
+    ? preserveSpotlightActionFields(autoFallbackByDay.get(todayDay) || buildLowCapSpotlightFallback(now))
     : null;
 
   const actualSlots = uniqueSlotsByDay((slotRows || []).map(mapSpotlightRow).map(preserveSpotlightActionFields).filter(Boolean))
@@ -82,7 +90,10 @@ function buildSpotlightPayload({
   const slots = uniqueSlotsByDay([
     ...actualSlots,
     ...seedSlots.filter((seedSlot) => !actualSlots.some((slot) => slot.slot_day === seedSlot.slot_day)),
-    ...(fallbackToday && fallbackToday.slot_day >= rangeStart && fallbackToday.slot_day <= rangeEnd ? [fallbackToday] : []),
+    ...autoFallbackSlots.filter((autoSlot) => (
+      !actualSlots.some((slot) => slot.slot_day === autoSlot.slot_day)
+      && !seedSlots.some((slot) => slot.slot_day === autoSlot.slot_day)
+    )),
   ]).sort((left, right) => left.slot_day - right.slot_day);
 
   const seedTakenDays = [...(seedData?.takenDays || []), ...seedSlots.map((slot) => slot.slot_day)]

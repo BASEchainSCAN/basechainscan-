@@ -10,6 +10,7 @@ export const SPOTLIGHT_PRICE_ETH = process.env.SPOTLIGHT_PRICE_ETH || '0.01';
 export const BASE_RPC_URL = process.env.BASE_RPC_URL || 'https://mainnet.base.org';
 const SPOTLIGHT_SEED_PATH = new URL('../public/data/spotlight-seed.json', import.meta.url);
 const TOP4_FEED_PATH = new URL('../public/data/top4.json', import.meta.url);
+const HEATMAP_FEED_PATH = new URL('../public/data/heatmap.json', import.meta.url);
 const fallbackHour = Number.parseInt(process.env.SPOTLIGHT_FALLBACK_HOUR_UTC || '5', 10);
 export const SPOTLIGHT_FALLBACK_HOUR_UTC = Number.isFinite(fallbackHour)
   ? Math.min(Math.max(fallbackHour, 0), 23)
@@ -144,6 +145,20 @@ export function loadTop4Feed() {
   }
 }
 
+export function loadHeatmapFeed() {
+  try {
+    const raw = fs.readFileSync(HEATMAP_FEED_PATH, 'utf-8');
+    const payload = JSON.parse(raw);
+    if (!payload || typeof payload !== 'object') return null;
+    return {
+      generated_at: typeof payload.generated_at === 'string' ? payload.generated_at : null,
+      tokens: Array.isArray(payload.tokens) ? payload.tokens : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function isAfterSpotlightFallbackHour(now = new Date()) {
   return now.getUTCHours() >= SPOTLIGHT_FALLBACK_HOUR_UTC;
 }
@@ -165,12 +180,28 @@ function formatSignedPercent(value) {
   return `${sign}${value.toFixed(1)}%`;
 }
 
-export function buildLowCapSpotlightFallback(now = new Date()) {
-  const feed = loadTop4Feed();
-  const token = feed?.tokens?.find((entry) => entry && entry.symbol && (entry.o1_url || entry.dexscreener_url || entry.okx_url));
+function lowCapSpotlightCandidates() {
+  const top4Feed = loadTop4Feed();
+  const heatmapFeed = loadHeatmapFeed();
+  const seen = new Set();
+  const out = [];
+  for (const token of [...(top4Feed?.tokens || []), ...(heatmapFeed?.tokens || [])]) {
+    const symbol = String(token?.symbol || '').trim();
+    const address = String(token?.token_address || '').trim().toLowerCase();
+    const key = address || symbol.toUpperCase();
+    if (!symbol || !key || seen.has(key)) continue;
+    seen.add(key);
+    out.push({
+      ...token,
+      generated_at: token.generated_at || top4Feed?.generated_at || heatmapFeed?.generated_at || null,
+    });
+  }
+  return out;
+}
+
+function buildLowCapSpotlightSlotFromToken(token, slotDay, now = new Date()) {
   if (!token) return null;
 
-  const slotDay = currentSlotDay(now);
   const tradeUrl = token.o1_url || token.dexscreener_url || token.okx_url;
   const projectUrl = token.x_url || token.dexscreener_url || token.okx_url || tradeUrl;
   const marketCap = formatCompactUsd(token.mcap_usd);
@@ -203,8 +234,29 @@ export function buildLowCapSpotlightFallback(now = new Date()) {
     nft_token_id: undefined,
     tx_hash: undefined,
     approved_at: now.toISOString(),
-    created_at: feed?.generated_at || now.toISOString(),
+    created_at: token.generated_at || now.toISOString(),
   };
+}
+
+export function buildLowCapSpotlightFallback(now = new Date()) {
+  return buildLowCapSpotlightSlotFromToken(lowCapSpotlightCandidates()[0], currentSlotDay(now), now);
+}
+
+export function buildLowCapSpotlightFallbackSlots({
+  now = new Date(),
+  fromDay = 0,
+  toDay = 0,
+  count = 4,
+} = {}) {
+  const todayDay = currentSlotDay(now);
+  const rangeStart = fromDay || todayDay - 3;
+  const rangeEnd = toDay || todayDay;
+  const candidates = lowCapSpotlightCandidates().slice(0, Math.max(1, count));
+  return candidates
+    .map((token, index) => buildLowCapSpotlightSlotFromToken(token, todayDay - index, now))
+    .filter(Boolean)
+    .filter((slot) => slot.slot_day >= rangeStart && slot.slot_day <= rangeEnd)
+    .sort((left, right) => left.slot_day - right.slot_day);
 }
 
 export async function jsonRpc(method, params = []) {
