@@ -3,7 +3,6 @@ import {
   buildLowCapSpotlightFallbackSlots,
   currentSlotDay,
   getSupabaseClient,
-  isAfterSpotlightFallbackHour,
   loadSpotlightSeedData,
   mapSpotlightRow,
   normalizeAddress,

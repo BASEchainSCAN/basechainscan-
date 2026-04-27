@@ -3327,34 +3327,6 @@
       return (spotlightSlots || []).find((slot) => Number(slot?.slot_day) === Number(slotDay)) || null;
     }
 
-    function renderSpotlightWeekStrip() {
-      const shell = document.getElementById('spotlight-public-week-strip');
-      if (!shell) return;
-
-      const today = getCurrentSpotlightDay();
-      const focusDay = spotlightFocusDay || today;
-      const days = Array.from({ length: 7 }, (_, index) => today - 3 + index);
-
-      shell.innerHTML = days.map((day) => {
-        const slot = getSpotlightSlotForDay(day);
-        const classes = ['spotlight-week-pill'];
-        if (slot) classes.push('has-slot');
-        if (day === focusDay) classes.push('active');
-        const status = slot
-          ? (slot.source === 'lowcaps_auto' ? 'Auto' : day === today ? 'Live' : day > today ? 'Next' : 'Past')
-          : (day > today ? 'Open' : 'None');
-        const name = slot ? slot.project_name : (day > today ? 'Available' : 'No slot');
-        return `
-          <button type="button" class="${classes.join(' ')}" data-spotlight-focus-day="${day}">
-            <span class="spotlight-week-kicker">${escapeHtml(formatRelativeSpotlightDay(day))}</span>
-            <span class="spotlight-week-date">${escapeHtml(formatShortDate(day))}</span>
-            <span class="spotlight-week-name">${escapeHtml(name)}</span>
-            <span class="spotlight-week-status">${escapeHtml(status)}</span>
-          </button>
-        `;
-      }).join('');
-    }
-
     function syncPublicUpdateState() {
       const timestamps = [latestHeatmap?.generated_at, latestTop4?.generated_at]
         .map(value => {
@@ -3858,7 +3830,7 @@
       root.querySelectorAll('.hm-chart-shell').forEach(shell => renderHeatmapChart(shell));
     }
 
-    function renderSpotlightTeaser() {
+    function renderSpotlightTeaserLegacy() {
       const shell = document.getElementById('spotlight-public-card');
       const meta = document.getElementById('spotlight-meta');
       if (!shell || !meta) return;
