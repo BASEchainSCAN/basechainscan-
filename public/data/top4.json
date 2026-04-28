@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T22:11:15Z",
+  "generated_at": "2026-04-28T22:16:11Z",
   "token_count": 1,
   "tokens": [
     {
@@ -10,15 +10,15 @@
       "severity": "none",
       "mcap_usd": 297689.0,
       "lp_total_usd": 98917.59,
-      "lp_total_usd_24h_ago": 108273.32,
-      "lp_total_change_24h_pct": -5.13,
+      "lp_total_usd_24h_ago": 103529.63,
+      "lp_total_change_24h_pct": -0.79,
       "holder_count": 676,
       "holder_count_24h_ago": 635,
       "holder_count_change_24h_pct": 6.46,
       "top10_pct": 66.34,
       "x_username": "dungeonclawx402",
       "x_url": "https://x.com/dungeonclawx402",
-      "signal_age_hours": 19.38,
+      "signal_age_hours": 19.46,
       "pair_address": "0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "dexscreener_url": "https://dexscreener.com/base/0xe6f194f8edfeb819b5541f4082a767a9b6ab328de00136571fa0e2d8de5f0fd6",
       "okx_url": "https://web3.okx.com/token/base/0xb7965a38552e0f7d5b728bad1ef2817ca7ae0b68?ref=OKX10c",
