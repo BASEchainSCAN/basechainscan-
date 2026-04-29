@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-29T19:58:39Z",
+  "generated_at": "2026-04-29T20:03:27Z",
   "token_count": 1,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 66.83,
       "x_username": "deluquant",
       "x_url": "https://x.com/deluquant",
-      "signal_age_hours": 0.23,
+      "signal_age_hours": 0.31,
       "pair_address": "0x2e6d071f01bc78676088cd022c9a73413c7273b2123a8564f0f69289356fef91",
       "dexscreener_url": "https://dexscreener.com/base/0x2e6d071f01bc78676088cd022c9a73413c7273b2123a8564f0f69289356fef91",
       "okx_url": "https://web3.okx.com/token/base/0x7b0ee9dcb5c1d4d7cd630c652959951936512ba3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x2e6d071f01bc78676088cd022c9a73413c7273b2123a8564f0f69289356fef91?ca=0x7b0ee9dcb5c1d4d7cd630c652959951936512ba3@basescan",
-      "price_change_24h": -11.74,
-      "volume_24h_usd": 294351.0,
+      "price_change_24h": -14.69,
+      "volume_24h_usd": 292563.69,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/K6I8wZDLw-nmC_IL?width=800&height=800&quality=95&format=auto"
     }
