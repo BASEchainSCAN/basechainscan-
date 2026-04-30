@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T01:22:58Z",
+  "generated_at": "2026-04-30T01:28:27Z",
   "token_count": 3,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 0.16,
+      "signal_age_hours": 0.26,
       "pair_address": "0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce",
       "dexscreener_url": "https://dexscreener.com/base/0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce",
       "okx_url": "https://web3.okx.com/token/base/0xae42f183554d369ee98b7b1980bea3761f47abc3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce?ca=0xae42f183554d369ee98b7b1980bea3761f47abc3@basescan",
-      "price_change_24h": -31.67,
-      "volume_24h_usd": 240665.31,
+      "price_change_24h": -31.42,
+      "volume_24h_usd": 240347.32,
       "mcap_source": "dexscreener"
     },
     {
@@ -43,13 +43,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 0.16,
+      "signal_age_hours": 0.25,
       "pair_address": "0x6092abe3f6076f4e03954d9eab5f66cea426ecd395c1fd8289eca870a6241eab",
       "dexscreener_url": "https://dexscreener.com/base/0x6092abe3f6076f4e03954d9eab5f66cea426ecd395c1fd8289eca870a6241eab",
       "okx_url": "https://web3.okx.com/token/base/0xd400a048b726eba969449b342dc7c0e74187c0de?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x6092abe3f6076f4e03954d9eab5f66cea426ecd395c1fd8289eca870a6241eab?ca=0xd400a048b726eba969449b342dc7c0e74187c0de@basescan",
-      "price_change_24h": -10.23,
-      "volume_24h_usd": 58272.2,
+      "price_change_24h": -10.31,
+      "volume_24h_usd": 58249.53,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/YcP_OtMv66WZHTvV?width=800&height=800&quality=95&format=auto"
     },
@@ -59,8 +59,8 @@
       "token_address": "0xc7e4254a72169fdf7a2e080462724f2f642daf7e",
       "score": 32.0,
       "severity": "none",
-      "mcap_usd": 571366.0,
-      "lp_total_usd": 85230.14,
+      "mcap_usd": 568216.0,
+      "lp_total_usd": 84999.33,
       "lp_total_usd_24h_ago": 115728.69,
       "lp_total_change_24h_pct": -22.47,
       "holder_count": 0,
@@ -69,13 +69,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 0.1,
+      "signal_age_hours": 0.19,
       "pair_address": "0xa682edb626e90bbf54ded4538c5bc1fa92b8e918",
       "dexscreener_url": "https://dexscreener.com/base/0xa682edb626e90bbf54ded4538c5bc1fa92b8e918",
       "okx_url": "https://web3.okx.com/token/base/0xc7e4254a72169fdf7a2e080462724f2f642daf7e?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0xa682edb626e90bbf54ded4538c5bc1fa92b8e918?ca=0xc7e4254a72169fdf7a2e080462724f2f642daf7e@basescan",
-      "price_change_24h": -35.89,
-      "volume_24h_usd": 654348.47,
+      "price_change_24h": -36.9,
+      "volume_24h_usd": 653851.62,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/zl1bTcUhxE3VoDK_?width=800&height=800&quality=95&format=auto"
     }
