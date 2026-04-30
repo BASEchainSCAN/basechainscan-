@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T14:23:09Z",
+  "generated_at": "2026-04-30T14:33:09Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -1309,14 +1309,14 @@
         {
           "ts": "2026-04-30 12:00:00",
           "ts_unix": 1777550400,
-          "price_usd": 0.000454789995
+          "price_usd": 0.000449324087
         }
       ],
-      "price_history_source": "cached_provider_ohlcv_same_pool",
+      "price_history_source": "provider_ohlcv_same_pool",
       "canonical_pool_address": "0x377feeed4820b3b28d1ab429509e7a0789824fca",
       "price_history_points": 56,
       "price_history_span_hours": 220.0,
-      "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
+      "price_history_reason": "full_history_from_provider_ohlcv_same_pool"
     },
     {
       "rank": 6,
@@ -2137,7 +2137,7 @@
         {
           "ts": "2026-04-30 12:00:00",
           "ts_unix": 1777550400,
-          "price_usd": 0.021257192366
+          "price_usd": 0.021210573223
         }
       ],
       "price_history_source": "cached_provider_ohlcv_same_pool",
@@ -2508,15 +2508,15 @@
       "token_address": "0xff8104251e7761163fac3211ef5583fb3f8583d6",
       "score": 34.1,
       "severity": "medium",
-      "signals": 10,
+      "signals": 9,
       "last_seen": "2026-04-30 09:41:04",
       "chart_enabled": false,
       "price_change_24h": 0.0,
       "market_cap_usd": 7501399.0,
       "liquidity_usd": 5757.03,
       "holder_count": 21495,
-      "liquidity_change_24h_pct": -6.82,
-      "holder_count_change_24h_pct": 0.02,
+      "liquidity_change_24h_pct": -7.63,
+      "holder_count_change_24h_pct": 0.01,
       "top10_pct": 79.43,
       "volume_24h_usd": 0.0,
       "volume_1h_usd": 0.0,
