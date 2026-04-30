@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T15:13:33Z",
+  "generated_at": "2026-04-30T15:28:17Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -62,25 +62,6 @@
     },
     {
       "rank": 4,
-      "symbol": "UPEG",
-      "token_address": "0x44b28991b167582f18ba0259e0173176ca125505",
-      "score": 38.2,
-      "severity": "none",
-      "signals": 15,
-      "last_seen": "2026-04-30 10:53:19",
-      "chart_enabled": false,
-      "price_change_24h": 0.0,
-      "market_cap_usd": 8338065.0,
-      "liquidity_usd": 7506.63,
-      "holder_count": 0,
-      "liquidity_change_24h_pct": -12.49,
-      "holder_count_change_24h_pct": 0.0,
-      "top10_pct": 100.0,
-      "volume_24h_usd": 0.0,
-      "volume_1h_usd": 0.0
-    },
-    {
-      "rank": 5,
       "symbol": "AIB",
       "token_address": "0xb3a0f70c913aa04404bd177be9e20b47613830b6",
       "score": 35.6,
@@ -99,7 +80,7 @@
       "volume_1h_usd": 0.0
     },
     {
-      "rank": 6,
+      "rank": 5,
       "symbol": "CMD",
       "token_address": "0xae42f183554d369ee98b7b1980bea3761f47abc3",
       "score": 35.3,
@@ -118,7 +99,7 @@
       "volume_1h_usd": 12069.39
     },
     {
-      "rank": 7,
+      "rank": 6,
       "symbol": "WETH",
       "token_address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
       "score": 33.5,
@@ -137,7 +118,7 @@
       "volume_1h_usd": 491.95
     },
     {
-      "rank": 8,
+      "rank": 7,
       "symbol": "WISH",
       "token_address": "0xf7472c606596943d2b5a9769d7e6cc273306b4ef",
       "score": 31.7,
@@ -156,7 +137,7 @@
       "volume_1h_usd": 1363.11
     },
     {
-      "rank": 9,
+      "rank": 8,
       "symbol": "AI",
       "token_address": "0x4d7078ddd6ccfed2f85db5b7d3ff16828d378d48",
       "score": 31.1,
@@ -169,6 +150,25 @@
       "liquidity_usd": 10364.27,
       "holder_count": 0,
       "liquidity_change_24h_pct": 0.0,
+      "holder_count_change_24h_pct": 0.0,
+      "top10_pct": 100.0,
+      "volume_24h_usd": 0.0,
+      "volume_1h_usd": 0.0
+    },
+    {
+      "rank": 9,
+      "symbol": "UPEG",
+      "token_address": "0x44b28991b167582f18ba0259e0173176ca125505",
+      "score": 30.6,
+      "severity": "none",
+      "signals": 16,
+      "last_seen": "2026-04-30 15:24:34",
+      "chart_enabled": false,
+      "price_change_24h": 0.0,
+      "market_cap_usd": 8535005.0,
+      "liquidity_usd": 4405.54,
+      "holder_count": 0,
+      "liquidity_change_24h_pct": -11.0,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 100.0,
       "volume_24h_usd": 0.0,
@@ -199,14 +199,14 @@
       "token_address": "0xaff2565091e7207191dbe340b8528d02fa78d044",
       "score": 29.6,
       "severity": "none",
-      "signals": 15,
+      "signals": 14,
       "last_seen": "2026-04-30 09:14:36",
       "chart_enabled": false,
       "price_change_24h": 0.0,
       "market_cap_usd": 7488427.0,
       "liquidity_usd": 0.01,
       "holder_count": 0,
-      "liquidity_change_24h_pct": -26.22,
+      "liquidity_change_24h_pct": -22.35,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 100.0,
       "volume_24h_usd": 0.0,
