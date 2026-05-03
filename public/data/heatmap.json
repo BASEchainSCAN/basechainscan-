@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T16:12:18Z",
+  "generated_at": "2026-05-03T16:17:17Z",
   "window_hours": 24,
   "token_count": 18,
   "tokens": [
@@ -12,14 +12,14 @@
       "signals": 5,
       "last_seen": "2026-05-03 01:42:59",
       "chart_enabled": true,
-      "price_change_24h": 0.44,
-      "market_cap_usd": 8838996.0,
-      "liquidity_usd": 648627.62,
+      "price_change_24h": 0.43,
+      "market_cap_usd": 8839169.0,
+      "liquidity_usd": 648629.31,
       "holder_count": 52468,
       "liquidity_change_24h_pct": -18.95,
       "holder_count_change_24h_pct": -0.02,
       "top10_pct": 92.64,
-      "volume_24h_usd": 3365196.75,
+      "volume_24h_usd": 3365101.51,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/5f5e4c0464a938976ae6ff90eb74606de25b27f9102ba15305353bb9a2cc950c?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -312,6 +312,32 @@
     },
     {
       "rank": 2,
+      "symbol": "GITLAWB",
+      "token_address": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
+      "score": 47.6,
+      "severity": "low",
+      "signals": 11,
+      "last_seen": "2026-05-03 16:13:24",
+      "chart_enabled": true,
+      "price_change_24h": -13.74,
+      "market_cap_usd": 3855105.0,
+      "liquidity_usd": 1202106.0,
+      "holder_count": 2948,
+      "liquidity_change_24h_pct": -9.07,
+      "holder_count_change_24h_pct": -0.2,
+      "top10_pct": 33.44,
+      "volume_24h_usd": 233175.32,
+      "volume_1h_usd": 0.0,
+      "logo_url": "https://cdn.dexscreener.com/cms/images/l9vvZv9smF-rICMx?width=800&height=800&quality=95&format=auto",
+      "price_history_7d": [],
+      "price_history_source": "unavailable",
+      "canonical_pool_address": "0x72c12f0cc0e0c6e97ff9869717a482aff97e3b30",
+      "price_history_points": 0,
+      "price_history_span_hours": 0.0,
+      "price_history_reason": "provider_ohlcv_unavailable_for_canonical_pool"
+    },
+    {
+      "rank": 3,
       "symbol": "MIGGLES",
       "token_address": "0xb1a03eda10342529bbf8eb700a06c60441fef25d",
       "score": 44.5,
@@ -319,14 +345,14 @@
       "signals": 4,
       "last_seen": "2026-05-03 14:31:54",
       "chart_enabled": true,
-      "price_change_24h": -3.12,
+      "price_change_24h": -3.21,
       "market_cap_usd": 2417941.0,
       "liquidity_usd": 447262.43,
       "holder_count": 471350,
       "liquidity_change_24h_pct": -1.05,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 26.31,
-      "volume_24h_usd": 11080.03,
+      "volume_24h_usd": 11077.44,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/7e1ecc20fb205877a758c3d129580f5c6e9c0f5bd6763c0c1ac95f1c7851c4c5?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -538,7 +564,7 @@
       "price_history_reason": "partial_history_from_local_ohlcv_same_pool"
     },
     {
-      "rank": 3,
+      "rank": 4,
       "symbol": "OVPP",
       "token_address": "0x8c0d3adcf8ce094e1ae437557ec90a6374dc9bdd",
       "score": 43.7,
@@ -546,14 +572,14 @@
       "signals": 11,
       "last_seen": "2026-05-03 15:29:16",
       "chart_enabled": true,
-      "price_change_24h": -6.66,
-      "market_cap_usd": 11952230.0,
-      "liquidity_usd": 850197.67,
+      "price_change_24h": -6.7,
+      "market_cap_usd": 11946830.0,
+      "liquidity_usd": 849789.93,
       "holder_count": 3694,
       "liquidity_change_24h_pct": -1.87,
       "holder_count_change_24h_pct": -0.08,
       "top10_pct": 59.42,
-      "volume_24h_usd": 556331.65,
+      "volume_24h_usd": 556823.75,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/KhyRoCzf7ROSmruw?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -845,7 +871,7 @@
       "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
-      "rank": 4,
+      "rank": 5,
       "symbol": "TIBBIR",
       "token_address": "0xa4a2e2ca3fbfe21aed83471d28b6f65a233c6e00",
       "score": 42.0,
@@ -853,14 +879,14 @@
       "signals": 9,
       "last_seen": "2026-05-03 15:25:53",
       "chart_enabled": true,
-      "price_change_24h": 12.56,
-      "market_cap_usd": 161462416.0,
-      "liquidity_usd": 250188.58,
+      "price_change_24h": 12.53,
+      "market_cap_usd": 161417534.0,
+      "liquidity_usd": 250098.95,
       "holder_count": 79718,
       "liquidity_change_24h_pct": 6.96,
       "holder_count_change_24h_pct": -0.03,
       "top10_pct": 17.51,
-      "volume_24h_usd": 160152.26,
+      "volume_24h_usd": 160161.57,
       "volume_1h_usd": 0.44,
       "logo_url": "https://cdn.dexscreener.com/cms/images/3c0114ab946b20971f63c856f266470eb33a0191dc83056a11aa97e2cff33b63?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -1152,7 +1178,7 @@
       "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "symbol": "KEYCAT",
       "token_address": "0x9a26f5433671751c3276a065f57e5a02d2817973",
       "score": 41.2,
@@ -1160,14 +1186,14 @@
       "signals": 3,
       "last_seen": "2026-05-03 12:29:52",
       "chart_enabled": true,
-      "price_change_24h": -1.26,
+      "price_change_24h": -1.25,
       "market_cap_usd": 4269557.0,
       "liquidity_usd": 640662.8,
       "holder_count": 762400,
       "liquidity_change_24h_pct": 0.11,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 53.14,
-      "volume_24h_usd": 38022.06,
+      "volume_24h_usd": 38004.14,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/182bb8cab7b3e7b6843d74685fa25a663b9cd2edf1bc3bd4f7aa2fc85b30f70b?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -1459,7 +1485,7 @@
       "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "symbol": "SAPIEN",
       "token_address": "0xc729777d0470f30612b1564fd96e8dd26f5814e3",
       "score": 40.8,
@@ -1467,14 +1493,14 @@
       "signals": 7,
       "last_seen": "2026-05-03 13:34:31",
       "chart_enabled": true,
-      "price_change_24h": -3.92,
+      "price_change_24h": -3.89,
       "market_cap_usd": 23106385.0,
       "liquidity_usd": 976980.6,
       "holder_count": 101158,
       "liquidity_change_24h_pct": -0.5,
       "holder_count_change_24h_pct": -0.01,
       "top10_pct": 54.46,
-      "volume_24h_usd": 168316.75,
+      "volume_24h_usd": 168019.81,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/5294268b3d9cd35062ed9b8e98182cacdd720cda2c81aed21d392d53dd649c64?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -1766,7 +1792,7 @@
       "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
-      "rank": 7,
+      "rank": 8,
       "symbol": "LIQ",
       "token_address": "0x09b8903abf2ea0721e34427353988c2f43c6d64f",
       "score": 40.5,
@@ -1774,14 +1800,14 @@
       "signals": 1,
       "last_seen": "2026-05-03 05:01:52",
       "chart_enabled": true,
-      "price_change_24h": -2.85,
+      "price_change_24h": 1.51,
       "market_cap_usd": 1494082.0,
       "liquidity_usd": 1165378.6,
       "holder_count": 1095,
       "liquidity_change_24h_pct": 1.52,
       "holder_count_change_24h_pct": -0.27,
       "top10_pct": 100.0,
-      "volume_24h_usd": 21814.47,
+      "volume_24h_usd": 8327.45,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/bY63F1Yr6G9ZrSEq?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -1792,7 +1818,7 @@
       "price_history_reason": "canonical_pool_unavailable"
     },
     {
-      "rank": 8,
+      "rank": 9,
       "symbol": "REI",
       "token_address": "0x6b2504a03ca4d43d0d73776f6ad46dab2f2a4cfd",
       "score": 40.4,
@@ -1800,14 +1826,14 @@
       "signals": 10,
       "last_seen": "2026-05-03 15:26:40",
       "chart_enabled": true,
-      "price_change_24h": 4.75,
+      "price_change_24h": 4.34,
       "market_cap_usd": 21378071.0,
       "liquidity_usd": 2076654.1,
       "holder_count": 123014,
       "liquidity_change_24h_pct": 2.08,
       "holder_count_change_24h_pct": -0.01,
       "top10_pct": 30.48,
-      "volume_24h_usd": 185167.52,
+      "volume_24h_usd": 184850.98,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/4d956034dfd299a9db58882217ffdc4b7d56a45bf9cb4e66e5a098d5dfff96bd?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [
@@ -2099,14 +2125,14 @@
       "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
     },
     {
-      "rank": 9,
+      "rank": 10,
       "symbol": "WSTETH",
       "token_address": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
       "score": 38.4,
       "severity": "none",
       "signals": 9,
       "last_seen": "2026-05-03 14:39:52",
-      "chart_enabled": true,
+      "chart_enabled": false,
       "price_change_24h": 0.62,
       "market_cap_usd": 91168517.0,
       "liquidity_usd": 2632930.44,
@@ -2114,298 +2140,17 @@
       "liquidity_change_24h_pct": -3.06,
       "holder_count_change_24h_pct": -0.01,
       "top10_pct": 88.74,
-      "volume_24h_usd": 120543.66,
+      "volume_24h_usd": 120543.09,
       "volume_1h_usd": 0.0,
-      "price_history_7d": [
-        {
-          "ts": "2026-04-16 20:00:00",
-          "ts_unix": 1776369600,
-          "price_usd": 2891.74743631024
-        },
-        {
-          "ts": "2026-04-17 00:00:00",
-          "ts_unix": 1776384000,
-          "price_usd": 2870.27996544352
-        },
-        {
-          "ts": "2026-04-17 04:00:00",
-          "ts_unix": 1776398400,
-          "price_usd": 2871.36985709971
-        },
-        {
-          "ts": "2026-04-17 08:00:00",
-          "ts_unix": 1776412800,
-          "price_usd": 2899.15147450105
-        },
-        {
-          "ts": "2026-04-17 12:00:00",
-          "ts_unix": 1776427200,
-          "price_usd": 3011.05468396934
-        },
-        {
-          "ts": "2026-04-17 16:00:00",
-          "ts_unix": 1776441600,
-          "price_usd": 2991.09278294167
-        },
-        {
-          "ts": "2026-04-17 20:00:00",
-          "ts_unix": 1776456000,
-          "price_usd": 2982.34559413166
-        },
-        {
-          "ts": "2026-04-18 00:00:00",
-          "ts_unix": 1776470400,
-          "price_usd": 2976.54243049257
-        },
-        {
-          "ts": "2026-04-18 04:00:00",
-          "ts_unix": 1776484800,
-          "price_usd": 2959.91044241965
-        },
-        {
-          "ts": "2026-04-18 08:00:00",
-          "ts_unix": 1776499200,
-          "price_usd": 2897.85111684681
-        },
-        {
-          "ts": "2026-04-18 12:00:00",
-          "ts_unix": 1776513600,
-          "price_usd": 2908.72836034631
-        },
-        {
-          "ts": "2026-04-18 16:00:00",
-          "ts_unix": 1776528000,
-          "price_usd": 2893.69981895094
-        },
-        {
-          "ts": "2026-04-18 20:00:00",
-          "ts_unix": 1776542400,
-          "price_usd": 2900.24627417713
-        },
-        {
-          "ts": "2026-04-19 04:00:00",
-          "ts_unix": 1776571200,
-          "price_usd": 2835.91152463678
-        },
-        {
-          "ts": "2026-04-19 08:00:00",
-          "ts_unix": 1776585600,
-          "price_usd": 2862.88070817393
-        },
-        {
-          "ts": "2026-04-19 12:00:00",
-          "ts_unix": 1776600000,
-          "price_usd": 2889.36693488734
-        },
-        {
-          "ts": "2026-04-20 00:00:00",
-          "ts_unix": 1776643200,
-          "price_usd": 2820.94704709638
-        },
-        {
-          "ts": "2026-04-21 04:00:00",
-          "ts_unix": 1776744000,
-          "price_usd": 2856.98645690219
-        },
-        {
-          "ts": "2026-04-21 16:00:00",
-          "ts_unix": 1776787200,
-          "price_usd": 2826.59829764774
-        },
-        {
-          "ts": "2026-04-21 20:00:00",
-          "ts_unix": 1776801600,
-          "price_usd": 2855.72998752698
-        },
-        {
-          "ts": "2026-04-22 00:00:00",
-          "ts_unix": 1776816000,
-          "price_usd": 2861.30214807978
-        },
-        {
-          "ts": "2026-04-22 08:00:00",
-          "ts_unix": 1776844800,
-          "price_usd": 2940.97247017406
-        },
-        {
-          "ts": "2026-04-22 12:00:00",
-          "ts_unix": 1776859200,
-          "price_usd": 2955.94913297865
-        },
-        {
-          "ts": "2026-04-22 16:00:00",
-          "ts_unix": 1776873600,
-          "price_usd": 2941.40220222155
-        },
-        {
-          "ts": "2026-04-22 20:00:00",
-          "ts_unix": 1776888000,
-          "price_usd": 2948.07220125932
-        },
-        {
-          "ts": "2026-04-23 04:00:00",
-          "ts_unix": 1776916800,
-          "price_usd": 2897.19527093232
-        },
-        {
-          "ts": "2026-04-23 12:00:00",
-          "ts_unix": 1776945600,
-          "price_usd": 2862.79298509448
-        },
-        {
-          "ts": "2026-04-23 16:00:00",
-          "ts_unix": 1776960000,
-          "price_usd": 2840.27002189594
-        },
-        {
-          "ts": "2026-04-23 20:00:00",
-          "ts_unix": 1776974400,
-          "price_usd": 2869.89421965071
-        },
-        {
-          "ts": "2026-04-24 00:00:00",
-          "ts_unix": 1776988800,
-          "price_usd": 2863.72799120322
-        },
-        {
-          "ts": "2026-04-24 08:00:00",
-          "ts_unix": 1777017600,
-          "price_usd": 2851.05081910729
-        },
-        {
-          "ts": "2026-04-24 16:00:00",
-          "ts_unix": 1777046400,
-          "price_usd": 2853.85385442986
-        },
-        {
-          "ts": "2026-04-25 16:00:00",
-          "ts_unix": 1777132800,
-          "price_usd": 2842.66155587992
-        },
-        {
-          "ts": "2026-04-26 04:00:00",
-          "ts_unix": 1777176000,
-          "price_usd": 2869.1519890317
-        },
-        {
-          "ts": "2026-04-26 16:00:00",
-          "ts_unix": 1777219200,
-          "price_usd": 2911.4725216574
-        },
-        {
-          "ts": "2026-04-26 20:00:00",
-          "ts_unix": 1777233600,
-          "price_usd": 2913.47109902505
-        },
-        {
-          "ts": "2026-04-27 00:00:00",
-          "ts_unix": 1777248000,
-          "price_usd": 2915.07149979191
-        },
-        {
-          "ts": "2026-04-27 04:00:00",
-          "ts_unix": 1777262400,
-          "price_usd": 2855.42940329706
-        },
-        {
-          "ts": "2026-04-27 08:00:00",
-          "ts_unix": 1777276800,
-          "price_usd": 2852.97718075048
-        },
-        {
-          "ts": "2026-04-27 12:00:00",
-          "ts_unix": 1777291200,
-          "price_usd": 2801.61311622587
-        },
-        {
-          "ts": "2026-04-27 20:00:00",
-          "ts_unix": 1777320000,
-          "price_usd": 2824.81938072361
-        },
-        {
-          "ts": "2026-04-28 00:00:00",
-          "ts_unix": 1777334400,
-          "price_usd": 2836.73746573402
-        },
-        {
-          "ts": "2026-04-28 12:00:00",
-          "ts_unix": 1777377600,
-          "price_usd": 2794.15001095446
-        },
-        {
-          "ts": "2026-04-30 04:00:00",
-          "ts_unix": 1777521600,
-          "price_usd": 2781.76840998111
-        },
-        {
-          "ts": "2026-04-30 08:00:00",
-          "ts_unix": 1777536000,
-          "price_usd": 2777.9652030945
-        },
-        {
-          "ts": "2026-04-30 12:00:00",
-          "ts_unix": 1777550400,
-          "price_usd": 2790.56041130163
-        },
-        {
-          "ts": "2026-04-30 16:00:00",
-          "ts_unix": 1777564800,
-          "price_usd": 2784.39277839816
-        },
-        {
-          "ts": "2026-04-30 20:00:00",
-          "ts_unix": 1777579200,
-          "price_usd": 2779.26267846722
-        },
-        {
-          "ts": "2026-05-01 00:00:00",
-          "ts_unix": 1777593600,
-          "price_usd": 2809.56826000391
-        },
-        {
-          "ts": "2026-05-01 04:00:00",
-          "ts_unix": 1777608000,
-          "price_usd": 2805.85049633626
-        },
-        {
-          "ts": "2026-05-01 08:00:00",
-          "ts_unix": 1777622400,
-          "price_usd": 2812.61849821688
-        },
-        {
-          "ts": "2026-05-01 12:00:00",
-          "ts_unix": 1777636800,
-          "price_usd": 2840.93335832796
-        },
-        {
-          "ts": "2026-05-01 16:00:00",
-          "ts_unix": 1777651200,
-          "price_usd": 2839.32078833777
-        },
-        {
-          "ts": "2026-05-02 00:00:00",
-          "ts_unix": 1777680000,
-          "price_usd": 2824.70225253216
-        },
-        {
-          "ts": "2026-05-02 12:00:00",
-          "ts_unix": 1777723200,
-          "price_usd": 2841.12467230029
-        },
-        {
-          "ts": "2026-05-02 20:00:00",
-          "ts_unix": 1777752000,
-          "price_usd": 2845.80652246878
-        }
-      ],
-      "price_history_source": "cached_provider_ohlcv_same_pool",
-      "canonical_pool_address": "0x667701e51b4d1ca244f17c78f7ab8744b4c99f9b",
-      "price_history_points": 56,
-      "price_history_span_hours": 384.0,
-      "price_history_reason": "full_history_from_cached_provider_ohlcv_same_pool"
+      "price_history_7d": [],
+      "price_history_source": "unavailable",
+      "canonical_pool_address": "",
+      "price_history_points": 0,
+      "price_history_span_hours": 0.0,
+      "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 10,
+      "rank": 11,
       "symbol": "CRED",
       "token_address": "0xab3f23c2abcb4e12cc8b593c218a7ba64ed17ba3",
       "score": 38.1,
@@ -2413,14 +2158,14 @@
       "signals": 9,
       "last_seen": "2026-05-03 15:31:15",
       "chart_enabled": false,
-      "price_change_24h": 39.78,
-      "market_cap_usd": 761206.0,
-      "liquidity_usd": 364578.06,
+      "price_change_24h": 37.86,
+      "market_cap_usd": 756339.0,
+      "liquidity_usd": 363095.24,
       "holder_count": 1815,
       "liquidity_change_24h_pct": 15.19,
       "holder_count_change_24h_pct": -0.27,
       "top10_pct": 64.1,
-      "volume_24h_usd": 132739.59,
+      "volume_24h_usd": 135268.83,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/r9L8PAhhlm9vxWqF?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -2431,7 +2176,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 11,
+      "rank": 12,
       "symbol": "FUNGI",
       "token_address": "0x7d9ce55d54ff3feddb611fc63ff63ec01f26d15f",
       "score": 36.8,
@@ -2457,7 +2202,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 12,
+      "rank": 13,
       "symbol": "KELLYCLAUDE",
       "token_address": "0x50d2280441372486beecdd328c1854743ebacb07",
       "score": 36.6,
@@ -2465,14 +2210,14 @@
       "signals": 4,
       "last_seen": "2026-05-03 10:08:50",
       "chart_enabled": false,
-      "price_change_24h": -10.74,
+      "price_change_24h": -11.01,
       "market_cap_usd": 1175805.0,
       "liquidity_usd": 968.49,
       "holder_count": 20077,
       "liquidity_change_24h_pct": -3.21,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 46.3,
-      "volume_24h_usd": 6589.28,
+      "volume_24h_usd": 6584.66,
       "volume_1h_usd": 4.87,
       "logo_url": "https://cdn.dexscreener.com/cms/images/3b7b56655acddda3d97734a2382ac81fdc5da02298f8671ffdfbb905ea24fc9b?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -2483,7 +2228,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 13,
+      "rank": 14,
       "symbol": "ZRO",
       "token_address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
       "score": 35.3,
@@ -2491,14 +2236,14 @@
       "signals": 11,
       "last_seen": "2026-05-03 16:03:50",
       "chart_enabled": false,
-      "price_change_24h": -2.2,
-      "market_cap_usd": 344146681.0,
-      "liquidity_usd": 74713.99,
+      "price_change_24h": -2.26,
+      "market_cap_usd": 343499513.0,
+      "liquidity_usd": 74643.74,
       "holder_count": 470479,
       "liquidity_change_24h_pct": 3.88,
       "holder_count_change_24h_pct": 0.0,
       "top10_pct": 69.2,
-      "volume_24h_usd": 241088.14,
+      "volume_24h_usd": 241454.39,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/dCYbpM8trK0djNDB?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -2509,7 +2254,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 14,
+      "rank": 15,
       "symbol": "OWB",
       "token_address": "0xef5997c2cf2f6c138196f8a6203afc335206b3c1",
       "score": 35.1,
@@ -2517,14 +2262,14 @@
       "signals": 10,
       "last_seen": "2026-05-03 14:49:35",
       "chart_enabled": false,
-      "price_change_24h": -3.22,
-      "market_cap_usd": 4730115.0,
-      "liquidity_usd": 115981.17,
+      "price_change_24h": -3.16,
+      "market_cap_usd": 4733209.0,
+      "liquidity_usd": 116019.1,
       "holder_count": 334382,
       "liquidity_change_24h_pct": -0.62,
       "holder_count_change_24h_pct": -0.02,
       "top10_pct": 61.57,
-      "volume_24h_usd": 28988.47,
+      "volume_24h_usd": 29007.49,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/fac2e4a5a54b724131a0ee6080a73c0b76d4d30c27f96f708b0b38c48b605e6a?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -2535,7 +2280,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 15,
+      "rank": 16,
       "symbol": "VEIL",
       "token_address": "0x767a739d1a152639e9ea1d8c1bd55fdc5b217d7f",
       "score": 35.0,
@@ -2561,7 +2306,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 16,
+      "rank": 17,
       "symbol": "SERV",
       "token_address": "0x5576d6ed9181f2225aff5282ac0ed29f755437ea",
       "score": 34.7,
@@ -2569,14 +2314,14 @@
       "signals": 5,
       "last_seen": "2026-05-03 13:48:58",
       "chart_enabled": false,
-      "price_change_24h": 8.3,
-      "market_cap_usd": 11895337.0,
-      "liquidity_usd": 630039.13,
+      "price_change_24h": 8.14,
+      "market_cap_usd": 11877684.0,
+      "liquidity_usd": 629094.22,
       "holder_count": 3425,
       "liquidity_change_24h_pct": 3.73,
       "holder_count_change_24h_pct": -0.03,
       "top10_pct": 43.43,
-      "volume_24h_usd": 27529.13,
+      "volume_24h_usd": 27534.09,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/72a602d972933184d8ad9d840e021f6c9807bb0a4466546128d0427ab2a6c1d6?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
@@ -2587,7 +2332,7 @@
       "price_history_reason": "chart_not_enabled"
     },
     {
-      "rank": 17,
+      "rank": 18,
       "symbol": "JESSE",
       "token_address": "0x50f88fe97f72cd3e75b9eb4f747f59bceba80d59",
       "score": 34.7,
@@ -2595,42 +2340,16 @@
       "signals": 4,
       "last_seen": "2026-05-03 14:06:16",
       "chart_enabled": false,
-      "price_change_24h": -2.06,
-      "market_cap_usd": 729346.0,
-      "liquidity_usd": 6529.37,
+      "price_change_24h": -4.11,
+      "market_cap_usd": 721579.0,
+      "liquidity_usd": 639463.92,
       "holder_count": 66373,
       "liquidity_change_24h_pct": -0.23,
       "holder_count_change_24h_pct": -0.05,
       "top10_pct": 86.1,
-      "volume_24h_usd": 733.85,
+      "volume_24h_usd": 6164.41,
       "volume_1h_usd": 0.0,
       "logo_url": "https://cdn.dexscreener.com/cms/images/59b3865aa56224a271a9bd36bdfce1a3d3d7c6a2628602fa7f865407120b57da?width=800&height=800&quality=95&format=auto",
-      "price_history_7d": [],
-      "price_history_source": "unavailable",
-      "canonical_pool_address": "",
-      "price_history_points": 0,
-      "price_history_span_hours": 0.0,
-      "price_history_reason": "chart_not_enabled"
-    },
-    {
-      "rank": 18,
-      "symbol": "BOTCOIN",
-      "token_address": "0xa601877977340862ca67f816eb079958e5bd0ba3",
-      "score": 34.6,
-      "severity": "none",
-      "signals": 1,
-      "last_seen": "2026-05-03 14:28:29",
-      "chart_enabled": false,
-      "price_change_24h": 1.44,
-      "market_cap_usd": 552775.0,
-      "liquidity_usd": 433183.28,
-      "holder_count": 9877,
-      "liquidity_change_24h_pct": 1.19,
-      "holder_count_change_24h_pct": -0.12,
-      "top10_pct": 47.83,
-      "volume_24h_usd": 15538.3,
-      "volume_1h_usd": 0.1,
-      "logo_url": "https://cdn.dexscreener.com/cms/images/Uv01mI6hDn7G_jYL?width=800&height=800&quality=95&format=auto",
       "price_history_7d": [],
       "price_history_source": "unavailable",
       "canonical_pool_address": "",
