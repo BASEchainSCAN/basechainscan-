@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T02:52:19Z",
+  "generated_at": "2026-05-04T02:57:24Z",
   "token_count": 1,
   "tokens": [
     {
@@ -8,8 +8,8 @@
       "token_address": "0x53cd9bf2be680bf7192a2317f95ba8716ee49b07",
       "score": 25.3,
       "severity": "none",
-      "mcap_usd": 95710.0,
-      "lp_total_usd": 81620.27,
+      "mcap_usd": 96052.0,
+      "lp_total_usd": 81926.67,
       "lp_total_usd_24h_ago": 0.0,
       "lp_total_change_24h_pct": 0.0,
       "holder_count": 4,
@@ -18,13 +18,13 @@
       "top10_pct": 0.0,
       "x_username": "jPEG20_",
       "x_url": "https://x.com/jPEG20_",
-      "signal_age_hours": 1.37,
+      "signal_age_hours": 1.45,
       "pair_address": "0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "dexscreener_url": "https://dexscreener.com/base/0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "okx_url": "https://web3.okx.com/token/base/0x53cd9bf2be680bf7192a2317f95ba8716ee49b07?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038?ca=0x53cd9bf2be680bf7192a2317f95ba8716ee49b07@basescan",
-      "price_change_24h": -40.74,
-      "volume_24h_usd": 95345.42,
+      "price_change_24h": -42.06,
+      "volume_24h_usd": 93663.61,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/tTx2EsJFjT4cN5im?width=800&height=800&quality=95&format=auto"
     }
