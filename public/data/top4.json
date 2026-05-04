@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T12:02:19Z",
+  "generated_at": "2026-05-04T12:07:19Z",
   "token_count": 1,
   "tokens": [
     {
@@ -18,13 +18,13 @@
       "top10_pct": 0.0,
       "x_username": "jPEG20_",
       "x_url": "https://x.com/jPEG20_",
-      "signal_age_hours": 2.15,
+      "signal_age_hours": 2.23,
       "pair_address": "0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "dexscreener_url": "https://dexscreener.com/base/0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "okx_url": "https://web3.okx.com/token/base/0x53cd9bf2be680bf7192a2317f95ba8716ee49b07?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038?ca=0x53cd9bf2be680bf7192a2317f95ba8716ee49b07@basescan",
-      "price_change_24h": -32.61,
-      "volume_24h_usd": 64978.49,
+      "price_change_24h": -32.67,
+      "volume_24h_usd": 64977.37,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/tTx2EsJFjT4cN5im?width=800&height=800&quality=95&format=auto"
     }
