@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T14:32:32Z",
+  "generated_at": "2026-05-04T14:38:06Z",
   "token_count": 4,
   "tokens": [
     {
@@ -18,7 +18,7 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 5.18,
+      "signal_age_hours": 5.27,
       "pair_address": "0xbdc14e8d5ca0976fa6382be89d2d5340c895b88ac13530632e7c50b5d69558a1",
       "dexscreener_url": "https://dexscreener.com/base/0xbdc14e8d5ca0976fa6382be89d2d5340c895b88ac13530632e7c50b5d69558a1",
       "okx_url": "https://web3.okx.com/token/base/0x3c0c03f55f5a09c660b8884278bcc78e01cd39f5?ref=OKX10c",
@@ -44,13 +44,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 10.32,
+      "signal_age_hours": 10.41,
       "pair_address": "0x8563fdf6314e8e5a12af2b9f06e764b5c5c80a19c9ecb6be78b5dc383087daa0",
       "dexscreener_url": "https://dexscreener.com/base/0x8563fdf6314e8e5a12af2b9f06e764b5c5c80a19c9ecb6be78b5dc383087daa0",
       "okx_url": "https://web3.okx.com/token/base/0xfd4d850dde44a4144a74d036d24933bbe550edc7?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x8563fdf6314e8e5a12af2b9f06e764b5c5c80a19c9ecb6be78b5dc383087daa0?ca=0xfd4d850dde44a4144a74d036d24933bbe550edc7@basescan",
-      "price_change_24h": -18.99,
-      "volume_24h_usd": 827790.64,
+      "price_change_24h": -0.18,
+      "volume_24h_usd": 811196.0,
       "mcap_source": "dexscreener",
       "logo_url": "https://cdn.dexscreener.com/cms/images/2czxoLcsugWM_bnH?width=800&height=800&quality=95&format=auto"
     },
@@ -70,13 +70,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 10.66,
+      "signal_age_hours": 10.75,
       "pair_address": "0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce",
       "dexscreener_url": "https://dexscreener.com/base/0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce",
       "okx_url": "https://web3.okx.com/token/base/0xae42f183554d369ee98b7b1980bea3761f47abc3?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x8e2af985cecbbbe8a6ab79dd8603717fe7f2ab7503db8272a50e03cb697af6ce?ca=0xae42f183554d369ee98b7b1980bea3761f47abc3@basescan",
-      "price_change_24h": -0.54,
-      "volume_24h_usd": 62817.86,
+      "price_change_24h": -0.89,
+      "volume_24h_usd": 62732.95,
       "mcap_source": "dexscreener"
     },
     {
@@ -85,8 +85,8 @@
       "token_address": "0x49b5a631f54927c0007232844f06fe18cbf69786",
       "score": 37.0,
       "severity": "none",
-      "mcap_usd": 37482.0,
-      "lp_total_usd": 24171.56,
+      "mcap_usd": 36381.0,
+      "lp_total_usd": 23626.76,
       "lp_total_usd_24h_ago": 0.0,
       "lp_total_change_24h_pct": 0.0,
       "holder_count": 0,
@@ -95,13 +95,13 @@
       "top10_pct": 100.0,
       "x_username": "",
       "x_url": "",
-      "signal_age_hours": 0.02,
+      "signal_age_hours": 0.11,
       "pair_address": "0x72a70a747a8390caf1aad3fb1de3564b55871f137539e498d30f02b1167742ea",
       "dexscreener_url": "https://dexscreener.com/base/0x72a70a747a8390caf1aad3fb1de3564b55871f137539e498d30f02b1167742ea",
       "okx_url": "https://web3.okx.com/token/base/0x49b5a631f54927c0007232844f06fe18cbf69786?ref=OKX10c",
       "o1_url": "https://o1.exchange/base/detail/0x72a70a747a8390caf1aad3fb1de3564b55871f137539e498d30f02b1167742ea?ca=0x49b5a631f54927c0007232844f06fe18cbf69786@basescan",
       "price_change_24h": -99.99,
-      "volume_24h_usd": 430329.89,
+      "volume_24h_usd": 431994.41,
       "mcap_source": "dexscreener"
     }
   ]
