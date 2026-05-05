@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-05T02:39:35Z",
+  "generated_at": "2026-05-05T02:44:52Z",
   "token_count": 1,
   "tokens": [
     {
@@ -10,15 +10,15 @@
       "severity": "none",
       "mcap_usd": 60271.0,
       "lp_total_usd": 61065.69,
-      "lp_total_usd_24h_ago": 79415.16,
-      "lp_total_change_24h_pct": -18.06,
+      "lp_total_usd_24h_ago": 81665.16,
+      "lp_total_change_24h_pct": -20.32,
       "holder_count": 6,
       "holder_count_24h_ago": 4,
       "holder_count_change_24h_pct": 50.0,
       "top10_pct": 0.01,
       "x_username": "jPEG20_",
       "x_url": "https://x.com/jPEG20_",
-      "signal_age_hours": 8.16,
+      "signal_age_hours": 8.25,
       "pair_address": "0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "dexscreener_url": "https://dexscreener.com/base/0x3a20a7d2b97345b80a8389710c04c039ab1a03ec441954908aa5ef550cfc4038",
       "okx_url": "https://web3.okx.com/token/base/0x53cd9bf2be680bf7192a2317f95ba8716ee49b07?ref=OKX10c",
